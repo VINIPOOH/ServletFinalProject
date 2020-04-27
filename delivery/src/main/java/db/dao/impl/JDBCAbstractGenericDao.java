@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public abstract class JDBCAbstractGenericDao{
+public abstract class JDBCAbstractGenericDao<E>{
 
     protected final ResourceBundle resourceBundleRequests;
     protected final DbConnectionPoolHolder connector;
@@ -73,6 +73,8 @@ public abstract class JDBCAbstractGenericDao{
         }
     }
 
+
+
 //    @Override
 //    public boolean update(E entity) {
 //        try (Connection connection = connector.getConnection();
@@ -84,6 +86,9 @@ public abstract class JDBCAbstractGenericDao{
 //            throw new DBRuntimeException();
 //        }
 //    }
+
+
+
 
 
 }

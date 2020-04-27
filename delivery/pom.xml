@@ -4,8 +4,8 @@
   <modelVersion>4.0.0</modelVersion>
   <packaging>war</packaging>
 
-  <name>frame-servlet</name>
-  <groupId>frame-servlet-project</groupId>
+  <name>delivery</name>
+  <groupId>delivery</groupId>
   <artifactId>ua.testing</artifactId>
   <version>1.0-SNAPSHOT</version>
 

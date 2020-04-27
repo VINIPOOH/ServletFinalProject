@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LocaliseWithoutConectionLocalityDto {
+public class LocaliseLocalityDto {
         private Long id;
         private String name;
 

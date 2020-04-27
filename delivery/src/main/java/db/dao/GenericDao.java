@@ -8,13 +8,13 @@ public interface GenericDao<E, ID> {
 
     E save(E entity) throws SQLException;
 
-    Optional<E> findByLongParam(ID id);
-
-    List<E> findAll(Integer offset, Integer limit);
-
+    Optional<E> findById(ID id);
+//
+//    List<E> findAll(Integer offset, Integer limit);
+//
     List<E> findAll();
-
-    boolean update(E entity);
-
-    boolean deleteById(ID id);
+//
+//    boolean update(E entity);
+//
+//    boolean deleteById(ID id);
 }

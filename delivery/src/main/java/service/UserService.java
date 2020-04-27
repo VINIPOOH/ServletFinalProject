@@ -44,7 +44,7 @@ public class UserService {
 
     //@Transactional
     public User replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException, SQLException {
-        User user = userDao.findByLongParam(userId).orElseThrow(NoSuchUserException::new);
+        User user = userDao.findById(userId).orElseThrow(NoSuchUserException::new);
         user.setUserMoneyInCents(user.getUserMoneyInCents() + amountMoney);
         return userDao.save(user);
     }
