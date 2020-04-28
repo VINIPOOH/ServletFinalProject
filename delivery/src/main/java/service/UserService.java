@@ -43,10 +43,8 @@ public class UserService {
     }
 
     //@Transactional
-    public User replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException, SQLException {
-        User user = userDao.findById(userId).orElseThrow(NoSuchUserException::new);
-        user.setUserMoneyInCents(user.getUserMoneyInCents() + amountMoney);
-        return userDao.save(user);
+    public void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException {
+        userDao.replenishUserBalance(userId, amountMoney);
     }
 
     private EntityMapper<User, RegistrationInfoDto> getMapper() {

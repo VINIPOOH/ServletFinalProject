@@ -39,7 +39,7 @@ public class CommandHolder {
     private static final RequestDtoMapper<DeliveryInfoRequestDto> DELIVERY_INFO_REQUEST_DTO_REQUEST_DTO_MAPPER = new DeliveryInfoRequestToDtoMapper();
 
     private static final UserDao USER_DAO = JDBCDaoHolder.getUserDao();
-    private static final LocalityDao LOCALITY_DAO=JDBCDaoHolder.getLocalityDao();
+    private static final LocalityDao LOCALITY_DAO = JDBCDaoHolder.getLocalityDao();
     private static final WayDao WAY_DAO = JDBCDaoHolder.getWayDao();
 
     private static final PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderService();
@@ -49,10 +49,9 @@ public class CommandHolder {
 
     private static final ActionCommand LOGIN = new Login(LOGIN_INFO_DTO_VALIDATOR, LOGIN_INFO_DTO_REQUEST_DTO_MAPPER, USER_SERVICE);
     private static final ActionCommand LOGOUT = new LogOut();
-    private static final ActionCommand REGISTRATION = new Registration(REGISTRATION_INFO_DTO_REQUEST_DTO_MAPPER,
-            REGISTRATION_INFO_DTO_VALIDATOR, USER_SERVICE);
+    private static final ActionCommand REGISTRATION = new Registration(REGISTRATION_INFO_DTO_REQUEST_DTO_MAPPER, REGISTRATION_INFO_DTO_VALIDATOR, USER_SERVICE);
     private static final ActionCommand ADMIN = new Admin();
-    private static final ActionCommand USER = new User();
+    private static final ActionCommand USER_PROFILE = new UserProfile(USER_SERVICE);
     private static final ActionCommand INDEX = new Index();
     private static final ActionCommand ERROR_404 = new Error404();
     private static final ActionCommand EMPTY_COMMAND = new EmptyCommand();
@@ -66,7 +65,7 @@ public class CommandHolder {
         COMMANDS.put("logout", LOGOUT);
         COMMANDS.put("registration", REGISTRATION);
         COMMANDS.put("admin", ADMIN);
-        COMMANDS.put("user", USER);
+        COMMANDS.put("user/userprofile", USER_PROFILE);
         COMMANDS.put("index", INDEX);
         COMMANDS.put("404", ERROR_404);
         COMMANDS.put("counter", COUNTER);

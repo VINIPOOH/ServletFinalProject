@@ -5,6 +5,7 @@ import db.dao.impl.LocalityDao;
 import dto.LocaliseLocalityDto;
 
 import java.util.List;
+import java.util.Locale;
 
 public class LocalityService {
 
@@ -14,9 +15,8 @@ public class LocalityService {
         this.localityDao = localityDao;
     }
 
-    public List<LocaliseLocalityDto> getLocaliseLocalities(){
-
-            return localityDao.findAllLocaliseLocalitiesWithoutConnection();
+    public List<LocaliseLocalityDto> getLocaliseLocalities(Locale locale){
+            return localityDao.findAllLocaliseLocalitiesWithoutConnection(locale);
     }
 
 

@@ -2,7 +2,8 @@ package controller.comand.action;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static controller.constants.PageConstance.ERROR_404;
+import static controller.constants.PageConstance.*;
+
 
 public abstract class MultipleMethodCommand implements ActionCommand {
 
@@ -17,7 +18,7 @@ public abstract class MultipleMethodCommand implements ActionCommand {
             case COMMAND_TYPE_POST:
                 return performPost(request);
             default:
-                return ERROR_404;
+                return MAIN_WEB_FOLDER+ERROR_404_FILE_NAME;
         }
     }
 

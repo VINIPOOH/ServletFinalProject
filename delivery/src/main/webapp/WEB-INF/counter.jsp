@@ -17,7 +17,7 @@
                 </div>
                 <div class="panel-body">
                     <form  id="form" class="form" method="post" action="${pageContext.request.contextPath}/counter">
-                        <c:if test="incorrectWeightInput">
+                        <c:if test="${inputHasErrors}">
                             <div class="alert alert-danger" role="alert" >
                             <p><fmt:message key="homepage.form.weight.incorect"/></p>
                         </div>

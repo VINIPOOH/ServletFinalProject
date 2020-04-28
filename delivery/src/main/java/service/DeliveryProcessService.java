@@ -44,11 +44,11 @@ public class DeliveryProcessService {
 //    @Transactional
 //    public Delivery payForDelivery(long deliveryId, long userId) throws AskedDataIsNotExist, DeliveryAlreadyPaidException, NoSuchUserException, NotEnoughMoneyException {
 //        Delivery deliveryToUpdate = getDeliveryOrException(deliveryId);
-//        User user = getUserOrException(userId, deliveryToUpdate);
+//        UserProfile user = getUserOrException(userId, deliveryToUpdate);
 //        return deliveryDao.save(prepareDeliverySaveData(deliveryToUpdate, user));
 //    }
 
-//    private Delivery prepareDeliverySaveData(Delivery deliveryToUpdate, User user) {
+//    private Delivery prepareDeliverySaveData(Delivery deliveryToUpdate, UserProfile user) {
 //        user.setUserMoneyInCents(user.getUserMoneyInCents() - deliveryToUpdate.getCostInCents());
 //        deliveryToUpdate.setIsDeliveryPaid(true);
 //        deliveryToUpdate.setAddresser(user);
@@ -57,8 +57,8 @@ public class DeliveryProcessService {
 //    }
 
     //lamda
-//    private User getUserOrException(long userId, Delivery deliveryToUpdate) throws NoSuchUserException, NotEnoughMoneyException {
-//        User user = userDao.findById(userId).orElseThrow(NoSuchUserException::new);
+//    private UserProfile getUserOrException(long userId, Delivery deliveryToUpdate) throws NoSuchUserException, NotEnoughMoneyException {
+//        UserProfile user = userDao.findById(userId).orElseThrow(NoSuchUserException::new);
 //        if (user.getUserMoneyInCents() < deliveryToUpdate.getCostInCents()) {
 //            throw new NotEnoughMoneyException();
 //        }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 import static controller.constants.AttributeConstants.REQUEST_LANG;
+import static controller.constants.AttributeConstants.SESSION_LANG;
 
 
 public class LocaleFilter implements Filter {
@@ -24,6 +25,9 @@ public class LocaleFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         if (request.getParameter(REQUEST_LANG) != null) {
             Config.set(request.getSession(), Config.FMT_LOCALE, new Locale(request.getParameter(REQUEST_LANG)));
+        }else if(request.getSession().getAttribute(SESSION_LANG)==null){
+            Config.set(request.getSession(), Config.FMT_LOCALE, Locale.getDefault());
+
         }
         filterChain.doFilter(servletRequest, servletResponse);
 

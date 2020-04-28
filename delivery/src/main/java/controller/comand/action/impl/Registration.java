@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import static controller.constants.ExceptionInfoForJspConstants.INPUT_HAS_ERRORS;
 import static controller.constants.ExceptionInfoForJspConstants.INPUT_LOGIN_ALREADY_TAKEN;
-import static controller.constants.PageConstance.REDIRECT_ON_LOGIN;
-import static controller.constants.PageConstance.REGISTRATION_PATH;
+import static controller.constants.PageConstance.*;
 
 public class Registration extends MultipleMethodCommand {
 
@@ -28,7 +27,7 @@ public class Registration extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        return REGISTRATION_PATH;
+        return MAIN_WEB_FOLDER+REGISTRATION_FILE_NAME;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class Registration extends MultipleMethodCommand {
         RegistrationInfoDto registrationInfoDto = registrationDtoMapper.mapToDto(request);
         if (!registrationInfoDtoValidator.isValid(registrationInfoDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
-            return REGISTRATION_PATH;
+            return MAIN_WEB_FOLDER+REGISTRATION_FILE_NAME;
         }
         return processingServiseRegistrationRequest(request, registrationInfoDto);
     }
@@ -44,10 +43,10 @@ public class Registration extends MultipleMethodCommand {
     private String processingServiseRegistrationRequest(HttpServletRequest request, RegistrationInfoDto registrationInfoDto) {
         try {
             userService.addNewUserToDB(registrationInfoDto);
-            return REDIRECT_ON_LOGIN;
+            return REDIRECT_COMMAND+LOGIN_REQUEST_COMMAND;
         } catch (OccupiedLoginException e) {
             request.setAttribute(INPUT_LOGIN_ALREADY_TAKEN, true);
-            return REGISTRATION_PATH;
+            return MAIN_WEB_FOLDER+REGISTRATION_FILE_NAME;
         }
     }
 }

@@ -28,7 +28,7 @@ public class Login extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        return LOGIN_PATH;
+        return MAIN_WEB_FOLDER+LOGIN_FILE_NAME;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Login extends MultipleMethodCommand {
         LoginInfoDto loginInfoDto = loginInfoDtoRequestDtoMapper.mapToDto(request);
         if (!loginDtoValidator.isValid(loginInfoDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
-            return LOGIN_PATH;
+            return MAIN_WEB_FOLDER+LOGIN_FILE_NAME;
         }
         return processingServiceLoginRequest(request, loginInfoDto);
     }
@@ -45,10 +45,10 @@ public class Login extends MultipleMethodCommand {
     private String processingServiceLoginRequest(HttpServletRequest request, LoginInfoDto loginInfoDto) {
         try {
             request.getSession().setAttribute(SESSION_USER, userService.loginUser(loginInfoDto));
-            return REDIRECT_ON_USER;
+            return REDIRECT_COMMAND+USER_PROFILE_REQUEST_COMMAND;
         } catch (NoSuchUserException ignored) {
             request.setAttribute(INCORRECT_LOGIN_OR_PASSWORD, true);
-            return LOGIN_PATH;
+            return MAIN_WEB_FOLDER+LOGIN_FILE_NAME;
         }
     }
 }

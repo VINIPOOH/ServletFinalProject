@@ -36,7 +36,7 @@ public class AuthFilter implements Filter {
         HttpSession session = req.getSession();
         String path = req.getRequestURI();
 
-        if (path.endsWith(INDEX_REQUEST)||path.endsWith(HOME_REQUEST)||path.endsWith(COUNTER_REQUEST)) {
+        if (path.endsWith(INDEX_REQUEST) || path.endsWith(HOME_REQUEST) || path.endsWith(COUNTER_REQUEST)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -46,12 +46,12 @@ public class AuthFilter implements Filter {
             res.sendRedirect(REDIRECT_ON_ERROR_404_STRAIGHT);
             return;
         }
-        if(user==null){
-            if(isOnlyForNotLogin){
+        if (user == null) {
+            if (isOnlyForNotLogin) {
                 filterChain.doFilter(request, response);
                 return;
             }
-            request.getRequestDispatcher(ERROR_404).forward(request, response);
+            request.getRequestDispatcher(BASE_REQUEST_COMMAND+ERROR_404_REQUEST_COMMAND).forward(request, response);
             return;
         }
         if ((!(user.getRoleType().equals(RoleType.ROLE_ADMIN))) && path.contains(ADMIN_REQUEST)) {
