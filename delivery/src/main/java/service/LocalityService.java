@@ -15,7 +15,9 @@ public class LocalityService {
     }
 
     public List<LocaliseLocalityDto> getLocaliseLocalities(){
-        return localityDao.findAllLocaliseLocalitiesWithoutConnection();
+
+            return localityDao.findAllLocaliseLocalitiesWithoutConnection();
     }
+
 
 }

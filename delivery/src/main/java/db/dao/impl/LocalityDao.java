@@ -28,7 +28,7 @@ public class LocalityDao extends JDBCAbstractGenericDao {
         ResultSetToEntityMapper<LocaliseLocalityDto> mapper = GetLocaliseLocalityMaper();
 
         try (Connection connection = connector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(FIND_ALL))) {
             ResultSet resultSet = preparedStatement.executeQuery();
             List<LocaliseLocalityDto> result = new ArrayList<>();
             while (resultSet.next()) {
@@ -36,6 +36,7 @@ public class LocalityDao extends JDBCAbstractGenericDao {
             }
             return result;
         } catch (SQLException e) {
+            System.out.println(e);
             throw new DBRuntimeException();
         }
     }
