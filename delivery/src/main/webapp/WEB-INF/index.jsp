@@ -7,5 +7,5 @@
 </head>
 <body>
 <%@ include file="layout/header.jsp" %>
-home
+INDEX
 </body>

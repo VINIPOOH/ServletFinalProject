@@ -20,6 +20,7 @@ public class AuthFilter implements Filter {
     private static final String LOGIN_REQUEST = "/login";
     private static final String REGISTRATION_REQUEST = "/registration";
     private static final String ADMIN_REQUEST = "/admin";
+    private static final String COUNTER_REQUEST = "counter";
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -35,7 +36,7 @@ public class AuthFilter implements Filter {
         HttpSession session = req.getSession();
         String path = req.getRequestURI();
 
-        if (path.endsWith(INDEX_REQUEST)||path.endsWith(HOME_REQUEST)) {
+        if (path.endsWith(INDEX_REQUEST)||path.endsWith(HOME_REQUEST)||path.endsWith(COUNTER_REQUEST)) {
             filterChain.doFilter(request, response);
             return;
         }

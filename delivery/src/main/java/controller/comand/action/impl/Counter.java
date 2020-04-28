@@ -34,26 +34,24 @@ public class Counter extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        Object o =localityService.getLocaliseLocalities();
-        request.setAttribute("localityList",o);
+        request.setAttribute("localityList",localityService.getLocaliseLocalities());
         return COUNTER_PATH;
     }
 
     @Override
     protected String performPost(HttpServletRequest request) {
-
         DeliveryInfoRequestDto deliveryInfoRequestDto = deliveryInfoRequestToDtoMapper.mapToDto(request);
+        request.setAttribute("localityList",localityService.getLocaliseLocalities());
         if (!deliveryInfoRequestDtoValidator.isValid(deliveryInfoRequestDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
-            return REDIRECT_ON_COUNTER;
+            return COUNTER_PATH;
         }
         Optional<DeliveryCostAndTimeDto> deliveryCostAndTimeDto =deliveryProcessService.getDeliveryCostAndTimeDto(deliveryInfoRequestDto);
         if(deliveryCostAndTimeDto.isPresent()){
             request.setAttribute("CostAndTimeDto", deliveryCostAndTimeDto.get());
-
-            return REDIRECT_ON_COUNTER;
+            return COUNTER_PATH;
         }
         request.setAttribute("IsNotExistSuchWayOrWeightForThisWay", true);
-        return REDIRECT_ON_COUNTER;
+        return COUNTER_PATH;
     }
 }

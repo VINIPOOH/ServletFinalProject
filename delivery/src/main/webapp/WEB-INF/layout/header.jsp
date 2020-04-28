@@ -2,10 +2,10 @@
         <nav class="navbar navbar-default col-md-8">
         <div class="container-fluid">
         <div class="navbar-header col-md-2">
-        <a href="${pageContext.request.contextPath}/home" class="navbar-brand"><fmt:message key="layout.header.logo"/></a>
+        <a href="${pageContext.request.contextPath}/counter" class="navbar-brand"><fmt:message key="layout.header.logo"/></a>
         </div>
         <div class="col-md-10 row justify-content-start">
-        <a class="col-2" href="${pageContext.request.contextPath}/home" >
+        <a class="col-2" href="${pageContext.request.contextPath}/counter" >
         <fmt:message key="layout.header.homepage"/>
         </a>
         <a class="col-2" href="${pageContext.request.contextPath}/user/userprofile"><fmt:message

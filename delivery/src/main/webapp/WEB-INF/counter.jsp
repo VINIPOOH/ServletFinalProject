@@ -22,7 +22,7 @@
                             <p><fmt:message key="homepage.form.weight.incorect"/></p>
                         </div>
                         </c:if>
-                        <c:if test="IsNotExistSuchWayOrWeightForThisWay">
+                        <c:if test="${IsNotExistSuchWayOrWeightForThisWay}">
                         <div class="alert alert-danger" role="alert">
                             <p><fmt:message key="registrationpage.form.weight.wrong"/></p>
                         </div>
