@@ -38,7 +38,7 @@
                             </c:forEach>
                         </select>
                         <label><fmt:message key="homepage.form.label.locality_get"/></label>
-                        <select id="localityDetID" name="localityGetID" form="form" class="form-control">
+                        <select id="localityGetID" name="localityGetID" form="form" class="form-control">
                             <c:forEach var="locality" items="${requestScope.localityList}">
                             <option value="${locality.id}" id="localityGetID" name="localityGetID">${locality.name}</option>
                             </c:forEach>

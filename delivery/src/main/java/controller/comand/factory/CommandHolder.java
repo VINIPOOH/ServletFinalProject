@@ -56,6 +56,7 @@ public class CommandHolder {
     private static final ActionCommand ERROR_404 = new Error404();
     private static final ActionCommand EMPTY_COMMAND = new EmptyCommand();
     private static final ActionCommand COUNTER = new Counter(LOCALITY_SERVICE, DELIVERY_PROCESS_SERVICE, DELIVERY_INFO_REQUEST_DTO_REQUEST_DTO_MAPPER, DELIVERY_INFO_REQUEST_DTO_VALIDATOR);
+private static final ActionCommand USER_DELIVERY_INITIATION = new UserDeliveryInitiation(LOCALITY_SERVICE,DELIVERY_PROCESS_SERVICE, DELIVERY_INFO_REQUEST_DTO_REQUEST_DTO_MAPPER, DELIVERY_INFO_REQUEST_DTO_VALIDATOR);
 
     private static final Map<String, ActionCommand> COMMANDS = new HashMap<>();
 
@@ -69,6 +70,7 @@ public class CommandHolder {
         COMMANDS.put("index", INDEX);
         COMMANDS.put("404", ERROR_404);
         COMMANDS.put("counter", COUNTER);
+        COMMANDS.put("user/user-delivery-initiation",USER_DELIVERY_INITIATION);
     }
 
     private CommandHolder() {
