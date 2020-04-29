@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface GenericDao<E, ID> {
 
-    E save(E entity) throws SQLException;
+    boolean save(E entity) throws SQLException;
 
     Optional<E> findById(ID id);
 //

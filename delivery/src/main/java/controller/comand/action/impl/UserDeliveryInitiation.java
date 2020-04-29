@@ -1,18 +1,20 @@
 package controller.comand.action.impl;
 
 import controller.comand.action.MultipleMethodCommand;
-import dto.DeliveryCostAndTimeDto;
-import dto.DeliveryInfoRequestDto;
+import dto.DeliveryOrderCreateDto;
 import dto.maper.RequestDtoMapper;
 import dto.validation.Validator;
+import entity.User;
+import exeptions.FailCreateDeliveryException;
+import exeptions.UnsupportableWeightFactorException;
 import service.DeliveryProcessService;
 import service.LocalityService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
-import java.util.Optional;
 
 import static controller.constants.AttributeConstants.SESSION_LANG;
+import static controller.constants.AttributeConstants.SESSION_USER;
 import static controller.constants.ExceptionInfoForJspConstants.INPUT_HAS_ERRORS;
 import static controller.constants.PageConstance.*;
 
@@ -20,14 +22,14 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     private final LocalityService localityService;
     private final DeliveryProcessService deliveryProcessService;
-    private final RequestDtoMapper<DeliveryInfoRequestDto> deliveryInfoRequestToDtoMapper;
-    private final Validator<DeliveryInfoRequestDto> deliveryInfoRequestDtoValidator;
+    private final RequestDtoMapper<DeliveryOrderCreateDto> deliveryOrderCreateDtoRequestDtoMapper;
+    private final Validator<DeliveryOrderCreateDto> deliveryOrderCreateDtoValidator;
 
-    public UserDeliveryInitiation(LocalityService localityService, DeliveryProcessService deliveryProcessService, RequestDtoMapper<DeliveryInfoRequestDto> deliveryInfoRequestToDtoMapper, Validator<DeliveryInfoRequestDto> deliveryInfoRequestDtoValidator) {
+    public UserDeliveryInitiation(LocalityService localityService, DeliveryProcessService deliveryProcessService, RequestDtoMapper<DeliveryOrderCreateDto> deliveryOrderCreateDtoRequestDtoMapper, Validator<DeliveryOrderCreateDto> deliveryOrderCreateDtoValidator) {
         this.localityService = localityService;
         this.deliveryProcessService = deliveryProcessService;
-        this.deliveryInfoRequestToDtoMapper = deliveryInfoRequestToDtoMapper;
-        this.deliveryInfoRequestDtoValidator = deliveryInfoRequestDtoValidator;
+        this.deliveryOrderCreateDtoRequestDtoMapper = deliveryOrderCreateDtoRequestDtoMapper;
+        this.deliveryOrderCreateDtoValidator = deliveryOrderCreateDtoValidator;
     }
 
     @Override
@@ -35,30 +37,38 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
         Locale o = (Locale) request.getSession().getAttribute(SESSION_LANG);
         String str = ((Locale) request.getSession().getAttribute(SESSION_LANG)).getLanguage();
         request.setAttribute("localityList", localityService.getLocaliseLocalities(o));
-        return MAIN_WEB_FOLDER + USER_FOLDER +USER_DELIVERY_INITIATION_FILE_NAME;
+        return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
     }
 
     @Override
     protected String performPost(HttpServletRequest request) {
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
-        DeliveryInfoRequestDto deliveryInfoRequestDto;
+        DeliveryOrderCreateDto deliveryOrderCreateDto;
         try {
-            deliveryInfoRequestDto = deliveryInfoRequestToDtoMapper.mapToDto(request);
-        }catch (NumberFormatException ex){
+            deliveryOrderCreateDto = deliveryOrderCreateDtoRequestDtoMapper.mapToDto(request);
+        } catch (NumberFormatException ex) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
-            return MAIN_WEB_FOLDER + USER_FOLDER +USER_DELIVERY_INITIATION_FILE_NAME;
+            return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
         }
 
-        if (!deliveryInfoRequestDtoValidator.isValid(deliveryInfoRequestDto)) {
+        if (!deliveryOrderCreateDtoValidator.isValid(deliveryOrderCreateDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
-            return MAIN_WEB_FOLDER + USER_FOLDER +USER_DELIVERY_INITIATION_FILE_NAME;
+            return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
         }
-        Optional<DeliveryCostAndTimeDto> deliveryCostAndTimeDto = deliveryProcessService.getDeliveryCostAndTimeDto(deliveryInfoRequestDto);
-        if (deliveryCostAndTimeDto.isPresent()) {
-            request.setAttribute("CostAndTimeDto", deliveryCostAndTimeDto.get());
-            return MAIN_WEB_FOLDER + USER_FOLDER +USER_DELIVERY_INITIATION_FILE_NAME;
+
+        try {
+            deliveryProcessService.initializeDelivery(deliveryOrderCreateDto, ((User) request.getSession().getAttribute(SESSION_USER)).getId());
+        } catch (UnsupportableWeightFactorException e) {
+            e.printStackTrace();
+        } catch (FailCreateDeliveryException e) {
+            e.printStackTrace();
         }
-        request.setAttribute("IsNotExistSuchWayOrWeightForThisWay", true);
-        return MAIN_WEB_FOLDER + USER_FOLDER +USER_DELIVERY_INITIATION_FILE_NAME;
+//        Optional<DeliveryCostAndTimeDto> deliveryCostAndTimeDto = deliveryProcessService.getDeliveryCostAndTimeDto(deliveryOrderCreateDto);
+//        if (deliveryCostAndTimeDto.isPresent()) {
+//            request.setAttribute("CostAndTimeDto", deliveryCostAndTimeDto.get());
+//            return MAIN_WEB_FOLDER + USER_FOLDER +USER_DELIVERY_INITIATION_FILE_NAME;
+//        }
+//        request.setAttribute("IsNotExistSuchWayOrWeightForThisWay", true);
+        return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
     }
 }

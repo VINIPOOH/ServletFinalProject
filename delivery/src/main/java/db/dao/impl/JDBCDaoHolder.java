@@ -2,9 +2,7 @@ package db.dao.impl;
 
 import db.conection.DbConnectionPoolHolder;
 import db.conection.impl.DbConnectorPoolHolderBasicDataSource;
-import db.dao.DaoFactory;
-import db.dao.UserDao;
-import db.dao.WayDao;
+import db.dao.*;
 import db.dao.maper.ResultSetToEntityMapper;
 import db.dao.maper.UserResultToEntityMapper;
 import entity.User;
@@ -23,6 +21,8 @@ public class JDBCDaoHolder implements DaoFactory {
     private static UserDao userDao = new JDBCUserDao(requestsBundle, dbConnectorPoolHolder, userResultSetToEntityMapper);
     private static LocalityDao localityDao = new LocalityDao(requestsBundle, dbConnectorPoolHolder);
     private static WayDao wayDao = new JDBCWayDao(requestsBundle, dbConnectorPoolHolder);
+    private static DeliveryDao deliveryDao = new JDBCDeliveryDao(requestsBundle,dbConnectorPoolHolder);
+    private static BillDao billDao = new JDBCBillDao(requestsBundle,dbConnectorPoolHolder);
 
     public static UserDao getUserDao() {
         return userDao;
@@ -35,4 +35,8 @@ public class JDBCDaoHolder implements DaoFactory {
     public static WayDao getWayDao() {
         return wayDao;
     }
+
+    public static DeliveryDao getDeliveryDao(){return deliveryDao;}
+
+    public static BillDao getBillDao(){return billDao;}
 }

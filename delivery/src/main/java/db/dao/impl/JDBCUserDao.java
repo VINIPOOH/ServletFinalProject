@@ -6,8 +6,6 @@ import db.dao.maper.ResultSetToEntityMapper;
 import entity.User;
 import exeptions.DBRuntimeException;
 import exeptions.NoSuchUserException;
-import service.UserService;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,6 +21,7 @@ import static db.dao.UserDaoConstants.USER_REPLENISH_BALANCE;
 
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {
 
+    private final String USER_SAVE = "user.save";
 
     private final ResultSetToEntityMapper<User> mapResultSetToEntity;
 
@@ -59,8 +58,16 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     }
 
     @Override
-    public User save(User entity) throws SQLException {
-        return null;
+    public boolean save(User entity) throws SQLException {
+        try (Connection connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_SAVE))) {
+            preparedStatement.setString(1,entity.getEmail());
+            preparedStatement.setString(2,entity.getPassword());
+            return preparedStatement.executeUpdate() != 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new DBRuntimeException();
+        }
     }
 
     @Override

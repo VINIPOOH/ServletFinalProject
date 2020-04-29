@@ -1,13 +1,14 @@
 package service;
 
 
-import db.dao.UserDao;
+import db.dao.BillDao;
+import db.dao.DeliveryDao;
 import db.dao.WayDao;
-import db.dao.impl.DeliveryDao;
-import db.dao.impl.JDBCWayDao;
 import dto.DeliveryCostAndTimeDto;
 import dto.DeliveryInfoRequestDto;
-import exeptions.NoSuchWayException;
+import dto.DeliveryOrderCreateDto;
+import exeptions.AskedDataIsNotExist;
+import exeptions.FailCreateDeliveryException;
 import exeptions.UnsupportableWeightFactorException;
 
 import java.util.Optional;
@@ -15,14 +16,16 @@ import java.util.Optional;
 public class DeliveryProcessService {
 //    private final UserDao userDao;
     private final WayDao wayDao;
-//    private final DeliveryDao deliveryDao;
+    private final DeliveryDao deliveryDao;
+    private final BillDao billDao;
 
-    public DeliveryProcessService(WayDao wayDao) {
+    public DeliveryProcessService(WayDao wayDao, DeliveryDao deliveryDao, BillDao billDao) {
         this.wayDao = wayDao;
+        this.deliveryDao = deliveryDao;
+        this.billDao = billDao;
     }
 
-
-//    public Page<Delivery> findDeliveryHistoryByUserId(long userId, Pageable pageable) {
+    //    public Page<Delivery> findDeliveryHistoryByUserId(long userId, Pageable pageable) {
 //        return deliveryDao.findAllByAddressee_IdOrAddresser_Id(userId, userId, pageable);
 //    }
 
@@ -82,6 +85,23 @@ public class DeliveryProcessService {
     public Optional<DeliveryCostAndTimeDto> getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) {
         return wayDao.findByLocalitySand_IdAndLocalityGet_Id(deliveryInfoRequestDto.getLocalitySandID()
                 ,deliveryInfoRequestDto.getLocalityGetID(),deliveryInfoRequestDto.getDeliveryWeight());
+    }
+
+    public boolean initializeDelivery(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
+        long price;
+        try {
+             price = wayDao.getPrise(deliveryOrderCreateDto.getLocalitySandID()
+                    ,deliveryOrderCreateDto.getLocalityGetID(),deliveryOrderCreateDto.getDeliveryWeight());
+        } catch (AskedDataIsNotExist askedDataIsNotExist) {
+            throw new UnsupportableWeightFactorException();
+        }
+        long newDeliveryId;
+        try {
+           newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), initiatorId, deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
+        } catch (AskedDataIsNotExist askedDataIsNotExist) {
+            throw new FailCreateDeliveryException();
+        }
+        return billDao.createBill(price,newDeliveryId, initiatorId);
     }
 
     //разобраться с етой транзакцией (как вариант дабл чек)
