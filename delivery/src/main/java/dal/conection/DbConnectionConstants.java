@@ -1,4 +1,4 @@
-package db.conection;
+package dal.conection;
 
 public interface DbConnectionConstants {
     String RESOURCE_BUNDLE_DATABASE = "database";

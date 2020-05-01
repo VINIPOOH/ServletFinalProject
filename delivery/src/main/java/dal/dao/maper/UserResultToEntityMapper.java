@@ -1,4 +1,4 @@
-package db.dao.maper;
+package dal.dao.maper;
 
 import entity.RoleType;
 import entity.User;

@@ -1,9 +1,8 @@
-package db.dao.impl;
+package dal.dao.impl;
 
-import db.conection.DbConnectionPoolHolder;
-import db.dao.DeliveryDao;
-import db.dao.maper.ResultSetToEntityMapper;
-import dto.BillInfoToPayDto;
+import dal.conection.DbConnectionPoolHolder;
+import dal.dao.DeliveryDao;
+import dal.dao.maper.ResultSetToEntityMapper;
 import dto.DeliveryInfoToGetDto;
 import entity.Delivery;
 import exeptions.AskedDataIsNotExist;

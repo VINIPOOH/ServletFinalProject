@@ -1,7 +1,7 @@
 package service;
 
 
-import db.dao.impl.LocalityDao;
+import dal.dao.impl.LocalityDao;
 import dto.LocaliseLocalityDto;
 
 import java.util.List;

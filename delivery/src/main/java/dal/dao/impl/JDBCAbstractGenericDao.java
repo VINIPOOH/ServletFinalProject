@@ -1,9 +1,9 @@
-package db.dao.impl;
+package dal.dao.impl;
 
 
-import db.conection.DbConnectionPoolHolder;
-import db.dao.maper.EntityToPreparedStatmentMapper;
-import db.dao.maper.ResultSetToEntityMapper;
+import dal.conection.DbConnectionPoolHolder;
+import dal.dao.maper.ResultSetToEntityMapper;
+import dto.BillDto;
 import exeptions.DBRuntimeException;
 
 import java.sql.Connection;
@@ -46,6 +46,23 @@ public abstract class JDBCAbstractGenericDao<E>{
             throw new DBRuntimeException();
         }
     }
+
+    public List<E> findAllByLongParam(long param, String query, ResultSetToEntityMapper<E> mapper) {
+        try (Connection connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, param);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<E> result = new ArrayList<>();
+            while (resultSet.next()) {
+                mapper.map(resultSet).ifPresent(result::add);
+            }
+            return result;
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new DBRuntimeException();
+        }
+    }
+
 
 
 //    public boolean deleteById(Long id) {

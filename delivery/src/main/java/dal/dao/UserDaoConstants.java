@@ -1,4 +1,4 @@
-package db.dao;
+package dal.dao;
 
 public interface UserDaoConstants {
     String PATH_TO_PROPERTY_FILE = "db-request";

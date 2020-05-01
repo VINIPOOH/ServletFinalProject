@@ -1,12 +1,10 @@
-package db.dao.impl;
+package dal.dao.impl;
 
-import db.conection.DbConnectionPoolHolder;
-import db.dao.BillDao;
-import db.dao.maper.ResultSetToEntityMapper;
-import dto.BillDto;
+import dal.conection.DbConnectionPoolHolder;
+import dal.dao.BillDao;
+import dal.dao.maper.ResultSetToEntityMapper;
 import dto.BillInfoToPayDto;
-import entity.Bill;
-import entity.User;
+import entity.*;
 import exeptions.AskedDataIsNotExist;
 import exeptions.DBRuntimeException;
 
@@ -18,9 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.time.LocalDate;
-
-import static db.dao.UserDaoConstants.USER_FIND_BY_EMAIL;
 
 public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao {
     private final String BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID=
@@ -53,31 +48,21 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     }
 
     @Override
-    public List<BillInfoToPayDto> getInfoToPayBillByUserId(long user_id) {
-        ResultSetToEntityMapper<BillInfoToPayDto> mapper = (resultSet -> {
-            return Optional.of(BillInfoToPayDto.builder()
-                    .addreeserEmail(resultSet.getString("addresser_email"))
-                    .bill_id(resultSet.getLong("bill_id"))
-                    .delivery_id(resultSet.getLong("delivery_id"))
-                    .localityGetName(resultSet.getString("locality_get_name"))
-                    .localitySandName(resultSet.getString("locality_sand_name"))
-                    .price(resultSet.getLong("price"))
-                    .weight(resultSet.getInt("weight"))
-                    .build());
-        });
-        try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID))) {
-            preparedStatement.setLong(1, user_id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<BillInfoToPayDto> result = new ArrayList<>();
-            while (resultSet.next()) {
-                mapper.map(resultSet).ifPresent(result::add);
-            }
-            return result;
-        } catch (SQLException e) {
-            System.out.println(e);
-            throw new DBRuntimeException();
-        }
+    public List<Bill> getInfoToPayBillByUserId(long user_id) {
+        ResultSetToEntityMapper<Bill> mapper = (resultSet -> Optional.of(Bill.builder()
+                .id(resultSet.getLong("bill_id"))
+                .costInCents(resultSet.getLong("price"))
+                .delivery(Delivery.builder()
+                        .addresser(User.builder().email(resultSet.getString("addresser_email")).build())
+                        .id(resultSet.getLong("delivery_id"))
+                        .weight(resultSet.getInt("weight"))
+                        .way(Way.builder()
+                                .localityGet(Locality.builder().nameEn(resultSet.getString("locality_get_name")).build())
+                                .localitySand(Locality.builder().nameEn(resultSet.getString("locality_sand_name")).build())
+                                .build())
+                        .build())
+                .build()));
+        return findAllByLongParam(user_id, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID), mapper);
     }
 
     @Override
@@ -110,28 +95,14 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     }
 
     @Override
-    public List<BillDto> getHistoricBailsByUserId(long userId) {
-        ResultSetToEntityMapper<BillDto> mapper = (resultSet -> {
-            return Optional.of(BillDto.builder()
-                    .id(resultSet.getLong("id"))
-                    .deliveryId(resultSet.getLong("delivery_id"))
-                    .isDeliveryPaid(resultSet.getBoolean("is_delivery_paid"))
-                    .costInCents(resultSet.getLong("cost_in_cents"))
-                    .dateOfPay(resultSet.getTimestamp("date_of_pay").toLocalDateTime().toLocalDate())
-                    .build());
-        });
-        try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILLS_HISTORY_BY_USER_ID))) {
-            preparedStatement.setLong(1, userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<BillDto> result = new ArrayList<>();
-            while (resultSet.next()) {
-                mapper.map(resultSet).ifPresent(result::add);
-            }
-            return result;
-        } catch (SQLException e) {
-            System.out.println(e);
-            throw new DBRuntimeException();
-        }
+    public List<Bill> getHistoricBailsByUserId(long userId) {
+        ResultSetToEntityMapper<Bill> mapper = resultSet -> Optional.of(Bill.builder()
+                .id(resultSet.getLong("id"))
+                .delivery(Delivery.builder().id(resultSet.getLong("delivery_id")).build())
+                .isDeliveryPaid(resultSet.getBoolean("is_delivery_paid"))
+                .costInCents(resultSet.getLong("cost_in_cents"))
+                .dateOfPay(resultSet.getTimestamp("date_of_pay").toLocalDateTime().toLocalDate())
+                .build());
+        return findAllByLongParam(userId, resourceBundleRequests.getString(BILLS_HISTORY_BY_USER_ID), mapper);
     }
 }

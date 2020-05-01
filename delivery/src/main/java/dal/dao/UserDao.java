@@ -1,4 +1,4 @@
-package db.dao;
+package dal.dao;
 
 import entity.User;
 import exeptions.NoSuchUserException;

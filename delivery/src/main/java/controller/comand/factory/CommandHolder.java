@@ -2,12 +2,12 @@ package controller.comand.factory;
 
 import controller.comand.action.ActionCommand;
 import controller.comand.action.impl.*;
-import db.dao.BillDao;
-import db.dao.DeliveryDao;
-import db.dao.UserDao;
-import db.dao.WayDao;
-import db.dao.impl.JDBCDaoHolder;
-import db.dao.impl.LocalityDao;
+import dal.dao.BillDao;
+import dal.dao.DeliveryDao;
+import dal.dao.UserDao;
+import dal.dao.WayDao;
+import dal.JDBCDaoHolder;
+import dal.dao.impl.LocalityDao;
 import dto.DeliveryInfoRequestDto;
 import dto.DeliveryOrderCreateDto;
 import dto.LoginInfoDto;

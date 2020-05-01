@@ -1,6 +1,6 @@
-package db.conection.impl;
+package dal.conection.impl;
 
-import db.conection.DbConnectionPoolHolder;
+import dal.conection.DbConnectionPoolHolder;
 import exeptions.DBRuntimeException;
 import org.apache.commons.dbcp.BasicDataSource;
 
@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static db.conection.DbConnectionConstants.*;
+import static dal.conection.DbConnectionConstants.*;
 
 public class DbConnectorPoolHolderBasicDataSource implements DbConnectionPoolHolder {
 
@@ -18,6 +18,7 @@ public class DbConnectorPoolHolderBasicDataSource implements DbConnectionPoolHol
     public DbConnectorPoolHolderBasicDataSource() {
         ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE_DATABASE);
         BasicDataSource ds = new BasicDataSource();
+        String d = DB_URL;
         ds.setUrl(bundle.getString(DB_URL));
         ds.setUsername(bundle.getString(DB_USER));
         ds.setPassword(bundle.getString(DB_PASSWORD));

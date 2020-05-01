@@ -1,12 +1,9 @@
-package db.dao.maper;
+package dal.dao.maper;
 
-import entity.RoleType;
 import entity.User;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
 
 public class UserEntityToPreparedStatmentMapper implements EntityToPreparedStatmentMapper<User> {
     @Override

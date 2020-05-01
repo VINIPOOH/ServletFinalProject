@@ -1,7 +1,7 @@
 package service;
 
 
-import db.dao.UserDao;
+import dal.dao.UserDao;
 import dto.LoginInfoDto;
 import dto.RegistrationInfoDto;
 import entity.RoleType;

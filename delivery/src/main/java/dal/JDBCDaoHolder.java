@@ -1,15 +1,17 @@
-package db.dao.impl;
+package dal;
 
-import db.conection.DbConnectionPoolHolder;
-import db.conection.impl.DbConnectorPoolHolderBasicDataSource;
-import db.dao.*;
-import db.dao.maper.ResultSetToEntityMapper;
-import db.dao.maper.UserResultToEntityMapper;
+import dal.DaoFactory;
+import dal.conection.DbConnectionPoolHolder;
+import dal.conection.impl.DbConnectorPoolHolderBasicDataSource;
+import dal.dao.*;
+import dal.dao.impl.*;
+import dal.dao.maper.ResultSetToEntityMapper;
+import dal.dao.maper.UserResultToEntityMapper;
 import entity.User;
 
 import java.util.ResourceBundle;
 
-import static db.dao.UserDaoConstants.PATH_TO_PROPERTY_FILE;
+import static dal.dao.UserDaoConstants.PATH_TO_PROPERTY_FILE;
 
 public class JDBCDaoHolder implements DaoFactory {
     private static DbConnectionPoolHolder dbConnectorPoolHolder = DbConnectorPoolHolderBasicDataSource.getDbConnectionPoolHolder();

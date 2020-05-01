@@ -1,4 +1,4 @@
-package db.dao;
+package dal.dao;
 
 import dto.DeliveryCostAndTimeDto;
 import exeptions.AskedDataIsNotExist;

@@ -1,4 +1,4 @@
-package db.dao.maper;
+package dal.dao.maper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,6 +1,5 @@
-package db.dao;
+package dal.dao;
 
-import dto.DeliveryInfoRequestDto;
 import dto.DeliveryInfoToGetDto;
 import exeptions.AskedDataIsNotExist;
 

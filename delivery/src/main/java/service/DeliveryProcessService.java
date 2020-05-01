@@ -1,9 +1,9 @@
 package service;
 
 
-import db.dao.BillDao;
-import db.dao.DeliveryDao;
-import db.dao.WayDao;
+import dal.dao.BillDao;
+import dal.dao.DeliveryDao;
+import dal.dao.WayDao;
 import dto.DeliveryCostAndTimeDto;
 import dto.DeliveryInfoRequestDto;
 import dto.DeliveryInfoToGetDto;

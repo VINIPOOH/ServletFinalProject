@@ -1,12 +1,15 @@
 package service;
 
-import db.dao.BillDao;
-import db.dao.UserDao;
+import dal.dao.BillDao;
+import dal.dao.UserDao;
 import dto.BillDto;
 import dto.BillInfoToPayDto;
+import entity.Bill;
 import exeptions.AskedDataIsNotExist;
 import exeptions.DBRuntimeException;
+import service.mapper.EntityToDtoMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BillService {
@@ -20,7 +23,20 @@ public class BillService {
     }
 
     public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId){
-        return billDao.getInfoToPayBillByUserId(userId);
+        List<BillInfoToPayDto> toReturn = new ArrayList<>();
+        EntityToDtoMapper<Bill, BillInfoToPayDto> mapper = (bill)-> BillInfoToPayDto.builder()
+                .weight(bill.getDelivery().getWeight())
+                .price(bill.getCostInCents())
+                .localitySandName(bill.getDelivery().getWay().getLocalitySand().getNameEn())
+                .localityGetName(bill.getDelivery().getWay().getLocalityGet().getNameEn())
+                .delivery_id(bill.getDelivery().getId())
+                .bill_id(bill.getId())
+                .addreeserEmail(bill.getDelivery().getAddresser().getEmail())
+                .build();
+        for (Bill b : billDao.getInfoToPayBillByUserId(userId) ){
+            toReturn.add(mapper.map(b));
+        }
+        return toReturn;
     }
 
     public void payForDelivery(long userId, long billId){
@@ -39,6 +55,17 @@ public class BillService {
     }
 
     public List<BillDto> getBillHistoryByUserId(long userId){
-    return billDao.getHistoricBailsByUserId(userId);
+        List<BillDto> toReturn = new ArrayList<>();
+        EntityToDtoMapper<Bill, BillDto> mapper = (bill)-> BillDto.builder()
+                .id(bill.getId())
+                .deliveryId(bill.getDelivery().getId())
+                .isDeliveryPaid(bill.getIsDeliveryPaid())
+                .costInCents(bill.getCostInCents())
+                .dateOfPay(bill.getDateOfPay())
+                .build();
+        for (Bill b : billDao.getHistoricBailsByUserId(userId) ){
+            toReturn.add(mapper.map(b));
+        }
+        return toReturn;
     }
 }

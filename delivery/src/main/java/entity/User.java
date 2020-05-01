@@ -8,8 +8,6 @@ import lombok.ToString;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
 
 public class User extends Entity {
@@ -24,6 +22,20 @@ public class User extends Entity {
 
     private List<Delivery> waysWhereThisUserIsSend;
     private List<Delivery> waysWhereThisUserIsGet;
+
+    public User(Long id, String email, RoleType roleType, String password, Long userMoneyInCents, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, List<Delivery> waysWhereThisUserIsSend, List<Delivery> waysWhereThisUserIsGet) {
+        super(id);
+        this.email = email;
+        this.roleType = roleType;
+        this.password = password;
+        this.userMoneyInCents = userMoneyInCents;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+        this.waysWhereThisUserIsSend = waysWhereThisUserIsSend;
+        this.waysWhereThisUserIsGet = waysWhereThisUserIsGet;
+    }
 
     public static UserBuilder builder() {
         return new UserBuilder();
@@ -102,8 +114,8 @@ public class User extends Entity {
         }
 
         public User build() {
-            User user = new User(email, roleType, password, userMoneyInCents, accountNonExpired, accountNonLocked, credentialsNonExpired, enabled, waysWhereThisUserIsSend, waysWhereThisUserIsGet);
-            user.setId(id);
+            User user = new User(id, email, roleType, password, userMoneyInCents, accountNonExpired, accountNonLocked, credentialsNonExpired, enabled, waysWhereThisUserIsSend, waysWhereThisUserIsGet);
+
             return user;
         }
 

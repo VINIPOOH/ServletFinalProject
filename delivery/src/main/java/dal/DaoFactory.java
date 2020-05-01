@@ -1,4 +1,4 @@
-package db.dao;
+package dal;
 
 
 public interface DaoFactory {

@@ -1,8 +1,8 @@
-package db.dao.impl;
+package dal.dao.impl;
 
-import db.conection.DbConnectionPoolHolder;
-import db.dao.UserDao;
-import db.dao.maper.ResultSetToEntityMapper;
+import dal.conection.DbConnectionPoolHolder;
+import dal.dao.UserDao;
+import dal.dao.maper.ResultSetToEntityMapper;
 import entity.User;
 import exeptions.DBRuntimeException;
 import exeptions.NoSuchUserException;
@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static db.dao.UserDaoConstants.USER_FIND_BY_EMAIL;
-import static db.dao.UserDaoConstants.USER_REPLENISH_BALANCE;
+import static dal.dao.UserDaoConstants.USER_FIND_BY_EMAIL;
+import static dal.dao.UserDaoConstants.USER_REPLENISH_BALANCE;
 
 
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {

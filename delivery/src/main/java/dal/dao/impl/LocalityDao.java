@@ -1,9 +1,8 @@
-package db.dao.impl;
+package dal.dao.impl;
 
-import db.conection.DbConnectionPoolHolder;
-import db.dao.maper.ResultSetToEntityMapper;
+import dal.conection.DbConnectionPoolHolder;
+import dal.dao.maper.ResultSetToEntityMapper;
 import dto.LocaliseLocalityDto;
-import entity.Locality;
 import exeptions.DBRuntimeException;
 
 import java.sql.Connection;
