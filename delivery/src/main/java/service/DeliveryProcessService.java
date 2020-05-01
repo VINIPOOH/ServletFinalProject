@@ -6,11 +6,13 @@ import db.dao.DeliveryDao;
 import db.dao.WayDao;
 import dto.DeliveryCostAndTimeDto;
 import dto.DeliveryInfoRequestDto;
+import dto.DeliveryInfoToGetDto;
 import dto.DeliveryOrderCreateDto;
 import exeptions.AskedDataIsNotExist;
 import exeptions.FailCreateDeliveryException;
 import exeptions.UnsupportableWeightFactorException;
 
+import java.util.List;
 import java.util.Optional;
 
 public class DeliveryProcessService {
@@ -102,6 +104,14 @@ public class DeliveryProcessService {
             throw new FailCreateDeliveryException();
         }
         return billDao.createBill(price,newDeliveryId, initiatorId);
+    }
+
+    public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId){
+        return deliveryDao.getDeliveryInfoToGet(userId);
+    }
+
+    public void ConfirmGetingDelivery(long userId, long deliveryId){
+        deliveryDao.confirmGettingDelivery(userId, deliveryId);
     }
 
     //разобраться с етой транзакцией (как вариант дабл чек)
