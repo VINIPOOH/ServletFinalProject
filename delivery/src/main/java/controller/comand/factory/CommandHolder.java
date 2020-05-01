@@ -14,10 +14,7 @@ import dto.LoginInfoDto;
 import dto.RegistrationInfoDto;
 import dto.maper.*;
 import dto.validation.*;
-import service.DeliveryProcessService;
-import service.LocalityService;
-import service.PasswordEncoderService;
-import service.UserService;
+import service.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +44,7 @@ public class CommandHolder {
     private static final UserService USER_SERVICE = new UserService(PASSWORD_ENCODER_SERVICE, USER_DAO);
     private static final LocalityService LOCALITY_SERVICE = new LocalityService(LOCALITY_DAO);
     private static final DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessService(WAY_DAO, DELIVERY_DAO, BILL_DAO);
+    private static final BillService BILL_SERVICE = new BillService(BILL_DAO, USER_DAO);
 
     private static final ActionCommand LOGIN = new Login(LOGIN_INFO_DTO_VALIDATOR, LOGIN_INFO_DTO_REQUEST_DTO_MAPPER, USER_SERVICE);
     private static final ActionCommand LOGOUT = new LogOut();
@@ -58,6 +56,7 @@ public class CommandHolder {
     private static final ActionCommand EMPTY_COMMAND = new EmptyCommand();
     private static final ActionCommand COUNTER = new Counter(LOCALITY_SERVICE, DELIVERY_PROCESS_SERVICE, DELIVERY_INFO_REQUEST_DTO_REQUEST_DTO_MAPPER, DELIVERY_INFO_REQUEST_DTO_VALIDATOR);
     private static final ActionCommand USER_DELIVERY_INITIATION = new UserDeliveryInitiation(LOCALITY_SERVICE,DELIVERY_PROCESS_SERVICE, DELIVERY_ORDER_CREATE_DTO_REQUEST_DTO_MAPPER, DELIVERY_ORDER_CREATE_DTO_VALIDATOR );
+    private static final ActionCommand USER_DELIVERY_CONFIRM = new UserDeliveryConfirm(BILL_SERVICE);
 
     private static final Map<String, ActionCommand> COMMANDS = new HashMap<>();
 
@@ -72,6 +71,7 @@ public class CommandHolder {
         COMMANDS.put("404", ERROR_404);
         COMMANDS.put("counter", COUNTER);
         COMMANDS.put("user/user-delivery-initiation",USER_DELIVERY_INITIATION);
+        COMMANDS.put("user/user-delivery-request-confirm",USER_DELIVERY_CONFIRM);
     }
 
     private CommandHolder() {

@@ -13,6 +13,7 @@ public interface PageConstance {
     String COUNTER_FILE_NAME = "counter.jsp";
     String USER_PROFILE_FILE_NAME = "userprofile.jsp";
     String USER_DELIVERY_INITIATION_FILE_NAME = "user-delivery-initiation.jsp";
+    String USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME = "user-delivery-request-confirm.jsp";
 
     String BASE_REQUEST_COMMAND = "delivery/";
     String INDEX_REQUEST_COMMAND = "index";
