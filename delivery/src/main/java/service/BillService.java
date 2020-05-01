@@ -2,6 +2,7 @@ package service;
 
 import db.dao.BillDao;
 import db.dao.UserDao;
+import dto.BillDto;
 import dto.BillInfoToPayDto;
 import exeptions.AskedDataIsNotExist;
 import exeptions.DBRuntimeException;
@@ -35,5 +36,9 @@ public class BillService {
             billDao.murkBillAsPayed(billId);
         }
 
+    }
+
+    public List<BillDto> getBillHistoryByUserId(long userId){
+    return billDao.getHistoricBailsByUserId(userId);
     }
 }

@@ -3,6 +3,7 @@ package db.dao.impl;
 import db.conection.DbConnectionPoolHolder;
 import db.dao.BillDao;
 import db.dao.maper.ResultSetToEntityMapper;
+import dto.BillDto;
 import dto.BillInfoToPayDto;
 import entity.Bill;
 import entity.User;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.time.LocalDate;
 
 import static db.dao.UserDaoConstants.USER_FIND_BY_EMAIL;
 
@@ -29,6 +31,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             "bill.get.prise.if.not.paid";
     private final String SET_BILL_IS_PAID_TRUE =
             "bill.set.is.paid.true";
+    private final String BILLS_HISTORY_BY_USER_ID =
+            "bill.history.by.user.id";
 
     public JDBCBillDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector) {
         super(resourceBundleRequests, connector);
@@ -99,6 +103,32 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_BILL_IS_PAID_TRUE))) {
             preparedStatement.setLong(1, billId);
             return preparedStatement.executeUpdate()>0;
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new DBRuntimeException();
+        }
+    }
+
+    @Override
+    public List<BillDto> getHistoricBailsByUserId(long userId) {
+        ResultSetToEntityMapper<BillDto> mapper = (resultSet -> {
+            return Optional.of(BillDto.builder()
+                    .id(resultSet.getLong("id"))
+                    .deliveryId(resultSet.getLong("delivery_id"))
+                    .isDeliveryPaid(resultSet.getBoolean("is_delivery_paid"))
+                    .costInCents(resultSet.getLong("cost_in_cents"))
+                    .dateOfPay(resultSet.getTimestamp("date_of_pay").toLocalDateTime().toLocalDate())
+                    .build());
+        });
+        try (Connection connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILLS_HISTORY_BY_USER_ID))) {
+            preparedStatement.setLong(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<BillDto> result = new ArrayList<>();
+            while (resultSet.next()) {
+                mapper.map(resultSet).ifPresent(result::add);
+            }
+            return result;
         } catch (SQLException e) {
             System.out.println(e);
             throw new DBRuntimeException();

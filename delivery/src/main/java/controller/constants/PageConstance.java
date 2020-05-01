@@ -15,6 +15,7 @@ public interface PageConstance {
     String USER_DELIVERY_INITIATION_FILE_NAME = "user-delivery-initiation.jsp";
     String USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME = "user-delivery-request-confirm.jsp";
     String USER_DELIVERY_GET_CONFIRM_FILE_NAME = "user-deliverys-to-get.jsp";
+    String USER_STATISTIC_FILE_NAME = "user-statistic.jsp";
 
     String BASE_REQUEST_COMMAND = "delivery/";
     String INDEX_REQUEST_COMMAND = "index";

@@ -58,6 +58,7 @@ public class CommandHolder {
     private static final ActionCommand USER_DELIVERY_INITIATION = new UserDeliveryInitiation(LOCALITY_SERVICE,DELIVERY_PROCESS_SERVICE, DELIVERY_ORDER_CREATE_DTO_REQUEST_DTO_MAPPER, DELIVERY_ORDER_CREATE_DTO_VALIDATOR );
     private static final ActionCommand USER_DELIVERY_CONFIRM = new UserDeliveryConfirm(BILL_SERVICE);
     private static final ActionCommand USER_DELIVERY_GET = new UserDeliveryGet(DELIVERY_PROCESS_SERVICE);
+    private static final ActionCommand USER_STATISTIC = new UserStatistic(BILL_SERVICE);
 
     private static final Map<String, ActionCommand> COMMANDS = new HashMap<>();
 
@@ -74,6 +75,7 @@ public class CommandHolder {
         COMMANDS.put("user/user-delivery-initiation",USER_DELIVERY_INITIATION);
         COMMANDS.put("user/user-delivery-request-confirm",USER_DELIVERY_CONFIRM);
         COMMANDS.put("user/delivers-to-get", USER_DELIVERY_GET);
+        COMMANDS.put("user/user-statistic", USER_STATISTIC);
     }
 
     private CommandHolder() {
