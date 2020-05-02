@@ -3,7 +3,6 @@ package dal.dao.impl;
 
 import dal.conection.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
-import dto.BillDto;
 import exeptions.DBRuntimeException;
 
 import java.sql.Connection;

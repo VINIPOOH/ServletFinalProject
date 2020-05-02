@@ -3,7 +3,7 @@ package dal.dao.impl;
 import dal.conection.DbConnectionPoolHolder;
 import dal.dao.WayDao;
 import dal.dao.maper.ResultSetToEntityMapper;
-import dto.DeliveryCostAndTimeDto;
+import bll.dto.DeliveryCostAndTimeDto;
 import dal.entity.Way;
 import exeptions.AskedDataIsNotExist;
 import exeptions.DBRuntimeException;

@@ -1,4 +1,4 @@
-package dto.validation;
+package bll.dto.validation;
 
 @FunctionalInterface
 public interface Validator<T> {

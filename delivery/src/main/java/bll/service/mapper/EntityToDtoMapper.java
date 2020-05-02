@@ -1,4 +1,4 @@
-package service.mapper;
+package bll.service.mapper;
 
 import dal.entity.Entity;
 @FunctionalInterface

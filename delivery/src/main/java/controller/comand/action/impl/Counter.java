@@ -1,12 +1,12 @@
 package controller.comand.action.impl;
 
 import controller.comand.action.MultipleMethodCommand;
-import dto.DeliveryCostAndTimeDto;
-import dto.DeliveryInfoRequestDto;
-import dto.maper.RequestDtoMapper;
-import dto.validation.Validator;
-import service.DeliveryProcessService;
-import service.LocalityService;
+import bll.dto.DeliveryCostAndTimeDto;
+import bll.dto.DeliveryInfoRequestDto;
+import bll.dto.maper.RequestDtoMapper;
+import bll.dto.validation.Validator;
+import bll.service.DeliveryProcessService;
+import bll.service.LocalityService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;

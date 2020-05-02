@@ -1,15 +1,15 @@
-package service;
+package bll.service;
 
 
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
-import dto.*;
+import bll.dto.*;
 import dal.entity.Delivery;
 import exeptions.AskedDataIsNotExist;
 import exeptions.FailCreateDeliveryException;
 import exeptions.UnsupportableWeightFactorException;
-import service.mapper.EntityToDtoMapper;
+import bll.service.mapper.EntityToDtoMapper;
 
 import java.util.ArrayList;
 import java.util.List;

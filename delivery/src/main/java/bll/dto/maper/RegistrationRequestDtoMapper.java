@@ -1,6 +1,6 @@
-package dto.maper;
+package bll.dto.maper;
 
-import dto.RegistrationInfoDto;
+import bll.dto.RegistrationInfoDto;
 
 import javax.servlet.http.HttpServletRequest;
 

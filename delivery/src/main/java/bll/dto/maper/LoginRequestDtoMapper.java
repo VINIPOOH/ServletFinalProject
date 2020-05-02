@@ -1,6 +1,6 @@
-package dto.maper;
+package bll.dto.maper;
 
-import dto.LoginInfoDto;
+import bll.dto.LoginInfoDto;
 
 import javax.servlet.http.HttpServletRequest;
 

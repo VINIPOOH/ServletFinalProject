@@ -1,4 +1,4 @@
-package service;
+package bll.service;
 
 
 import exeptions.PasswordEncodeException;

@@ -1,13 +1,13 @@
-package service;
+package bll.service;
 
 import dal.dao.BillDao;
 import dal.dao.UserDao;
-import dto.BillDto;
-import dto.BillInfoToPayDto;
+import bll.dto.BillDto;
+import bll.dto.BillInfoToPayDto;
 import dal.entity.Bill;
 import exeptions.AskedDataIsNotExist;
 import exeptions.DBRuntimeException;
-import service.mapper.EntityToDtoMapper;
+import bll.service.mapper.EntityToDtoMapper;
 
 import java.util.ArrayList;
 import java.util.List;

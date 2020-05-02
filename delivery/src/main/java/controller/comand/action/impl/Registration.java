@@ -1,11 +1,11 @@
 package controller.comand.action.impl;
 
 import controller.comand.action.MultipleMethodCommand;
-import dto.RegistrationInfoDto;
-import dto.maper.RequestDtoMapper;
-import dto.validation.Validator;
+import bll.dto.RegistrationInfoDto;
+import bll.dto.maper.RequestDtoMapper;
+import bll.dto.validation.Validator;
 import exeptions.OccupiedLoginException;
-import service.UserService;
+import bll.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 

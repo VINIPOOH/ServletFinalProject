@@ -2,7 +2,7 @@ package controller.comand.action.impl;
 
 import controller.comand.action.MultipleMethodCommand;
 import dal.entity.User;
-import service.BillService;
+import bll.service.BillService;
 
 import javax.servlet.http.HttpServletRequest;
 

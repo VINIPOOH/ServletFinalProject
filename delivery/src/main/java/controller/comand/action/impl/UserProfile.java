@@ -3,7 +3,7 @@ package controller.comand.action.impl;
 import controller.comand.action.MultipleMethodCommand;
 import dal.entity.User;
 import exeptions.NoSuchUserException;
-import service.UserService;
+import bll.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 

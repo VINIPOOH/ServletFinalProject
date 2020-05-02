@@ -1,14 +1,14 @@
 package controller.comand.action.impl;
 
 import controller.comand.action.MultipleMethodCommand;
-import dto.DeliveryOrderCreateDto;
-import dto.maper.RequestDtoMapper;
-import dto.validation.Validator;
+import bll.dto.DeliveryOrderCreateDto;
+import bll.dto.maper.RequestDtoMapper;
+import bll.dto.validation.Validator;
 import dal.entity.User;
 import exeptions.FailCreateDeliveryException;
 import exeptions.UnsupportableWeightFactorException;
-import service.DeliveryProcessService;
-import service.LocalityService;
+import bll.service.DeliveryProcessService;
+import bll.service.LocalityService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;

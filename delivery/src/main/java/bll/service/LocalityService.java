@@ -1,8 +1,8 @@
-package service;
+package bll.service;
 
 
 import dal.dao.impl.LocalityDao;
-import dto.LocaliseLocalityDto;
+import bll.dto.LocaliseLocalityDto;
 
 import java.util.List;
 import java.util.Locale;

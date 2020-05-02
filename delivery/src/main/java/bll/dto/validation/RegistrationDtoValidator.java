@@ -1,7 +1,7 @@
-package dto.validation;
+package bll.dto.validation;
 
 
-import dto.RegistrationInfoDto;
+import bll.dto.RegistrationInfoDto;
 
 public class RegistrationDtoValidator implements Validator<RegistrationInfoDto> {
 

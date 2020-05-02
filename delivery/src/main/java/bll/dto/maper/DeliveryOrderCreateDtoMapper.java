@@ -1,19 +1,17 @@
-package dto.maper;
+package bll.dto.maper;
 
-import controller.filters.LocaleFilter;
-import dto.DeliveryInfoRequestDto;
+import bll.dto.DeliveryOrderCreateDto;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class DeliveryInfoRequestToDtoMapper implements RequestDtoMapper<DeliveryInfoRequestDto> {
+public class DeliveryOrderCreateDtoMapper implements RequestDtoMapper<DeliveryOrderCreateDto> {
     @Override
-    public DeliveryInfoRequestDto mapToDto(HttpServletRequest request) throws NumberFormatException {
-
-            return DeliveryInfoRequestDto.builder()
+    public DeliveryOrderCreateDto mapToDto(HttpServletRequest request) {
+        return DeliveryOrderCreateDto.builder()
                 .deliveryWeight(Integer.parseInt(request.getParameter("deliveryWeight")))
                 .localityGetID(Long.parseLong(request.getParameter("localityGetID")))
                 .localitySandID(Long.parseLong(request.getParameter("localitySandID")))
+                .addresseeEmail(request.getParameter("addresseeEmail"))
                 .build();
-
     }
 }
