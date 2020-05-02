@@ -2,8 +2,8 @@ package bll.service;
 
 
 import dal.dao.UserDao;
-import bll.dto.LoginInfoDto;
-import bll.dto.RegistrationInfoDto;
+import web.dto.LoginInfoDto;
+import web.dto.RegistrationInfoDto;
 import dal.entity.RoleType;
 import dal.entity.User;
 import exeptions.NoSuchUserException;

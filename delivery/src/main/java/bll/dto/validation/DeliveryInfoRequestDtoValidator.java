@@ -1,6 +1,6 @@
 package bll.dto.validation;
 
-import bll.dto.DeliveryInfoRequestDto;
+import web.dto.DeliveryInfoRequestDto;
 
 public class DeliveryInfoRequestDtoValidator implements Validator<DeliveryInfoRequestDto> {
 
