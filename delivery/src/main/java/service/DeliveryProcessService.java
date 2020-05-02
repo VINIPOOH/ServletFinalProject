@@ -4,14 +4,16 @@ package service;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
-import dto.DeliveryCostAndTimeDto;
-import dto.DeliveryInfoRequestDto;
-import dto.DeliveryInfoToGetDto;
-import dto.DeliveryOrderCreateDto;
+import dal.dao.maper.ResultSetToEntityMapper;
+import dto.*;
+import entity.Bill;
+import entity.Delivery;
 import exeptions.AskedDataIsNotExist;
 import exeptions.FailCreateDeliveryException;
 import exeptions.UnsupportableWeightFactorException;
+import service.mapper.EntityToDtoMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -107,35 +109,21 @@ public class DeliveryProcessService {
     }
 
     public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId){
-        return deliveryDao.getDeliveryInfoToGet(userId);
+        List<DeliveryInfoToGetDto> toReturn = new ArrayList<>();
+        EntityToDtoMapper<Delivery, DeliveryInfoToGetDto> mapper = (delivery -> DeliveryInfoToGetDto.builder()
+                .addresserEmail(delivery.getAddresser().getEmail())
+                .deliveryId(delivery.getId())
+                .localitySandName(delivery.getWay().getLocalitySand().getNameEn())
+                .localityGetName(delivery.getWay().getLocalityGet().getNameEn())
+                .build());
+        for (Delivery d: deliveryDao.getDeliveryInfoToGet(userId) ){
+            toReturn.add(mapper.map(d));
+        }
+        return toReturn;
     }
 
     public void ConfirmGetingDelivery(long userId, long deliveryId){
         deliveryDao.confirmGettingDelivery(userId, deliveryId);
     }
-
-    //разобраться с етой транзакцией (как вариант дабл чек)
-//    private Delivery buildDelivery(DeliveryOrderCreateDto deliveryOrderCreateDto, Way way) throws NoSuchUserException, UnsupportableWeightFactorException {
-//        return Delivery.builder()
-//                .addressee(userDao.findByEmail(deliveryOrderCreateDto.getAddresseeEmail()).orElseThrow(NoSuchUserException::new))
-//                .addresser(userDao.findByEmail(deliveryOrderCreateDto.getAddresserEmail()).orElseThrow(NoSuchUserException::new))
-//                .way(way)
-//                .isPackageReceived(false)
-//                .weight(deliveryOrderCreateDto.getDeliveryWeight())
-//                .isDeliveryPaid(false)
-//                .costInCents(calculateDeliveryCost(deliveryOrderCreateDto.getDeliveryWeight(), way))
-//                .build();
-//    }
-//
-
-//
-//    private int calculateDeliveryCost(int deliveryWeight, Way way) throws UnsupportableWeightFactorException {
-//        int overPayOnKilometerForWeight = way.getWayTariffs().stream()
-//                .filter(x -> x.getMinWeightRange() <= deliveryWeight
-//                        && x.getMaxWeightRange() > deliveryWeight)
-//                .findFirst().orElseThrow(UnsupportableWeightFactorException::new)
-//                .getOverPayOnKilometer();
-//        return (overPayOnKilometerForWeight + way.getPriceForKilometerInCents()) * way.getDistanceInKilometres();
-//    }
 
 }

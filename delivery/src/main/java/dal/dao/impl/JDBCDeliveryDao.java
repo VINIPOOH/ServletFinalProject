@@ -3,13 +3,14 @@ package dal.dao.impl;
 import dal.conection.DbConnectionPoolHolder;
 import dal.dao.DeliveryDao;
 import dal.dao.maper.ResultSetToEntityMapper;
-import dto.DeliveryInfoToGetDto;
 import entity.Delivery;
+import entity.Locality;
+import entity.User;
+import entity.Way;
 import exeptions.AskedDataIsNotExist;
 import exeptions.DBRuntimeException;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -33,16 +34,17 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
              PreparedStatement preparedStatement = connection.prepareStatement(
                      resourceBundleRequests.getString(CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID), Statement.RETURN_GENERATED_KEYS)) {
 
-            preparedStatement.setString(1,addreeseeEmail);
-            preparedStatement.setLong(2,addresserId);
+            preparedStatement.setString(1, addreeseeEmail);
+            preparedStatement.setLong(2, addresserId);
             preparedStatement.setLong(3, localitySandID);
             preparedStatement.setLong(4, localityGetID);
             preparedStatement.setInt(5, weight);
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 return resultSet.getLong(1);
-            }throw new AskedDataIsNotExist("ddsd");
+            }
+            throw new AskedDataIsNotExist("ddsd");
         } catch (SQLException e) {
             System.out.println(e);
             throw new RuntimeException();
@@ -50,36 +52,24 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
     }
 
     @Override
-    public List<DeliveryInfoToGetDto> getDeliveryInfoToGet(long userId) {
-        ResultSetToEntityMapper<DeliveryInfoToGetDto> mapper = (resultSet -> {
-            return Optional.of(DeliveryInfoToGetDto.builder()
-            .addresserEmail(resultSet.getString("email"))
-            .deliveryId(resultSet.getLong("id"))
-            .localitySandName(resultSet.getString("locality_sand_name"))
-            .localityGetName(resultSet.getString("locality_get_name"))
-            .build());
-        });
-        try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID))) {
-            preparedStatement.setLong(1, userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<DeliveryInfoToGetDto> result = new ArrayList<>();
-            while (resultSet.next()) {
-                mapper.map(resultSet).ifPresent(result::add);
-            }
-            return result;
-        } catch (SQLException e) {
-            System.out.println(e);
-            throw new DBRuntimeException();
-        }
+    public List<Delivery> getDeliveryInfoToGet(long userId) {
+        ResultSetToEntityMapper<Delivery> mapper = (resultSet -> Optional.of(Delivery.builder()
+                .id(resultSet.getLong("id"))
+                .addresser(User.builder().email(resultSet.getString("email")).build())
+                .way(Way.builder()
+                        .localitySand(Locality.builder().nameEn(resultSet.getString("locality_sand_name")).build())
+                        .localityGet(Locality.builder().nameEn(resultSet.getString("locality_get_name")).build())
+                        .build())
+                .build()));
+        return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID), mapper);
     }
 
-    public void confirmGettingDelivery(long userId,long deliveryId){
+    public void confirmGettingDelivery(long userId, long deliveryId) {
 
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_DELIVERY_RECIWED_STATUSE_TRUE))) {
             preparedStatement.setLong(1, userId);
-            preparedStatement.setLong(2,deliveryId);
+            preparedStatement.setLong(2, deliveryId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
