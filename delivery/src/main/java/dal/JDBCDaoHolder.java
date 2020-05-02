@@ -1,7 +1,7 @@
 package dal;
 
-import dal.conection.DbConnectionPoolHolder;
-import dal.conection.impl.DbConnectorPoolHolderBasicDataSource;
+import dal.dao.conection.DbConnectionPoolHolder;
+import dal.dao.conection.impl.DbConnectorPoolHolderBasicDataSource;
 import dal.dao.*;
 import dal.dao.impl.*;
 import dal.dao.maper.ResultSetToEntityMapper;

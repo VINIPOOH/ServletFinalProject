@@ -1,4 +1,4 @@
-package web.dto.validation;
+package web.dto.validaor;
 
 @FunctionalInterface
 public interface Validator<T> {

@@ -1,4 +1,4 @@
-package dal.conection;
+package dal.dao.conection;
 
 import java.sql.Connection;
 

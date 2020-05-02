@@ -1,4 +1,4 @@
-package web.dto.validation;
+package web.dto.validaor;
 
 import web.dto.DeliveryOrderCreateDto;
 

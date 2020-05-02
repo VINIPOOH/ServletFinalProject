@@ -1,6 +1,6 @@
-package dal.conection.impl;
+package dal.dao.conection.impl;
 
-import dal.conection.DbConnectionPoolHolder;
+import dal.dao.conection.DbConnectionPoolHolder;
 import exeptions.DBRuntimeException;
 import org.apache.commons.dbcp.BasicDataSource;
 
@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static dal.conection.DbConnectionConstants.*;
+import static dal.dao.conection.DbConnectionConstants.*;
 
 public class DbConnectorPoolHolderBasicDataSource implements DbConnectionPoolHolder {
 

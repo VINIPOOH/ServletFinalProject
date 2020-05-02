@@ -1,6 +1,6 @@
 package dal.dao.impl;
 
-import dal.conection.DbConnectionPoolHolder;
+import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.WayDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;

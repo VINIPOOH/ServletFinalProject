@@ -1,6 +1,6 @@
 package dal.dao.impl;
 
-import dal.conection.DbConnectionPoolHolder;
+import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import bll.dto.LocaliseLocalityDto;
 import exeptions.DBRuntimeException;
