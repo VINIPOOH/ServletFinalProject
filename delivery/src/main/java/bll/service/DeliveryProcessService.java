@@ -5,11 +5,12 @@ import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
 import bll.dto.*;
+import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Delivery;
 import exeptions.AskedDataIsNotExist;
 import exeptions.FailCreateDeliveryException;
 import exeptions.UnsupportableWeightFactorException;
-import bll.service.mapper.EntityToDtoMapper;
+import bll.service.mapper.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,9 +85,14 @@ public class DeliveryProcessService {
 //                getWay(deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID())));
 //    }
 
-    public Optional<DeliveryCostAndTimeDto> getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) {
-        return wayDao.findByLocalitySand_IdAndLocalityGet_Id(deliveryInfoRequestDto.getLocalitySandID()
-                ,deliveryInfoRequestDto.getLocalityGetID(),deliveryInfoRequestDto.getDeliveryWeight());
+    public PriceAndTimeOnDeliveryDto getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) throws AskedDataIsNotExist {
+        Mapper<DeliveryCostAndTimeDto, PriceAndTimeOnDeliveryDto> mapper = (deliveryCostAndTime)-> PriceAndTimeOnDeliveryDto.builder()
+        .costInCents(deliveryCostAndTime.getCostInCents())
+                .timeOnWayInHours(deliveryCostAndTime.getTimeOnWayInHours())
+                .build();
+
+        return mapper.map(wayDao.findByLocalitySand_IdAndLocalityGet_Id(deliveryInfoRequestDto.getLocalitySandID()
+                ,deliveryInfoRequestDto.getLocalityGetID(),deliveryInfoRequestDto.getDeliveryWeight()).orElseThrow(AskedDataIsNotExist::new));
     }
 
     public boolean initializeDelivery(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
@@ -108,7 +114,7 @@ public class DeliveryProcessService {
 
     public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId){
         List<DeliveryInfoToGetDto> toReturn = new ArrayList<>();
-        EntityToDtoMapper<Delivery, DeliveryInfoToGetDto> mapper = (delivery -> DeliveryInfoToGetDto.builder()
+        Mapper<Delivery, DeliveryInfoToGetDto> mapper = (delivery -> DeliveryInfoToGetDto.builder()
                 .addresserEmail(delivery.getAddresser().getEmail())
                 .deliveryId(delivery.getId())
                 .localitySandName(delivery.getWay().getLocalitySand().getNameEn())

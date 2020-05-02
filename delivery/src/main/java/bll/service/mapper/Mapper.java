@@ -2,6 +2,6 @@ package bll.service.mapper;
 
 import dal.entity.Entity;
 @FunctionalInterface
-public interface EntityToDtoMapper<E extends Entity, Dto> {
+public interface Mapper<E, Dto> {
     Dto map(E entity);
 }

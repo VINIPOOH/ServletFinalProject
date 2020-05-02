@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class DeliveryCostAndTimeDto {
+public class PriceAndTimeOnDeliveryDto {
     private long costInCents;
     private int timeOnWayInHours;
 }

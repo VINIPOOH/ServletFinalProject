@@ -1,12 +1,13 @@
 package controller.comand.action.impl;
 
 import controller.comand.action.MultipleMethodCommand;
-import bll.dto.DeliveryCostAndTimeDto;
+import bll.dto.PriceAndTimeOnDeliveryDto;
 import bll.dto.DeliveryInfoRequestDto;
 import bll.dto.maper.RequestDtoMapper;
 import bll.dto.validation.Validator;
 import bll.service.DeliveryProcessService;
 import bll.service.LocalityService;
+import exeptions.AskedDataIsNotExist;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
@@ -54,12 +55,14 @@ public class Counter extends MultipleMethodCommand {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
         }
-        Optional<DeliveryCostAndTimeDto> deliveryCostAndTimeDto = deliveryProcessService.getDeliveryCostAndTimeDto(deliveryInfoRequestDto);
-        if (deliveryCostAndTimeDto.isPresent()) {
-            request.setAttribute("CostAndTimeDto", deliveryCostAndTimeDto.get());
+        PriceAndTimeOnDeliveryDto deliveryCostAndTimeDto = null;
+        try {
+            deliveryCostAndTimeDto = deliveryProcessService.getDeliveryCostAndTimeDto(deliveryInfoRequestDto);
+            request.setAttribute("CostAndTimeDto", deliveryCostAndTimeDto);
             return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
+        } catch (AskedDataIsNotExist askedDataIsNotExist) {
+            request.setAttribute("IsNotExistSuchWayOrWeightForThisWay", true);
         }
-        request.setAttribute("IsNotExistSuchWayOrWeightForThisWay", true);
         return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
     }
 }

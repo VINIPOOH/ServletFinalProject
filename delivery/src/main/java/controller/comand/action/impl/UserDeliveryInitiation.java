@@ -63,7 +63,7 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
         } catch (FailCreateDeliveryException e) {
             e.printStackTrace();
         }
-//        Optional<DeliveryCostAndTimeDto> deliveryCostAndTimeDto = deliveryProcessService.getDeliveryCostAndTimeDto(deliveryOrderCreateDto);
+//        Optional<PriceAndTimeOnDeliveryDto> deliveryCostAndTimeDto = deliveryProcessService.getDeliveryCostAndTimeDto(deliveryOrderCreateDto);
 //        if (deliveryCostAndTimeDto.isPresent()) {
 //            request.setAttribute("CostAndTimeDto", deliveryCostAndTimeDto.get());
 //            return MAIN_WEB_FOLDER + USER_FOLDER +USER_DELIVERY_INITIATION_FILE_NAME;
