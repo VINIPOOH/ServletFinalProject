@@ -1,13 +1,10 @@
 package controller.comand.action.impl;
 
 import controller.comand.action.MultipleMethodCommand;
-import dto.BillDto;
-import entity.User;
+import dal.entity.User;
 import service.BillService;
 
 import javax.servlet.http.HttpServletRequest;
-
-import java.util.List;
 
 import static controller.constants.AttributeConstants.SESSION_USER;
 import static controller.constants.PageConstance.*;

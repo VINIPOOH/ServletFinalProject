@@ -24,13 +24,13 @@ public abstract class JDBCAbstractGenericDao<E>{
         this.resourceBundleRequests = resourceBundleRequests;
         this.connector = connector;
     }
-//    public E save(E entity) throws SQLException {
+//    public E save(E dal.entity) throws SQLException {
 //        try (Connection connection = connector.getConnection();
 //             PreparedStatement preparedStatement = connection.prepareStatement(saveQuery)) {
 //
-//            entityToPreparedStatmentMapper.insertStatementMapper(entity, preparedStatement);
+//            entityToPreparedStatmentMapper.insertStatementMapper(dal.entity, preparedStatement);
 //            if (preparedStatement.executeUpdate() != 0) {
-//                return entity;
+//                return dal.entity;
 //            } else {
 //                throw new SQLException();
 //            }
@@ -93,11 +93,11 @@ public abstract class JDBCAbstractGenericDao<E>{
 
 
 //    @Override
-//    public boolean update(E entity) {
+//    public boolean update(E dal.entity) {
 //        try (Connection connection = connector.getConnection();
 //             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 //
-//            entityToPreparedStatmentMapper.updateStatementMapper(entity, preparedStatement);
+//            entityToPreparedStatmentMapper.updateStatementMapper(dal.entity, preparedStatement);
 //            return preparedStatement.executeUpdate() == 1;
 //        } catch (SQLException e) {
 //            throw new DBRuntimeException();

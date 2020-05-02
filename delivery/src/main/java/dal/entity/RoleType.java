@@ -1,4 +1,4 @@
-package entity;
+package dal.entity;
 
 
 public enum RoleType {

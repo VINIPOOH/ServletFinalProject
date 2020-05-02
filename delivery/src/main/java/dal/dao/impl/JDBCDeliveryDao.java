@@ -3,10 +3,10 @@ package dal.dao.impl;
 import dal.conection.DbConnectionPoolHolder;
 import dal.dao.DeliveryDao;
 import dal.dao.maper.ResultSetToEntityMapper;
-import entity.Delivery;
-import entity.Locality;
-import entity.User;
-import entity.Way;
+import dal.entity.Delivery;
+import dal.entity.Locality;
+import dal.entity.User;
+import dal.entity.Way;
 import exeptions.AskedDataIsNotExist;
 import exeptions.DBRuntimeException;
 

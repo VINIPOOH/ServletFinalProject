@@ -14,7 +14,7 @@ public interface GenericDao<E, ID> {
 //
     List<E> findAll();
 //
-//    boolean update(E entity);
+//    boolean update(E dal.entity);
 //
 //    boolean deleteById(ID id);
 }

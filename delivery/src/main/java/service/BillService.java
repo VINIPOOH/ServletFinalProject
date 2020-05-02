@@ -4,7 +4,7 @@ import dal.dao.BillDao;
 import dal.dao.UserDao;
 import dto.BillDto;
 import dto.BillInfoToPayDto;
-import entity.Bill;
+import dal.entity.Bill;
 import exeptions.AskedDataIsNotExist;
 import exeptions.DBRuntimeException;
 import service.mapper.EntityToDtoMapper;

@@ -1,7 +1,7 @@
 package dal.dao.maper;
 
-import entity.RoleType;
-import entity.User;
+import dal.entity.RoleType;
+import dal.entity.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

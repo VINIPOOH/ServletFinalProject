@@ -1,13 +1,12 @@
 package dal;
 
-import dal.DaoFactory;
 import dal.conection.DbConnectionPoolHolder;
 import dal.conection.impl.DbConnectorPoolHolderBasicDataSource;
 import dal.dao.*;
 import dal.dao.impl.*;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dao.maper.UserResultToEntityMapper;
-import entity.User;
+import dal.entity.User;
 
 import java.util.ResourceBundle;
 

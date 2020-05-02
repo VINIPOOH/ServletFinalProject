@@ -1,22 +1,12 @@
 package controller.comand.action.impl;
 
 import controller.comand.action.MultipleMethodCommand;
-import dto.DeliveryOrderCreateDto;
-import dto.maper.RequestDtoMapper;
-import dto.validation.Validator;
-import entity.User;
-import exeptions.FailCreateDeliveryException;
-import exeptions.UnsupportableWeightFactorException;
+import dal.entity.User;
 import service.BillService;
-import service.DeliveryProcessService;
-import service.LocalityService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Locale;
 
-import static controller.constants.AttributeConstants.SESSION_LANG;
 import static controller.constants.AttributeConstants.SESSION_USER;
-import static controller.constants.ExceptionInfoForJspConstants.INPUT_HAS_ERRORS;
 import static controller.constants.PageConstance.*;
 
 public class UserDeliveryConfirm extends MultipleMethodCommand {

@@ -1,6 +1,6 @@
 package dal.dao;
 
-import entity.Bill;
+import dal.entity.Bill;
 import exeptions.AskedDataIsNotExist;
 
 import java.util.List;

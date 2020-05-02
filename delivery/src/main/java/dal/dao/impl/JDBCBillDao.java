@@ -3,8 +3,7 @@ package dal.dao.impl;
 import dal.conection.DbConnectionPoolHolder;
 import dal.dao.BillDao;
 import dal.dao.maper.ResultSetToEntityMapper;
-import dto.BillInfoToPayDto;
-import entity.*;
+import dal.entity.*;
 import exeptions.AskedDataIsNotExist;
 import exeptions.DBRuntimeException;
 
@@ -12,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;

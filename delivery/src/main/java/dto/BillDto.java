@@ -1,6 +1,5 @@
 package dto;
 
-import entity.Delivery;
 import lombok.Builder;
 import lombok.Data;
 

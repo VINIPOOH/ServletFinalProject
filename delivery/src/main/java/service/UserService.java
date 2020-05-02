@@ -4,8 +4,8 @@ package service;
 import dal.dao.UserDao;
 import dto.LoginInfoDto;
 import dto.RegistrationInfoDto;
-import entity.RoleType;
-import entity.User;
+import dal.entity.RoleType;
+import dal.entity.User;
 import exeptions.NoSuchUserException;
 import exeptions.OccupiedLoginException;
 

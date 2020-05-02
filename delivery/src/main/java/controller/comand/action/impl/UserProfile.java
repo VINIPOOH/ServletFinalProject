@@ -1,7 +1,7 @@
 package controller.comand.action.impl;
 
 import controller.comand.action.MultipleMethodCommand;
-import entity.User;
+import dal.entity.User;
 import exeptions.NoSuchUserException;
 import service.UserService;
 

@@ -1,7 +1,7 @@
 package controller.filters;
 
-import entity.RoleType;
-import entity.User;
+import dal.entity.RoleType;
+import dal.entity.User;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

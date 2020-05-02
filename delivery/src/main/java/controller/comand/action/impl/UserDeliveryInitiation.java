@@ -4,7 +4,7 @@ import controller.comand.action.MultipleMethodCommand;
 import dto.DeliveryOrderCreateDto;
 import dto.maper.RequestDtoMapper;
 import dto.validation.Validator;
-import entity.User;
+import dal.entity.User;
 import exeptions.FailCreateDeliveryException;
 import exeptions.UnsupportableWeightFactorException;
 import service.DeliveryProcessService;

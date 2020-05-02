@@ -1,6 +1,6 @@
 package dal.dao;
 
-import entity.User;
+import dal.entity.User;
 import exeptions.NoSuchUserException;
 
 import java.util.Optional;

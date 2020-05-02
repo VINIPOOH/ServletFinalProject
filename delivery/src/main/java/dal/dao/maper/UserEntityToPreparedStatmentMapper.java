@@ -1,6 +1,6 @@
 package dal.dao.maper;
 
-import entity.User;
+import dal.entity.User;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

@@ -3,7 +3,7 @@ package dal.dao.impl;
 import dal.conection.DbConnectionPoolHolder;
 import dal.dao.UserDao;
 import dal.dao.maper.ResultSetToEntityMapper;
-import entity.User;
+import dal.entity.User;
 import exeptions.DBRuntimeException;
 import exeptions.NoSuchUserException;
 
