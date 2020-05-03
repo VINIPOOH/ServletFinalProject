@@ -14,8 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandHolder {
-    private static final String DB_PROPERTY_FILE = "database";
-    private static final String DB_REQUEST_FILE = "db-request";
 
 
     private static final Validator<LoginInfoDto> LOGIN_INFO_DTO_VALIDATOR = new LoginDtoValidator();
