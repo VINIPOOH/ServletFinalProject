@@ -3,7 +3,7 @@ package web.comand.action.impl;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.RegistrationInfoDto;
 import web.dto.maper.RequestDtoMapper;
-import bll.dto.validation.Validator;
+import web.dto.validation.Validator;
 import exeptions.OccupiedLoginException;
 import bll.service.UserService;
 

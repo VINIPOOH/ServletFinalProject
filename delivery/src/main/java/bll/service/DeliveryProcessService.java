@@ -10,7 +10,7 @@ import dal.entity.Delivery;
 import exeptions.AskedDataIsNotExist;
 import exeptions.FailCreateDeliveryException;
 import exeptions.UnsupportableWeightFactorException;
-import bll.service.mapper.Mapper;
+import bll.dto.mapper.Mapper;
 import web.dto.DeliveryInfoRequestDto;
 import web.dto.DeliveryOrderCreateDto;
 

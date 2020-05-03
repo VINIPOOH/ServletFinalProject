@@ -1,7 +1,7 @@
 package web.comand.factory;
 
 import web.dto.RegistrationInfoDto;
-import bll.dto.validation.RegistrationDtoValidator;
+import web.dto.validation.RegistrationDtoValidator;
 
 public class Main {
     public static void main(String[] dd) {

@@ -3,7 +3,7 @@ package web.comand.action.impl;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.DeliveryOrderCreateDto;
 import web.dto.maper.RequestDtoMapper;
-import bll.dto.validation.Validator;
+import web.dto.validation.Validator;
 import dal.entity.User;
 import exeptions.FailCreateDeliveryException;
 import exeptions.UnsupportableWeightFactorException;

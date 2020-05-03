@@ -13,7 +13,7 @@ import web.dto.DeliveryOrderCreateDto;
 import web.dto.LoginInfoDto;
 import web.dto.RegistrationInfoDto;
 import web.dto.maper.*;
-import bll.dto.validation.*;
+import web.dto.validation.*;
 import bll.service.*;
 
 import java.util.HashMap;

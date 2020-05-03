@@ -7,7 +7,7 @@ import bll.dto.BillInfoToPayDto;
 import dal.entity.Bill;
 import exeptions.AskedDataIsNotExist;
 import exeptions.DBRuntimeException;
-import bll.service.mapper.Mapper;
+import bll.dto.mapper.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;

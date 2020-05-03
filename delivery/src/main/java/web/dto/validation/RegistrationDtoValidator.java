@@ -1,4 +1,4 @@
-package bll.dto.validation;
+package web.dto.validation;
 
 
 import web.dto.RegistrationInfoDto;

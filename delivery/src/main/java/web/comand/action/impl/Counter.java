@@ -4,7 +4,7 @@ import web.comand.action.MultipleMethodCommand;
 import bll.dto.PriceAndTimeOnDeliveryDto;
 import web.dto.DeliveryInfoRequestDto;
 import web.dto.maper.RequestDtoMapper;
-import bll.dto.validation.Validator;
+import web.dto.validation.Validator;
 import bll.service.DeliveryProcessService;
 import bll.service.LocalityService;
 import exeptions.AskedDataIsNotExist;
