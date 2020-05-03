@@ -43,16 +43,7 @@ public class BillServiceImpl implements bll.service.BillService {
     @Override
     public void payForDelivery(long userId, long billId) {
 
-        long billPrise;
-        try {
-            billPrise = billDao.getBillCostIfItIsNotPaid(billId, userId);
-        } catch (AskedDataIsNotExist askedDataIsNotExist) {
-            askedDataIsNotExist.printStackTrace();
-            throw new DBRuntimeException();
-        }
-        if (userDao.replenishUserBalenceOnSumeIfItPosible(userId, billPrise)) {
-            billDao.murkBillAsPayed(billId);
-        }
+        billDao.payBill(userId,billId);
 
     }
 

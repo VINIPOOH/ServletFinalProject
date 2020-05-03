@@ -12,7 +12,7 @@ public interface BillDao {
 
     long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotExist;
 
-    boolean murkBillAsPayed(long billId);
+    public boolean payBill(long userId, long billId);
 
     List<Bill> getHistoricBailsByUserId(long userId);
 }

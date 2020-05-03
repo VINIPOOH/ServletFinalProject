@@ -26,6 +26,9 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             "bill.set.is.paid.true";
     private final String BILLS_HISTORY_BY_USER_ID =
             "bill.history.by.user.id";
+    private final String GET_USER_BALANCE_IF_ENOGFE_MONEY =
+            "user.get.user.bulance.if.enought.money";
+
 
     public JDBCBillDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector) {
         super(resourceBundleRequests, connector);
@@ -82,17 +85,6 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
         }
     }
 
-    @Override
-    public boolean murkBillAsPayed(long billId) {
-        try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_BILL_IS_PAID_TRUE))) {
-            preparedStatement.setLong(1, billId);
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.out.println(e);
-            throw new DBRuntimeException();
-        }
-    }
 
     @Override
     public List<Bill> getHistoricBailsByUserId(long userId) {
@@ -104,5 +96,64 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
                 .dateOfPay(resultSet.getTimestamp("date_of_pay").toLocalDateTime().toLocalDate())
                 .build());
         return findAllByLongParam(userId, resourceBundleRequests.getString(BILLS_HISTORY_BY_USER_ID), mapper);
+    }
+
+    public boolean payBill(long userId, long billId) {
+        try (Connection connection = connector.getConnection()) {
+            connection.setAutoCommit(false);
+            long billPrise = 0;
+            try {
+                billPrise = getBillPrice(userId, billId, connection);
+            } catch (AskedDataIsNotExist askedDataIsNotExist) {
+                connection.rollback();
+                return false;
+            }
+            boolean a = replenishUserBalenceOnSumeIfItPosible(userId, billPrise, connection);
+            if (a) {
+                boolean b= murkBillAsPayed(billId, connection);
+                if (b) {
+                    connection.commit();
+                    return true;
+                }
+            }
+            connection.rollback();
+            return false;
+        } catch (SQLException e) {
+
+            return false;
+        }
+    }
+
+    private long getBillPrice(long userId, long billId, Connection connection) throws SQLException, AskedDataIsNotExist {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
+            {
+                preparedStatement.setLong(1, billId);
+                preparedStatement.setLong(2, userId);
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        return resultSet.getLong(1);
+                    }
+                }
+                throw new AskedDataIsNotExist();
+            }
+        }
+    }
+
+    private boolean replenishUserBalenceOnSumeIfItPosible(long userId, long sumWhichUserNeed, Connection connection) throws SQLException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_USER_BALANCE_IF_ENOGFE_MONEY))) {
+            preparedStatement.setLong(1, sumWhichUserNeed);
+            preparedStatement.setLong(2, userId);
+            preparedStatement.setLong(3, sumWhichUserNeed);
+            return preparedStatement.executeUpdate() > 0;
+        }
+
+    }
+
+    private boolean murkBillAsPayed(long billId, Connection connection) throws SQLException {
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_BILL_IS_PAID_TRUE))) {
+            preparedStatement.setLong(1, billId);
+            return preparedStatement.executeUpdate() > 0;
+        }
     }
 }

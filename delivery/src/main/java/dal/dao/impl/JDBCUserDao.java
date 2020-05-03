@@ -22,7 +22,6 @@ import static dal.dao.UserDaoConstants.USER_REPLENISH_BALANCE;
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {
 
     private final String USER_SAVE = "user.save";
-    private final String GET_USER_BALANCE_IF_ENOGFE_MONEY = "user.get.user.bulance.if.enought.money";
 
     private final ResultSetToEntityMapper<User> mapResultSetToEntity;
 
@@ -60,19 +59,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
         }
     }
 
-    @Override
-    public boolean replenishUserBalenceOnSumeIfItPosible(long userId, long sumWhichUserNeed) {
-        try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_USER_BALANCE_IF_ENOGFE_MONEY))) {
-            preparedStatement.setLong(1, sumWhichUserNeed);
-            preparedStatement.setLong(2, userId);
-            preparedStatement.setLong(3, sumWhichUserNeed);
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.out.println(e);
-            throw new DBRuntimeException();
-        }
-    }
+
 
     @Override
     public boolean save(User entity) throws SQLException {
