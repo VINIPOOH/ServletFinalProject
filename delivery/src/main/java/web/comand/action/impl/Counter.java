@@ -5,8 +5,8 @@ import bll.dto.PriceAndTimeOnDeliveryDto;
 import web.dto.DeliveryInfoRequestDto;
 import web.dto.maper.RequestDtoMapper;
 import web.dto.validation.Validator;
-import bll.service.DeliveryProcessService;
-import bll.service.LocalityService;
+import bll.service.impl.DeliveryProcessService;
+import bll.service.impl.LocalityService;
 import exeptions.AskedDataIsNotExist;
 
 import javax.servlet.http.HttpServletRequest;

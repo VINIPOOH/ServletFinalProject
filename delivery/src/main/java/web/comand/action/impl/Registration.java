@@ -5,7 +5,7 @@ import web.dto.RegistrationInfoDto;
 import web.dto.maper.RequestDtoMapper;
 import web.dto.validation.Validator;
 import exeptions.OccupiedLoginException;
-import bll.service.UserService;
+import bll.service.impl.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 

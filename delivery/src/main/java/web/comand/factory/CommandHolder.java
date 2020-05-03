@@ -1,5 +1,8 @@
 package web.comand.factory;
 
+import bll.service.ServicesSingleton;
+import bll.service.impl.*;
+import bll.service.impl.BillService;
 import web.comand.action.ActionCommand;
 import web.comand.action.impl.*;
 import dal.dao.BillDao;
@@ -14,7 +17,6 @@ import web.dto.LoginInfoDto;
 import web.dto.RegistrationInfoDto;
 import web.dto.maper.*;
 import web.dto.validation.*;
-import bll.service.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,17 +36,10 @@ public class CommandHolder {
     private static final RequestDtoMapper<DeliveryInfoRequestDto> DELIVERY_INFO_REQUEST_DTO_REQUEST_DTO_MAPPER = new DeliveryInfoRequestToDtoMapper();
     private static final RequestDtoMapper<DeliveryOrderCreateDto> DELIVERY_ORDER_CREATE_DTO_REQUEST_DTO_MAPPER = new DeliveryOrderCreateDtoMapper();
 
-    private static final UserDao USER_DAO = JDBCDaoHolder.getUserDao();
-    private static final LocalityDao LOCALITY_DAO = JDBCDaoHolder.getLocalityDao();
-    private static final WayDao WAY_DAO = JDBCDaoHolder.getWayDao();
-    private static final DeliveryDao DELIVERY_DAO = JDBCDaoHolder.getDeliveryDao();
-    private static final BillDao BILL_DAO = JDBCDaoHolder.getBillDao();
-
-    private static final PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderService();
-    private static final UserService USER_SERVICE = new UserService(PASSWORD_ENCODER_SERVICE, USER_DAO);
-    private static final LocalityService LOCALITY_SERVICE = new LocalityService(LOCALITY_DAO);
-    private static final DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessService(WAY_DAO, DELIVERY_DAO, BILL_DAO);
-    private static final BillService BILL_SERVICE = new BillService(BILL_DAO, USER_DAO);
+    private static final UserService USER_SERVICE = ServicesSingleton.getUserService();
+    private static final LocalityService LOCALITY_SERVICE = ServicesSingleton.getLocalityService();
+    private static final DeliveryProcessService DELIVERY_PROCESS_SERVICE = ServicesSingleton.getDeliveryProcessService();
+    private static final BillService BILL_SERVICE = ServicesSingleton.getBillService();
 
     private static final ActionCommand LOGIN = new Login(LOGIN_INFO_DTO_VALIDATOR, LOGIN_INFO_DTO_REQUEST_DTO_MAPPER, USER_SERVICE);
     private static final ActionCommand LOGOUT = new LogOut();

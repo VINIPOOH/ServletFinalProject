@@ -1,23 +1,10 @@
 package bll.service;
 
-
-import dal.dao.impl.LocalityDao;
 import bll.dto.LocaliseLocalityDto;
 
 import java.util.List;
 import java.util.Locale;
 
-public class LocalityService {
-
-    private final LocalityDao localityDao;
-
-    public LocalityService(LocalityDao localityDao) {
-        this.localityDao = localityDao;
-    }
-
-    public List<LocaliseLocalityDto> getLocaliseLocalities(Locale locale){
-            return localityDao.findAllLocaliseLocalitiesWithoutConnection(locale);
-    }
-
-
+public interface LocalityService {
+    List<LocaliseLocalityDto> getLocaliseLocalities(Locale locale);
 }
