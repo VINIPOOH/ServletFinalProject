@@ -1,6 +1,7 @@
 package bll.service;
 
 
+import bll.dto.mapper.Mapper;
 import dal.dao.UserDao;
 import web.dto.LoginInfoDto;
 import web.dto.RegistrationInfoDto;
@@ -34,7 +35,7 @@ public class UserService {
 
 
     public void addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException {
-        User user = getMapper().mapToEntity(registrationInfoDto);
+        User user = getMapper().map(registrationInfoDto);
         try {
             userDao.save(user);
         } catch (SQLException e) {
@@ -47,7 +48,7 @@ public class UserService {
         userDao.replenishUserBalance(userId, amountMoney);
     }
 
-    private EntityMapper<User, RegistrationInfoDto> getMapper() {
+    private Mapper<RegistrationInfoDto, User> getMapper() {
         return (registration) -> User.builder()
                 .accountNonExpired(true)
                 .credentialsNonExpired(true)
