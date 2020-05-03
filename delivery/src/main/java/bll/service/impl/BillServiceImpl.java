@@ -12,12 +12,12 @@ import exeptions.AskedDataIsNotExist;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillService implements bll.service.BillService {
+public class BillServiceImpl implements bll.service.BillService {
 
     private final BillDao billDao;
     private final UserDao userDao;
 
-    public BillService(BillDao billDao, UserDao userDao) {
+    public BillServiceImpl(BillDao billDao, UserDao userDao) {
         this.billDao = billDao;
         this.userDao = userDao;
     }
@@ -25,13 +25,13 @@ public class BillService implements bll.service.BillService {
     @Override
     public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId) {
         List<BillInfoToPayDto> toReturn = new ArrayList<>();
-        Mapper<Bill, BillInfoToPayDto> mapper = (bill) -> BillInfoToPayDto.builder()
+        Mapper<Bill, BillInfoToPayDto> mapper = bill -> BillInfoToPayDto.builder()
                 .weight(bill.getDelivery().getWeight())
                 .price(bill.getCostInCents())
                 .localitySandName(bill.getDelivery().getWay().getLocalitySand().getNameEn())
                 .localityGetName(bill.getDelivery().getWay().getLocalityGet().getNameEn())
-                .delivery_id(bill.getDelivery().getId())
-                .bill_id(bill.getId())
+                .deliveryId(bill.getDelivery().getId())
+                .billId(bill.getId())
                 .addreeserEmail(bill.getDelivery().getAddresser().getEmail())
                 .build();
         for (Bill b : billDao.getInfoToPayBillByUserId(userId)) {
@@ -59,7 +59,7 @@ public class BillService implements bll.service.BillService {
     @Override
     public List<BillDto> getBillHistoryByUserId(long userId) {
         List<BillDto> toReturn = new ArrayList<>();
-        Mapper<Bill, BillDto> mapper = (bill) -> BillDto.builder()
+        Mapper<Bill, BillDto> mapper = bill -> BillDto.builder()
                 .id(bill.getId())
                 .deliveryId(bill.getDelivery().getId())
                 .isDeliveryPaid(bill.getIsDeliveryPaid())

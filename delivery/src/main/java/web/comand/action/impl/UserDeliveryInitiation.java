@@ -34,7 +34,6 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
     @Override
     protected String performGet(HttpServletRequest request) {
         Locale o = (Locale) request.getSession().getAttribute(SESSION_LANG);
-        String str = ((Locale) request.getSession().getAttribute(SESSION_LANG)).getLanguage();
         request.setAttribute("localityList", localityService.getLocaliseLocalities(o));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
     }
@@ -44,7 +43,7 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         DeliveryOrderCreateDto deliveryOrderCreateDto;
         try {
-             deliveryOrderCreateDto = getDeliveryOrderCreateDtoRequestDtoMapper(request).mapToDto(request);
+            deliveryOrderCreateDto = getDeliveryOrderCreateDtoRequestDtoMapper(request).mapToDto(request);
         } catch (NumberFormatException ex) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
@@ -62,12 +61,7 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
         } catch (FailCreateDeliveryException e) {
             e.printStackTrace();
         }
-//        Optional<PriceAndTimeOnDeliveryDto> deliveryCostAndTimeDto = deliveryProcessService.getDeliveryCostAndTimeDto(deliveryOrderCreateDto);
-//        if (deliveryCostAndTimeDto.isPresent()) {
-//            request.setAttribute("CostAndTimeDto", deliveryCostAndTimeDto.get());
-//            return MAIN_WEB_FOLDER + USER_FOLDER +USER_DELIVERY_INITIATION_FILE_NAME;
-//        }
-//        request.setAttribute("IsNotExistSuchWayOrWeightForThisWay", true);
+
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
     }
 

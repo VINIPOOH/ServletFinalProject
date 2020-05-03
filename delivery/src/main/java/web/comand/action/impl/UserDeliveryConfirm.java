@@ -25,7 +25,6 @@ public class UserDeliveryConfirm extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        long o = Long.parseLong(request.getParameter("Id"));
         billService.payForDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter("Id")));
         request.setAttribute("BillInfoToPay", billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId()));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME;

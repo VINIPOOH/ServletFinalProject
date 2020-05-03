@@ -30,7 +30,6 @@ public class Counter extends MultipleMethodCommand {
     @Override
     protected String performGet(HttpServletRequest request) {
         Locale o = (Locale) request.getSession().getAttribute(SESSION_LANG);
-        String str = ((Locale) request.getSession().getAttribute(SESSION_LANG)).getLanguage();
         request.setAttribute("localityList", localityService.getLocaliseLocalities(o));
         return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
     }

@@ -14,6 +14,7 @@ public class Delivery extends Entity {
     private Boolean isDeliveryPaid;
     private int weight;
     private long costInCents;
+
     public Delivery(Long id, LocalDate arrivalDate, Way way, User addressee, User addresser, Boolean isPackageReceived, Boolean isDeliveryPaid, int weight, long costInCents) {
         super(id);
 

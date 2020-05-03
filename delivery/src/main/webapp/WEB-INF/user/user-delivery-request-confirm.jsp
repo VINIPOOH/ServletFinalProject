@@ -31,7 +31,7 @@
         <div class="card-body col-md-2">
             <form class="form" method="post" action="${pageContext.request.contextPath}/user/user-delivery-request-confirm">
                 <div class="form-group">
-                <input  id="Id" name="Id" value="${billToPay.bill_id}" type="hidden">
+                <input  id="Id" name="Id" value="${billToPay.billId}" type="hidden">
                 <button class="btn btn-success" type="submit"><fmt:message key="user_statisticpage.button.confirm.receipt.delivery"/></button>
                 </div>
             </form>

@@ -17,7 +17,7 @@ import static dal.dao.UserDaoConstants.PATH_TO_PROPERTY_FILE;
 
 public class JDBCDaoSingleton {
     private static DbConnectionPoolHolder dbConnectorPoolHolder = DbConnectorPoolHolderBasicDataSource.getDbConnectionPoolHolder();
-    //    private static UserEntityToPreparedStatmentMapper userMapper = new UserEntityToPreparedStatmentMapper();
+
     private static ResourceBundle requestsBundle = ResourceBundle.getBundle(PATH_TO_PROPERTY_FILE);
 
     private static ResultSetToEntityMapper<User> userResultSetToEntityMapper = new UserResultToEntityMapper();
@@ -27,6 +27,9 @@ public class JDBCDaoSingleton {
     private static WayDao wayDao = new JDBCWayDao(requestsBundle, dbConnectorPoolHolder);
     private static DeliveryDao deliveryDao = new JDBCDeliveryDao(requestsBundle, dbConnectorPoolHolder);
     private static BillDao billDao = new JDBCBillDao(requestsBundle, dbConnectorPoolHolder);
+
+    private JDBCDaoSingleton() {
+    }
 
     public static UserDao getUserDao() {
         return userDao;

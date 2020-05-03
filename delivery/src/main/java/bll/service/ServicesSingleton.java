@@ -1,10 +1,10 @@
 package bll.service;
 
-import bll.service.impl.BillService;
-import bll.service.impl.DeliveryProcessService;
-import bll.service.impl.LocalityService;
-import bll.service.impl.PasswordEncoderService;
-import bll.service.impl.UserService;
+import bll.service.impl.BillServiceImpl;
+import bll.service.impl.DeliveryProcessServiceImpl;
+import bll.service.impl.LocalityServiceImpl;
+import bll.service.impl.PasswordEncoderServiceImpl;
+import bll.service.impl.UserServiceImpl;
 import dal.JDBCDaoSingleton;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
@@ -21,11 +21,14 @@ public class ServicesSingleton {
     private static final BillDao BILL_DAO = JDBCDaoSingleton.getBillDao();
 
 
-    private static final bll.service.PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderService();
-    private static final bll.service.UserService USER_SERVICE = new UserService(PASSWORD_ENCODER_SERVICE, USER_DAO);
-    private static final bll.service.LocalityService LOCALITY_SERVICE = new LocalityService(LOCALITY_DAO);
-    private static final bll.service.DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessService(WAY_DAO, DELIVERY_DAO, BILL_DAO);
-    private static final bll.service.BillService BILL_SERVICE = new BillService(BILL_DAO, USER_DAO);
+    private static final bll.service.PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderServiceImpl();
+    private static final bll.service.UserService USER_SERVICE = new UserServiceImpl(PASSWORD_ENCODER_SERVICE, USER_DAO);
+    private static final bll.service.LocalityService LOCALITY_SERVICE = new LocalityServiceImpl(LOCALITY_DAO);
+    private static final bll.service.DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessServiceImpl(WAY_DAO, DELIVERY_DAO, BILL_DAO);
+    private static final bll.service.BillService BILL_SERVICE = new BillServiceImpl(BILL_DAO, USER_DAO);
+
+    private ServicesSingleton() {
+    }
 
     public static bll.service.PasswordEncoderService getPasswordEncoderService() {
         return PASSWORD_ENCODER_SERVICE;

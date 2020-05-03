@@ -38,8 +38,9 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
             preparedStatement.setLong(2, localityGetID);
             preparedStatement.setInt(3, weight);
             preparedStatement.setInt(4, weight);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return resultSet.next() ? mapper.map(resultSet) : Optional.empty();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next() ? mapper.map(resultSet) : Optional.empty();
+            }
         } catch (SQLException e) {
             throw new DBRuntimeException();
         }
@@ -63,9 +64,10 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
             preparedStatement.setLong(2, localityGetID);
             preparedStatement.setInt(3, weight);
             preparedStatement.setInt(4, weight);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getLong("price");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getLong("price");
+                }
             }
             throw new AskedDataIsNotExist("dd");
         } catch (SQLException e) {

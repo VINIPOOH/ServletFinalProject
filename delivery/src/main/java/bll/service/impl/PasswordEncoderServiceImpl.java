@@ -6,7 +6,7 @@ import exeptions.PasswordEncodeException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class PasswordEncoderService implements bll.service.PasswordEncoderService {
+public class PasswordEncoderServiceImpl implements bll.service.PasswordEncoderService {
 
     @Override
     public String encode(String password) throws PasswordEncodeException {

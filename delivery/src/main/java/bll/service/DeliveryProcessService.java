@@ -17,5 +17,5 @@ public interface DeliveryProcessService {
 
     List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId);
 
-    void ConfirmGetingDelivery(long userId, long deliveryId);
+    void ConfirmGettingDelivery(long userId, long deliveryId);
 }

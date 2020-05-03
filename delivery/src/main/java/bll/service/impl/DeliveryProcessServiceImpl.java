@@ -18,13 +18,13 @@ import web.dto.DeliveryOrderCreateDto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeliveryProcessService implements bll.service.DeliveryProcessService {
+public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessService {
 
     private final WayDao wayDao;
     private final DeliveryDao deliveryDao;
     private final BillDao billDao;
 
-    public DeliveryProcessService(WayDao wayDao, DeliveryDao deliveryDao, BillDao billDao) {
+    public DeliveryProcessServiceImpl(WayDao wayDao, DeliveryDao deliveryDao, BillDao billDao) {
         this.wayDao = wayDao;
         this.deliveryDao = deliveryDao;
         this.billDao = billDao;
@@ -32,7 +32,7 @@ public class DeliveryProcessService implements bll.service.DeliveryProcessServic
 
     @Override
     public PriceAndTimeOnDeliveryDto getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) throws AskedDataIsNotExist {
-        Mapper<DeliveryCostAndTimeDto, PriceAndTimeOnDeliveryDto> mapper = (deliveryCostAndTime) -> PriceAndTimeOnDeliveryDto.builder()
+        Mapper<DeliveryCostAndTimeDto, PriceAndTimeOnDeliveryDto> mapper = deliveryCostAndTime -> PriceAndTimeOnDeliveryDto.builder()
                 .costInCents(deliveryCostAndTime.getCostInCents())
                 .timeOnWayInHours(deliveryCostAndTime.getTimeOnWayInHours())
                 .build();
@@ -75,7 +75,7 @@ public class DeliveryProcessService implements bll.service.DeliveryProcessServic
     }
 
     @Override
-    public void ConfirmGetingDelivery(long userId, long deliveryId) {
+    public void ConfirmGettingDelivery(long userId, long deliveryId) {
         deliveryDao.confirmGettingDelivery(userId, deliveryId);
     }
 

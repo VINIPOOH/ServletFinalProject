@@ -33,15 +33,7 @@ public class Way extends Entity {
 
     @Override
     public String toString() {
-        return "Way{"; //+
-//                "id=" + id +
-//                ", localitySand=" + localitySand.getNameRu() +
-//                ", localityGet=" + localityGet.getNameRu() +
-//                ", distanceInKilometres=" + distanceInKilometres +
-//                ", timeOnWayInHours=" + timeOnWayInHours +
-//                ", priceForKilometerInCents=" + priceForKilometerInCents +
-//                ", wayTariffs=" + wayTariffs +
-//                '}';
+        return "Way{";
     }
 
     public static class WayBuilder {

@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 @Builder
 public class BillInfoToPayDto {
-    private long bill_id;
+    private long billId;
     private long price;
-    private long delivery_id;
+    private long deliveryId;
     private int weight;
     private String addreeserEmail;
     private String localitySandName;

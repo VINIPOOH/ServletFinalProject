@@ -3,12 +3,13 @@ package web.comand.factory;
 import bll.service.*;
 import web.comand.action.ActionCommand;
 import web.comand.action.impl.*;
-import web.dto.DeliveryInfoRequestDto;
 import web.dto.DeliveryOrderCreateDto;
 import web.dto.LoginInfoDto;
 import web.dto.RegistrationInfoDto;
-import web.dto.maper.*;
-import web.dto.validation.*;
+import web.dto.validation.DeliveryOrderCreateDtoValidator;
+import web.dto.validation.LoginDtoValidator;
+import web.dto.validation.RegistrationDtoValidator;
+import web.dto.validation.Validator;
 
 import java.util.HashMap;
 import java.util.Map;

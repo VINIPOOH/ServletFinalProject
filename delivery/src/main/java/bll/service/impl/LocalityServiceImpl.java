@@ -7,11 +7,11 @@ import dal.dao.impl.LocalityDao;
 import java.util.List;
 import java.util.Locale;
 
-public class LocalityService implements bll.service.LocalityService {
+public class LocalityServiceImpl implements bll.service.LocalityService {
 
     private final LocalityDao localityDao;
 
-    public LocalityService(LocalityDao localityDao) {
+    public LocalityServiceImpl(LocalityDao localityDao) {
         this.localityDao = localityDao;
     }
 

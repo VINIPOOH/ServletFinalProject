@@ -14,12 +14,12 @@ import web.dto.RegistrationInfoDto;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserService implements bll.service.UserService {
+public class UserServiceImpl implements bll.service.UserService {
 
     private final PasswordEncoderService passwordEncoderService;
     private final UserDao userDao;
 
-    public UserService(PasswordEncoderService passwordEncoderService, UserDao userDao) {
+    public UserServiceImpl(PasswordEncoderService passwordEncoderService, UserDao userDao) {
         this.passwordEncoderService = passwordEncoderService;
         this.userDao = userDao;
     }

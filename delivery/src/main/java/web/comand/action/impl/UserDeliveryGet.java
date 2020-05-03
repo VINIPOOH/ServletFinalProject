@@ -25,8 +25,7 @@ public class UserDeliveryGet extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        long o = Long.parseLong(request.getParameter("deliveryId"));
-        deliveryProcessService.ConfirmGetingDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter("deliveryId")));
+        deliveryProcessService.ConfirmGettingDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter("deliveryId")));
         request.setAttribute("deliveriesWhichAddressedForUser", deliveryProcessService.getInfoToGetDeliverisByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId()));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_GET_CONFIRM_FILE_NAME;
     }

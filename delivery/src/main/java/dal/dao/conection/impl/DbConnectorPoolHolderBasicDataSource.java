@@ -18,7 +18,6 @@ public class DbConnectorPoolHolderBasicDataSource implements DbConnectionPoolHol
     public DbConnectorPoolHolderBasicDataSource() {
         ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE_DATABASE);
         BasicDataSource ds = new BasicDataSource();
-        String d = DB_URL;
         ds.setUrl(bundle.getString(DB_URL));
         ds.setUsername(bundle.getString(DB_USER));
         ds.setPassword(bundle.getString(DB_PASSWORD));

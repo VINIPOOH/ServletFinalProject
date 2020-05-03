@@ -31,10 +31,12 @@ public class LocalityDao extends JDBCAbstractGenericDao {
         }
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(localedQuery)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<LocaliseLocalityDto> result = new ArrayList<>();
-            while (resultSet.next()) {
-                mapper.map(resultSet).ifPresent(result::add);
+            List<LocaliseLocalityDto> result;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                result = new ArrayList<>();
+                while (resultSet.next()) {
+                    mapper.map(resultSet).ifPresent(result::add);
+                }
             }
             return result;
         } catch (SQLException e) {

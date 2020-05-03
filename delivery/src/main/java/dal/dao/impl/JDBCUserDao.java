@@ -36,8 +36,10 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_FIND_BY_EMAIL))) {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Optional<User> user = resultSet.next() ? mapResultSetToEntity.map(resultSet) : Optional.empty();
+            Optional<User> user;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                user = resultSet.next() ? mapResultSetToEntity.map(resultSet) : Optional.empty();
+            }
             return user;
         } catch (SQLException e) {
             System.out.println(e);

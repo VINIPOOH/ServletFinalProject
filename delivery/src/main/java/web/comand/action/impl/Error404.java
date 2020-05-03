@@ -1,7 +1,6 @@
 package web.comand.action.impl;
 
 import web.comand.action.ActionCommand;
-import web.comand.action.MultipleMethodCommand;
 
 import javax.servlet.http.HttpServletRequest;
 

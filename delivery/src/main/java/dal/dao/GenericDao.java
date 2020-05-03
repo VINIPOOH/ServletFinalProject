@@ -4,18 +4,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public interface GenericDao<E, ID> {
+public interface GenericDao<E, Id> {
 
     boolean save(E entity) throws SQLException;
 
-    Optional<E> findById(ID id);
+    Optional<E> findById(Id id);
 
-    //
-//    List<E> findAll(Integer offset, Integer limit);
-//
     List<E> findAll();
-//
-//    boolean update(E dal.entity);
-//
-//    boolean deleteById(ID id);
 }

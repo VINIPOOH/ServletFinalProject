@@ -32,11 +32,11 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     }
 
     @Override
-    public boolean createBill(long costInCents, long deliveriId, long userId) {
+    public boolean createBill(long costInCents, long deliveryId, long userId) {
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID))) {
             preparedStatement.setLong(1, costInCents);
-            preparedStatement.setLong(2, deliveriId);
+            preparedStatement.setLong(2, deliveryId);
             preparedStatement.setLong(3, userId);
             return preparedStatement.executeUpdate() != 0;
         } catch (SQLException e) {
@@ -69,10 +69,11 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
             preparedStatement.setLong(1, billId);
             preparedStatement.setLong(2, userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            if (resultSet.next()) {
-                return resultSet.getLong(1);
+                if (resultSet.next()) {
+                    return resultSet.getLong(1);
+                }
             }
             throw new AskedDataIsNotExist("sd");
         } catch (SQLException e) {

@@ -112,9 +112,8 @@ public class User extends Entity {
         }
 
         public User build() {
-            User user = new User(id, email, roleType, password, userMoneyInCents, accountNonExpired, accountNonLocked, credentialsNonExpired, enabled, waysWhereThisUserIsSend, waysWhereThisUserIsGet);
 
-            return user;
+            return new User(id, email, roleType, password, userMoneyInCents, accountNonExpired, accountNonLocked, credentialsNonExpired, enabled, waysWhereThisUserIsSend, waysWhereThisUserIsGet);
         }
 
         public String toString() {
