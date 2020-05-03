@@ -21,14 +21,10 @@ public class Counter extends MultipleMethodCommand {
 
     private final LocalityService localityService;
     private final DeliveryProcessService deliveryProcessService;
-    private final RequestDtoMapper<DeliveryInfoRequestDto> deliveryInfoRequestToDtoMapper;
-    private final Validator<DeliveryInfoRequestDto> deliveryInfoRequestDtoValidator;
 
-    public Counter(LocalityService localityService, DeliveryProcessService deliveryProcessService, RequestDtoMapper<DeliveryInfoRequestDto> deliveryInfoRequestToDtoMapper, Validator<DeliveryInfoRequestDto> deliveryInfoRequestDtoValidator) {
+    public Counter(LocalityService localityService, DeliveryProcessService deliveryProcessService) {
         this.localityService = localityService;
         this.deliveryProcessService = deliveryProcessService;
-        this.deliveryInfoRequestToDtoMapper = deliveryInfoRequestToDtoMapper;
-        this.deliveryInfoRequestDtoValidator = deliveryInfoRequestDtoValidator;
     }
 
     @Override
@@ -44,13 +40,13 @@ public class Counter extends MultipleMethodCommand {
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         DeliveryInfoRequestDto deliveryInfoRequestDto;
         try {
-            deliveryInfoRequestDto = deliveryInfoRequestToDtoMapper.mapToDto(request);
+            deliveryInfoRequestDto = getDeliveryInfoRequestDtoRequestDtoMapper(request).mapToDto(request);
         } catch (NumberFormatException ex) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
         }
 
-        if (!deliveryInfoRequestDtoValidator.isValid(deliveryInfoRequestDto)) {
+        if (!getDeliveryInfoRequestDtoValidator().isValid(deliveryInfoRequestDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
         }
@@ -63,5 +59,17 @@ public class Counter extends MultipleMethodCommand {
             request.setAttribute("IsNotExistSuchWayOrWeightForThisWay", true);
         }
         return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
+    }
+
+    private RequestDtoMapper<DeliveryInfoRequestDto> getDeliveryInfoRequestDtoRequestDtoMapper(HttpServletRequest request) {
+        return request1 -> DeliveryInfoRequestDto.builder()
+                .deliveryWeight(Integer.parseInt(request.getParameter("deliveryWeight")))
+                .localityGetID(Long.parseLong(request.getParameter("localityGetID")))
+                .localitySandID(Long.parseLong(request.getParameter("localitySandID")))
+                .build();
+    }
+
+    private Validator<DeliveryInfoRequestDto> getDeliveryInfoRequestDtoValidator() {
+        return dto -> (dto.getDeliveryWeight() > 0) && (dto.getLocalityGetID() > 0) && (dto.getLocalitySandID() > 0);
     }
 }

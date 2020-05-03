@@ -17,12 +17,10 @@ import static web.constants.PageConstance.*;
 public class Login extends MultipleMethodCommand {
 
     private final Validator<LoginInfoDto> loginDtoValidator;
-    private final RequestDtoMapper<LoginInfoDto> loginInfoDtoRequestDtoMapper;
     private final UserService userService;
 
-    public Login(Validator<LoginInfoDto> loginDtoValidator, RequestDtoMapper<LoginInfoDto> loginInfoDtoRequestDtoMapper, UserService userService) {
+    public Login(Validator<LoginInfoDto> loginDtoValidator, UserService userService) {
         this.loginDtoValidator = loginDtoValidator;
-        this.loginInfoDtoRequestDtoMapper = loginInfoDtoRequestDtoMapper;
         this.userService = userService;
     }
 
@@ -34,12 +32,19 @@ public class Login extends MultipleMethodCommand {
     @Override
     protected String performPost(HttpServletRequest request) {
 
-        LoginInfoDto loginInfoDto = loginInfoDtoRequestDtoMapper.mapToDto(request);
+        LoginInfoDto loginInfoDto =  getLoginInfoDtoRequestDtoMapper(request).mapToDto(request);
         if (!loginDtoValidator.isValid(loginInfoDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + LOGIN_FILE_NAME;
         }
         return processingServiceLoginRequest(request, loginInfoDto);
+    }
+
+    private RequestDtoMapper<LoginInfoDto> getLoginInfoDtoRequestDtoMapper(HttpServletRequest request) {
+        return request1 -> LoginInfoDto.builder()
+                .username(request.getParameter("username"))
+                .password(request.getParameter("password"))
+                .build();
     }
 
     private String processingServiceLoginRequest(HttpServletRequest request, LoginInfoDto loginInfoDto) {

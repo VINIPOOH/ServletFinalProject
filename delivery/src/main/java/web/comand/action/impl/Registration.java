@@ -15,12 +15,10 @@ import static web.constants.PageConstance.*;
 
 public class Registration extends MultipleMethodCommand {
 
-    private final RequestDtoMapper<RegistrationInfoDto> registrationDtoMapper;
     private final Validator<RegistrationInfoDto> registrationInfoDtoValidator;
     private final UserService userService;
 
-    public Registration(RequestDtoMapper<RegistrationInfoDto> registrationDtoMapper, Validator<RegistrationInfoDto> registrationInfoDtoValidator, UserService userService) {
-        this.registrationDtoMapper = registrationDtoMapper;
+    public Registration(Validator<RegistrationInfoDto> registrationInfoDtoValidator, UserService userService) {
         this.registrationInfoDtoValidator = registrationInfoDtoValidator;
         this.userService = userService;
     }
@@ -32,12 +30,20 @@ public class Registration extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        RegistrationInfoDto registrationInfoDto = registrationDtoMapper.mapToDto(request);
+        RegistrationInfoDto registrationInfoDto = getRegistrationInfoDtoRequestDtoMapper(request).mapToDto(request);
         if (!registrationInfoDtoValidator.isValid(registrationInfoDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + REGISTRATION_FILE_NAME;
         }
         return processingServiseRegistrationRequest(request, registrationInfoDto);
+    }
+
+    private RequestDtoMapper<RegistrationInfoDto> getRegistrationInfoDtoRequestDtoMapper(HttpServletRequest request) {
+        return request1 -> RegistrationInfoDto.builder()
+                .username(request.getParameter("username"))
+                .password(request.getParameter("password"))
+                .passwordRepeat(request.getParameter("passwordRepeat"))
+                .build();
     }
 
     private String processingServiseRegistrationRequest(HttpServletRequest request, RegistrationInfoDto registrationInfoDto) {

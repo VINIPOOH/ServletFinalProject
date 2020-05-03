@@ -22,13 +22,12 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     private final LocalityService localityService;
     private final DeliveryProcessService deliveryProcessService;
-    private final RequestDtoMapper<DeliveryOrderCreateDto> deliveryOrderCreateDtoRequestDtoMapper;
+
     private final Validator<DeliveryOrderCreateDto> deliveryOrderCreateDtoValidator;
 
-    public UserDeliveryInitiation(LocalityService localityService, DeliveryProcessService deliveryProcessService, RequestDtoMapper<DeliveryOrderCreateDto> deliveryOrderCreateDtoRequestDtoMapper, Validator<DeliveryOrderCreateDto> deliveryOrderCreateDtoValidator) {
+    public UserDeliveryInitiation(LocalityService localityService, DeliveryProcessService deliveryProcessService, Validator<DeliveryOrderCreateDto> deliveryOrderCreateDtoValidator) {
         this.localityService = localityService;
         this.deliveryProcessService = deliveryProcessService;
-        this.deliveryOrderCreateDtoRequestDtoMapper = deliveryOrderCreateDtoRequestDtoMapper;
         this.deliveryOrderCreateDtoValidator = deliveryOrderCreateDtoValidator;
     }
 
@@ -45,7 +44,7 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         DeliveryOrderCreateDto deliveryOrderCreateDto;
         try {
-            deliveryOrderCreateDto = deliveryOrderCreateDtoRequestDtoMapper.mapToDto(request);
+             deliveryOrderCreateDto = getDeliveryOrderCreateDtoRequestDtoMapper(request).mapToDto(request);
         } catch (NumberFormatException ex) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
@@ -70,5 +69,14 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 //        }
 //        request.setAttribute("IsNotExistSuchWayOrWeightForThisWay", true);
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
+    }
+
+    private RequestDtoMapper<DeliveryOrderCreateDto> getDeliveryOrderCreateDtoRequestDtoMapper(HttpServletRequest request) {
+        return request1 -> DeliveryOrderCreateDto.builder()
+                .deliveryWeight(Integer.parseInt(request.getParameter("deliveryWeight")))
+                .localityGetID(Long.parseLong(request.getParameter("localityGetID")))
+                .localitySandID(Long.parseLong(request.getParameter("localitySandID")))
+                .addresseeEmail(request.getParameter("addresseeEmail"))
+                .build();
     }
 }
