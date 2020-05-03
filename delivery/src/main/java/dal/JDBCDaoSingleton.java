@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 
 import static dal.dao.UserDaoConstants.PATH_TO_PROPERTY_FILE;
 
-public class JDBCDaoHolder implements DaoFactory {
+public class JDBCDaoSingleton {
     private static DbConnectionPoolHolder dbConnectorPoolHolder = DbConnectorPoolHolderBasicDataSource.getDbConnectionPoolHolder();
     //    private static UserEntityToPreparedStatmentMapper userMapper = new UserEntityToPreparedStatmentMapper();
     private static ResourceBundle requestsBundle = ResourceBundle.getBundle(PATH_TO_PROPERTY_FILE);

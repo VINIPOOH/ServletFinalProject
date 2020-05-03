@@ -5,7 +5,7 @@ import bll.service.impl.DeliveryProcessService;
 import bll.service.impl.LocalityService;
 import bll.service.impl.PasswordEncoderService;
 import bll.service.impl.UserService;
-import dal.JDBCDaoHolder;
+import dal.JDBCDaoSingleton;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
@@ -14,11 +14,11 @@ import dal.dao.impl.LocalityDao;
 
 public class ServicesSingleton {
 
-    private static final UserDao USER_DAO = JDBCDaoHolder.getUserDao();
-    private static final LocalityDao LOCALITY_DAO = JDBCDaoHolder.getLocalityDao();
-    private static final WayDao WAY_DAO = JDBCDaoHolder.getWayDao();
-    private static final DeliveryDao DELIVERY_DAO = JDBCDaoHolder.getDeliveryDao();
-    private static final BillDao BILL_DAO = JDBCDaoHolder.getBillDao();
+    private static final UserDao USER_DAO = JDBCDaoSingleton.getUserDao();
+    private static final LocalityDao LOCALITY_DAO = JDBCDaoSingleton.getLocalityDao();
+    private static final WayDao WAY_DAO = JDBCDaoSingleton.getWayDao();
+    private static final DeliveryDao DELIVERY_DAO = JDBCDaoSingleton.getDeliveryDao();
+    private static final BillDao BILL_DAO = JDBCDaoSingleton.getBillDao();
 
 
     private static final bll.service.PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderService();
