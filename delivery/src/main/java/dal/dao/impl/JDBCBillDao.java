@@ -1,16 +1,16 @@
 package dal.dao.impl;
 
+import bll.exeptions.UnsupportableWeightFactorException;
 import dal.dao.BillDao;
 import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
 import dal.exeptions.DBRuntimeException;
 import exeptions.AskedDataIsNotExist;
+import exeptions.FailCreateDeliveryException;
+import web.dto.DeliveryOrderCreateDto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -28,25 +28,17 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             "bill.history.by.user.id";
     private final String GET_USER_BALANCE_IF_ENOGFE_MONEY =
             "user.get.user.bulance.if.enought.money";
+    private String GET_COST_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT =
+            "way.find.price.by.locality_send_id.and.locality_get_id.and.weight";
+    private String CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID =
+            "create.delivery.by.weight.id.locality.send.idlocality.get.adresee.email.adresser.id";
+
 
 
     public JDBCBillDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector) {
         super(resourceBundleRequests, connector);
     }
 
-    @Override
-    public boolean createBill(long costInCents, long deliveryId, long userId) {
-        try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID))) {
-            preparedStatement.setLong(1, costInCents);
-            preparedStatement.setLong(2, deliveryId);
-            preparedStatement.setLong(3, userId);
-            return preparedStatement.executeUpdate() != 0;
-        } catch (SQLException e) {
-            System.out.println(e);
-            throw new DBRuntimeException();
-        }
-    }
 
     @Override
     public List<Bill> getInfoToPayBillByUserId(long user_id) {
@@ -154,6 +146,76 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
         try (PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_BILL_IS_PAID_TRUE))) {
             preparedStatement.setLong(1, billId);
             return preparedStatement.executeUpdate() > 0;
+        }
+    }
+
+    public boolean initializeDelivery(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) {
+        try (Connection connection = connector.getConnection()) {
+            connection.setAutoCommit(false);
+            long price = 0;
+            try {
+                price = getPrise(deliveryOrderCreateDto.getLocalitySandID()
+                        , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight(), connection);
+                long newDeliveryId = createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), initiatorId, deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight(),connection);
+                if(createBill(price, newDeliveryId, initiatorId, connection)){
+                    connection.commit();
+                    return true;
+                }
+                connection.commit();
+                return false;
+            } catch (AskedDataIsNotExist askedDataIsNotExist) {
+                connection.rollback();
+                return false;
+            }
+        }catch (SQLException e) {
+            return false;
+        }
+    }
+
+    private long getPrise(long localitySandID, long localityGetID, int weight, Connection connection) throws AskedDataIsNotExist, SQLException
+        {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.
+                getString(GET_COST_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT))){
+
+               preparedStatement.setLong(1, localitySandID);
+               preparedStatement.setLong(2, localityGetID);
+               preparedStatement.setInt(3, weight);
+               preparedStatement.setInt(4, weight);
+               try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                   if (resultSet.next()) {
+                       return resultSet.getLong("price");
+                   }
+               }
+               throw new AskedDataIsNotExist("dd");
+        }
+    }
+    private long createDelivery(String addreeseeEmail, long addresserId, long localitySandID, long localityGetID, int weight, Connection connection) throws AskedDataIsNotExist {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                     resourceBundleRequests.getString(CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID), Statement.RETURN_GENERATED_KEYS)) {
+
+            preparedStatement.setString(1, addreeseeEmail);
+            preparedStatement.setLong(2, addresserId);
+            preparedStatement.setLong(3, localitySandID);
+            preparedStatement.setLong(4, localityGetID);
+            preparedStatement.setInt(5, weight);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                return resultSet.getLong(1);
+            }
+            throw new AskedDataIsNotExist("ddsd");
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new RuntimeException();
+        }
+    }
+
+    private boolean createBill(long costInCents, long deliveryId, long userId, Connection connection) throws SQLException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID))) {
+            preparedStatement.setLong(1, costInCents);
+            preparedStatement.setLong(2, deliveryId);
+            preparedStatement.setLong(3, userId);
+            return preparedStatement.executeUpdate() != 0;
         }
     }
 }

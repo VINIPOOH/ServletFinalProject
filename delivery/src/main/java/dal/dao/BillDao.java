@@ -2,17 +2,18 @@ package dal.dao;
 
 import dal.entity.Bill;
 import exeptions.AskedDataIsNotExist;
+import web.dto.DeliveryOrderCreateDto;
 
 import java.util.List;
 
 public interface BillDao {
-    boolean createBill(long costInCents, long deliveryId, long UserId);
+    public boolean initializeDelivery(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId);
 
     List<Bill> getInfoToPayBillByUserId(long UserId);
 
     long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotExist;
 
-    public boolean payBill(long userId, long billId);
+    boolean payBill(long userId, long billId);
 
     List<Bill> getHistoricBailsByUserId(long userId);
 }

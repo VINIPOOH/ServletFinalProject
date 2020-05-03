@@ -43,20 +43,7 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
 
     @Override
     public boolean initializeDelivery(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
-        long price;
-        try {
-            price = wayDao.getPrise(deliveryOrderCreateDto.getLocalitySandID()
-                    , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
-        } catch (AskedDataIsNotExist askedDataIsNotExist) {
-            throw new UnsupportableWeightFactorException();
-        }
-        long newDeliveryId;
-        try {
-            newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), initiatorId, deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
-        } catch (AskedDataIsNotExist askedDataIsNotExist) {
-            throw new FailCreateDeliveryException();
-        }
-        return billDao.createBill(price, newDeliveryId, initiatorId);
+        return billDao.initializeDelivery(deliveryOrderCreateDto,initiatorId);
     }
 
     @Override

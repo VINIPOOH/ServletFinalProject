@@ -18,8 +18,7 @@ import java.util.ResourceBundle;
 public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
     private String GET_COST_AND_TIME_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT =
             "way.find.price.and.time.by.locality_send_id.and.locality_get_id.and.weight";
-    private String GET_COST_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT =
-            "way.find.price.by.locality_send_id.and.locality_get_id.and.weight";
+
 
 
     public JDBCWayDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector) {
@@ -53,27 +52,5 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
                 .timeOnWayInHours(resultSet.getInt("time_on_way_in_days"))
                 .build());
     }
-
-    public long getPrise(long localitySandID, long localityGetID, int weight) throws AskedDataIsNotExist {
-
-        try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.
-                     getString(GET_COST_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT))) {
-
-            preparedStatement.setLong(1, localitySandID);
-            preparedStatement.setLong(2, localityGetID);
-            preparedStatement.setInt(3, weight);
-            preparedStatement.setInt(4, weight);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getLong("price");
-                }
-            }
-            throw new AskedDataIsNotExist("dd");
-        } catch (SQLException e) {
-            throw new DBRuntimeException();
-        }
-    }
-
 
 }

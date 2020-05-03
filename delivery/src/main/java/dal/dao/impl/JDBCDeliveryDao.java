@@ -17,9 +17,7 @@ import java.util.ResourceBundle;
 
 public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements DeliveryDao {
 
-    private String CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID =
-            "create.delivery.by.weight.id.locality.send.idlocality.get.adresee.email.adresser.id";
-    private String DELIVERY_INFO_TO_GET_BY_USER_ID =
+   private String DELIVERY_INFO_TO_GET_BY_USER_ID =
             "delivery.get.not.recived.deliveries.by.user.id";
     private String SET_DELIVERY_RECIWED_STATUSE_TRUE =
             "delivery.set.recived.statuse.true";
@@ -28,28 +26,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
         super(resourceBundleRequests, connector);
     }
 
-    @Override
-    public long createDelivery(String addreeseeEmail, long addresserId, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotExist {
-        try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
-                     resourceBundleRequests.getString(CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID), Statement.RETURN_GENERATED_KEYS)) {
 
-            preparedStatement.setString(1, addreeseeEmail);
-            preparedStatement.setLong(2, addresserId);
-            preparedStatement.setLong(3, localitySandID);
-            preparedStatement.setLong(4, localityGetID);
-            preparedStatement.setInt(5, weight);
-            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                return resultSet.getLong(1);
-            }
-            throw new AskedDataIsNotExist("ddsd");
-        } catch (SQLException e) {
-            System.out.println(e);
-            throw new RuntimeException();
-        }
-    }
 
     @Override
     public List<Delivery> getDeliveryInfoToGet(long userId) {
