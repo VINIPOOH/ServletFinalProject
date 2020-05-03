@@ -13,7 +13,7 @@ import web.dto.validation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandHolder {
+public class CommandSingleton {
 
 
     private static final Validator<LoginInfoDto> LOGIN_INFO_DTO_VALIDATOR = new LoginDtoValidator();
@@ -57,7 +57,7 @@ public class CommandHolder {
         COMMANDS.put("user/user-statistic", USER_STATISTIC);
     }
 
-    private CommandHolder() {
+    private CommandSingleton() {
     }
 
     public static ActionCommand defineCommand(String path) {
