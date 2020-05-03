@@ -1,19 +1,24 @@
 package bll.service;
 
 
+import dal.JDBCDaoHolder;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
 import bll.dto.*;
+import dal.dao.conection.TransactionConnectionHandler;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Delivery;
+import dal.exeptions.NoConnectionToDbOrConnectionIsAlreadyClosedException;
 import exeptions.AskedDataIsNotExist;
+import exeptions.DBRuntimeException;
 import exeptions.FailCreateDeliveryException;
 import exeptions.UnsupportableWeightFactorException;
 import bll.service.mapper.Mapper;
 import web.dto.DeliveryInfoRequestDto;
 import web.dto.DeliveryOrderCreateDto;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,20 +102,24 @@ public class DeliveryProcessService {
     }
 
     public boolean initializeDelivery(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
-        long price;
+        TransactionConnectionHandler transactionHandler = JDBCDaoHolder.getConnectionPullHolderForTransaction();
+        WayDao wayDtoTransactional = JDBCDaoHolder.getTransactionalWayDao(transactionHandler);
+        DeliveryDao deliveryDaoTrTransactional = JDBCDaoHolder.getTransactionalDeliveryDao(transactionHandler);
+        BillDao billDaoTransactional = JDBCDaoHolder.getTransactionalBillDao(transactionHandler);
+
         try {
-             price = wayDao.getPrise(deliveryOrderCreateDto.getLocalitySandID()
+            transactionHandler.peeperToTransaction();
+            long price= wayDtoTransactional.getPrise(deliveryOrderCreateDto.getLocalitySandID()
                     ,deliveryOrderCreateDto.getLocalityGetID(),deliveryOrderCreateDto.getDeliveryWeight());
+            long newDeliveryId = deliveryDaoTrTransactional.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), initiatorId, deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
+            transactionHandler.commitTransaction();
+            return billDaoTransactional.createBill(price,newDeliveryId, initiatorId);
+        } catch (NoConnectionToDbOrConnectionIsAlreadyClosedException e) {
+            e.printStackTrace();
         } catch (AskedDataIsNotExist askedDataIsNotExist) {
-            throw new UnsupportableWeightFactorException();
+            askedDataIsNotExist.printStackTrace();
         }
-        long newDeliveryId;
-        try {
-           newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), initiatorId, deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
-        } catch (AskedDataIsNotExist askedDataIsNotExist) {
-            throw new FailCreateDeliveryException();
-        }
-        return billDao.createBill(price,newDeliveryId, initiatorId);
+        throw new DBRuntimeException();
     }
 
     public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId){

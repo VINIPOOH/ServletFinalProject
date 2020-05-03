@@ -3,9 +3,11 @@ package dal;
 import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.conection.impl.DbConnectorPoolHolderBasicDataSource;
 import dal.dao.*;
+import dal.dao.conection.impl.TransactionalConnectionHolder;
 import dal.dao.impl.*;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dao.maper.UserResultToEntityMapper;
+import dal.entity.Bill;
 import dal.entity.User;
 
 import java.util.ResourceBundle;
@@ -40,4 +42,26 @@ public class JDBCDaoHolder implements DaoFactory {
     public static DeliveryDao getDeliveryDao(){return deliveryDao;}
 
     public static BillDao getBillDao(){return billDao;}
+
+    public static TransactionalConnectionHolder getConnectionPullHolderForTransaction(){
+        return new TransactionalConnectionHolder(dbConnectorPoolHolder.getConnection());
+    }
+
+    public static UserDao getTransactionalUserDao(DbConnectionPoolHolder poolHolder){
+        return new JDBCUserDao(requestsBundle, poolHolder, userResultSetToEntityMapper);
+    }
+
+    public static WayDao getTransactionalWayDao(DbConnectionPoolHolder poolHolder){
+        return new JDBCWayDao(requestsBundle, poolHolder);
+    }
+
+    public static DeliveryDao getTransactionalDeliveryDao(DbConnectionPoolHolder poolHolder){
+        return new JDBCDeliveryDao(requestsBundle, poolHolder);
+    }
+
+    public static BillDao getTransactionalBillDao(DbConnectionPoolHolder poolHolder){
+        return new JDBCBillDao(requestsBundle, poolHolder);
+    }
+
+
 }
