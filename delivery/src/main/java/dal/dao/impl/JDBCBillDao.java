@@ -152,12 +152,10 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     public boolean initializeDelivery(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) {
         try (Connection connection = connector.getConnection()) {
             connection.setAutoCommit(false);
-            long price = 0;
             try {
-                price = getPrise(deliveryOrderCreateDto.getLocalitySandID()
-                        , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight(), connection);
                 long newDeliveryId = createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), initiatorId, deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight(),connection);
-                if(createBill(price, newDeliveryId, initiatorId, connection)){
+                if(createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
+                        , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight(), connection)){
                     connection.commit();
                     return true;
                 }
@@ -172,23 +170,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
         }
     }
 
-    private long getPrise(long localitySandID, long localityGetID, int weight, Connection connection) throws AskedDataIsNotExist, SQLException
-        {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.
-                getString(GET_COST_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT))){
 
-               preparedStatement.setLong(1, localitySandID);
-               preparedStatement.setLong(2, localityGetID);
-               preparedStatement.setInt(3, weight);
-               preparedStatement.setInt(4, weight);
-               try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                   if (resultSet.next()) {
-                       return resultSet.getLong("price");
-                   }
-               }
-               throw new AskedDataIsNotExist("dd");
-        }
-    }
     private long createDelivery(String addreeseeEmail, long addresserId, long localitySandID, long localityGetID, int weight, Connection connection) throws AskedDataIsNotExist {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                      resourceBundleRequests.getString(CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID), Statement.RETURN_GENERATED_KEYS)) {
@@ -210,11 +192,14 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
         }
     }
 
-    private boolean createBill(long costInCents, long deliveryId, long userId, Connection connection) throws SQLException {
+    private boolean createBill(long deliveryId, long userId,long localitySandID, long localityGetID, int weight, Connection connection) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID))) {
-            preparedStatement.setLong(1, costInCents);
-            preparedStatement.setLong(2, deliveryId);
-            preparedStatement.setLong(3, userId);
+            preparedStatement.setLong(1, localitySandID);
+            preparedStatement.setLong(2, localityGetID);
+            preparedStatement.setInt(3, weight);
+            preparedStatement.setInt(4, weight);
+            preparedStatement.setLong(5, deliveryId);
+            preparedStatement.setLong(6, userId);
             return preparedStatement.executeUpdate() != 0;
         }
     }
