@@ -1,11 +1,11 @@
 package dal.dao.impl;
 
-import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.BillDao;
+import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
+import dal.exeptions.DBRuntimeException;
 import exeptions.AskedDataIsNotExist;
-import exeptions.DBRuntimeException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,11 +16,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao {
-    private final String BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID=
+    private final String BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID =
             "bill.create.by.cost.delivery.id.user.id";
-    private final String BILL_INFO_TO_PAY_BILL_BY_USER_ID=
+    private final String BILL_INFO_TO_PAY_BILL_BY_USER_ID =
             "bill.pay.info.sellect.by.sender.id";
-    private final String GET_BILL_PRISE_IF_NOT_PAID=
+    private final String GET_BILL_PRISE_IF_NOT_PAID =
             "bill.get.prise.if.not.paid";
     private final String SET_BILL_IS_PAID_TRUE =
             "bill.set.is.paid.true";
@@ -35,8 +35,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     public boolean createBill(long costInCents, long deliveriId, long userId) {
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID))) {
-            preparedStatement.setLong(1,costInCents);
-            preparedStatement.setLong(2,deliveriId);
+            preparedStatement.setLong(1, costInCents);
+            preparedStatement.setLong(2, deliveriId);
             preparedStatement.setLong(3, userId);
             return preparedStatement.executeUpdate() != 0;
         } catch (SQLException e) {
@@ -67,13 +67,14 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     public long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotExist {
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
-            preparedStatement.setLong(1,billId);
-            preparedStatement.setLong(2,userId);
+            preparedStatement.setLong(1, billId);
+            preparedStatement.setLong(2, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 return resultSet.getLong(1);
-            }throw new AskedDataIsNotExist("sd");
+            }
+            throw new AskedDataIsNotExist("sd");
         } catch (SQLException e) {
             System.out.println(e);
             throw new DBRuntimeException();
@@ -85,7 +86,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_BILL_IS_PAID_TRUE))) {
             preparedStatement.setLong(1, billId);
-            return preparedStatement.executeUpdate()>0;
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println(e);
             throw new DBRuntimeException();

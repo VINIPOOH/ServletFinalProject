@@ -1,14 +1,17 @@
 package dal.dao.impl;
 
-import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.WayDao;
+import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Way;
+import dal.exeptions.DBRuntimeException;
 import exeptions.AskedDataIsNotExist;
-import exeptions.DBRuntimeException;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -61,14 +64,14 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
             preparedStatement.setInt(3, weight);
             preparedStatement.setInt(4, weight);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 return resultSet.getLong("price");
-            } throw new AskedDataIsNotExist("dd");
+            }
+            throw new AskedDataIsNotExist("dd");
         } catch (SQLException e) {
             throw new DBRuntimeException();
         }
     }
-
 
 
 }

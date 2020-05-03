@@ -8,7 +8,7 @@ public class DeliveryOrderCreateDtoValidator implements Validator<DeliveryOrderC
 
     @Override
     public boolean isValid(DeliveryOrderCreateDto dto) {
-        return (dto.getDeliveryWeight()>0)&&(dto.getLocalityGetID()>0)&&(dto.getLocalitySandID()>0 && isStringValid(dto.getAddresseeEmail(), EMAIL_REGEX));
+        return (dto.getDeliveryWeight() > 0) && (dto.getLocalityGetID() > 0) && (dto.getLocalitySandID() > 0 && isStringValid(dto.getAddresseeEmail(), EMAIL_REGEX));
 
     }
 }

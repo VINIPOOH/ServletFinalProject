@@ -1,14 +1,14 @@
 package web.comand.action.impl;
 
+import bll.exeptions.UnsupportableWeightFactorException;
+import bll.service.DeliveryProcessService;
+import bll.service.LocalityService;
+import dal.entity.User;
+import exeptions.FailCreateDeliveryException;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.DeliveryOrderCreateDto;
 import web.dto.maper.RequestDtoMapper;
 import web.dto.validation.Validator;
-import dal.entity.User;
-import exeptions.FailCreateDeliveryException;
-import exeptions.UnsupportableWeightFactorException;
-import bll.service.DeliveryProcessService;
-import bll.service.LocalityService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;

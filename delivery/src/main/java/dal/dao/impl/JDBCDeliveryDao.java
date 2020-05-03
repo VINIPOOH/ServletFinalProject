@@ -1,14 +1,14 @@
 package dal.dao.impl;
 
-import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.DeliveryDao;
+import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.Delivery;
 import dal.entity.Locality;
 import dal.entity.User;
 import dal.entity.Way;
+import dal.exeptions.DBRuntimeException;
 import exeptions.AskedDataIsNotExist;
-import exeptions.DBRuntimeException;
 
 import java.sql.*;
 import java.util.List;

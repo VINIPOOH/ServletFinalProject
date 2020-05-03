@@ -2,14 +2,14 @@ package bll.service.impl;
 
 
 import bll.dto.mapper.Mapper;
+import bll.service.PasswordEncoderService;
 import dal.dao.UserDao;
-import web.dto.LoginInfoDto;
-import web.dto.RegistrationInfoDto;
 import dal.entity.RoleType;
 import dal.entity.User;
 import exeptions.NoSuchUserException;
 import exeptions.OccupiedLoginException;
-import bll.service.PasswordEncoderService;
+import web.dto.LoginInfoDto;
+import web.dto.RegistrationInfoDto;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,18 +23,20 @@ public class UserService implements bll.service.UserService {
         this.passwordEncoderService = passwordEncoderService;
         this.userDao = userDao;
     }
-@Override
+
+    @Override
     public List<User> getAllUsers() {
         return userDao.findAll();
     }
-@Override
+
+    @Override
     public User loginUser(LoginInfoDto loginInfoDto) throws NoSuchUserException {
         return userDao.findByEmailAndPasswordWithPermissions(loginInfoDto.getUsername(),
                 passwordEncoderService.encode(loginInfoDto.getPassword()))
                 .orElseThrow(NoSuchUserException::new);
     }
 
-@Override
+    @Override
     public void addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException {
         User user = getMapper().map(registrationInfoDto);
         try {

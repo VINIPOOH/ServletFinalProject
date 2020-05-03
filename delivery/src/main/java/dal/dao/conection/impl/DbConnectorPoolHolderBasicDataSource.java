@@ -1,7 +1,7 @@
 package dal.dao.conection.impl;
 
 import dal.dao.conection.DbConnectionPoolHolder;
-import exeptions.DBRuntimeException;
+import dal.exeptions.DBRuntimeException;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.Connection;

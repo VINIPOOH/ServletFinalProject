@@ -1,8 +1,11 @@
 package dal;
 
+import dal.dao.BillDao;
+import dal.dao.DeliveryDao;
+import dal.dao.UserDao;
+import dal.dao.WayDao;
 import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.conection.impl.DbConnectorPoolHolderBasicDataSource;
-import dal.dao.*;
 import dal.dao.impl.*;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dao.maper.UserResultToEntityMapper;
@@ -22,8 +25,8 @@ public class JDBCDaoHolder implements DaoFactory {
     private static UserDao userDao = new JDBCUserDao(requestsBundle, dbConnectorPoolHolder, userResultSetToEntityMapper);
     private static LocalityDao localityDao = new LocalityDao(requestsBundle, dbConnectorPoolHolder);
     private static WayDao wayDao = new JDBCWayDao(requestsBundle, dbConnectorPoolHolder);
-    private static DeliveryDao deliveryDao = new JDBCDeliveryDao(requestsBundle,dbConnectorPoolHolder);
-    private static BillDao billDao = new JDBCBillDao(requestsBundle,dbConnectorPoolHolder);
+    private static DeliveryDao deliveryDao = new JDBCDeliveryDao(requestsBundle, dbConnectorPoolHolder);
+    private static BillDao billDao = new JDBCBillDao(requestsBundle, dbConnectorPoolHolder);
 
     public static UserDao getUserDao() {
         return userDao;
@@ -37,7 +40,11 @@ public class JDBCDaoHolder implements DaoFactory {
         return wayDao;
     }
 
-    public static DeliveryDao getDeliveryDao(){return deliveryDao;}
+    public static DeliveryDao getDeliveryDao() {
+        return deliveryDao;
+    }
 
-    public static BillDao getBillDao(){return billDao;}
+    public static BillDao getBillDao() {
+        return billDao;
+    }
 }

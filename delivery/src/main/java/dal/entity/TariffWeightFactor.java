@@ -9,6 +9,7 @@ public class TariffWeightFactor extends Entity {
     private int minWeightRange;
     private int maxWeightRange;
     private int overPayOnKilometer;
+    private List<Way> waysWhereUsed;
 
     public TariffWeightFactor(Long id, int minWeightRange, int maxWeightRange, int overPayOnKilometer, List<Way> waysWhereUsed) {
         super(id);
@@ -17,8 +18,6 @@ public class TariffWeightFactor extends Entity {
         this.overPayOnKilometer = overPayOnKilometer;
         this.waysWhereUsed = waysWhereUsed;
     }
-
-    private List<Way> waysWhereUsed;
 
     public static TariffWeightFactorBuilder builder() {
         return new TariffWeightFactorBuilder();

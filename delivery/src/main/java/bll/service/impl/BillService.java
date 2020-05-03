@@ -1,13 +1,13 @@
 package bll.service.impl;
 
-import dal.dao.BillDao;
-import dal.dao.UserDao;
 import bll.dto.BillDto;
 import bll.dto.BillInfoToPayDto;
-import dal.entity.Bill;
-import exeptions.AskedDataIsNotExist;
-import exeptions.DBRuntimeException;
 import bll.dto.mapper.Mapper;
+import dal.dao.BillDao;
+import dal.dao.UserDao;
+import dal.entity.Bill;
+import dal.exeptions.DBRuntimeException;
+import exeptions.AskedDataIsNotExist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +23,9 @@ public class BillService implements bll.service.BillService {
     }
 
     @Override
-    public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId){
+    public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId) {
         List<BillInfoToPayDto> toReturn = new ArrayList<>();
-        Mapper<Bill, BillInfoToPayDto> mapper = (bill)-> BillInfoToPayDto.builder()
+        Mapper<Bill, BillInfoToPayDto> mapper = (bill) -> BillInfoToPayDto.builder()
                 .weight(bill.getDelivery().getWeight())
                 .price(bill.getCostInCents())
                 .localitySandName(bill.getDelivery().getWay().getLocalitySand().getNameEn())
@@ -34,13 +34,14 @@ public class BillService implements bll.service.BillService {
                 .bill_id(bill.getId())
                 .addreeserEmail(bill.getDelivery().getAddresser().getEmail())
                 .build();
-        for (Bill b : billDao.getInfoToPayBillByUserId(userId) ){
+        for (Bill b : billDao.getInfoToPayBillByUserId(userId)) {
             toReturn.add(mapper.map(b));
         }
         return toReturn;
     }
+
     @Override
-    public void payForDelivery(long userId, long billId){
+    public void payForDelivery(long userId, long billId) {
 
         long billPrise;
         try {
@@ -49,22 +50,23 @@ public class BillService implements bll.service.BillService {
             askedDataIsNotExist.printStackTrace();
             throw new DBRuntimeException();
         }
-        if (userDao.replenishUserBalenceOnSumeIfItPosible(userId, billPrise)){
+        if (userDao.replenishUserBalenceOnSumeIfItPosible(userId, billPrise)) {
             billDao.murkBillAsPayed(billId);
         }
 
     }
+
     @Override
-    public List<BillDto> getBillHistoryByUserId(long userId){
+    public List<BillDto> getBillHistoryByUserId(long userId) {
         List<BillDto> toReturn = new ArrayList<>();
-        Mapper<Bill, BillDto> mapper = (bill)-> BillDto.builder()
+        Mapper<Bill, BillDto> mapper = (bill) -> BillDto.builder()
                 .id(bill.getId())
                 .deliveryId(bill.getDelivery().getId())
                 .isDeliveryPaid(bill.getIsDeliveryPaid())
                 .costInCents(bill.getCostInCents())
                 .dateOfPay(bill.getDateOfPay())
                 .build();
-        for (Bill b : billDao.getHistoricBailsByUserId(userId) ){
+        for (Bill b : billDao.getHistoricBailsByUserId(userId)) {
             toReturn.add(mapper.map(b));
         }
         return toReturn;

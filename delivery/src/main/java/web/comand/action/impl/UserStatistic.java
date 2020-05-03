@@ -1,8 +1,8 @@
 package web.comand.action.impl;
 
-import web.comand.action.MultipleMethodCommand;
-import dal.entity.User;
 import bll.service.BillService;
+import dal.entity.User;
+import web.comand.action.MultipleMethodCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,9 +19,9 @@ public class UserStatistic extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        request.setAttribute("billsList", billService.getBillHistoryByUserId(((User)request.getSession().getAttribute(SESSION_USER)).getId()));
+        request.setAttribute("billsList", billService.getBillHistoryByUserId(((User) request.getSession().getAttribute(SESSION_USER)).getId()));
 
-        return MAIN_WEB_FOLDER+USER_FOLDER+USER_STATISTIC_FILE_NAME;
+        return MAIN_WEB_FOLDER + USER_FOLDER + USER_STATISTIC_FILE_NAME;
     }
 
     @Override

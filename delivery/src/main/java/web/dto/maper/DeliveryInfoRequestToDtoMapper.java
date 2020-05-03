@@ -8,7 +8,7 @@ public class DeliveryInfoRequestToDtoMapper implements RequestDtoMapper<Delivery
     @Override
     public DeliveryInfoRequestDto mapToDto(HttpServletRequest request) throws NumberFormatException {
 
-            return DeliveryInfoRequestDto.builder()
+        return DeliveryInfoRequestDto.builder()
                 .deliveryWeight(Integer.parseInt(request.getParameter("deliveryWeight")))
                 .localityGetID(Long.parseLong(request.getParameter("localityGetID")))
                 .localitySandID(Long.parseLong(request.getParameter("localitySandID")))

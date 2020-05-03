@@ -11,6 +11,6 @@ import static web.constants.PageConstance.REDIRECT_COMMAND;
 public class EmptyCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
-        return REDIRECT_COMMAND+INDEX_REQUEST_COMMAND ;
+        return REDIRECT_COMMAND + INDEX_REQUEST_COMMAND;
     }
 }

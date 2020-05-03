@@ -8,8 +8,8 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class BillDto {
-    private long id;
     long deliveryId;
+    private long id;
     private Boolean isDeliveryPaid;
     private long costInCents;
     private LocalDate dateOfPay;

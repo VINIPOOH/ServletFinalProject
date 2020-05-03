@@ -6,6 +6,14 @@ import java.time.LocalDate;
 
 @Data
 public class Delivery extends Entity {
+    private LocalDate arrivalDate;
+    private Way way;
+    private User addressee;
+    private User addresser;
+    private Boolean isPackageReceived;
+    private Boolean isDeliveryPaid;
+    private int weight;
+    private long costInCents;
     public Delivery(Long id, LocalDate arrivalDate, Way way, User addressee, User addresser, Boolean isPackageReceived, Boolean isDeliveryPaid, int weight, long costInCents) {
         super(id);
 
@@ -18,15 +26,6 @@ public class Delivery extends Entity {
         this.weight = weight;
         this.costInCents = costInCents;
     }
-
-    private LocalDate arrivalDate;
-    private Way way;
-    private User addressee;
-    private User addresser;
-    private Boolean isPackageReceived;
-    private Boolean isDeliveryPaid;
-    private int weight;
-    private long costInCents;
 
     public static DeliveryBuilder builder() {
         return new DeliveryBuilder();

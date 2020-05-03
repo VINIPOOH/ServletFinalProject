@@ -3,7 +3,7 @@ package dal.dao.impl;
 
 import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
-import exeptions.DBRuntimeException;
+import dal.exeptions.DBRuntimeException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public abstract class JDBCAbstractGenericDao<E>{
+public abstract class JDBCAbstractGenericDao<E> {
 
     protected final ResourceBundle resourceBundleRequests;
     protected final DbConnectionPoolHolder connector;
@@ -23,7 +23,8 @@ public abstract class JDBCAbstractGenericDao<E>{
         this.resourceBundleRequests = resourceBundleRequests;
         this.connector = connector;
     }
-//    public E save(E dal.entity) throws SQLException {
+
+    //    public E save(E dal.entity) throws SQLException {
 //        try (Connection connection = connector.getConnection();
 //             PreparedStatement preparedStatement = connection.prepareStatement(saveQuery)) {
 //
@@ -63,7 +64,6 @@ public abstract class JDBCAbstractGenericDao<E>{
     }
 
 
-
 //    public boolean deleteById(Long id) {
 //        try (Connection connection = connector.getConnection();
 //             PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
@@ -90,7 +90,6 @@ public abstract class JDBCAbstractGenericDao<E>{
     }
 
 
-
 //    @Override
 //    public boolean update(E dal.entity) {
 //        try (Connection connection = connector.getConnection();
@@ -102,9 +101,6 @@ public abstract class JDBCAbstractGenericDao<E>{
 //            throw new DBRuntimeException();
 //        }
 //    }
-
-
-
 
 
 }

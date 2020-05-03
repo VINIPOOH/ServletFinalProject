@@ -11,5 +11,5 @@ public interface UserDao extends GenericDao<User, Long> {
 
     void replenishUserBalance(long userId, long amountMoney) throws NoSuchUserException;
 
-    public boolean replenishUserBalenceOnSumeIfItPosible(long userId, long sumWhichUserNeed);
+    boolean replenishUserBalenceOnSumeIfItPosible(long userId, long sumWhichUserNeed);
 }

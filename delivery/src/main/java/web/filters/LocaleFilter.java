@@ -25,7 +25,7 @@ public class LocaleFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         if (request.getParameter(REQUEST_LANG) != null) {
             Config.set(request.getSession(), Config.FMT_LOCALE, new Locale(request.getParameter(REQUEST_LANG)));
-        }else if(request.getSession().getAttribute(SESSION_LANG)==null){
+        } else if (request.getSession().getAttribute(SESSION_LANG) == null) {
             Config.set(request.getSession(), Config.FMT_LOCALE, Locale.getDefault());
 
         }

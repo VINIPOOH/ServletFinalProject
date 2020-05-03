@@ -1,11 +1,11 @@
 package web.comand.action.impl;
 
 import bll.service.UserService;
+import exeptions.OccupiedLoginException;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.RegistrationInfoDto;
 import web.dto.maper.RequestDtoMapper;
 import web.dto.validation.Validator;
-import exeptions.OccupiedLoginException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,7 +27,7 @@ public class Registration extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        return MAIN_WEB_FOLDER+REGISTRATION_FILE_NAME;
+        return MAIN_WEB_FOLDER + REGISTRATION_FILE_NAME;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class Registration extends MultipleMethodCommand {
         RegistrationInfoDto registrationInfoDto = registrationDtoMapper.mapToDto(request);
         if (!registrationInfoDtoValidator.isValid(registrationInfoDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
-            return MAIN_WEB_FOLDER+REGISTRATION_FILE_NAME;
+            return MAIN_WEB_FOLDER + REGISTRATION_FILE_NAME;
         }
         return processingServiseRegistrationRequest(request, registrationInfoDto);
     }
@@ -43,10 +43,10 @@ public class Registration extends MultipleMethodCommand {
     private String processingServiseRegistrationRequest(HttpServletRequest request, RegistrationInfoDto registrationInfoDto) {
         try {
             userService.addNewUserToDB(registrationInfoDto);
-            return REDIRECT_COMMAND+LOGIN_REQUEST_COMMAND;
+            return REDIRECT_COMMAND + LOGIN_REQUEST_COMMAND;
         } catch (OccupiedLoginException e) {
             request.setAttribute(INPUT_LOGIN_ALREADY_TAKEN, true);
-            return MAIN_WEB_FOLDER+REGISTRATION_FILE_NAME;
+            return MAIN_WEB_FOLDER + REGISTRATION_FILE_NAME;
         }
     }
 }

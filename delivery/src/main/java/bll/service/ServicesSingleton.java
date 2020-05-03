@@ -25,6 +25,7 @@ public class ServicesSingleton {
     private static final bll.service.UserService USER_SERVICE = new UserService(PASSWORD_ENCODER_SERVICE, USER_DAO);
     private static final bll.service.LocalityService LOCALITY_SERVICE = new LocalityService(LOCALITY_DAO);
     private static final bll.service.DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessService(WAY_DAO, DELIVERY_DAO, BILL_DAO);
+    private static final bll.service.BillService BILL_SERVICE = new BillService(BILL_DAO, USER_DAO);
 
     public static bll.service.PasswordEncoderService getPasswordEncoderService() {
         return PASSWORD_ENCODER_SERVICE;
@@ -45,8 +46,6 @@ public class ServicesSingleton {
     public static bll.service.BillService getBillService() {
         return BILL_SERVICE;
     }
-
-    private static final bll.service.BillService BILL_SERVICE = new BillService(BILL_DAO, USER_DAO);
 
 
 }

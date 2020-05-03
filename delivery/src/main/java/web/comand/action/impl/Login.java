@@ -1,11 +1,11 @@
 package web.comand.action.impl;
 
 import bll.service.UserService;
+import exeptions.NoSuchUserException;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.LoginInfoDto;
 import web.dto.maper.RequestDtoMapper;
 import web.dto.validation.Validator;
-import exeptions.NoSuchUserException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,7 +28,7 @@ public class Login extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        return MAIN_WEB_FOLDER+LOGIN_FILE_NAME;
+        return MAIN_WEB_FOLDER + LOGIN_FILE_NAME;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Login extends MultipleMethodCommand {
         LoginInfoDto loginInfoDto = loginInfoDtoRequestDtoMapper.mapToDto(request);
         if (!loginDtoValidator.isValid(loginInfoDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
-            return MAIN_WEB_FOLDER+LOGIN_FILE_NAME;
+            return MAIN_WEB_FOLDER + LOGIN_FILE_NAME;
         }
         return processingServiceLoginRequest(request, loginInfoDto);
     }
@@ -45,10 +45,10 @@ public class Login extends MultipleMethodCommand {
     private String processingServiceLoginRequest(HttpServletRequest request, LoginInfoDto loginInfoDto) {
         try {
             request.getSession().setAttribute(SESSION_USER, userService.loginUser(loginInfoDto));
-            return REDIRECT_COMMAND+USER_PROFILE_REQUEST_COMMAND;
+            return REDIRECT_COMMAND + USER_PROFILE_REQUEST_COMMAND;
         } catch (NoSuchUserException ignored) {
             request.setAttribute(INCORRECT_LOGIN_OR_PASSWORD, true);
-            return MAIN_WEB_FOLDER+LOGIN_FILE_NAME;
+            return MAIN_WEB_FOLDER + LOGIN_FILE_NAME;
         }
     }
 }

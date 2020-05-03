@@ -1,8 +1,8 @@
 package bll.service.impl;
 
 
-import dal.dao.impl.LocalityDao;
 import bll.dto.LocaliseLocalityDto;
+import dal.dao.impl.LocalityDao;
 
 import java.util.List;
 import java.util.Locale;
@@ -16,8 +16,8 @@ public class LocalityService implements bll.service.LocalityService {
     }
 
     @Override
-    public List<LocaliseLocalityDto> getLocaliseLocalities(Locale locale){
-            return localityDao.findAllLocaliseLocalitiesWithoutConnection(locale);
+    public List<LocaliseLocalityDto> getLocaliseLocalities(Locale locale) {
+        return localityDao.findAllLocaliseLocalitiesWithoutConnection(locale);
     }
 
 

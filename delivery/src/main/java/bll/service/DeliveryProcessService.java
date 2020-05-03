@@ -2,9 +2,9 @@ package bll.service;
 
 import bll.dto.DeliveryInfoToGetDto;
 import bll.dto.PriceAndTimeOnDeliveryDto;
+import bll.exeptions.UnsupportableWeightFactorException;
 import exeptions.AskedDataIsNotExist;
 import exeptions.FailCreateDeliveryException;
-import exeptions.UnsupportableWeightFactorException;
 import web.dto.DeliveryInfoRequestDto;
 import web.dto.DeliveryOrderCreateDto;
 

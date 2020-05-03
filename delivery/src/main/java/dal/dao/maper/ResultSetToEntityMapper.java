@@ -5,6 +5,6 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 @FunctionalInterface
-public interface ResultSetToEntityMapper <E> {
+public interface ResultSetToEntityMapper<E> {
     Optional<E> map(ResultSet resultSet) throws SQLException;
 }

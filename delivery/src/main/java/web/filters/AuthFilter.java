@@ -51,7 +51,7 @@ public class AuthFilter implements Filter {
                 filterChain.doFilter(request, response);
                 return;
             }
-            request.getRequestDispatcher(BASE_REQUEST_COMMAND+ERROR_404_REQUEST_COMMAND).forward(request, response);
+            request.getRequestDispatcher(BASE_REQUEST_COMMAND + ERROR_404_REQUEST_COMMAND).forward(request, response);
             return;
         }
         if ((!(user.getRoleType().equals(RoleType.ROLE_ADMIN))) && path.contains(ADMIN_REQUEST)) {

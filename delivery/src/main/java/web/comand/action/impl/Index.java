@@ -12,7 +12,7 @@ public class Index extends MultipleMethodCommand {
     @Override
     protected String performGet(HttpServletRequest request) {
 
-        return MAIN_WEB_FOLDER+INDEX_FILE_NAME;
+        return MAIN_WEB_FOLDER + INDEX_FILE_NAME;
     }
 
     @Override

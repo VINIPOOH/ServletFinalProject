@@ -56,8 +56,8 @@ public class User extends Entity {
         UserBuilder() {
         }
 
-        public UserBuilder id(long id){
-            this.id=id;
+        public UserBuilder id(long id) {
+            this.id = id;
             return this;
         }
 

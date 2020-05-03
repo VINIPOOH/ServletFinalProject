@@ -1,13 +1,13 @@
 package web.comand.action.impl;
 
-import bll.service.DeliveryProcessService;
-import web.comand.action.MultipleMethodCommand;
 import bll.dto.PriceAndTimeOnDeliveryDto;
+import bll.service.DeliveryProcessService;
+import bll.service.LocalityService;
+import exeptions.AskedDataIsNotExist;
+import web.comand.action.MultipleMethodCommand;
 import web.dto.DeliveryInfoRequestDto;
 import web.dto.maper.RequestDtoMapper;
 import web.dto.validation.Validator;
-import bll.service.LocalityService;
-import exeptions.AskedDataIsNotExist;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
@@ -45,7 +45,7 @@ public class Counter extends MultipleMethodCommand {
         DeliveryInfoRequestDto deliveryInfoRequestDto;
         try {
             deliveryInfoRequestDto = deliveryInfoRequestToDtoMapper.mapToDto(request);
-        }catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
         }

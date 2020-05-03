@@ -9,7 +9,8 @@ public interface GenericDao<E, ID> {
     boolean save(E entity) throws SQLException;
 
     Optional<E> findById(ID id);
-//
+
+    //
 //    List<E> findAll(Integer offset, Integer limit);
 //
     List<E> findAll();

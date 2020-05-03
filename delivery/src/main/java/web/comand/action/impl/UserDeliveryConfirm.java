@@ -1,8 +1,8 @@
 package web.comand.action.impl;
 
 import bll.service.BillService;
-import web.comand.action.MultipleMethodCommand;
 import dal.entity.User;
+import web.comand.action.MultipleMethodCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,15 +19,15 @@ public class UserDeliveryConfirm extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        request.setAttribute("BillInfoToPay",billService.getInfoToPayBillsByUserID(((User)request.getSession().getAttribute(SESSION_USER)).getId()));
+        request.setAttribute("BillInfoToPay", billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId()));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME;
     }
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        long o =Long.parseLong(request.getParameter("Id"));
-        billService.payForDelivery(((User)request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter("Id")));
-        request.setAttribute("BillInfoToPay",billService.getInfoToPayBillsByUserID(((User)request.getSession().getAttribute(SESSION_USER)).getId()));
+        long o = Long.parseLong(request.getParameter("Id"));
+        billService.payForDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter("Id")));
+        request.setAttribute("BillInfoToPay", billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId()));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME;
     }
 }

@@ -1,10 +1,10 @@
 package dal.dao.impl;
 
-import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.UserDao;
+import dal.dao.conection.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.User;
-import exeptions.DBRuntimeException;
+import dal.exeptions.DBRuntimeException;
 import exeptions.NoSuchUserException;
 
 import java.sql.Connection;
@@ -64,8 +64,8 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_USER_BALANCE_IF_ENOGFE_MONEY))) {
             preparedStatement.setLong(1, sumWhichUserNeed);
             preparedStatement.setLong(2, userId);
-            preparedStatement.setLong(3,sumWhichUserNeed);
-            return preparedStatement.executeUpdate()>0;
+            preparedStatement.setLong(3, sumWhichUserNeed);
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println(e);
             throw new DBRuntimeException();
@@ -76,8 +76,8 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     public boolean save(User entity) throws SQLException {
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_SAVE))) {
-            preparedStatement.setString(1,entity.getEmail());
-            preparedStatement.setString(2,entity.getPassword());
+            preparedStatement.setString(1, entity.getEmail());
+            preparedStatement.setString(2, entity.getPassword());
             return preparedStatement.executeUpdate() != 0;
         } catch (SQLException e) {
             System.out.println(e);

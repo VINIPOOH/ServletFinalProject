@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class LocaliseLocalityDto {
-        private Long id;
-        private String name;
+    private Long id;
+    private String name;
 
 }

@@ -23,7 +23,7 @@ public interface PageConstance {
     String ERROR_404_REQUEST_COMMAND = "404";
     String USER_PROFILE_REQUEST_COMMAND = "user/userprofile";
     String COUNTER_REQUEST_COMMAND = "counter";
-    String USER_DELIVERY_INITIATION_REQUEST_COMMAND ="user-delivery-initiation";
+    String USER_DELIVERY_INITIATION_REQUEST_COMMAND = "user-delivery-initiation";
 
     String REDIRECT_ON_ERROR_404_STRAIGHT = "/delivery/404";
 
