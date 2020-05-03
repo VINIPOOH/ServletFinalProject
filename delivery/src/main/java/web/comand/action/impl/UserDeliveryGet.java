@@ -1,8 +1,8 @@
 package web.comand.action.impl;
 
+import bll.service.DeliveryProcessService;
 import web.comand.action.MultipleMethodCommand;
 import dal.entity.User;
-import bll.service.impl.DeliveryProcessService;
 
 import javax.servlet.http.HttpServletRequest;
 

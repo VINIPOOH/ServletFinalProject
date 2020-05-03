@@ -21,29 +21,32 @@ public class ServicesSingleton {
     private static final BillDao BILL_DAO = JDBCDaoHolder.getBillDao();
 
 
-    private static final bll.service.impl.PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderService();
-    private static final bll.service.impl.UserService USER_SERVICE = new UserService(PASSWORD_ENCODER_SERVICE, USER_DAO);
-    private static final bll.service.impl.LocalityService LOCALITY_SERVICE = new LocalityService(LOCALITY_DAO);
-    private static final bll.service.impl.DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessService(WAY_DAO, DELIVERY_DAO, BILL_DAO);
-    private static final bll.service.impl.BillService BILL_SERVICE = new BillService(BILL_DAO, USER_DAO);
+    private static final bll.service.PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderService();
+    private static final bll.service.UserService USER_SERVICE = new UserService(PASSWORD_ENCODER_SERVICE, USER_DAO);
+    private static final bll.service.LocalityService LOCALITY_SERVICE = new LocalityService(LOCALITY_DAO);
+    private static final bll.service.DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessService(WAY_DAO, DELIVERY_DAO, BILL_DAO);
 
-    public static PasswordEncoderService getPasswordEncoderService() {
+    public static bll.service.PasswordEncoderService getPasswordEncoderService() {
         return PASSWORD_ENCODER_SERVICE;
     }
 
-    public static UserService getUserService() {
+    public static bll.service.UserService getUserService() {
         return USER_SERVICE;
     }
 
-    public static LocalityService getLocalityService() {
+    public static bll.service.LocalityService getLocalityService() {
         return LOCALITY_SERVICE;
     }
 
-    public static DeliveryProcessService getDeliveryProcessService() {
+    public static bll.service.DeliveryProcessService getDeliveryProcessService() {
         return DELIVERY_PROCESS_SERVICE;
     }
 
-    public static BillService getBillService() {
+    public static bll.service.BillService getBillService() {
         return BILL_SERVICE;
     }
+
+    private static final bll.service.BillService BILL_SERVICE = new BillService(BILL_DAO, USER_DAO);
+
+
 }

@@ -1,16 +1,8 @@
 package web.comand.factory;
 
-import bll.service.ServicesSingleton;
-import bll.service.impl.*;
-import bll.service.impl.BillService;
+import bll.service.*;
 import web.comand.action.ActionCommand;
 import web.comand.action.impl.*;
-import dal.dao.BillDao;
-import dal.dao.DeliveryDao;
-import dal.dao.UserDao;
-import dal.dao.WayDao;
-import dal.JDBCDaoHolder;
-import dal.dao.impl.LocalityDao;
 import web.dto.DeliveryInfoRequestDto;
 import web.dto.DeliveryOrderCreateDto;
 import web.dto.LoginInfoDto;

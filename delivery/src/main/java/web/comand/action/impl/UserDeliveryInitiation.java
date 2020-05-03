@@ -7,8 +7,8 @@ import web.dto.validation.Validator;
 import dal.entity.User;
 import exeptions.FailCreateDeliveryException;
 import exeptions.UnsupportableWeightFactorException;
-import bll.service.impl.DeliveryProcessService;
-import bll.service.impl.LocalityService;
+import bll.service.DeliveryProcessService;
+import bll.service.LocalityService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;

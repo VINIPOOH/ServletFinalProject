@@ -9,6 +9,7 @@ import dal.entity.RoleType;
 import dal.entity.User;
 import exeptions.NoSuchUserException;
 import exeptions.OccupiedLoginException;
+import bll.service.PasswordEncoderService;
 
 import java.sql.SQLException;
 import java.util.List;

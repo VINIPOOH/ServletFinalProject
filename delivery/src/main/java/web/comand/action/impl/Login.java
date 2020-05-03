@@ -1,11 +1,11 @@
 package web.comand.action.impl;
 
+import bll.service.UserService;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.LoginInfoDto;
 import web.dto.maper.RequestDtoMapper;
 import web.dto.validation.Validator;
 import exeptions.NoSuchUserException;
-import bll.service.impl.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 

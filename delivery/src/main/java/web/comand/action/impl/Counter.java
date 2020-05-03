@@ -1,12 +1,12 @@
 package web.comand.action.impl;
 
+import bll.service.DeliveryProcessService;
 import web.comand.action.MultipleMethodCommand;
 import bll.dto.PriceAndTimeOnDeliveryDto;
 import web.dto.DeliveryInfoRequestDto;
 import web.dto.maper.RequestDtoMapper;
 import web.dto.validation.Validator;
-import bll.service.impl.DeliveryProcessService;
-import bll.service.impl.LocalityService;
+import bll.service.LocalityService;
 import exeptions.AskedDataIsNotExist;
 
 import javax.servlet.http.HttpServletRequest;
