@@ -3,11 +3,14 @@ package bll.service.impl;
 import bll.dto.BillDto;
 import bll.dto.BillInfoToPayDto;
 import bll.dto.mapper.Mapper;
+import bll.exeptions.UnsupportableWeightFactorException;
 import dal.dao.BillDao;
 import dal.dao.UserDao;
 import dal.entity.Bill;
 import dal.exeptions.DBRuntimeException;
 import exeptions.AskedDataIsNotExist;
+import exeptions.FailCreateDeliveryException;
+import web.dto.DeliveryOrderCreateDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +45,12 @@ public class BillServiceImpl implements bll.service.BillService {
 
     @Override
     public void payForDelivery(long userId, long billId) {
-
         billDao.payBill(userId,billId);
+    }
 
+    @Override
+    public boolean initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
+        return billDao.initializeDelivery(deliveryOrderCreateDto,initiatorId);
     }
 
     @Override

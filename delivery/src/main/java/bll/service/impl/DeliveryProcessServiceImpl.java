@@ -22,12 +22,10 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
 
     private final WayDao wayDao;
     private final DeliveryDao deliveryDao;
-    private final BillDao billDao;
 
-    public DeliveryProcessServiceImpl(WayDao wayDao, DeliveryDao deliveryDao, BillDao billDao) {
+    public DeliveryProcessServiceImpl(WayDao wayDao, DeliveryDao deliveryDao) {
         this.wayDao = wayDao;
         this.deliveryDao = deliveryDao;
-        this.billDao = billDao;
     }
 
     @Override
@@ -41,10 +39,7 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
                 , deliveryInfoRequestDto.getLocalityGetID(), deliveryInfoRequestDto.getDeliveryWeight()).orElseThrow(AskedDataIsNotExist::new));
     }
 
-    @Override
-    public boolean initializeDelivery(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
-        return billDao.initializeDelivery(deliveryOrderCreateDto,initiatorId);
-    }
+
 
     @Override
     public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId) {

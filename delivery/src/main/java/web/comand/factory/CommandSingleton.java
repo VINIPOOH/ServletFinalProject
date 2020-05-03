@@ -35,7 +35,7 @@ public class CommandSingleton {
     private static final ActionCommand ERROR_404 = new Error404();
     private static final ActionCommand EMPTY_COMMAND = new EmptyCommand();
     private static final ActionCommand COUNTER = new Counter(LOCALITY_SERVICE, DELIVERY_PROCESS_SERVICE);
-    private static final ActionCommand USER_DELIVERY_INITIATION = new UserDeliveryInitiation(LOCALITY_SERVICE, DELIVERY_PROCESS_SERVICE, DELIVERY_ORDER_CREATE_DTO_VALIDATOR);
+    private static final ActionCommand USER_DELIVERY_INITIATION = new UserDeliveryInitiation(LOCALITY_SERVICE, BILL_SERVICE, DELIVERY_ORDER_CREATE_DTO_VALIDATOR);
     private static final ActionCommand USER_DELIVERY_CONFIRM = new UserDeliveryConfirm(BILL_SERVICE);
     private static final ActionCommand USER_DELIVERY_GET = new UserDeliveryGet(DELIVERY_PROCESS_SERVICE);
     private static final ActionCommand USER_STATISTIC = new UserStatistic(BILL_SERVICE);

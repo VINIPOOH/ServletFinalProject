@@ -13,8 +13,6 @@ import java.util.List;
 public interface DeliveryProcessService {
     PriceAndTimeOnDeliveryDto getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) throws AskedDataIsNotExist;
 
-    boolean initializeDelivery(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException;
-
     List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId);
 
     void ConfirmGettingDelivery(long userId, long deliveryId);

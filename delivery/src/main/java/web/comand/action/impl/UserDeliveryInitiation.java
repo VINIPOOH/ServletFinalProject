@@ -1,6 +1,7 @@
 package web.comand.action.impl;
 
 import bll.exeptions.UnsupportableWeightFactorException;
+import bll.service.BillService;
 import bll.service.DeliveryProcessService;
 import bll.service.LocalityService;
 import dal.entity.User;
@@ -21,13 +22,12 @@ import static web.constants.PageConstance.*;
 public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     private final LocalityService localityService;
-    private final DeliveryProcessService deliveryProcessService;
-
+    private final BillService billService;
     private final Validator<DeliveryOrderCreateDto> deliveryOrderCreateDtoValidator;
 
-    public UserDeliveryInitiation(LocalityService localityService, DeliveryProcessService deliveryProcessService, Validator<DeliveryOrderCreateDto> deliveryOrderCreateDtoValidator) {
+    public UserDeliveryInitiation(LocalityService localityService, BillService billService, Validator<DeliveryOrderCreateDto> deliveryOrderCreateDtoValidator) {
         this.localityService = localityService;
-        this.deliveryProcessService = deliveryProcessService;
+        this.billService = billService;
         this.deliveryOrderCreateDtoValidator = deliveryOrderCreateDtoValidator;
     }
 
@@ -55,7 +55,7 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
         }
 
         try {
-            deliveryProcessService.initializeDelivery(deliveryOrderCreateDto, ((User) request.getSession().getAttribute(SESSION_USER)).getId());
+            billService.initializeBill(deliveryOrderCreateDto, ((User) request.getSession().getAttribute(SESSION_USER)).getId());
         } catch (UnsupportableWeightFactorException e) {
             e.printStackTrace();
         } catch (FailCreateDeliveryException e) {
