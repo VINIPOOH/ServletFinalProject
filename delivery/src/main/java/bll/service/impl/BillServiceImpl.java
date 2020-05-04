@@ -4,25 +4,24 @@ import bll.dto.BillDto;
 import bll.dto.BillInfoToPayDto;
 import bll.dto.mapper.Mapper;
 import bll.exeptions.UnsupportableWeightFactorException;
+import dal.JDBCDaoSingleton;
 import dal.dao.BillDao;
-import dal.dao.UserDao;
+import dal.dao.conection.TransactionManager;
 import dal.entity.Bill;
-import dal.exeptions.DBRuntimeException;
 import exeptions.AskedDataIsNotExist;
 import exeptions.FailCreateDeliveryException;
 import web.dto.DeliveryOrderCreateDto;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BillServiceImpl implements bll.service.BillService {
 
     private final BillDao billDao;
-    private final UserDao userDao;
 
-    public BillServiceImpl(BillDao billDao, UserDao userDao) {
+    public BillServiceImpl(BillDao billDao) {
         this.billDao = billDao;
-        this.userDao = userDao;
     }
 
     @Override
@@ -44,28 +43,54 @@ public class BillServiceImpl implements bll.service.BillService {
     }
 
     @Override
-    public void payForDelivery(long userId, long billId) {
-        billDao.payBill(userId,billId);
+    public boolean payForDelivery(long userId, long billId) {
+
+        try (TransactionManager transactionManager = JDBCDaoSingleton.getTransactionManager()) {
+            long billPrise = transactionManager.getBillDao().getBillCostIfItIsNotPaid(billId, userId);
+            boolean a = transactionManager.getUserDao().replenishUserBalenceOnSumeIfItPosible(userId, billPrise);
+            if (a) {
+                boolean b = transactionManager.getBillDao().murkBillAsPayed(billId);
+                if (b) {
+                    transactionManager.commit();
+                    return true;
+                }
+            }
+            transactionManager.rollBack();
+            return false;
+        } catch (SQLException | AskedDataIsNotExist e) {
+            return false;
+        }
     }
 
     @Override
     public boolean initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
-        return billDao.initializeDelivery(deliveryOrderCreateDto,initiatorId);
+        try (TransactionManager transactionManager = JDBCDaoSingleton.getTransactionManager()) {
+            long newDeliveryId = transactionManager.getDeliveryDao().createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), initiatorId, deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
+            if (transactionManager.getBillDao().createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
+                    , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
+                transactionManager.commit();
+                return true;
+            }
+            transactionManager.rollBack();
+            return false;
+        } catch (SQLException | AskedDataIsNotExist e) {
+            return false;
+        }
     }
 
-    @Override
-    public List<BillDto> getBillHistoryByUserId(long userId) {
-        List<BillDto> toReturn = new ArrayList<>();
-        Mapper<Bill, BillDto> mapper = bill -> BillDto.builder()
-                .id(bill.getId())
-                .deliveryId(bill.getDelivery().getId())
-                .isDeliveryPaid(bill.getIsDeliveryPaid())
-                .costInCents(bill.getCostInCents())
-                .dateOfPay(bill.getDateOfPay())
-                .build();
-        for (Bill b : billDao.getHistoricBailsByUserId(userId)) {
-            toReturn.add(mapper.map(b));
+        @Override
+        public List<BillDto> getBillHistoryByUserId ( long userId){
+            List<BillDto> toReturn = new ArrayList<>();
+            Mapper<Bill, BillDto> mapper = bill -> BillDto.builder()
+                    .id(bill.getId())
+                    .deliveryId(bill.getDelivery().getId())
+                    .isDeliveryPaid(bill.getIsDeliveryPaid())
+                    .costInCents(bill.getCostInCents())
+                    .dateOfPay(bill.getDateOfPay())
+                    .build();
+            for (Bill b : billDao.getHistoricBailsByUserId(userId)) {
+                toReturn.add(mapper.map(b));
+            }
+            return toReturn;
         }
-        return toReturn;
     }
-}

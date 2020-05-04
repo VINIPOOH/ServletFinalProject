@@ -11,7 +11,7 @@ import java.util.List;
 public interface BillService {
     List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId);
 
-    void payForDelivery(long userId, long billId);
+    boolean payForDelivery(long userId, long billId);
 
     boolean initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException;
 

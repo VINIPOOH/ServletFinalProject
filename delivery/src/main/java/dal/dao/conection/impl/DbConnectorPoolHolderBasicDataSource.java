@@ -1,5 +1,6 @@
 package dal.dao.conection.impl;
 
+import dal.dao.conection.ConnectionWithRestrictedAbilities;
 import dal.dao.conection.DbConnectionPoolHolder;
 import dal.exeptions.DBRuntimeException;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -33,7 +34,16 @@ public class DbConnectorPoolHolderBasicDataSource implements DbConnectionPoolHol
         return dbConnectorPoolHolderBasicDataSource;
     }
 
-    public Connection getConnection() {
+    public ConnectionWithRestrictedAbilities getConnection() {
+        try {
+            return new ConnectionAdapterToConnectionWithRestrictedAbilities(dataSource.getConnection());
+        } catch (SQLException e) {
+            throw new DBRuntimeException();
+        }
+    }
+
+    @Override
+    public Connection getPureConnection() {
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {

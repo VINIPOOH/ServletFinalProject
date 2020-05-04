@@ -5,12 +5,16 @@ import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.dao.WayDao;
 import dal.dao.conection.DbConnectionPoolHolder;
+import dal.dao.conection.TransactionManager;
+import dal.dao.conection.impl.ConnectionTransactionalProxy;
 import dal.dao.conection.impl.DbConnectorPoolHolderBasicDataSource;
+import dal.dao.conection.impl.TransactionConnectionManager;
 import dal.dao.impl.*;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dao.maper.UserResultToEntityMapper;
 import dal.entity.User;
 
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static dal.dao.UserDaoConstants.PATH_TO_PROPERTY_FILE;
@@ -50,4 +54,10 @@ public class JDBCDaoSingleton {
     public static BillDao getBillDao() {
         return billDao;
     }
+
+    public static TransactionManager getTransactionManager() throws SQLException {
+        return new TransactionConnectionManager(dbConnectorPoolHolder.getPureConnection());
+    }
+
+
 }
