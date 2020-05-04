@@ -1,7 +1,7 @@
 package dal.handling.conection.pool.impl;
 
-import dal.handling.conection.ConnectionWithRestrictedAbilities;
-import dal.handling.conection.impl.ConnectionAdapterToConnectionWithRestrictedAbilities;
+import dal.handling.conection.ConnectionAdapeter;
+import dal.handling.conection.impl.ConnectionAdapterImpl;
 import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.exeptions.DBRuntimeException;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -35,9 +35,9 @@ public class DbConnectorPoolHolderBasicDataSource implements DbConnectionPoolHol
         return dbConnectorPoolHolderBasicDataSource;
     }
 
-    public ConnectionWithRestrictedAbilities getConnection() {
+    public ConnectionAdapeter getConnection() {
         try {
-            return new ConnectionAdapterToConnectionWithRestrictedAbilities(dataSource.getConnection());
+            return new ConnectionAdapterImpl(dataSource.getConnection());
         } catch (SQLException e) {
             throw new DBRuntimeException();
         }

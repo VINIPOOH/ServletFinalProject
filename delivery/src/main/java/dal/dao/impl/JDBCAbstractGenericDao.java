@@ -1,7 +1,7 @@
 package dal.dao.impl;
 
 
-import dal.handling.conection.ConnectionWithRestrictedAbilities;
+import dal.handling.conection.ConnectionAdapeter;
 import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.exeptions.DBRuntimeException;
@@ -25,7 +25,7 @@ public abstract class JDBCAbstractGenericDao<E> {
     }
 
     public Optional<E> findByLongParam(Long param, String query, ResultSetToEntityMapper<E> mapper) {
-        try (ConnectionWithRestrictedAbilities connection = connector.getConnection();
+        try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, param);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -37,7 +37,7 @@ public abstract class JDBCAbstractGenericDao<E> {
     }
 
     public List<E> findAllByLongParam(long param, String query, ResultSetToEntityMapper<E> mapper) {
-        try (ConnectionWithRestrictedAbilities connection = connector.getConnection();
+        try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, param);
             List<E> result;
@@ -58,7 +58,7 @@ public abstract class JDBCAbstractGenericDao<E> {
 
 
     public List<E> findAll(String query, ResultSetToEntityMapper<E> mapper) {
-        try (ConnectionWithRestrictedAbilities connection = connector.getConnection();
+        try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             List<E> result;
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

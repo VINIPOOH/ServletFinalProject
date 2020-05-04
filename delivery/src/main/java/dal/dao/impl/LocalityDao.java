@@ -1,7 +1,7 @@
 package dal.dao.impl;
 
 import bll.dto.LocaliseLocalityDto;
-import dal.handling.conection.ConnectionWithRestrictedAbilities;
+import dal.handling.conection.ConnectionAdapeter;
 import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.exeptions.DBRuntimeException;
@@ -29,7 +29,7 @@ public class LocalityDao extends JDBCAbstractGenericDao {
         } else {
             localedQuery = resourceBundleRequests.getString("locality.find.all.en");
         }
-        try (ConnectionWithRestrictedAbilities connection = connector.getConnection();
+        try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(localedQuery)) {
             List<LocaliseLocalityDto> result;
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

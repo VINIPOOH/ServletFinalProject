@@ -1,6 +1,6 @@
 package dal.handling.conection.pool.impl;
 
-import dal.handling.conection.ConnectionWithRestrictedAbilities;
+import dal.handling.conection.ConnectionAdapeter;
 import dal.handling.conection.impl.ConnectionTransactionalProxy;
 import dal.handling.conection.pool.DbConnectionPoolHolder;
 
@@ -15,7 +15,7 @@ public class DbTransactionPoolHolder implements DbConnectionPoolHolder {
 
 
     @Override
-    public ConnectionWithRestrictedAbilities getConnection() {
+    public ConnectionAdapeter getConnection() {
         return connectionTransactionalProxy;
     }
 

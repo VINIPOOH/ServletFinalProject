@@ -1,7 +1,7 @@
 package dal.dao.impl;
 
 import dal.dao.BillDao;
-import dal.handling.conection.ConnectionWithRestrictedAbilities;
+import dal.handling.conection.ConnectionAdapeter;
 import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
@@ -55,7 +55,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
     @Override
     public long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotExist {
-        try (ConnectionWithRestrictedAbilities connection = connector.getConnection();
+        try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
             preparedStatement.setLong(1, billId);
             preparedStatement.setLong(2, userId);
@@ -87,8 +87,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
 
     public long getBillPrice(long userId, long billId) throws SQLException, AskedDataIsNotExist {
-        try (ConnectionWithRestrictedAbilities connection = connector.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
+        try (ConnectionAdapeter connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
             {
                 preparedStatement.setLong(1, billId);
                 preparedStatement.setLong(2, userId);
@@ -104,8 +104,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
     public boolean murkBillAsPayed(long billId) throws SQLException {
 
-        try (ConnectionWithRestrictedAbilities connection = connector.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_BILL_IS_PAID_TRUE))) {
+        try (ConnectionAdapeter connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_BILL_IS_PAID_TRUE))) {
             preparedStatement.setLong(1, billId);
             return preparedStatement.executeUpdate() > 0;
         }
@@ -116,8 +116,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
 
    public boolean createBill(long deliveryId, long userId,long localitySandID, long localityGetID, int weight) throws SQLException {
-        try (ConnectionWithRestrictedAbilities connection = connector.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID))) {
+        try (ConnectionAdapeter connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID))) {
             preparedStatement.setLong(1, localitySandID);
             preparedStatement.setLong(2, localityGetID);
             preparedStatement.setInt(3, weight);

@@ -6,7 +6,7 @@ import dal.dao.UserDao;
 
 import java.sql.SQLException;
 
-public interface TransactionManager extends AutoCloseable {
+public interface TransactionManager extends  AutoCloseable {
     void rollBack() throws SQLException;
     void commit() throws SQLException;
     BillDao getBillDao();

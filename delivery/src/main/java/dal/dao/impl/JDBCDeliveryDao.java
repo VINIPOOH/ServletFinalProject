@@ -1,7 +1,7 @@
 package dal.dao.impl;
 
 import dal.dao.DeliveryDao;
-import dal.handling.conection.ConnectionWithRestrictedAbilities;
+import dal.handling.conection.ConnectionAdapeter;
 import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.Delivery;
@@ -48,7 +48,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
 
     public void confirmGettingDelivery(long userId, long deliveryId) {
 
-        try (ConnectionWithRestrictedAbilities connection = connector.getConnection();
+        try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_DELIVERY_RECIWED_STATUSE_TRUE))) {
             preparedStatement.setLong(1, userId);
             preparedStatement.setLong(2, deliveryId);
@@ -61,7 +61,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
     }
 
     public long createDelivery(String addreeseeEmail, long addresserId, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotExist {
-        try (ConnectionWithRestrictedAbilities connection = connector.getConnection();
+        try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      resourceBundleRequests.getString(CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID), Statement.RETURN_GENERATED_KEYS)) {
 

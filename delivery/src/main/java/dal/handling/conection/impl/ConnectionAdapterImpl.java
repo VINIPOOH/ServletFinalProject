@@ -1,16 +1,16 @@
 package dal.handling.conection.impl;
 
-import dal.handling.conection.ConnectionWithRestrictedAbilities;
+import dal.handling.conection.ConnectionAdapeter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ConnectionAdapterToConnectionWithRestrictedAbilities implements ConnectionWithRestrictedAbilities {
+public class ConnectionAdapterImpl implements ConnectionAdapeter {
 
     private final Connection connection;
 
-    public ConnectionAdapterToConnectionWithRestrictedAbilities(Connection connection) {
+    public ConnectionAdapterImpl(Connection connection) {
         this.connection = connection;
     }
 

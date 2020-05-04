@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public interface ConnectionWithRestrictedAbilities extends AutoCloseable {
+public interface ConnectionAdapeter extends AutoCloseable {
     @Override
     void close() throws SQLException;
     Connection getSubject();
