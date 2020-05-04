@@ -42,13 +42,4 @@ public class DbConnectorPoolHolderBasicDataSource implements DbConnectionPoolHol
             throw new DBRuntimeException();
         }
     }
-
-    @Override
-    public Connection getPureConnection() {
-        try {
-            return dataSource.getConnection();
-        } catch (SQLException e) {
-            throw new DBRuntimeException();
-        }
-    }
 }

@@ -19,8 +19,5 @@ public class DbTransactionPoolHolder implements DbConnectionPoolHolder {
         return connectionTransactionalProxy;
     }
 
-    @Override
-    public Connection getPureConnection() {
-        return connectionTransactionalProxy.getSubject();
-    }
+
 }

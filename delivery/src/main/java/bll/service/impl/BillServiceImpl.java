@@ -46,10 +46,10 @@ public class BillServiceImpl implements bll.service.BillService {
     public boolean payForDelivery(long userId, long billId) {
 
         try (TransactionManager transactionManager = JDBCDaoSingleton.getTransactionManager()) {
-            long billPrise = transactionManager.getBillDao().getBillCostIfItIsNotPaid(billId, userId);
-            boolean a = transactionManager.getUserDao().replenishUserBalenceOnSumeIfItPosible(userId, billPrise);
+            long billPrise = JDBCDaoSingleton.getBillDaoForTransaction(transactionManager).getBillCostIfItIsNotPaid(billId, userId);
+            boolean a = JDBCDaoSingleton.getUserDaoForTransaction(transactionManager).replenishUserBalenceOnSumeIfItPosible(userId, billPrise);
             if (a) {
-                boolean b = transactionManager.getBillDao().murkBillAsPayed(billId);
+                boolean b = JDBCDaoSingleton.getBillDaoForTransaction(transactionManager).murkBillAsPayed(billId);
                 if (b) {
                     transactionManager.commit();
                     return true;
@@ -65,8 +65,8 @@ public class BillServiceImpl implements bll.service.BillService {
     @Override
     public boolean initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
         try (TransactionManager transactionManager = JDBCDaoSingleton.getTransactionManager()) {
-            long newDeliveryId = transactionManager.getDeliveryDao().createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), initiatorId, deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
-            if (transactionManager.getBillDao().createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
+            long newDeliveryId = JDBCDaoSingleton.getDeliveryForTransaction(transactionManager).createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), initiatorId, deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
+            if (JDBCDaoSingleton.getBillDaoForTransaction(transactionManager).createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
                     , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
                 transactionManager.commit();
                 return true;

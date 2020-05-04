@@ -6,5 +6,4 @@ import java.sql.Connection;
 
 public interface DbConnectionPoolHolder {
     ConnectionAdapeter getConnection();
-    Connection getPureConnection();
 }

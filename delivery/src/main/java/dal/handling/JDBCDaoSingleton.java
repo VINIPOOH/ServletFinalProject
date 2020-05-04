@@ -51,7 +51,23 @@ public class JDBCDaoSingleton {
     }
 
     public static TransactionManager getTransactionManager() throws SQLException {
-        return new TransactionManagerImpl(dbConnectorPoolHolder.getPureConnection());
+        return new TransactionManagerImpl(dbConnectorPoolHolder.getConnection().getSubject());
+    }
+
+    public static BillDao getBillDaoForTransaction(TransactionManager dbConnectorPoolHolder){
+        return new JDBCBillDao(requestsBundle, dbConnectorPoolHolder);
+    }
+
+    public static WayDao getWayDaoForTransaction(TransactionManager dbConnectorPoolHolder){
+        return new JDBCWayDao(requestsBundle, dbConnectorPoolHolder);
+    }
+
+    public static UserDao getUserDaoForTransaction(TransactionManager dbConnectorPoolHolder){
+        return new JDBCUserDao(requestsBundle, dbConnectorPoolHolder);
+    }
+
+    public static DeliveryDao getDeliveryForTransaction(TransactionManager dbConnectorPoolHolder){
+        return new JDBCDeliveryDao(requestsBundle, dbConnectorPoolHolder);
     }
 
 
