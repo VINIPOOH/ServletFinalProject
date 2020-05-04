@@ -2,13 +2,13 @@ package dal.dao.impl;
 
 import dal.dao.UserDao;
 import dal.dao.conection.ConnectionWithRestrictedAbilities;
-import dal.dao.conection.DbConnectionPoolHolder;
+import dal.dao.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
+import dal.entity.RoleType;
 import dal.entity.User;
 import dal.exeptions.DBRuntimeException;
 import exeptions.NoSuchUserException;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,21 +26,31 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     private final String GET_USER_BALANCE_IF_ENOGFE_MONEY =
             "user.get.user.bulance.if.enought.money";
 
-    private final ResultSetToEntityMapper<User> mapResultSetToEntity;
 
-    public JDBCUserDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector, ResultSetToEntityMapper<User> mapResultSetToEntity) {
+    public JDBCUserDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector) {
         super(resourceBundleRequests, connector);
-        this.mapResultSetToEntity = mapResultSetToEntity;
     }
 
     public Optional<User> findByEmailAndPasswordWithPermissions(String email, String password) {
+        ResultSetToEntityMapper<User> mapper=resultSet -> Optional.of(User.builder()
+                .id(resultSet.getLong("id"))
+                .email(resultSet.getString("email"))
+                .password(resultSet.getString("password"))
+                .accountNonExpired(resultSet.getBoolean("account_non_expired"))
+                .accountNonLocked(resultSet.getBoolean("account_non_locked"))
+                .credentialsNonExpired(resultSet.getBoolean("credentials_non_expired"))
+                .enabled(resultSet.getBoolean("enabled"))
+                .userMoneyInCents(resultSet.getLong("user_money_in_cents"))
+                .roleType(RoleType.valueOf(resultSet.getString("role")))
+                .build());
+
         try (ConnectionWithRestrictedAbilities connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_FIND_BY_EMAIL))) {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
             Optional<User> user;
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                user = resultSet.next() ? mapResultSetToEntity.map(resultSet) : Optional.empty();
+                user = resultSet.next() ? mapper.map(resultSet) : Optional.empty();
             }
             return user;
         } catch (SQLException e) {

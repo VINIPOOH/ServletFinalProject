@@ -2,14 +2,12 @@ package dal.dao.impl;
 
 import dal.dao.WayDao;
 import dal.dao.conection.ConnectionWithRestrictedAbilities;
-import dal.dao.conection.DbConnectionPoolHolder;
+import dal.dao.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Way;
 import dal.exeptions.DBRuntimeException;
-import exeptions.AskedDataIsNotExist;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

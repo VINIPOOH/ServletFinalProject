@@ -2,7 +2,7 @@ package dal.dao.impl;
 
 import dal.dao.DeliveryDao;
 import dal.dao.conection.ConnectionWithRestrictedAbilities;
-import dal.dao.conection.DbConnectionPoolHolder;
+import dal.dao.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.Delivery;
 import dal.entity.Locality;

@@ -1,15 +1,12 @@
 package dal.dao.impl;
 
-import bll.exeptions.UnsupportableWeightFactorException;
 import dal.dao.BillDao;
 import dal.dao.conection.ConnectionWithRestrictedAbilities;
-import dal.dao.conection.DbConnectionPoolHolder;
+import dal.dao.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
 import dal.exeptions.DBRuntimeException;
 import exeptions.AskedDataIsNotExist;
-import exeptions.FailCreateDeliveryException;
-import web.dto.DeliveryOrderCreateDto;
 
 import java.sql.*;
 import java.util.List;

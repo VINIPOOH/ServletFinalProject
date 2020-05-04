@@ -1,7 +1,8 @@
-package dal.dao.conection.impl;
+package dal.dao.conection.pool.impl;
 
 import dal.dao.conection.ConnectionWithRestrictedAbilities;
-import dal.dao.conection.DbConnectionPoolHolder;
+import dal.dao.conection.impl.ConnectionAdapterToConnectionWithRestrictedAbilities;
+import dal.dao.conection.pool.DbConnectionPoolHolder;
 import dal.exeptions.DBRuntimeException;
 import org.apache.commons.dbcp.BasicDataSource;
 

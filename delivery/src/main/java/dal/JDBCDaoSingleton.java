@@ -4,14 +4,12 @@ import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.dao.WayDao;
-import dal.dao.conection.DbConnectionPoolHolder;
+import dal.dao.conection.pool.DbConnectionPoolHolder;
 import dal.dao.conection.TransactionManager;
-import dal.dao.conection.impl.ConnectionTransactionalProxy;
-import dal.dao.conection.impl.DbConnectorPoolHolderBasicDataSource;
-import dal.dao.conection.impl.TransactionConnectionManager;
+import dal.dao.conection.pool.impl.DbConnectorPoolHolderBasicDataSource;
+import dal.dao.conection.impl.TransactionManagerImpl;
 import dal.dao.impl.*;
 import dal.dao.maper.ResultSetToEntityMapper;
-import dal.dao.maper.UserResultToEntityMapper;
 import dal.entity.User;
 
 import java.sql.SQLException;
@@ -24,9 +22,8 @@ public class JDBCDaoSingleton {
 
     private static ResourceBundle requestsBundle = ResourceBundle.getBundle(PATH_TO_PROPERTY_FILE);
 
-    private static ResultSetToEntityMapper<User> userResultSetToEntityMapper = new UserResultToEntityMapper();
 
-    private static UserDao userDao = new JDBCUserDao(requestsBundle, dbConnectorPoolHolder, userResultSetToEntityMapper);
+    private static UserDao userDao = new JDBCUserDao(requestsBundle, dbConnectorPoolHolder);
     private static LocalityDao localityDao = new LocalityDao(requestsBundle, dbConnectorPoolHolder);
     private static WayDao wayDao = new JDBCWayDao(requestsBundle, dbConnectorPoolHolder);
     private static DeliveryDao deliveryDao = new JDBCDeliveryDao(requestsBundle, dbConnectorPoolHolder);
@@ -56,7 +53,7 @@ public class JDBCDaoSingleton {
     }
 
     public static TransactionManager getTransactionManager() throws SQLException {
-        return new TransactionConnectionManager(dbConnectorPoolHolder.getPureConnection());
+        return new TransactionManagerImpl(dbConnectorPoolHolder.getPureConnection());
     }
 
 
