@@ -1,6 +1,6 @@
-package dal.dao.conection.pool;
+package dal.handling.conection.pool;
 
-import dal.dao.conection.ConnectionWithRestrictedAbilities;
+import dal.handling.conection.ConnectionWithRestrictedAbilities;
 
 import java.sql.Connection;
 

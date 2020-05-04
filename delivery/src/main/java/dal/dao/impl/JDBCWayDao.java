@@ -1,8 +1,8 @@
 package dal.dao.impl;
 
 import dal.dao.WayDao;
-import dal.dao.conection.ConnectionWithRestrictedAbilities;
-import dal.dao.conection.pool.DbConnectionPoolHolder;
+import dal.handling.conection.ConnectionWithRestrictedAbilities;
+import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Way;

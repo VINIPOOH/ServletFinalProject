@@ -1,8 +1,8 @@
-package dal.dao.conection.pool.impl;
+package dal.handling.conection.pool.impl;
 
-import dal.dao.conection.ConnectionWithRestrictedAbilities;
-import dal.dao.conection.impl.ConnectionTransactionalProxy;
-import dal.dao.conection.pool.DbConnectionPoolHolder;
+import dal.handling.conection.ConnectionWithRestrictedAbilities;
+import dal.handling.conection.impl.ConnectionTransactionalProxy;
+import dal.handling.conection.pool.DbConnectionPoolHolder;
 
 import java.sql.Connection;
 

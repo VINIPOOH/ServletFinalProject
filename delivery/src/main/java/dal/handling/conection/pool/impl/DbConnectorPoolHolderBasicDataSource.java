@@ -1,8 +1,8 @@
-package dal.dao.conection.pool.impl;
+package dal.handling.conection.pool.impl;
 
-import dal.dao.conection.ConnectionWithRestrictedAbilities;
-import dal.dao.conection.impl.ConnectionAdapterToConnectionWithRestrictedAbilities;
-import dal.dao.conection.pool.DbConnectionPoolHolder;
+import dal.handling.conection.ConnectionWithRestrictedAbilities;
+import dal.handling.conection.impl.ConnectionAdapterToConnectionWithRestrictedAbilities;
+import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.exeptions.DBRuntimeException;
 import org.apache.commons.dbcp.BasicDataSource;
 
@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static dal.dao.conection.DbConnectionConstants.*;
+import static dal.handling.DbConnectionConstants.*;
 
 public class DbConnectorPoolHolderBasicDataSource implements DbConnectionPoolHolder {
 

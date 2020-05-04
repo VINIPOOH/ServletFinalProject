@@ -1,16 +1,15 @@
-package dal.dao.conection.impl;
+package dal.handling.transaction.impl;
 
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
-import dal.dao.conection.pool.DbConnectionPoolHolder;
-import dal.dao.conection.TransactionManager;
-import dal.dao.conection.pool.impl.DbTransactionPoolHolder;
+import dal.handling.conection.impl.ConnectionTransactionalProxy;
+import dal.handling.conection.pool.DbConnectionPoolHolder;
+import dal.handling.transaction.TransactionManager;
+import dal.handling.conection.pool.impl.DbTransactionPoolHolder;
 import dal.dao.impl.JDBCBillDao;
 import dal.dao.impl.JDBCDeliveryDao;
 import dal.dao.impl.JDBCUserDao;
-import dal.dao.maper.ResultSetToEntityMapper;
-import dal.entity.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;

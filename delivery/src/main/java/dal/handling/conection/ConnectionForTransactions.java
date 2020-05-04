@@ -1,4 +1,4 @@
-package dal.dao.conection;
+package dal.handling.conection;
 
 import java.sql.SQLException;
 

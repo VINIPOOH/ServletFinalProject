@@ -1,7 +1,6 @@
-package dal.dao.conection.impl;
+package dal.handling.conection.impl;
 
-import dal.dao.conection.ConnectionForTransactions;
-import dal.dao.conection.ConnectionWithRestrictedAbilities;
+import dal.handling.conection.ConnectionForTransactions;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

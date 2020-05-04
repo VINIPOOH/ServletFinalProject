@@ -5,7 +5,7 @@ import bll.service.impl.DeliveryProcessServiceImpl;
 import bll.service.impl.LocalityServiceImpl;
 import bll.service.impl.PasswordEncoderServiceImpl;
 import bll.service.impl.UserServiceImpl;
-import dal.JDBCDaoSingleton;
+import dal.handling.JDBCDaoSingleton;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
