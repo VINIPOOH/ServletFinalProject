@@ -1,10 +1,10 @@
 package dal.dao.impl;
 
 import bll.dto.LocaliseLocalityDto;
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.exeptions.DBRuntimeException;
+import dal.handling.conection.ConnectionAdapeter;
+import dal.handling.conection.pool.TransactionalManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ public class LocalityDao extends JDBCAbstractGenericDao {
     private final String SELECT_BY_ID = "locality.select.by.id";
     private final String FIND_ALL = "locality.find.all";
 
-    public LocalityDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector) {
+    public LocalityDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
     }
 

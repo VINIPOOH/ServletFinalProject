@@ -2,11 +2,8 @@ package bll.service;
 
 import bll.dto.DeliveryInfoToGetDto;
 import bll.dto.PriceAndTimeOnDeliveryDto;
-import bll.exeptions.UnsupportableWeightFactorException;
 import exeptions.AskedDataIsNotExist;
-import exeptions.FailCreateDeliveryException;
 import web.dto.DeliveryInfoRequestDto;
-import web.dto.DeliveryOrderCreateDto;
 
 import java.util.List;
 

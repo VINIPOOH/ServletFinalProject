@@ -2,7 +2,6 @@ package web.comand.action.impl;
 
 import bll.exeptions.UnsupportableWeightFactorException;
 import bll.service.BillService;
-import bll.service.DeliveryProcessService;
 import bll.service.LocalityService;
 import dal.entity.User;
 import exeptions.FailCreateDeliveryException;

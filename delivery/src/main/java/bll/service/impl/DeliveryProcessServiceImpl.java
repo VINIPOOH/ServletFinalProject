@@ -4,16 +4,12 @@ package bll.service.impl;
 import bll.dto.DeliveryInfoToGetDto;
 import bll.dto.PriceAndTimeOnDeliveryDto;
 import bll.dto.mapper.Mapper;
-import bll.exeptions.UnsupportableWeightFactorException;
-import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Delivery;
 import exeptions.AskedDataIsNotExist;
-import exeptions.FailCreateDeliveryException;
 import web.dto.DeliveryInfoRequestDto;
-import web.dto.DeliveryOrderCreateDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +34,6 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
         return mapper.map(wayDao.findByLocalitySand_IdAndLocalityGet_Id(deliveryInfoRequestDto.getLocalitySandID()
                 , deliveryInfoRequestDto.getLocalityGetID(), deliveryInfoRequestDto.getDeliveryWeight()).orElseThrow(AskedDataIsNotExist::new));
     }
-
 
 
     @Override

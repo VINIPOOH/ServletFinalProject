@@ -1,14 +1,14 @@
 package dal.dao.impl;
 
 import dal.dao.DeliveryDao;
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.Delivery;
 import dal.entity.Locality;
 import dal.entity.User;
 import dal.entity.Way;
 import dal.exeptions.DBRuntimeException;
+import dal.handling.conection.ConnectionAdapeter;
+import dal.handling.conection.pool.TransactionalManager;
 import exeptions.AskedDataIsNotExist;
 
 import java.sql.PreparedStatement;
@@ -28,7 +28,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
     private String CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID =
             "create.delivery.by.weight.id.locality.send.idlocality.get.adresee.email.adresser.id";
 
-    public JDBCDeliveryDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector) {
+    public JDBCDeliveryDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
     }
 

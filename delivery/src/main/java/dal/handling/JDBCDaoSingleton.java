@@ -4,11 +4,9 @@ import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.dao.WayDao;
-import dal.handling.conection.pool.DbConnectionPoolHolder;
-import dal.handling.transaction.TransactionManager;
-import dal.handling.conection.pool.impl.DbConnectorPoolHolderBasicDataSource;
-import dal.handling.transaction.impl.TransactionManagerImpl;
 import dal.dao.impl.*;
+import dal.handling.conection.pool.TransactionalManager;
+import dal.handling.conection.pool.impl.TransactionalManagerImpl;
 
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -16,7 +14,7 @@ import java.util.ResourceBundle;
 import static dal.dao.UserDaoConstants.PATH_TO_PROPERTY_FILE;
 
 public class JDBCDaoSingleton {
-    private static DbConnectionPoolHolder dbConnectorPoolHolder = DbConnectorPoolHolderBasicDataSource.getDbConnectionPoolHolder();
+    private static TransactionalManager dbConnectorPoolHolder = TransactionalManagerImpl.getDbConnectionPoolHolder();
 
     private static ResourceBundle requestsBundle = ResourceBundle.getBundle(PATH_TO_PROPERTY_FILE);
 
@@ -50,24 +48,8 @@ public class JDBCDaoSingleton {
         return billDao;
     }
 
-    public static TransactionManager getTransactionManager() throws SQLException {
-        return new TransactionManagerImpl(dbConnectorPoolHolder.getConnection().getSubject());
-    }
-
-    public static BillDao getBillDaoForTransaction(TransactionManager dbConnectorPoolHolder){
-        return new JDBCBillDao(requestsBundle, dbConnectorPoolHolder);
-    }
-
-    public static WayDao getWayDaoForTransaction(TransactionManager dbConnectorPoolHolder){
-        return new JDBCWayDao(requestsBundle, dbConnectorPoolHolder);
-    }
-
-    public static UserDao getUserDaoForTransaction(TransactionManager dbConnectorPoolHolder){
-        return new JDBCUserDao(requestsBundle, dbConnectorPoolHolder);
-    }
-
-    public static DeliveryDao getDeliveryForTransaction(TransactionManager dbConnectorPoolHolder){
-        return new JDBCDeliveryDao(requestsBundle, dbConnectorPoolHolder);
+    public static TransactionalManager getTransactionManager() throws SQLException {
+        return dbConnectorPoolHolder;
     }
 
 

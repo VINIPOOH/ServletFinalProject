@@ -1,12 +1,12 @@
 package dal.dao.impl;
 
 import dal.dao.UserDao;
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.RoleType;
 import dal.entity.User;
 import dal.exeptions.DBRuntimeException;
+import dal.handling.conection.ConnectionAdapeter;
+import dal.handling.conection.pool.TransactionalManager;
 import exeptions.NoSuchUserException;
 
 import java.sql.PreparedStatement;
@@ -27,12 +27,12 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             "user.get.user.bulance.if.enought.money";
 
 
-    public JDBCUserDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector) {
+    public JDBCUserDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
     }
 
     public Optional<User> findByEmailAndPasswordWithPermissions(String email, String password) {
-        ResultSetToEntityMapper<User> mapper=resultSet -> Optional.of(User.builder()
+        ResultSetToEntityMapper<User> mapper = resultSet -> Optional.of(User.builder()
                 .id(resultSet.getLong("id"))
                 .email(resultSet.getString("email"))
                 .password(resultSet.getString("password"))
@@ -71,7 +71,6 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             throw new NoSuchUserException();
         }
     }
-
 
 
     @Override

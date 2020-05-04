@@ -1,16 +1,12 @@
 package bll.service;
 
-import bll.service.impl.BillServiceImpl;
-import bll.service.impl.DeliveryProcessServiceImpl;
-import bll.service.impl.LocalityServiceImpl;
-import bll.service.impl.PasswordEncoderServiceImpl;
-import bll.service.impl.UserServiceImpl;
-import dal.handling.JDBCDaoSingleton;
+import bll.service.impl.*;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.dao.WayDao;
 import dal.dao.impl.LocalityDao;
+import dal.handling.JDBCDaoSingleton;
 
 public class ServicesSingleton {
 
@@ -25,7 +21,7 @@ public class ServicesSingleton {
     private static final bll.service.UserService USER_SERVICE = new UserServiceImpl(PASSWORD_ENCODER_SERVICE, USER_DAO);
     private static final bll.service.LocalityService LOCALITY_SERVICE = new LocalityServiceImpl(LOCALITY_DAO);
     private static final bll.service.DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessServiceImpl(WAY_DAO, DELIVERY_DAO);
-    private static final bll.service.BillService BILL_SERVICE = new BillServiceImpl(BILL_DAO);
+    private static final bll.service.BillService BILL_SERVICE = new BillServiceImpl(BILL_DAO, USER_DAO, DELIVERY_DAO);
 
     private ServicesSingleton() {
     }

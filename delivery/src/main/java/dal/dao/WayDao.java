@@ -1,7 +1,6 @@
 package dal.dao;
 
 import dal.dto.DeliveryCostAndTimeDto;
-import exeptions.AskedDataIsNotExist;
 
 import java.util.Optional;
 

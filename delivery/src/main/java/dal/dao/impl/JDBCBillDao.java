@@ -1,14 +1,16 @@
 package dal.dao.impl;
 
 import dal.dao.BillDao;
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
 import dal.exeptions.DBRuntimeException;
+import dal.handling.conection.ConnectionAdapeter;
+import dal.handling.conection.pool.TransactionalManager;
 import exeptions.AskedDataIsNotExist;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -28,9 +30,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             "way.find.price.by.locality_send_id.and.locality_get_id.and.weight";
 
 
-
-
-    public JDBCBillDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector) {
+    public JDBCBillDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
     }
 
@@ -112,10 +112,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     }
 
 
-
-
-
-   public boolean createBill(long deliveryId, long userId,long localitySandID, long localityGetID, int weight) throws SQLException {
+    public boolean createBill(long deliveryId, long userId, long localitySandID, long localityGetID, int weight) throws SQLException {
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID))) {
             preparedStatement.setLong(1, localitySandID);

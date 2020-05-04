@@ -1,12 +1,12 @@
 package dal.dao.impl;
 
 import dal.dao.WayDao;
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Way;
 import dal.exeptions.DBRuntimeException;
+import dal.handling.conection.ConnectionAdapeter;
+import dal.handling.conection.pool.TransactionalManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,8 +19,7 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
             "way.find.price.and.time.by.locality_send_id.and.locality_get_id.and.weight";
 
 
-
-    public JDBCWayDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector) {
+    public JDBCWayDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
     }
 

@@ -1,10 +1,10 @@
 package dal.dao.impl;
 
 
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.DbConnectionPoolHolder;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.exeptions.DBRuntimeException;
+import dal.handling.conection.ConnectionAdapeter;
+import dal.handling.conection.pool.TransactionalManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,9 +17,9 @@ import java.util.ResourceBundle;
 public abstract class JDBCAbstractGenericDao<E> {
 
     protected final ResourceBundle resourceBundleRequests;
-    protected final DbConnectionPoolHolder connector;
+    protected final TransactionalManager connector;
 
-    public JDBCAbstractGenericDao(ResourceBundle resourceBundleRequests, DbConnectionPoolHolder connector) {
+    public JDBCAbstractGenericDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         this.resourceBundleRequests = resourceBundleRequests;
         this.connector = connector;
     }
@@ -55,8 +55,6 @@ public abstract class JDBCAbstractGenericDao<E> {
     }
 
 
-
-
     public List<E> findAll(String query, ResultSetToEntityMapper<E> mapper) {
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -72,7 +70,6 @@ public abstract class JDBCAbstractGenericDao<E> {
             throw new DBRuntimeException();
         }
     }
-
 
 
 }
