@@ -14,6 +14,7 @@ import web.dto.DeliveryInfoRequestDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessService {
 
@@ -39,8 +40,13 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
 
     @Override
     public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId, Locale locale) {
-        List<DeliveryInfoToGetDto> toReturn = new ArrayList<>();
-        Mapper<Delivery, DeliveryInfoToGetDto> mapper = (delivery ->{
+        return deliveryDao.getDeliveryInfoToGet(userId, locale).stream()
+                .map(getDeliveryInfoToGetDtoMapper(locale)::map)
+                .collect(Collectors.toList());
+    }
+
+    private Mapper<Delivery, DeliveryInfoToGetDto> getDeliveryInfoToGetDtoMapper(Locale locale) {
+        return delivery ->{
                 DeliveryInfoToGetDto deliveryInfo = DeliveryInfoToGetDto.builder()
                 .addresserEmail(delivery.getAddresser().getEmail())
                 .deliveryId(delivery.getId())
@@ -55,13 +61,7 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
                 deliveryInfo.setLocalityGetName(delivery.getWay().getLocalityGet().getNameEn());
             }
             return deliveryInfo;
-        });
-
-
-        for (Delivery d : deliveryDao.getDeliveryInfoToGet(userId, locale)) {
-            toReturn.add(mapper.map(d));
-        }
-        return toReturn;
+        };
     }
 
     @Override

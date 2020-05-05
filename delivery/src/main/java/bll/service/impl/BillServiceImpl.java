@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class BillServiceImpl implements BillService {
 
@@ -35,8 +36,13 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId, Locale locale) {
-        List<BillInfoToPayDto> toReturn = new ArrayList<>();
-        Mapper<Bill, BillInfoToPayDto> mapper = bill -> {
+        return billDao.getInfoToPayBillByUserId(userId, locale).stream()
+                .map(getMapperBillInfoToPayDto(locale)::map)
+                .collect(Collectors.toList());
+    }
+
+    private Mapper<Bill, BillInfoToPayDto> getMapperBillInfoToPayDto(Locale locale) {
+        return bill -> {
 
             BillInfoToPayDto billInfoToPayDto =BillInfoToPayDto.builder()
                     .weight(bill.getDelivery().getWeight())
@@ -54,10 +60,6 @@ public class BillServiceImpl implements BillService {
             }
             return billInfoToPayDto;
         };
-        for (Bill b : billDao.getInfoToPayBillByUserId(userId, locale)) {
-            toReturn.add(mapper.map(b));
-        }
-        return toReturn;
     }
 
 
@@ -100,17 +102,18 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<BillDto> getBillHistoryByUserId(long userId) {
-        List<BillDto> toReturn = new ArrayList<>();
-        Mapper<Bill, BillDto> mapper = bill -> BillDto.builder()
+        return billDao.getHistoricBailsByUserId(userId).stream()
+                .map(getBillBillDtoMapper()::map)
+                .collect(Collectors.toList());
+    }
+
+    private Mapper<Bill, BillDto> getBillBillDtoMapper() {
+        return bill -> BillDto.builder()
                 .id(bill.getId())
                 .deliveryId(bill.getDelivery().getId())
                 .isDeliveryPaid(bill.getIsDeliveryPaid())
                 .costInCents(bill.getCostInCents())
                 .dateOfPay(bill.getDateOfPay())
                 .build();
-        for (Bill b : billDao.getHistoricBailsByUserId(userId)) {
-            toReturn.add(mapper.map(b));
-        }
-        return toReturn;
     }
 }
