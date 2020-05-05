@@ -22,8 +22,8 @@ import static dal.dao.UserDaoConstants.USER_REPLENISH_BALANCE;
 
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {
 
-    private final String USER_SAVE = "user.save";
-    private final String GET_USER_BALANCE_IF_ENOGFE_MONEY =
+    private static final  String USER_SAVE = "user.save";
+    private static final  String GET_USER_BALANCE_IF_ENOGFE_MONEY =
             "user.get.user.bulance.if.enought.money";
 
 
@@ -54,7 +54,6 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             }
             return user;
         } catch (SQLException e) {
-            System.out.println(e);
             throw new DBRuntimeException();
         }
     }
@@ -67,7 +66,6 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             preparedStatement.setLong(2, userId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e);
             throw new NoSuchUserException();
         }
     }
@@ -81,7 +79,6 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             preparedStatement.setString(2, entity.getPassword());
             return preparedStatement.executeUpdate() != 0;
         } catch (SQLException e) {
-            System.out.println(e);
             throw new DBRuntimeException();
         }
     }

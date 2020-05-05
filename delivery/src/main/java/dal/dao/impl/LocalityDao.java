@@ -12,8 +12,8 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class LocalityDao extends JDBCAbstractGenericDao {
-    private final String SELECT_BY_ID = "locality.select.by.id";
-    private final String FIND_ALL = "locality.find.all";
+    private static final  String SELECT_BY_ID = "locality.select.by.id";
+    private static final  String FIND_ALL = "locality.find.all";
 
     public LocalityDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);

@@ -42,7 +42,6 @@ public abstract class JDBCAbstractGenericDao<E> {
             preparedStatement.setLong(1, param);
             return mapPreparedStatementToEntitiesList(mapper, preparedStatement);
         } catch (SQLException e) {
-            System.out.println(e);
             throw new DBRuntimeException();
         }
     }

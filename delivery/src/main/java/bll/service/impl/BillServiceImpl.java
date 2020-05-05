@@ -9,7 +9,6 @@ import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.entity.Bill;
-import dal.entity.Locality;
 import dal.handling.JDBCDaoSingleton;
 import dal.handling.conection.pool.TransactionalManager;
 import exeptions.AskedDataIsNotExist;
@@ -17,7 +16,6 @@ import exeptions.FailCreateDeliveryException;
 import web.dto.DeliveryOrderCreateDto;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -44,17 +42,17 @@ public class BillServiceImpl implements BillService {
     private Mapper<Bill, BillInfoToPayDto> getMapperBillInfoToPayDto(Locale locale) {
         return bill -> {
 
-            BillInfoToPayDto billInfoToPayDto =BillInfoToPayDto.builder()
+            BillInfoToPayDto billInfoToPayDto = BillInfoToPayDto.builder()
                     .weight(bill.getDelivery().getWeight())
                     .price(bill.getCostInCents())
                     .deliveryId(bill.getDelivery().getId())
                     .billId(bill.getId())
                     .addreeserEmail(bill.getDelivery().getAddresser().getEmail())
                     .build();
-            if(locale.getLanguage().equals("ru")){
+            if (locale.getLanguage().equals("ru")) {
                 billInfoToPayDto.setLocalitySandName(bill.getDelivery().getWay().getLocalitySand().getNameRu());
                 billInfoToPayDto.setLocalityGetName(bill.getDelivery().getWay().getLocalityGet().getNameRu());
-            }else {
+            } else {
                 billInfoToPayDto.setLocalitySandName(bill.getDelivery().getWay().getLocalitySand().getNameEn());
                 billInfoToPayDto.setLocalityGetName(bill.getDelivery().getWay().getLocalityGet().getNameEn());
             }
@@ -79,7 +77,6 @@ public class BillServiceImpl implements BillService {
             transactionalManager.rollBack();
             return false;
         } catch (SQLException | AskedDataIsNotExist e) {
-            System.out.println(e);
             return false;
         }
     }

@@ -24,6 +24,7 @@ public class AuthFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
+        //nothing to init
     }
 
     @Override
@@ -63,6 +64,6 @@ public class AuthFilter implements Filter {
 
     @Override
     public void destroy() {
-
+        //nothing to destroy
     }
 }

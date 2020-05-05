@@ -11,7 +11,6 @@ import dal.entity.Delivery;
 import exeptions.AskedDataIsNotExist;
 import web.dto.DeliveryInfoRequestDto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -46,17 +45,17 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
     }
 
     private Mapper<Delivery, DeliveryInfoToGetDto> getDeliveryInfoToGetDtoMapper(Locale locale) {
-        return delivery ->{
-                DeliveryInfoToGetDto deliveryInfo = DeliveryInfoToGetDto.builder()
-                .addresserEmail(delivery.getAddresser().getEmail())
-                .deliveryId(delivery.getId())
-                .localitySandName(delivery.getWay().getLocalitySand().getNameEn())
-                .localityGetName(delivery.getWay().getLocalityGet().getNameEn())
-                .build();
-            if(locale.getLanguage().equals("ru")){
+        return delivery -> {
+            DeliveryInfoToGetDto deliveryInfo = DeliveryInfoToGetDto.builder()
+                    .addresserEmail(delivery.getAddresser().getEmail())
+                    .deliveryId(delivery.getId())
+                    .localitySandName(delivery.getWay().getLocalitySand().getNameEn())
+                    .localityGetName(delivery.getWay().getLocalityGet().getNameEn())
+                    .build();
+            if (locale.getLanguage().equals("ru")) {
                 deliveryInfo.setLocalitySandName(delivery.getWay().getLocalitySand().getNameRu());
                 deliveryInfo.setLocalityGetName(delivery.getWay().getLocalityGet().getNameRu());
-            }else {
+            } else {
                 deliveryInfo.setLocalitySandName(delivery.getWay().getLocalitySand().getNameEn());
                 deliveryInfo.setLocalityGetName(delivery.getWay().getLocalityGet().getNameEn());
             }
@@ -65,7 +64,7 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
     }
 
     @Override
-    public void ConfirmGettingDelivery(long userId, long deliveryId) {
+    public void confirmGettingDelivery(long userId, long deliveryId) {
         deliveryDao.confirmGettingDelivery(userId, deliveryId);
     }
 

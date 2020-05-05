@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
-    private String GET_COST_AND_TIME_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT =
+    private static final String GET_COST_AND_TIME_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT =
             "way.find.price.and.time.by.locality_send_id.and.locality_get_id.and.weight";
 
 

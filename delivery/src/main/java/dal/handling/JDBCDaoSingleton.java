@@ -8,7 +8,6 @@ import dal.dao.impl.*;
 import dal.handling.conection.pool.TransactionalManager;
 import dal.handling.conection.pool.impl.TransactionalManagerImpl;
 
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static dal.dao.UserDaoConstants.PATH_TO_PROPERTY_FILE;
@@ -48,7 +47,7 @@ public class JDBCDaoSingleton {
         return billDao;
     }
 
-    public static TransactionalManager getTransactionManager() throws SQLException {
+    public static TransactionalManager getTransactionManager() {
         return dbConnectorPoolHolder;
     }
 

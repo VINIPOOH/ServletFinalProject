@@ -17,17 +17,17 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao {
-    private final String BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID =
+    private static final String BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID =
             "bill.create.by.cost.delivery.id.user.id";
-    private final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN =
+    private static final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN =
             "bill.pay.info.sellect.by.sender.id.en";
-    private final String GET_BILL_PRISE_IF_NOT_PAID =
+    private static final String GET_BILL_PRISE_IF_NOT_PAID =
             "bill.get.prise.if.not.paid";
-    private final String SET_BILL_IS_PAID_TRUE =
+    private static final String SET_BILL_IS_PAID_TRUE =
             "bill.set.is.paid.true";
-    private final String BILLS_HISTORY_BY_USER_ID =
+    private static final String BILLS_HISTORY_BY_USER_ID =
             "bill.history.by.user.id";
-    private final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU =
+    private static final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU =
             "bill.pay.info.sellect.by.sender.id.ru";
 
 
@@ -37,7 +37,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
 
     @Override
-    public List<Bill> getInfoToPayBillByUserId(long user_id, Locale locale) {
+    public List<Bill> getInfoToPayBillByUserId(long userId, Locale locale) {
         ResultSetToEntityMapper<Bill> mapper = (resultSet -> {
             Bill toReturn = Bill.builder()
                     .id(resultSet.getLong("bill_id"))
@@ -53,7 +53,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
                         .localityGet(Locality.builder().nameRu(resultSet.getString("locality_get_name")).build())
                         .localitySand(Locality.builder().nameRu(resultSet.getString("locality_sand_name")).build())
                         .build());
-            }else {
+            } else {
                 toReturn.getDelivery().setWay(Way.builder()
                         .localityGet(Locality.builder().nameEn(resultSet.getString("locality_get_name")).build())
                         .localitySand(Locality.builder().nameEn(resultSet.getString("locality_sand_name")).build())
@@ -63,9 +63,9 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
         });
 
         if (locale.getLanguage().equals("ru")) {
-            return findAllByLongParam(user_id, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU), mapper);
+            return findAllByLongParam(userId, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU), mapper);
         } else {
-            return findAllByLongParam(user_id, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN), mapper);
+            return findAllByLongParam(userId, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN), mapper);
         }
     }
 
@@ -83,7 +83,6 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             }
             throw new AskedDataIsNotExist("sd");
         } catch (SQLException e) {
-            System.out.println(e);
             throw new DBRuntimeException();
         }
     }

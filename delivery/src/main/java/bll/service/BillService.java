@@ -3,7 +3,6 @@ package bll.service;
 import bll.dto.BillDto;
 import bll.dto.BillInfoToPayDto;
 import bll.exeptions.UnsupportableWeightFactorException;
-import dal.entity.Locality;
 import exeptions.FailCreateDeliveryException;
 import web.dto.DeliveryOrderCreateDto;
 
