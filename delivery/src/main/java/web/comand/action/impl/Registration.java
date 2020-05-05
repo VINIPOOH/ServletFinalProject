@@ -1,7 +1,7 @@
 package web.comand.action.impl;
 
 import bll.service.UserService;
-import exeptions.OccupiedLoginException;
+import dal.exeptions.OccupiedLoginException;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.RegistrationInfoDto;
 import web.dto.maper.RequestDtoMapper;

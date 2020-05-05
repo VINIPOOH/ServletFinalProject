@@ -1,13 +1,11 @@
 package bll.service.impl;
 
 
-import bll.dto.mapper.Mapper;
 import bll.service.PasswordEncoderService;
 import dal.dao.UserDao;
-import dal.entity.RoleType;
 import dal.entity.User;
 import exeptions.NoSuchUserException;
-import exeptions.OccupiedLoginException;
+import dal.exeptions.OccupiedLoginException;
 import web.dto.LoginInfoDto;
 import web.dto.RegistrationInfoDto;
 
@@ -38,11 +36,8 @@ public class UserServiceImpl implements bll.service.UserService {
 
     @Override
     public void addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException {
-        try {
-            userDao.save(registrationInfoDto.getUsername(),passwordEncoderService.encode(registrationInfoDto.getPassword()));
-        } catch (SQLException e) {
-            throw new OccupiedLoginException();
-        }
+        userDao.save(registrationInfoDto.getUsername(),passwordEncoderService.encode(registrationInfoDto.getPassword()));
+
     }
 
     @Override

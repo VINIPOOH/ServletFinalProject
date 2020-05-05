@@ -28,8 +28,8 @@
                             </div>
                         </c:if>
                         <div class="form-group" >
-                            <label for="username">notIntEmail</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="notInt" >
+                            <label for="username"><fmt:message key="registrationpage.form.leble.email"/></label>
+                            <input type="text" class="form-control" id="username" name="username">
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" id="password" name="password">

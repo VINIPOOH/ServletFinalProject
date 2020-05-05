@@ -8,6 +8,7 @@ import dal.exeptions.DBRuntimeException;
 import dal.handling.conection.ConnectionAdapeter;
 import dal.handling.conection.pool.TransactionalManager;
 import exeptions.NoSuchUserException;
+import dal.exeptions.OccupiedLoginException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.PreparedStatement;
@@ -73,14 +74,14 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     }
 
 
-    public void save(String email, String password){
+    public void save(String email, String password) throws OccupiedLoginException {
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_SAVE))) {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DBRuntimeException();
+            throw new OccupiedLoginException();
         }
     }
 

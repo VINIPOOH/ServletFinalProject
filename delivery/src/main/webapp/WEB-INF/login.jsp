@@ -16,13 +16,13 @@
                 </div>
                 <div class="panel-body">
                     <form class="form" method="post" action="${pageContext.request.contextPath}/login">
-                        <c:if test="${incorrectLoginOrPassword}">
+                        <c:if test="${inputHasErrors}">
                         <div class="alert alert-danger" role="alert">
                             <p><fmt:message key="loginpage.form.wrong"/></p>
                         </c:if>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" id="username" name="username" >
+                            <input type="text" class="form-control" id="username" name="username" >
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" id="password" name="password">
