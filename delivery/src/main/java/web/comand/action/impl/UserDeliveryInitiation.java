@@ -22,9 +22,9 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     private final LocalityService localityService;
     private final BillService billService;
-    private final Validator<DeliveryOrderCreateDto> deliveryOrderCreateDtoValidator;
+    private final Validator<HttpServletRequest> deliveryOrderCreateDtoValidator;
 
-    public UserDeliveryInitiation(LocalityService localityService, BillService billService, Validator<DeliveryOrderCreateDto> deliveryOrderCreateDtoValidator) {
+    public UserDeliveryInitiation(LocalityService localityService, BillService billService, Validator<HttpServletRequest> deliveryOrderCreateDtoValidator) {
         this.localityService = localityService;
         this.billService = billService;
         this.deliveryOrderCreateDtoValidator = deliveryOrderCreateDtoValidator;
@@ -41,16 +41,11 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
     protected String performPost(HttpServletRequest request) {
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         DeliveryOrderCreateDto deliveryOrderCreateDto;
-        try {
-            deliveryOrderCreateDto = getDeliveryOrderCreateDtoRequestDtoMapper(request).mapToDto(request);
-        } catch (NumberFormatException ex) {
+        if (!deliveryOrderCreateDtoValidator.isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
         }
-        if (!deliveryOrderCreateDtoValidator.isValid(deliveryOrderCreateDto)) {
-            request.setAttribute(INPUT_HAS_ERRORS, true);
-            return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
-        }
+        deliveryOrderCreateDto = getDeliveryOrderCreateDtoRequestDtoMapper(request).mapToDto(request);
         try {
             billService.initializeBill(deliveryOrderCreateDto, ((User) request.getSession().getAttribute(SESSION_USER)).getId());
         } catch (UnsupportableWeightFactorException | FailCreateDeliveryException e) {
@@ -67,4 +62,6 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
                 .addresseeEmail(request.getParameter("addresseeEmail"))
                 .build();
     }
+
+
 }

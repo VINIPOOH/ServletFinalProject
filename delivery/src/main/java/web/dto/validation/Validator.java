@@ -2,7 +2,7 @@ package web.dto.validation;
 
 @FunctionalInterface
 public interface Validator<T> {
-    boolean isValid(T dto);
+    boolean isValid(T request);
 
     default boolean isStringValid(String param, String regex) {
         return param.matches(regex);

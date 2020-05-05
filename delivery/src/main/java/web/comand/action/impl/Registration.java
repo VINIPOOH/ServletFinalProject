@@ -39,7 +39,7 @@ public class Registration extends MultipleMethodCommand {
     }
 
     private RequestDtoMapper<RegistrationInfoDto> getRegistrationInfoDtoRequestDtoMapper(HttpServletRequest request) {
-        return request1 -> RegistrationInfoDto.builder()
+        return req -> RegistrationInfoDto.builder()
                 .username(request.getParameter("username"))
                 .password(request.getParameter("password"))
                 .passwordRepeat(request.getParameter("passwordRepeat"))

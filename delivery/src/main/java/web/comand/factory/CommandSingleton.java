@@ -11,6 +11,7 @@ import web.dto.validation.LoginDtoValidator;
 import web.dto.validation.RegistrationDtoValidator;
 import web.dto.validation.Validator;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class CommandSingleton {
 
     private static final Validator<LoginInfoDto> LOGIN_INFO_DTO_VALIDATOR = new LoginDtoValidator();
     private static final Validator<RegistrationInfoDto> REGISTRATION_INFO_DTO_VALIDATOR = new RegistrationDtoValidator();
-    private static final Validator<DeliveryOrderCreateDto> DELIVERY_ORDER_CREATE_DTO_VALIDATOR = new DeliveryOrderCreateDtoValidator();
+    private static final Validator<HttpServletRequest> DELIVERY_ORDER_CREATE_DTO_VALIDATOR = new DeliveryOrderCreateDtoValidator();
 
     private static final UserService USER_SERVICE = ServicesSingleton.getUserService();
     private static final LocalityService LOCALITY_SERVICE = ServicesSingleton.getLocalityService();
