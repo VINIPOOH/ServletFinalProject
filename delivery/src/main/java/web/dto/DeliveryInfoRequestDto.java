@@ -1,11 +1,5 @@
 package web.dto;
 
-import lombok.Builder;
-import lombok.Data;
-
-
-@Data
-@Builder
 public class DeliveryInfoRequestDto {
 
 
@@ -14,4 +8,68 @@ public class DeliveryInfoRequestDto {
     private long localitySandID;
 
     private long localityGetID;
+
+    DeliveryInfoRequestDto(int deliveryWeight, long localitySandID, long localityGetID) {
+        this.deliveryWeight = deliveryWeight;
+        this.localitySandID = localitySandID;
+        this.localityGetID = localityGetID;
+    }
+
+    public static DeliveryInfoRequestDtoBuilder builder() {
+        return new DeliveryInfoRequestDtoBuilder();
+    }
+
+    public int getDeliveryWeight() {
+        return this.deliveryWeight;
+    }
+
+    public long getLocalitySandID() {
+        return this.localitySandID;
+    }
+
+    public long getLocalityGetID() {
+        return this.localityGetID;
+    }
+
+
+    public void setLocalitySandID(long localitySandID) {
+        this.localitySandID = localitySandID;
+    }
+
+    public void setLocalityGetID(long localityGetID) {
+        this.localityGetID = localityGetID;
+    }
+
+
+
+    public static class DeliveryInfoRequestDtoBuilder {
+        private int deliveryWeight;
+        private long localitySandID;
+        private long localityGetID;
+
+        DeliveryInfoRequestDtoBuilder() {
+        }
+
+        public DeliveryInfoRequestDto.DeliveryInfoRequestDtoBuilder deliveryWeight(int deliveryWeight) {
+            this.deliveryWeight = deliveryWeight;
+            return this;
+        }
+
+        public DeliveryInfoRequestDto.DeliveryInfoRequestDtoBuilder localitySandID(long localitySandID) {
+            this.localitySandID = localitySandID;
+            return this;
+        }
+
+        public DeliveryInfoRequestDto.DeliveryInfoRequestDtoBuilder localityGetID(long localityGetID) {
+            this.localityGetID = localityGetID;
+            return this;
+        }
+
+        public DeliveryInfoRequestDto build() {
+            return new DeliveryInfoRequestDto(deliveryWeight, localitySandID, localityGetID);
+        }
+        public String toString() {
+            return "DeliveryInfoRequestDto.DeliveryInfoRequestDtoBuilder(deliveryWeight=" + this.deliveryWeight + ", localitySandID=" + this.localitySandID + ", localityGetID=" + this.localityGetID + ")";
+        }
+    }
 }

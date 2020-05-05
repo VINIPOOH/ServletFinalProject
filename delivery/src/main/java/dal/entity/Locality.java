@@ -1,10 +1,7 @@
 package dal.entity;
 
-import lombok.Data;
-
 import java.util.List;
 
-@Data
 public class Locality extends Entity {
     private String nameRu;
     private String nameEn;
@@ -19,9 +16,28 @@ public class Locality extends Entity {
         this.waysWhereThisLocalityIsGet = waysWhereThisLocalityIsGet;
     }
 
+
+
     public static LocalityBuilder builder() {
         return new LocalityBuilder();
     }
+
+    public String getNameRu() {
+        return this.nameRu;
+    }
+
+    public String getNameEn() {
+        return this.nameEn;
+    }
+
+    public List<Way> getWaysWhereThisLocalityIsSend() {
+        return this.waysWhereThisLocalityIsSend;
+    }
+
+    public List<Way> getWaysWhereThisLocalityIsGet() {
+        return this.waysWhereThisLocalityIsGet;
+    }
+
 
     public static class LocalityBuilder {
         private long id;
@@ -60,10 +76,6 @@ public class Locality extends Entity {
 
         public Locality build() {
             return new Locality(id, nameRu, nameEn, waysWhereThisLocalityIsSend, waysWhereThisLocalityIsGet);
-        }
-
-        public String toString() {
-            return "Locality.LocalityBuilder(id=" + this.id + ", nameRu=" + this.nameRu + ", nameEn=" + this.nameEn + ", waysWhereThisLocalityIsSend=" + this.waysWhereThisLocalityIsSend + ", waysWhereThisLocalityIsGet=" + this.waysWhereThisLocalityIsGet + ")";
         }
     }
 }

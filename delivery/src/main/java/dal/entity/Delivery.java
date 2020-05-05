@@ -1,10 +1,7 @@
 package dal.entity;
 
-import lombok.Data;
-
 import java.time.LocalDate;
 
-@Data
 public class Delivery extends Entity {
     private LocalDate arrivalDate;
     private Way way;
@@ -28,9 +25,61 @@ public class Delivery extends Entity {
         this.costInCents = costInCents;
     }
 
+    public Delivery() {
+    }
+
     public static DeliveryBuilder builder() {
         return new DeliveryBuilder();
     }
+
+    public LocalDate getArrivalDate() {
+        return this.arrivalDate;
+    }
+
+    public Way getWay() {
+        return this.way;
+    }
+
+    public User getAddressee() {
+        return this.addressee;
+    }
+
+    public User getAddresser() {
+        return this.addresser;
+    }
+
+    public Boolean getIsPackageReceived() {
+        return this.isPackageReceived;
+    }
+
+    public Boolean getIsDeliveryPaid() {
+        return this.isDeliveryPaid;
+    }
+
+    public int getWeight() {
+        return this.weight;
+    }
+
+    public long getCostInCents() {
+        return this.costInCents;
+    }
+
+
+    public void setWay(Way way) {
+        this.way = way;
+    }
+
+
+
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public void setCostInCents(long costInCents) {
+        this.costInCents = costInCents;
+    }
+
 
     public static class DeliveryBuilder {
         private long id;
@@ -93,10 +142,6 @@ public class Delivery extends Entity {
 
         public Delivery build() {
             return new Delivery(id, arrivalDate, way, addressee, addresser, isPackageReceived, isDeliveryPaid, weight, costInCents);
-        }
-
-        public String toString() {
-            return "Delivery.DeliveryBuilder(id=" + this.id + ", arrivalDate=" + this.arrivalDate + ", way=" + this.way + ", addressee=" + this.addressee + ", addresser=" + this.addresser + ", isPackageReceived=" + this.isPackageReceived + ", isDeliveryPaid=" + this.isDeliveryPaid + ", weight=" + this.weight + ", costInCents=" + this.costInCents + ")";
         }
     }
 }

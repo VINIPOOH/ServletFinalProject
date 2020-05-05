@@ -1,10 +1,7 @@
 package dal.entity;
 
-import lombok.Data;
-
 import java.time.LocalDate;
 
-@Data
 public class Bill extends Entity {
 
     Delivery delivery;
@@ -20,10 +17,37 @@ public class Bill extends Entity {
         this.dateOfPay = dateOfPay;
     }
 
+    public Bill() {
+    }
+
     public static BillBuilder builder() {
         return new BillBuilder();
     }
 
+    public Delivery getDelivery() {
+        return this.delivery;
+    }
+
+    public Boolean getIsDeliveryPaid() {
+        return this.isDeliveryPaid;
+    }
+
+    public long getCostInCents() {
+        return this.costInCents;
+    }
+
+    public LocalDate getDateOfPay() {
+        return this.dateOfPay;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
+
+    public void setCostInCents(long costInCents) {
+        this.costInCents = costInCents;
+    }
 
     public static class BillBuilder {
         private long id;
@@ -62,10 +86,6 @@ public class Bill extends Entity {
 
         public Bill build() {
             return new Bill(id, delivery, isDeliveryPaid, costInCents, dateOfPay);
-        }
-
-        public String toString() {
-            return "Bill.BillBuilder(id=" + this.id + ", delivery=" + this.delivery + ", isDeliveryPaid=" + this.isDeliveryPaid + ", costInCents=" + this.costInCents + ", dateOfPay=" + this.dateOfPay + ")";
         }
     }
 }

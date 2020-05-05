@@ -1,14 +1,78 @@
 package web.dto;
 
-import lombok.Builder;
-import lombok.Data;
-
-
-@Data
-@Builder
 public class DeliveryOrderCreateDto {
     private int deliveryWeight;
     private long localitySandID;
     private long localityGetID;
     private String addresseeEmail;
+
+    DeliveryOrderCreateDto(int deliveryWeight, long localitySandID, long localityGetID, String addresseeEmail) {
+        this.deliveryWeight = deliveryWeight;
+        this.localitySandID = localitySandID;
+        this.localityGetID = localityGetID;
+        this.addresseeEmail = addresseeEmail;
+    }
+
+    public static DeliveryOrderCreateDtoBuilder builder() {
+        return new DeliveryOrderCreateDtoBuilder();
+    }
+
+    public int getDeliveryWeight() {
+        return this.deliveryWeight;
+    }
+
+    public long getLocalitySandID() {
+        return this.localitySandID;
+    }
+
+    public long getLocalityGetID() {
+        return this.localityGetID;
+    }
+
+    public String getAddresseeEmail() {
+        return this.addresseeEmail;
+    }
+
+
+    public void setLocalitySandID(long localitySandID) {
+        this.localitySandID = localitySandID;
+    }
+
+    public void setLocalityGetID(long localityGetID) {
+        this.localityGetID = localityGetID;
+    }
+
+    public static class DeliveryOrderCreateDtoBuilder {
+        private int deliveryWeight;
+        private long localitySandID;
+        private long localityGetID;
+        private String addresseeEmail;
+
+        DeliveryOrderCreateDtoBuilder() {
+        }
+
+        public DeliveryOrderCreateDto.DeliveryOrderCreateDtoBuilder deliveryWeight(int deliveryWeight) {
+            this.deliveryWeight = deliveryWeight;
+            return this;
+        }
+
+        public DeliveryOrderCreateDto.DeliveryOrderCreateDtoBuilder localitySandID(long localitySandID) {
+            this.localitySandID = localitySandID;
+            return this;
+        }
+
+        public DeliveryOrderCreateDto.DeliveryOrderCreateDtoBuilder localityGetID(long localityGetID) {
+            this.localityGetID = localityGetID;
+            return this;
+        }
+
+        public DeliveryOrderCreateDto.DeliveryOrderCreateDtoBuilder addresseeEmail(String addresseeEmail) {
+            this.addresseeEmail = addresseeEmail;
+            return this;
+        }
+
+        public DeliveryOrderCreateDto build() {
+            return new DeliveryOrderCreateDto(deliveryWeight, localitySandID, localityGetID, addresseeEmail);
+        }
+    }
 }

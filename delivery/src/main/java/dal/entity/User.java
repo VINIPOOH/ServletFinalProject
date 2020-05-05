@@ -1,12 +1,6 @@
 package dal.entity;
 
-import lombok.Data;
-import lombok.ToString;
-
 import java.util.List;
-
-@Data
-@ToString
 
 public class User extends Entity {
     private String email;
@@ -35,9 +29,38 @@ public class User extends Entity {
         this.waysWhereThisUserIsGet = waysWhereThisUserIsGet;
     }
 
+    public User() {
+    }
+
     public static UserBuilder builder() {
         return new UserBuilder();
     }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public RoleType getRoleType() {
+        return this.roleType;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public Long getUserMoneyInCents() {
+        return this.userMoneyInCents;
+    }
+
+    public void setUserMoneyInCents(Long userMoneyInCents) {
+        this.userMoneyInCents = userMoneyInCents;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
 
 
     public static class UserBuilder {
@@ -116,8 +139,5 @@ public class User extends Entity {
             return new User(id, email, roleType, password, userMoneyInCents, accountNonExpired, accountNonLocked, credentialsNonExpired, enabled, waysWhereThisUserIsSend, waysWhereThisUserIsGet);
         }
 
-        public String toString() {
-            return "User.UserBuilder(email=" + this.email + ", roleType=" + this.roleType + ", password=" + this.password + ", userMoneyInCents=" + this.userMoneyInCents + ", accountNonExpired=" + this.accountNonExpired + ", accountNonLocked=" + this.accountNonLocked + ", credentialsNonExpired=" + this.credentialsNonExpired + ", enabled=" + this.enabled + ", waysWhereThisUserIsSend=" + this.waysWhereThisUserIsSend + ", waysWhereThisUserIsGet=" + this.waysWhereThisUserIsGet + ")";
-        }
     }
 }

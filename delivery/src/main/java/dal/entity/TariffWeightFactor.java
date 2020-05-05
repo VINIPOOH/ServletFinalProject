@@ -1,10 +1,7 @@
 package dal.entity;
 
-import lombok.Data;
-
 import java.util.List;
 
-@Data
 public class TariffWeightFactor extends Entity {
     private int minWeightRange;
     private int maxWeightRange;
@@ -22,6 +19,23 @@ public class TariffWeightFactor extends Entity {
     public static TariffWeightFactorBuilder builder() {
         return new TariffWeightFactorBuilder();
     }
+
+    public int getMinWeightRange() {
+        return this.minWeightRange;
+    }
+
+    public int getMaxWeightRange() {
+        return this.maxWeightRange;
+    }
+
+    public int getOverPayOnKilometer() {
+        return this.overPayOnKilometer;
+    }
+
+    public List<Way> getWaysWhereUsed() {
+        return this.waysWhereUsed;
+    }
+
 
 
     public static class TariffWeightFactorBuilder {
@@ -63,8 +77,5 @@ public class TariffWeightFactor extends Entity {
             return new TariffWeightFactor(id, minWeightRange, maxWeightRange, overPayOnKilometer, waysWhereUsed);
         }
 
-        public String toString() {
-            return "TariffWeightFactor.TariffWeightFactorBuilder(id=" + this.id + ", minWeightRange=" + this.minWeightRange + ", maxWeightRange=" + this.maxWeightRange + ", overPayOnKilometer=" + this.overPayOnKilometer + ", waysWhereUsed=" + this.waysWhereUsed + ")";
-        }
     }
 }

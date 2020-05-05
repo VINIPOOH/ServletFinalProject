@@ -1,12 +1,7 @@
 package dal.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = false)
-@Data
 public class Way extends Entity {
     private Locality localitySand;
     private Locality localityGet;
@@ -35,6 +30,16 @@ public class Way extends Entity {
     public String toString() {
         return "Way{";
     }
+
+    public Locality getLocalitySand() {
+        return this.localitySand;
+    }
+
+    public Locality getLocalityGet() {
+        return this.localityGet;
+    }
+
+
 
     public static class WayBuilder {
         private long id;
@@ -93,8 +98,5 @@ public class Way extends Entity {
             return new Way(id, localitySand, localityGet, deliveries, distanceInKilometres, timeOnWayInDays, priceForKilometerInCents, wayTariffs);
         }
 
-        public String toString() {
-            return "Way.WayBuilder(id=" + this.id + ", localitySand=" + this.localitySand + ", localityGet=" + this.localityGet + ", deliveries=" + this.deliveries + ", distanceInKilometres=" + this.distanceInKilometres + ", timeOnWayInDays=" + this.timeOnWayInDays + ", priceForKilometerInCents=" + this.priceForKilometerInCents + ", wayTariffs=" + this.wayTariffs + ")";
-        }
     }
 }
