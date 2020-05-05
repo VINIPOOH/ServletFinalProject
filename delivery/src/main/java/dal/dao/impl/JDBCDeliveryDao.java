@@ -78,7 +78,6 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
             preparedStatement.setLong(2, deliveryId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e);
             throw new DBRuntimeException();
         }
 
@@ -101,7 +100,6 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
             }
             throw new AskedDataIsNotExist("ddsd");
         } catch (SQLException e) {
-            System.out.println(e);
             throw new RuntimeException();
         }
     }

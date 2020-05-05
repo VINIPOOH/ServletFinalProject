@@ -3,5 +3,5 @@ package bll.service;
 import exeptions.PasswordEncodeException;
 
 public interface PasswordEncoderService {
-    String encode(String password) throws PasswordEncodeException;
+    String encode(String password);
 }

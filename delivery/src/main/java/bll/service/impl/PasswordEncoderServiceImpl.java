@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 public class PasswordEncoderServiceImpl implements bll.service.PasswordEncoderService {
 
     @Override
-    public String encode(String password) throws PasswordEncodeException {
+    public String encode(String password){
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(password.getBytes());

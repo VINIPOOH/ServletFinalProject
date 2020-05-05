@@ -8,8 +8,8 @@ import static web.constants.PageConstance.MAIN_WEB_FOLDER;
 
 public abstract class MultipleMethodCommand implements ActionCommand {
 
-    private final String COMMAND_TYPE_GET = "GET";
-    private final String COMMAND_TYPE_POST = "POST";
+    private static final String COMMAND_TYPE_GET = "GET";
+    private static final String COMMAND_TYPE_POST = "POST";
 
     @Override
     public String execute(HttpServletRequest request) {

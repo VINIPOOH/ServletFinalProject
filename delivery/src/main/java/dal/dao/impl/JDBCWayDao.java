@@ -24,7 +24,7 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
     }
 
     @Override
-    public Optional<DeliveryCostAndTimeDto> findByLocalitySand_IdAndLocalityGet_Id(long localitySandID, long localityGetID, int weight) {
+    public Optional<DeliveryCostAndTimeDto> findByLocalitySandIdAndLocalityGetId(long localitySandID, long localityGetID, int weight) {
         ResultSetToEntityMapper<DeliveryCostAndTimeDto> mapper = getDeliveryCostAndTimeDtoResultSetToEntityMapper();
 
         try (ConnectionAdapeter connection = connector.getConnection();
@@ -38,6 +38,7 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 return resultSet.next() ? mapper.map(resultSet) : Optional.empty();
             }
+
         } catch (SQLException e) {
             throw new DBRuntimeException();
         }

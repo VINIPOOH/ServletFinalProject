@@ -8,9 +8,17 @@ import org.apache.commons.dbcp.BasicDataSource;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static dal.handling.DbConnectionConstants.*;
-
 public class TransactionalManagerImpl implements TransactionalManager {
+
+    String RESOURCE_BUNDLE_DATABASE = "database";
+    String DB_URL = "db.url";
+    String DB_USER = "db.user";
+    String DB_PASSWORD = "db.password";
+    String DB_DRIVER = "db.driver";
+    String DB_MIN_IDLE = "db.minIdle";
+    String DB_MAX_IDLE = "db.maxIdle";
+    String DB_INITIAL_SIZE = "db.initialSize";
+    String DB_MAX_OPEN_STATEMENT = "db.maxOpenStatement";
 
     private static TransactionalManagerImpl transactionalManagerImpl = new TransactionalManagerImpl();
     private final BasicDataSource dataSource;
@@ -42,8 +50,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
         if (connection != null) {
             return connection;
         }
-        ConnectionAdapterImpl toReturn = new ConnectionAdapterImpl(dataSource.getConnection());
-        return toReturn;
+        return new ConnectionAdapterImpl(dataSource.getConnection());
     }
 
     public void startTransaction() throws SQLException {

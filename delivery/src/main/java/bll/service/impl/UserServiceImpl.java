@@ -53,7 +53,7 @@ public class UserServiceImpl implements bll.service.UserService {
     }
 
     private Mapper<RegistrationInfoDto, User> getMapper() {
-        return (registration) -> User.builder()
+        return registration -> User.builder()
                 .accountNonExpired(true)
                 .credentialsNonExpired(true)
                 .accountNonLocked(true)

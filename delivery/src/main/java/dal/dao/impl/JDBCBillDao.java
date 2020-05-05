@@ -105,16 +105,20 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
             {
-                preparedStatement.setLong(1, billId);
-                preparedStatement.setLong(2, userId);
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    if (resultSet.next()) {
-                        return resultSet.getLong(1);
-                    }
-                }
-                throw new AskedDataIsNotExist();
+                return prepareAndExecuteQuery(userId, billId, preparedStatement);
             }
         }
+    }
+
+    private long prepareAndExecuteQuery(long userId, long billId, PreparedStatement preparedStatement) throws SQLException, AskedDataIsNotExist {
+        preparedStatement.setLong(1, billId);
+        preparedStatement.setLong(2, userId);
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getLong(1);
+            }
+        }
+        throw new AskedDataIsNotExist();
     }
 
     public boolean murkBillAsPayed(long billId) throws SQLException {

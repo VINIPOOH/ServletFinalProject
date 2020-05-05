@@ -55,10 +55,8 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
         try {
             billService.initializeBill(deliveryOrderCreateDto, ((User) request.getSession().getAttribute(SESSION_USER)).getId());
-        } catch (UnsupportableWeightFactorException e) {
-            e.printStackTrace();
-        } catch (FailCreateDeliveryException e) {
-            e.printStackTrace();
+        } catch (UnsupportableWeightFactorException | FailCreateDeliveryException e) {
+            //TODO
         }
 
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;

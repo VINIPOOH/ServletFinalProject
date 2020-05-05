@@ -32,7 +32,7 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
                 .timeOnWayInHours(deliveryCostAndTime.getTimeOnWayInHours())
                 .build();
 
-        return mapper.map(wayDao.findByLocalitySand_IdAndLocalityGet_Id(deliveryInfoRequestDto.getLocalitySandID()
+        return mapper.map(wayDao.findByLocalitySandIdAndLocalityGetId(deliveryInfoRequestDto.getLocalitySandID()
                 , deliveryInfoRequestDto.getLocalityGetID(), deliveryInfoRequestDto.getDeliveryWeight()).orElseThrow(AskedDataIsNotExist::new));
     }
 

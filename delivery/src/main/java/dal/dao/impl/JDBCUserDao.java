@@ -8,6 +8,7 @@ import dal.exeptions.DBRuntimeException;
 import dal.handling.conection.ConnectionAdapeter;
 import dal.handling.conection.pool.TransactionalManager;
 import exeptions.NoSuchUserException;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,11 +17,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static dal.dao.UserDaoConstants.USER_FIND_BY_EMAIL;
-import static dal.dao.UserDaoConstants.USER_REPLENISH_BALANCE;
 
 
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {
+
+    private static final String USER_FIND_BY_EMAIL = "user.find.by.email";
+    private static final String USER_REPLENISH_BALANCE = "user.replenish.balance";
 
     private static final  String USER_SAVE = "user.save";
     private static final  String GET_USER_BALANCE_IF_ENOGFE_MONEY =
@@ -100,6 +102,6 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
 
     @Override
     public List<User> findAll() {
-        return null;
+        throw new NotImplementedException();
     }
 }

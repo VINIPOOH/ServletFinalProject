@@ -10,9 +10,10 @@ import dal.handling.conection.pool.impl.TransactionalManagerImpl;
 
 import java.util.ResourceBundle;
 
-import static dal.dao.UserDaoConstants.PATH_TO_PROPERTY_FILE;
 
 public class JDBCDaoSingleton {
+
+    private static final String PATH_TO_PROPERTY_FILE = "db-request";
     private static TransactionalManager dbConnectorPoolHolder = TransactionalManagerImpl.getDbConnectionPoolHolder();
 
     private static ResourceBundle requestsBundle = ResourceBundle.getBundle(PATH_TO_PROPERTY_FILE);
