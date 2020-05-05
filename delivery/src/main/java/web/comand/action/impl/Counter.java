@@ -2,7 +2,7 @@ package web.comand.action.impl;
 
 import bll.service.DeliveryProcessService;
 import bll.service.LocalityService;
-import exeptions.AskedDataIsNotExist;
+import bll.exeptions.AskedDataIsNotExist;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.DeliveryInfoRequestDto;
 import web.dto.maper.RequestDtoMapper;

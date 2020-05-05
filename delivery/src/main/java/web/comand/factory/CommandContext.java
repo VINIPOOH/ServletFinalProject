@@ -3,7 +3,6 @@ package web.comand.factory;
 import bll.service.*;
 import web.comand.action.ActionCommand;
 import web.comand.action.impl.*;
-import web.dto.DeliveryOrderCreateDto;
 import web.dto.LoginInfoDto;
 import web.dto.RegistrationInfoDto;
 import web.dto.validation.DeliveryOrderCreateDtoValidator;
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandSingleton {
+public class CommandContext {
 
 
     private static final Validator<LoginInfoDto> LOGIN_INFO_DTO_VALIDATOR = new LoginDtoValidator();
@@ -59,7 +58,7 @@ public class CommandSingleton {
         COMMANDS.put("user/user-statistic", USER_STATISTIC);
     }
 
-    private CommandSingleton() {
+    private CommandContext() {
     }
 
     public static ActionCommand defineCommand(String path) {

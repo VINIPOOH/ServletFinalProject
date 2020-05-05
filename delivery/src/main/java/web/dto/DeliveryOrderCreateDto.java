@@ -25,21 +25,20 @@ public class DeliveryOrderCreateDto {
         return this.localitySandID;
     }
 
-    public long getLocalityGetID() {
-        return this.localityGetID;
-    }
-
-    public String getAddresseeEmail() {
-        return this.addresseeEmail;
-    }
-
-
     public void setLocalitySandID(long localitySandID) {
         this.localitySandID = localitySandID;
     }
 
+    public long getLocalityGetID() {
+        return this.localityGetID;
+    }
+
     public void setLocalityGetID(long localityGetID) {
         this.localityGetID = localityGetID;
+    }
+
+    public String getAddresseeEmail() {
+        return this.addresseeEmail;
     }
 
     public static class DeliveryOrderCreateDtoBuilder {

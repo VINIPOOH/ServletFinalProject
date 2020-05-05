@@ -11,7 +11,7 @@ public class DeliveryOrderCreateDtoValidator implements Validator<HttpServletReq
         try {
             return ((Integer.parseInt(request.getParameter("deliveryWeight")) > 0) &&
                     (Long.parseLong(request.getParameter("localityGetID")) > 0) &&
-                    (Long.parseLong(request.getParameter("localitySandID")) > 0))&&
+                    (Long.parseLong(request.getParameter("localitySandID")) > 0)) &&
                     isStringValid(request.getParameter("addresseeEmail"), EMAIL_REGEX);
         } catch (NumberFormatException ex) {
             return false;

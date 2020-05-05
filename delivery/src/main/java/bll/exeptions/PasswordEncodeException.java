@@ -1,4 +1,4 @@
-package exeptions;
+package bll.exeptions;
 
 public class PasswordEncodeException extends RuntimeException {
     public PasswordEncodeException(String message) {

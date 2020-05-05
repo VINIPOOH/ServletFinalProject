@@ -40,6 +40,10 @@ public class User extends Entity {
         return this.email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public RoleType getRoleType() {
         return this.roleType;
     }
@@ -55,13 +59,6 @@ public class User extends Entity {
     public void setUserMoneyInCents(Long userMoneyInCents) {
         this.userMoneyInCents = userMoneyInCents;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-
 
     public static class UserBuilder {
         private long id;

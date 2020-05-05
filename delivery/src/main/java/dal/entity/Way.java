@@ -43,7 +43,6 @@ public class Way extends Entity {
     }
 
 
-
     public static class WayBuilder {
         private long id;
         private Locality localitySand;

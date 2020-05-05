@@ -40,6 +40,10 @@ public class Delivery extends Entity {
         return this.way;
     }
 
+    public void setWay(Way way) {
+        this.way = way;
+    }
+
     public User getAddressee() {
         return this.addressee;
     }
@@ -60,20 +64,12 @@ public class Delivery extends Entity {
         return this.weight;
     }
 
-    public long getCostInCents() {
-        return this.costInCents;
-    }
-
-
-    public void setWay(Way way) {
-        this.way = way;
-    }
-
-
-
-
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public long getCostInCents() {
+        return this.costInCents;
     }
 
     public void setCostInCents(long costInCents) {

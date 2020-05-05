@@ -5,13 +5,10 @@ import bll.service.PasswordEncoderService;
 import bll.service.UserService;
 import dal.dao.UserDao;
 import dal.entity.User;
-import exeptions.NoSuchUserException;
 import dal.exeptions.OccupiedLoginException;
+import bll.exeptions.NoSuchUserException;
 import web.dto.LoginInfoDto;
 import web.dto.RegistrationInfoDto;
-
-import java.sql.SQLException;
-import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
@@ -33,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException {
-        userDao.save(registrationInfoDto.getUsername(),passwordEncoderService.encode(registrationInfoDto.getPassword()));
+        userDao.save(registrationInfoDto.getUsername(), passwordEncoderService.encode(registrationInfoDto.getPassword()));
 
     }
 

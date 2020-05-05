@@ -28,6 +28,10 @@ public class Bill extends Entity {
         return this.delivery;
     }
 
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
     public Boolean getIsDeliveryPaid() {
         return this.isDeliveryPaid;
     }
@@ -36,17 +40,12 @@ public class Bill extends Entity {
         return this.costInCents;
     }
 
-    public LocalDate getDateOfPay() {
-        return this.dateOfPay;
-    }
-
-    public void setDelivery(Delivery delivery) {
-        this.delivery = delivery;
-    }
-
-
     public void setCostInCents(long costInCents) {
         this.costInCents = costInCents;
+    }
+
+    public LocalDate getDateOfPay() {
+        return this.dateOfPay;
     }
 
     public static class BillBuilder {

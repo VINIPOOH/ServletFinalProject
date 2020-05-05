@@ -23,15 +23,13 @@ public class RegistrationInfoDto {
         return this.password;
     }
 
-    public String getPasswordRepeat() {
-        return this.passwordRepeat;
-    }
-
-
     public void setPassword(String password) {
         this.password = password;
     }
 
+    public String getPasswordRepeat() {
+        return this.passwordRepeat;
+    }
 
     public static class RegistrationInfoDtoBuilder {
         private String username;

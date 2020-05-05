@@ -7,11 +7,6 @@ public class BillDto {
     private long id;
     private Boolean isDeliveryPaid;
     private long costInCents;
-
-    public LocalDate getDateOfPay() {
-        return dateOfPay;
-    }
-
     private LocalDate dateOfPay;
 
     BillDto(long deliveryId, long id, Boolean isDeliveryPaid, long costInCents, LocalDate dateOfPay) {
@@ -26,26 +21,29 @@ public class BillDto {
         return new BillDtoBuilder();
     }
 
+    public LocalDate getDateOfPay() {
+        return dateOfPay;
+    }
+
     public long getDeliveryId() {
         return this.deliveryId;
-    }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public long getCostInCents() {
-        return this.costInCents;
     }
 
     public void setDeliveryId(long deliveryId) {
         this.deliveryId = deliveryId;
     }
 
+    public long getId() {
+        return this.id;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
 
+    public long getCostInCents() {
+        return this.costInCents;
+    }
 
     public void setCostInCents(long costInCents) {
         this.costInCents = costInCents;

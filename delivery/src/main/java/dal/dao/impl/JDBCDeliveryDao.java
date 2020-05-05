@@ -9,7 +9,7 @@ import dal.entity.Way;
 import dal.exeptions.DBRuntimeException;
 import dal.handling.conection.ConnectionAdapeter;
 import dal.handling.conection.pool.TransactionalManager;
-import exeptions.AskedDataIsNotExist;
+import bll.exeptions.AskedDataIsNotExist;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,8 +31,8 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
     private static final String CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID =
             "create.delivery.by.weight.id.locality.send.idlocality.get.adresee.email.adresser.id";
 
-    private  static final String LOCALITY_SEND_COLUMN_NAME ="locality_sand_name";
-    private static final String LOCALITY_GET_COLUMN_NAME="locality_get_name";
+    private static final String LOCALITY_SEND_COLUMN_NAME = "locality_sand_name";
+    private static final String LOCALITY_GET_COLUMN_NAME = "locality_get_name";
 
     public JDBCDeliveryDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);

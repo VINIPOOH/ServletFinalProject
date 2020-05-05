@@ -27,58 +27,57 @@ public class BillInfoToPayDto {
         return this.billId;
     }
 
-    public long getPrice() {
-        return this.price;
-    }
-
-    public long getDeliveryId() {
-        return this.deliveryId;
-    }
-
-    public int getWeight() {
-        return this.weight;
-    }
-
-    public String getAddreeserEmail() {
-        return this.addreeserEmail;
-    }
-
-    public String getLocalitySandName() {
-        return this.localitySandName;
-    }
-
-    public String getLocalityGetName() {
-        return this.localityGetName;
-    }
-
     public void setBillId(long billId) {
         this.billId = billId;
+    }
+
+    public long getPrice() {
+        return this.price;
     }
 
     public void setPrice(long price) {
         this.price = price;
     }
 
+    public long getDeliveryId() {
+        return this.deliveryId;
+    }
+
     public void setDeliveryId(long deliveryId) {
         this.deliveryId = deliveryId;
+    }
+
+    public int getWeight() {
+        return this.weight;
     }
 
     public void setWeight(int weight) {
         this.weight = weight;
     }
 
+    public String getAddreeserEmail() {
+        return this.addreeserEmail;
+    }
+
     public void setAddreeserEmail(String addreeserEmail) {
         this.addreeserEmail = addreeserEmail;
+    }
+
+    public String getLocalitySandName() {
+        return this.localitySandName;
     }
 
     public void setLocalitySandName(String localitySandName) {
         this.localitySandName = localitySandName;
     }
 
+    public String getLocalityGetName() {
+        return this.localityGetName;
+    }
+
     public void setLocalityGetName(String localityGetName) {
         this.localityGetName = localityGetName;
     }
-
 
 
     public static class BillInfoToPayDtoBuilder {

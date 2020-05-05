@@ -1,7 +1,7 @@
 package dal.dao;
 
 import dal.entity.Delivery;
-import exeptions.AskedDataIsNotExist;
+import bll.exeptions.AskedDataIsNotExist;
 
 import java.util.List;
 import java.util.Locale;

@@ -3,6 +3,7 @@ package bll.service.impl;
 import bll.dto.BillDto;
 import bll.dto.BillInfoToPayDto;
 import bll.dto.mapper.Mapper;
+import bll.exeptions.FailCreateDeliveryException;
 import bll.exeptions.UnsupportableWeightFactorException;
 import bll.service.BillService;
 import dal.dao.BillDao;
@@ -11,8 +12,7 @@ import dal.dao.UserDao;
 import dal.entity.Bill;
 import dal.handling.JDBCDaoSingleton;
 import dal.handling.conection.pool.TransactionalManager;
-import exeptions.AskedDataIsNotExist;
-import bll.exeptions.FailCreateDeliveryException;
+import bll.exeptions.AskedDataIsNotExist;
 import web.dto.DeliveryOrderCreateDto;
 
 import java.sql.SQLException;

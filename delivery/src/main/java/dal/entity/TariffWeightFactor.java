@@ -37,7 +37,6 @@ public class TariffWeightFactor extends Entity {
     }
 
 
-
     public static class TariffWeightFactorBuilder {
         private long id;
         private int minWeightRange;

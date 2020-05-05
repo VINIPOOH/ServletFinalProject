@@ -1,10 +1,10 @@
 package web.comand.action.impl;
 
+import bll.exeptions.FailCreateDeliveryException;
 import bll.exeptions.UnsupportableWeightFactorException;
 import bll.service.BillService;
 import bll.service.LocalityService;
 import dal.entity.User;
-import bll.exeptions.FailCreateDeliveryException;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.DeliveryOrderCreateDto;
 import web.dto.maper.RequestDtoMapper;
@@ -15,7 +15,8 @@ import java.util.Locale;
 
 import static web.constants.AttributeConstants.SESSION_LANG;
 import static web.constants.AttributeConstants.SESSION_USER;
-import static web.constants.ExceptionInfoForJspConstants.*;
+import static web.constants.ExceptionInfoForJspConstants.INPUT_HAS_ERRORS;
+import static web.constants.ExceptionInfoForJspConstants.UNSUPPORTABLE_WEIGHT;
 import static web.constants.PageConstance.*;
 
 public class UserDeliveryInitiation extends MultipleMethodCommand {

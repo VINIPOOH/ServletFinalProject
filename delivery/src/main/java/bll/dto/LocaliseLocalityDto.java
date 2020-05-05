@@ -10,7 +10,6 @@ public class LocaliseLocalityDto {
     }
 
 
-
     public static LocaliseLocalityDtoBuilder builder() {
         return new LocaliseLocalityDtoBuilder();
     }
@@ -19,12 +18,12 @@ public class LocaliseLocalityDto {
         return this.id;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public void setName(String name) {

@@ -5,19 +5,16 @@ import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.RoleType;
 import dal.entity.User;
 import dal.exeptions.DBRuntimeException;
+import dal.exeptions.OccupiedLoginException;
 import dal.handling.conection.ConnectionAdapeter;
 import dal.handling.conection.pool.TransactionalManager;
-import exeptions.NoSuchUserException;
-import dal.exeptions.OccupiedLoginException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import bll.exeptions.NoSuchUserException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 
 
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {
@@ -25,8 +22,8 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     private static final String USER_FIND_BY_EMAIL = "user.find.by.email";
     private static final String USER_REPLENISH_BALANCE = "user.replenish.balance";
 
-    private static final  String USER_SAVE = "user.save";
-    private static final  String GET_USER_BALANCE_IF_ENOGFE_MONEY =
+    private static final String USER_SAVE = "user.save";
+    private static final String GET_USER_BALANCE_IF_ENOGFE_MONEY =
             "user.get.user.bulance.if.enought.money";
 
 

@@ -6,7 +6,7 @@ import dal.entity.*;
 import dal.exeptions.DBRuntimeException;
 import dal.handling.conection.ConnectionAdapeter;
 import dal.handling.conection.pool.TransactionalManager;
-import exeptions.AskedDataIsNotExist;
+import bll.exeptions.AskedDataIsNotExist;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

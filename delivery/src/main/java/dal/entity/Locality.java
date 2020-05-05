@@ -17,7 +17,6 @@ public class Locality extends Entity {
     }
 
 
-
     public static LocalityBuilder builder() {
         return new LocalityBuilder();
     }

@@ -17,16 +17,13 @@ public class PriceAndTimeOnDeliveryDto {
         return this.costInCents;
     }
 
-    public int getTimeOnWayInHours() {
-        return this.timeOnWayInHours;
-    }
-
     public void setCostInCents(long costInCents) {
         this.costInCents = costInCents;
     }
 
-
-
+    public int getTimeOnWayInHours() {
+        return this.timeOnWayInHours;
+    }
 
     public static class PriceAndTimeOnDeliveryDtoBuilder {
         private long costInCents;

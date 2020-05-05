@@ -8,7 +8,7 @@ import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Delivery;
-import exeptions.AskedDataIsNotExist;
+import bll.exeptions.AskedDataIsNotExist;
 import web.dto.DeliveryInfoRequestDto;
 
 import java.util.List;

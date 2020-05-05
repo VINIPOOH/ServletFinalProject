@@ -2,7 +2,7 @@ package web.comand.action.impl;
 
 import bll.service.UserService;
 import dal.entity.User;
-import exeptions.NoSuchUserException;
+import bll.exeptions.NoSuchUserException;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.validation.Validator;
 
@@ -43,11 +43,11 @@ public class UserProfile extends MultipleMethodCommand {
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
     }
 
-    private Validator<HttpServletRequest> getValidator(){
+    private Validator<HttpServletRequest> getValidator() {
         return request -> {
             try {
-                return Long.parseLong(request.getParameter("money"))>0;
-            }catch (NumberFormatException ex) {
+                return Long.parseLong(request.getParameter("money")) > 0;
+            } catch (NumberFormatException ex) {
                 return false;
             }
         };

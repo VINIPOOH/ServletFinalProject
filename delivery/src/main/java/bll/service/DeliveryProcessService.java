@@ -2,7 +2,7 @@ package bll.service;
 
 import bll.dto.DeliveryInfoToGetDto;
 import bll.dto.PriceAndTimeOnDeliveryDto;
-import exeptions.AskedDataIsNotExist;
+import bll.exeptions.AskedDataIsNotExist;
 import web.dto.DeliveryInfoRequestDto;
 
 import java.util.List;

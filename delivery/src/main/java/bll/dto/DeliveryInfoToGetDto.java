@@ -25,27 +25,25 @@ public class DeliveryInfoToGetDto {
         return this.deliveryId;
     }
 
-    public String getLocalitySandName() {
-        return this.localitySandName;
-    }
-
-    public String getLocalityGetName() {
-        return this.localityGetName;
-    }
-
-
     public void setDeliveryId(Long deliveryId) {
         this.deliveryId = deliveryId;
+    }
+
+    public String getLocalitySandName() {
+        return this.localitySandName;
     }
 
     public void setLocalitySandName(String localitySandName) {
         this.localitySandName = localitySandName;
     }
 
+    public String getLocalityGetName() {
+        return this.localityGetName;
+    }
+
     public void setLocalityGetName(String localityGetName) {
         this.localityGetName = localityGetName;
     }
-
 
 
     public static class DeliveryInfoToGetDtoBuilder {

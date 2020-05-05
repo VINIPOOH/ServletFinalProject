@@ -1,12 +1,10 @@
 package bll.service;
 
 import dal.entity.User;
-import exeptions.NoSuchUserException;
 import dal.exeptions.OccupiedLoginException;
+import bll.exeptions.NoSuchUserException;
 import web.dto.LoginInfoDto;
 import web.dto.RegistrationInfoDto;
-
-import java.util.List;
 
 public interface UserService {
 

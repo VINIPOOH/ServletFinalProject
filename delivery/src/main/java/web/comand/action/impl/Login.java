@@ -1,7 +1,7 @@
 package web.comand.action.impl;
 
 import bll.service.UserService;
-import exeptions.NoSuchUserException;
+import bll.exeptions.NoSuchUserException;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.LoginInfoDto;
 import web.dto.maper.RequestDtoMapper;

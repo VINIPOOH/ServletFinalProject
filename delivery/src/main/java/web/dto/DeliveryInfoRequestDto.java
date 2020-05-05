@@ -27,19 +27,17 @@ public class DeliveryInfoRequestDto {
         return this.localitySandID;
     }
 
-    public long getLocalityGetID() {
-        return this.localityGetID;
-    }
-
-
     public void setLocalitySandID(long localitySandID) {
         this.localitySandID = localitySandID;
+    }
+
+    public long getLocalityGetID() {
+        return this.localityGetID;
     }
 
     public void setLocalityGetID(long localityGetID) {
         this.localityGetID = localityGetID;
     }
-
 
 
     public static class DeliveryInfoRequestDtoBuilder {
@@ -68,6 +66,7 @@ public class DeliveryInfoRequestDto {
         public DeliveryInfoRequestDto build() {
             return new DeliveryInfoRequestDto(deliveryWeight, localitySandID, localityGetID);
         }
+
         public String toString() {
             return "DeliveryInfoRequestDto.DeliveryInfoRequestDtoBuilder(deliveryWeight=" + this.deliveryWeight + ", localitySandID=" + this.localitySandID + ", localityGetID=" + this.localityGetID + ")";
         }

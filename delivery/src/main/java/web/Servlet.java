@@ -1,6 +1,6 @@
 package web;
 
-import web.comand.factory.CommandSingleton;
+import web.comand.factory.CommandContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +26,7 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getRequestURI().replaceFirst(".*/delivery/", "");
-        String page = CommandSingleton.defineCommand(path).execute(request);
+        String page = CommandContext.defineCommand(path).execute(request);
         if (page.contains("redirect:")) {
             response.sendRedirect(page.replace("redirect:", "/delivery/"));
         } else {
