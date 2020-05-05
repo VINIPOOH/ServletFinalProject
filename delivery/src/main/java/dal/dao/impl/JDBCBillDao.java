@@ -104,9 +104,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     public long getBillPrice(long userId, long billId) throws SQLException, AskedDataIsNotExist {
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
-            {
-                return prepareAndExecuteQuery(userId, billId, preparedStatement);
-            }
+            return prepareAndExecuteQuery(userId, billId, preparedStatement);
+
         }
     }
 

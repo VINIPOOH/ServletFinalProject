@@ -10,15 +10,15 @@ import java.util.ResourceBundle;
 
 public class TransactionalManagerImpl implements TransactionalManager {
 
-    String RESOURCE_BUNDLE_DATABASE = "database";
-    String DB_URL = "db.url";
-    String DB_USER = "db.user";
-    String DB_PASSWORD = "db.password";
-    String DB_DRIVER = "db.driver";
-    String DB_MIN_IDLE = "db.minIdle";
-    String DB_MAX_IDLE = "db.maxIdle";
-    String DB_INITIAL_SIZE = "db.initialSize";
-    String DB_MAX_OPEN_STATEMENT = "db.maxOpenStatement";
+    private static final String RESOURCE_BUNDLE_DATABASE = "database";
+    private static final String DB_URL = "db.url";
+    private static final String DB_USER = "db.user";
+    private static final String DB_PASSWORD = "db.password";
+    private static final String DB_DRIVER = "db.driver";
+    private static final String DB_MIN_IDLE = "db.minIdle";
+    private static final String DB_MAX_IDLE = "db.maxIdle";
+    private static final String DB_INITIAL_SIZE = "db.initialSize";
+    private static final String DB_MAX_OPEN_STATEMENT = "db.maxOpenStatement";
 
     private static TransactionalManagerImpl transactionalManagerImpl = new TransactionalManagerImpl();
     private final BasicDataSource dataSource;
