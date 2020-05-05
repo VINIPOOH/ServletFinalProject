@@ -26,7 +26,13 @@ public class UserProfile extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        long money = Long.parseLong(request.getParameter("money"));
+        long money;
+        try {
+            money = Long.parseLong(request.getParameter("money"));
+        }catch (NumberFormatException ex){
+            request.setAttribute(INPUT_HAS_ERRORS, true);
+            return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
+        }
         if (money <= 0) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;

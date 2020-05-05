@@ -12,7 +12,7 @@ import dal.entity.Bill;
 import dal.handling.JDBCDaoSingleton;
 import dal.handling.conection.pool.TransactionalManager;
 import exeptions.AskedDataIsNotExist;
-import exeptions.FailCreateDeliveryException;
+import bll.exeptions.FailCreateDeliveryException;
 import web.dto.DeliveryOrderCreateDto;
 
 import java.sql.SQLException;
@@ -82,18 +82,18 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public boolean initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
+    public void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
         try (TransactionalManager transactionalManager = JDBCDaoSingleton.getTransactionManager()) {
             long newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), initiatorId, deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
             if (billDao.createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
                     , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
                 transactionalManager.commit();
-                return true;
+                return;
             }
             transactionalManager.rollBack();
-            return false;
+            throw new UnsupportableWeightFactorException();
         } catch (SQLException | AskedDataIsNotExist e) {
-            return false;
+            throw new FailCreateDeliveryException();
         }
     }
 

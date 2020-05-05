@@ -23,6 +23,11 @@
                 </div>
                 <div class="panel-body">
                     <form class="form" method="post" action="${pageContext.request.contextPath}/user/userprofile">
+                        <c:if test="${inputHasErrors}">
+                            <div class="alert alert-danger" role="alert">
+                                <p><fmt:message key="user-profile.form.wrong"/></p>
+                            </div>
+                        </c:if>
                         <div class="form-group">
                             <input type="number" class="form-control" id="money" name="money" >
                         </div>

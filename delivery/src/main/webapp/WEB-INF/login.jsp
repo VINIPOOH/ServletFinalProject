@@ -19,8 +19,8 @@
                         <c:if test="${inputHasErrors}">
                         <div class="alert alert-danger" role="alert">
                             <p><fmt:message key="loginpage.form.wrong"/></p>
-                        </c:if>
                         </div>
+                        </c:if>
                         <div class="form-group">
                             <input type="text" class="form-control" id="username" name="username" >
                         </div>

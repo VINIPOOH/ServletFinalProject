@@ -17,33 +17,23 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-heading"><fmt:message key="homepage.form.header"/></h3>
+                    <h3 class="panel-heading"><fmt:message key="user-delivery-initiation.form.name"/></h3>
                 </div>
                 <div class="panel-body">
                     <form id="form" class="form" method="post" action="${pageContext.request.contextPath}/user/user-delivery-initiation">
-                        <c:if test="${incorrectWeightInput}">--%>
+                        <c:if test="${inputHasErrors}">
                             <div class="alert alert-danger" role="alert">
-                                <p><fmt:message key="homepage.form.weight.incorect"/></p>
+                                <p><fmt:message key="user-profile.form.wrong"/></p>
                             </div>
                         </c:if>
-                        <c:if test="${unsupportableWeightFactorException}">
+                        <c:if test="${unsupportableWeightOrWay}">
                             <div class="alert alert-danger" role="alert">
                                 <p><fmt:message key="registrationpage.form.weight.wrong"/></p>
                             </div>
                         </c:if>
-                        <c:if test="${noSuchWayException}">
-                            <div class="alert alert-danger" role="alert">
-                                <p><fmt:message key="registrationpage.form.way.wrong"/></p>
-                            </div>
-                        </c:if>
-                        <c:if test="${addresseeIsNotExist}">
-                            <div class="alert alert-danger" role="alert">
-                                <p><fmt:message key="registrationpage.form.adresee.wrong"/></p>
-                            </div>
-                        </c:if>
 
                         <div class="form-group">
-                            <input type="number" class="form-control" id="deliveryWeight" name="deliveryWeight"
+                            <input type="text" class="form-control" id="deliveryWeight" name="deliveryWeight"
                                    placeholder=<fmt:message key="homepage.form.weight"/>>
                         </div>
                         <label><fmt:message key="homepage.form.label.locality_sand"/></label>
@@ -63,7 +53,7 @@
                         <p1></p1>
                         <label><fmt:message key="homepage.form.label.aderesee.email"/></label>
                         <div class="form-group">
-                            <input type="email" class="form-control" id="addresseeEmail" name="addresseeEmail">
+                            <input type="text" class="form-control" id="addresseeEmail" name="addresseeEmail">
                         </div>
                         <button class="btn btn-success" type="submit"><fmt:message key="user-delivery-initiation.button.massege"/></button>
                     </form>

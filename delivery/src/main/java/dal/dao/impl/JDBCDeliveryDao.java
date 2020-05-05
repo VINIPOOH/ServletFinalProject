@@ -98,9 +98,9 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
             if (resultSet.next()) {
                 return resultSet.getLong(1);
             }
-            throw new AskedDataIsNotExist("ddsd");
+            throw new AskedDataIsNotExist();
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new AskedDataIsNotExist();
         }
     }
 

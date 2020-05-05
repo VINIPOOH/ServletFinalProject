@@ -81,7 +81,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
                     return resultSet.getLong(1);
                 }
             }
-            throw new AskedDataIsNotExist("sd");
+            throw new AskedDataIsNotExist();
         } catch (SQLException e) {
             throw new DBRuntimeException();
         }

@@ -4,7 +4,7 @@ import bll.exeptions.UnsupportableWeightFactorException;
 import bll.service.BillService;
 import bll.service.LocalityService;
 import dal.entity.User;
-import exeptions.FailCreateDeliveryException;
+import bll.exeptions.FailCreateDeliveryException;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.DeliveryOrderCreateDto;
 import web.dto.maper.RequestDtoMapper;
@@ -15,7 +15,7 @@ import java.util.Locale;
 
 import static web.constants.AttributeConstants.SESSION_LANG;
 import static web.constants.AttributeConstants.SESSION_USER;
-import static web.constants.ExceptionInfoForJspConstants.INPUT_HAS_ERRORS;
+import static web.constants.ExceptionInfoForJspConstants.*;
 import static web.constants.PageConstance.*;
 
 public class UserDeliveryInitiation extends MultipleMethodCommand {
@@ -47,18 +47,15 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
         }
-
         if (!deliveryOrderCreateDtoValidator.isValid(deliveryOrderCreateDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
         }
-
         try {
             billService.initializeBill(deliveryOrderCreateDto, ((User) request.getSession().getAttribute(SESSION_USER)).getId());
         } catch (UnsupportableWeightFactorException | FailCreateDeliveryException e) {
-            //TODO
+            request.setAttribute(UNSUPPORTABLE_WEIGHT, true);
         }
-
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
     }
 
