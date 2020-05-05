@@ -27,13 +27,18 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
 
     @Override
     public PriceAndTimeOnDeliveryDto getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) throws AskedDataIsNotExist {
-        Mapper<DeliveryCostAndTimeDto, PriceAndTimeOnDeliveryDto> mapper = deliveryCostAndTime -> PriceAndTimeOnDeliveryDto.builder()
+        Mapper<DeliveryCostAndTimeDto, PriceAndTimeOnDeliveryDto> mapper =
+                getDeliveryCostAndTimeDtoPriceAndTimeOnDeliveryDtoMapper();
+        return mapper.map(wayDao.findByLocalitySandIdAndLocalityGetId(deliveryInfoRequestDto.getLocalitySandID(),
+                deliveryInfoRequestDto.getLocalityGetID(),
+                deliveryInfoRequestDto.getDeliveryWeight()).orElseThrow(AskedDataIsNotExist::new));
+    }
+
+    private Mapper<DeliveryCostAndTimeDto, PriceAndTimeOnDeliveryDto> getDeliveryCostAndTimeDtoPriceAndTimeOnDeliveryDtoMapper() {
+        return deliveryCostAndTime -> PriceAndTimeOnDeliveryDto.builder()
                 .costInCents(deliveryCostAndTime.getCostInCents())
                 .timeOnWayInHours(deliveryCostAndTime.getTimeOnWayInHours())
                 .build();
-
-        return mapper.map(wayDao.findByLocalitySandIdAndLocalityGetId(deliveryInfoRequestDto.getLocalitySandID()
-                , deliveryInfoRequestDto.getLocalityGetID(), deliveryInfoRequestDto.getDeliveryWeight()).orElseThrow(AskedDataIsNotExist::new));
     }
 
 

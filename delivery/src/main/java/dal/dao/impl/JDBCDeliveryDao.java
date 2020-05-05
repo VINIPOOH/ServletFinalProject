@@ -41,14 +41,20 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
 
     @Override
     public List<Delivery> getDeliveryInfoToGet(long userId, Locale locale) {
-        ResultSetToEntityMapper<Delivery> mapper = (resultSet -> {
+        ResultSetToEntityMapper<Delivery> mapper = getDeliveryResultSetToEntityMapper(locale);
+        if (locale.getLanguage().equals("ru")) {
+            return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_RU), mapper);
+        } else {
+            return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_EN), mapper);
+        }
+    }
+
+    private ResultSetToEntityMapper<Delivery> getDeliveryResultSetToEntityMapper(Locale locale) {
+        return resultSet -> {
             Delivery toReturn = Delivery.builder()
                     .id(resultSet.getLong("id"))
                     .addresser(User.builder().email(resultSet.getString("email")).build())
-                    .way(Way.builder()
-                            .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SEND_COLUMN_NAME)).build())
-                            .localityGet(Locality.builder().nameEn(resultSet.getString(LOCALITY_GET_COLUMN_NAME)).build())
-                            .build())
+                    .way(new Way())
                     .build();
             if (locale.getLanguage().equals("ru")) {
                 toReturn.setWay(Way.builder()
@@ -62,12 +68,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
                         .build());
             }
             return Optional.of(toReturn);
-        });
-        if (locale.getLanguage().equals("ru")) {
-            return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_RU), mapper);
-        } else {
-            return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_EN), mapper);
-        }
+        };
     }
 
     public void confirmGettingDelivery(long userId, long deliveryId) {
@@ -88,12 +89,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
              PreparedStatement preparedStatement = connection.prepareStatement(
                      resourceBundleRequests.getString(CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID), Statement.RETURN_GENERATED_KEYS)) {
 
-            preparedStatement.setString(1, addreeseeEmail);
-            preparedStatement.setLong(2, addresserId);
-            preparedStatement.setLong(3, localitySandID);
-            preparedStatement.setLong(4, localityGetID);
-            preparedStatement.setInt(5, weight);
-            preparedStatement.executeUpdate();
+            prepareAndExecuteStatment(addreeseeEmail, addresserId, localitySandID, localityGetID, weight, preparedStatement);
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 return resultSet.getLong(1);
@@ -102,6 +98,15 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
         } catch (SQLException e) {
             throw new AskedDataIsNotExist();
         }
+    }
+
+    private void prepareAndExecuteStatment(String addreeseeEmail, long addresserId, long localitySandID, long localityGetID, int weight, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, addreeseeEmail);
+        preparedStatement.setLong(2, addresserId);
+        preparedStatement.setLong(3, localitySandID);
+        preparedStatement.setLong(4, localityGetID);
+        preparedStatement.setInt(5, weight);
+        preparedStatement.executeUpdate();
     }
 
 

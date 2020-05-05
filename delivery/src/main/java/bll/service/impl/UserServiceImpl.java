@@ -2,6 +2,7 @@ package bll.service.impl;
 
 
 import bll.service.PasswordEncoderService;
+import bll.service.UserService;
 import dal.dao.UserDao;
 import dal.entity.User;
 import exeptions.NoSuchUserException;
@@ -12,7 +13,7 @@ import web.dto.RegistrationInfoDto;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserServiceImpl implements bll.service.UserService {
+public class UserServiceImpl implements UserService {
 
     private final PasswordEncoderService passwordEncoderService;
     private final UserDao userDao;
@@ -22,10 +23,6 @@ public class UserServiceImpl implements bll.service.UserService {
         this.userDao = userDao;
     }
 
-    @Override
-    public List<User> getAllUsers() {
-        return userDao.findAll();
-    }
 
     @Override
     public User loginUser(LoginInfoDto loginInfoDto) throws NoSuchUserException {

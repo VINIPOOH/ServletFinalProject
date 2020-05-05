@@ -15,8 +15,6 @@ public interface BillDao {
 
     List<Bill> getHistoricBailsByUserId(long userId);
 
-    long getBillPrice(long userId, long billId) throws SQLException, AskedDataIsNotExist;
-
     boolean murkBillAsPayed(long billId) throws SQLException;
 
     boolean createBill(long deliveryId, long userId, long localitySandID, long localityGetID, int weight) throws SQLException;

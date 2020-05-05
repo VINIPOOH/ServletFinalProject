@@ -35,17 +35,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     }
 
     public Optional<User> findByEmailAndPasswordWithPermissions(String email, String password) {
-        ResultSetToEntityMapper<User> mapper = resultSet -> Optional.of(User.builder()
-                .id(resultSet.getLong("id"))
-                .email(resultSet.getString("email"))
-                .password(resultSet.getString("password"))
-                .accountNonExpired(resultSet.getBoolean("account_non_expired"))
-                .accountNonLocked(resultSet.getBoolean("account_non_locked"))
-                .credentialsNonExpired(resultSet.getBoolean("credentials_non_expired"))
-                .enabled(resultSet.getBoolean("enabled"))
-                .userMoneyInCents(resultSet.getLong("user_money_in_cents"))
-                .roleType(RoleType.valueOf(resultSet.getString("role")))
-                .build());
+        ResultSetToEntityMapper<User> mapper = getUserResultSetToEntityMapper();
 
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_FIND_BY_EMAIL))) {
@@ -59,6 +49,20 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
         } catch (SQLException e) {
             throw new DBRuntimeException();
         }
+    }
+
+    private ResultSetToEntityMapper<User> getUserResultSetToEntityMapper() {
+        return resultSet -> Optional.of(User.builder()
+                .id(resultSet.getLong("id"))
+                .email(resultSet.getString("email"))
+                .password(resultSet.getString("password"))
+                .accountNonExpired(resultSet.getBoolean("account_non_expired"))
+                .accountNonLocked(resultSet.getBoolean("account_non_locked"))
+                .credentialsNonExpired(resultSet.getBoolean("credentials_non_expired"))
+                .enabled(resultSet.getBoolean("enabled"))
+                .userMoneyInCents(resultSet.getLong("user_money_in_cents"))
+                .roleType(RoleType.valueOf(resultSet.getString("role")))
+                .build());
     }
 
     @Override
@@ -93,15 +97,5 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             preparedStatement.setLong(3, sumWhichUserNeed);
             return preparedStatement.executeUpdate() > 0;
         }
-    }
-
-    @Override
-    public Optional<User> findById(Long aLong) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<User> findAll() {
-        throw new NotImplementedException();
     }
 }

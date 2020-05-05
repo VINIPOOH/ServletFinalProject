@@ -84,6 +84,7 @@ public class BillServiceImpl implements BillService {
     @Override
     public void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
         try (TransactionalManager transactionalManager = JDBCDaoSingleton.getTransactionManager()) {
+            transactionalManager.startTransaction();
             long newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), initiatorId, deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
             if (billDao.createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
                     , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
@@ -93,6 +94,7 @@ public class BillServiceImpl implements BillService {
             transactionalManager.rollBack();
             throw new UnsupportableWeightFactorException();
         } catch (SQLException | AskedDataIsNotExist e) {
+            System.out.println(e);
             throw new FailCreateDeliveryException();
         }
     }

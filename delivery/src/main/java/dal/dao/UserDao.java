@@ -7,7 +7,7 @@ import exeptions.NoSuchUserException;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public interface UserDao extends GenericDao<User, Long> {
+public interface UserDao{
 
     Optional<User> findByEmailAndPasswordWithPermissions(String email, String password);
 

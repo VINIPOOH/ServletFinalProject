@@ -24,32 +24,10 @@ public abstract class JDBCAbstractGenericDao<E> {
         this.connector = connector;
     }
 
-    public Optional<E> findByLongParam(Long param, String query, ResultSetToEntityMapper<E> mapper) {
-        try (ConnectionAdapeter connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setLong(1, param);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                return resultSet.next() ? mapper.map(resultSet) : Optional.empty();
-            }
-        } catch (SQLException e) {
-            throw new DBRuntimeException();
-        }
-    }
-
     public List<E> findAllByLongParam(long param, String query, ResultSetToEntityMapper<E> mapper) {
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, param);
-            return mapPreparedStatementToEntitiesList(mapper, preparedStatement);
-        } catch (SQLException e) {
-            throw new DBRuntimeException();
-        }
-    }
-
-
-    public List<E> findAll(String query, ResultSetToEntityMapper<E> mapper) {
-        try (ConnectionAdapeter connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             return mapPreparedStatementToEntitiesList(mapper, preparedStatement);
         } catch (SQLException e) {
             throw new DBRuntimeException();

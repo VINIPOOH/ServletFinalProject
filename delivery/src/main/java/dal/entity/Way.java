@@ -11,6 +11,9 @@ public class Way extends Entity {
     private int priceForKilometerInCents;
     private List<TariffWeightFactor> wayTariffs;
 
+    public Way() {
+    }
+
     public Way(Long id, Locality localitySand, Locality localityGet, List<Delivery> deliveries, int distanceInKilometres, int timeOnWayInDays, int priceForKilometerInCents, List<TariffWeightFactor> wayTariffs) {
         super(id);
         this.localitySand = localitySand;
