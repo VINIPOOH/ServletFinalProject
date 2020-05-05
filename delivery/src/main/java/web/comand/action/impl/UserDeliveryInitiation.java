@@ -40,14 +40,12 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
     @Override
     protected String performPost(HttpServletRequest request) {
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
-        DeliveryOrderCreateDto deliveryOrderCreateDto;
         if (!deliveryOrderCreateDtoValidator.isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
         }
-        deliveryOrderCreateDto = getDeliveryOrderCreateDtoRequestDtoMapper(request).mapToDto(request);
         try {
-            billService.initializeBill(deliveryOrderCreateDto, ((User) request.getSession().getAttribute(SESSION_USER)).getId());
+            billService.initializeBill(getDeliveryOrderCreateDtoRequestDtoMapper(request).mapToDto(request), ((User) request.getSession().getAttribute(SESSION_USER)).getId());
         } catch (UnsupportableWeightFactorException | FailCreateDeliveryException e) {
             request.setAttribute(UNSUPPORTABLE_WEIGHT, true);
         }

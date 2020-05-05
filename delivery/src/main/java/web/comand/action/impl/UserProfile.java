@@ -4,6 +4,7 @@ import bll.service.UserService;
 import dal.entity.User;
 import exeptions.NoSuchUserException;
 import web.comand.action.MultipleMethodCommand;
+import web.dto.validation.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,17 +27,11 @@ public class UserProfile extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        long money;
-        try {
-            money = Long.parseLong(request.getParameter("money"));
-        }catch (NumberFormatException ex){
+        if (!getValidator().isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
         }
-        if (money <= 0) {
-            request.setAttribute(INPUT_HAS_ERRORS, true);
-            return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
-        }
+        long money = Long.parseLong(request.getParameter("money"));
         User user = (User) request.getSession().getAttribute(SESSION_USER);
         try {
             userService.replenishAccountBalance(user.getId(), money);
@@ -46,5 +41,15 @@ public class UserProfile extends MultipleMethodCommand {
         user.setUserMoneyInCents(user.getUserMoneyInCents() + money);
         request.setAttribute(SESSION_USER, user);
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
+    }
+
+    private Validator<HttpServletRequest> getValidator(){
+        return request -> {
+            try {
+                return Long.parseLong(request.getParameter("money"))>0;
+            }catch (NumberFormatException ex) {
+                return false;
+            }
+        };
     }
 }
