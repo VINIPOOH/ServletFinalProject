@@ -6,6 +6,9 @@ import web.comand.action.MultipleMethodCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.Locale;
+
+import static web.constants.AttributeConstants.SESSION_LANG;
 import static web.constants.AttributeConstants.SESSION_USER;
 import static web.constants.PageConstance.*;
 
@@ -19,14 +22,14 @@ public class UserDeliveryGet extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        request.setAttribute("deliveriesWhichAddressedForUser", deliveryProcessService.getInfoToGetDeliverisByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId()));
+        request.setAttribute("deliveriesWhichAddressedForUser", deliveryProcessService.getInfoToGetDeliverisByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_GET_CONFIRM_FILE_NAME;
     }
 
     @Override
     protected String performPost(HttpServletRequest request) {
         deliveryProcessService.ConfirmGettingDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter("deliveryId")));
-        request.setAttribute("deliveriesWhichAddressedForUser", deliveryProcessService.getInfoToGetDeliverisByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId()));
+        request.setAttribute("deliveriesWhichAddressedForUser", deliveryProcessService.getInfoToGetDeliverisByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(),(Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_GET_CONFIRM_FILE_NAME;
     }
 }

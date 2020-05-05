@@ -16,13 +16,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements DeliveryDao {
 
-    private String DELIVERY_INFO_TO_GET_BY_USER_ID =
-            "delivery.get.not.recived.deliveries.by.user.id";
+    private String DELIVERY_INFO_TO_GET_BY_USER_ID_EN =
+            "delivery.get.not.recived.deliveries.by.user.id.en";
+    private String DELIVERY_INFO_TO_GET_BY_USER_ID_RU =
+    "delivery.get.not.recived.deliveries.by.user.id.ru";
     private String SET_DELIVERY_RECIWED_STATUSE_TRUE =
             "delivery.set.recived.statuse.true";
     private String CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID =
@@ -34,16 +37,34 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
 
 
     @Override
-    public List<Delivery> getDeliveryInfoToGet(long userId) {
-        ResultSetToEntityMapper<Delivery> mapper = (resultSet -> Optional.of(Delivery.builder()
+    public List<Delivery> getDeliveryInfoToGet(long userId, Locale locale) {
+        ResultSetToEntityMapper<Delivery> mapper = (resultSet -> {
+        Delivery toReturn = Delivery.builder()
                 .id(resultSet.getLong("id"))
                 .addresser(User.builder().email(resultSet.getString("email")).build())
                 .way(Way.builder()
                         .localitySand(Locality.builder().nameEn(resultSet.getString("locality_sand_name")).build())
                         .localityGet(Locality.builder().nameEn(resultSet.getString("locality_get_name")).build())
                         .build())
-                .build()));
-        return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID), mapper);
+                .build();
+            if (locale.getLanguage().equals("ru")) {
+                toReturn.setWay(Way.builder()
+                        .localityGet(Locality.builder().nameRu(resultSet.getString("locality_get_name")).build())
+                        .localitySand(Locality.builder().nameRu(resultSet.getString("locality_sand_name")).build())
+                        .build());
+            }else {
+                toReturn.setWay(Way.builder()
+                        .localityGet(Locality.builder().nameEn(resultSet.getString("locality_get_name")).build())
+                        .localitySand(Locality.builder().nameEn(resultSet.getString("locality_sand_name")).build())
+                        .build());
+            }
+            return Optional.of(toReturn);
+        });
+        if (locale.getLanguage().equals("ru")) {
+            return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_RU), mapper);
+        } else {
+            return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_EN), mapper);
+        }
     }
 
     public void confirmGettingDelivery(long userId, long deliveryId) {

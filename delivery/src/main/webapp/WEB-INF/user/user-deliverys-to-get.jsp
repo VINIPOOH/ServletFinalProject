@@ -13,7 +13,7 @@
     <div class="row border border-info mt-2 rounded">
         <div class="card-body col-md-3">
             <h5 class="card-title" ><fmt:message key="user-deliverys-to-get.card.title"/>${deliveryForUser.addresserEmail}
-                +<fmt:message key="user-deliverys-to-get.card.title.delivery.id"/>${deliveryForUser.deliveryId}</h5>
+                <fmt:message key="user-deliverys-to-get.card.title.delivery.id"/>${deliveryForUser.deliveryId}</h5>
         </div>
         <div class="col-md-4 mt-3">
             <p1 class="list-group-item"><fmt:message key="user-deliverys-to-get.card.list.from.city"/>${deliveryForUser.localitySandName}</p1>

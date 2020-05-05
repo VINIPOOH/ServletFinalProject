@@ -13,6 +13,7 @@ import web.dto.DeliveryInfoRequestDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessService {
 
@@ -37,15 +38,27 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
 
 
     @Override
-    public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId) {
+    public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId, Locale locale) {
         List<DeliveryInfoToGetDto> toReturn = new ArrayList<>();
-        Mapper<Delivery, DeliveryInfoToGetDto> mapper = (delivery -> DeliveryInfoToGetDto.builder()
+        Mapper<Delivery, DeliveryInfoToGetDto> mapper = (delivery ->{
+                DeliveryInfoToGetDto deliveryInfo = DeliveryInfoToGetDto.builder()
                 .addresserEmail(delivery.getAddresser().getEmail())
                 .deliveryId(delivery.getId())
                 .localitySandName(delivery.getWay().getLocalitySand().getNameEn())
                 .localityGetName(delivery.getWay().getLocalityGet().getNameEn())
-                .build());
-        for (Delivery d : deliveryDao.getDeliveryInfoToGet(userId)) {
+                .build();
+            if(locale.getLanguage().equals("ru")){
+                deliveryInfo.setLocalitySandName(delivery.getWay().getLocalitySand().getNameRu());
+                deliveryInfo.setLocalityGetName(delivery.getWay().getLocalityGet().getNameRu());
+            }else {
+                deliveryInfo.setLocalitySandName(delivery.getWay().getLocalitySand().getNameEn());
+                deliveryInfo.setLocalityGetName(delivery.getWay().getLocalityGet().getNameEn());
+            }
+            return deliveryInfo;
+        });
+
+
+        for (Delivery d : deliveryDao.getDeliveryInfoToGet(userId, locale)) {
             toReturn.add(mapper.map(d));
         }
         return toReturn;

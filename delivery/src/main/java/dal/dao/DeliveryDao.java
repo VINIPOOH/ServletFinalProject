@@ -4,10 +4,11 @@ import dal.entity.Delivery;
 import exeptions.AskedDataIsNotExist;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface DeliveryDao {
 
-    List<Delivery> getDeliveryInfoToGet(long userId);
+    List<Delivery> getDeliveryInfoToGet(long userId, Locale locale);
 
     void confirmGettingDelivery(long userId, long deliveryId);
 

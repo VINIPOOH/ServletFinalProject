@@ -6,11 +6,12 @@ import exeptions.AskedDataIsNotExist;
 import web.dto.DeliveryInfoRequestDto;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface DeliveryProcessService {
     PriceAndTimeOnDeliveryDto getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) throws AskedDataIsNotExist;
 
-    List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId);
+    List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId, Locale locale);
 
     void ConfirmGettingDelivery(long userId, long deliveryId);
 }
