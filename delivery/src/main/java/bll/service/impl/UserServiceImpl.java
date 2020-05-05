@@ -38,30 +38,15 @@ public class UserServiceImpl implements bll.service.UserService {
 
     @Override
     public void addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException {
-        User user = getMapper().map(registrationInfoDto);
         try {
-            userDao.save(user);
+            userDao.save(registrationInfoDto.getUsername(),passwordEncoderService.encode(registrationInfoDto.getPassword()));
         } catch (SQLException e) {
             throw new OccupiedLoginException();
         }
     }
 
-    //@Transactional
     @Override
     public void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException {
         userDao.replenishUserBalance(userId, amountMoney);
-    }
-
-    private Mapper<RegistrationInfoDto, User> getMapper() {
-        return registration -> User.builder()
-                .accountNonExpired(true)
-                .credentialsNonExpired(true)
-                .accountNonLocked(true)
-                .email(registration.getUsername())
-                .enabled(true)
-                .userMoneyInCents(0L)
-                .password(passwordEncoderService.encode(registration.getPassword()))
-                .roleType(RoleType.ROLE_USER)
-                .build();
     }
 }

@@ -73,13 +73,12 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     }
 
 
-    @Override
-    public boolean save(User entity) throws SQLException {
+    public void save(String email, String password){
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_SAVE))) {
-            preparedStatement.setString(1, entity.getEmail());
-            preparedStatement.setString(2, entity.getPassword());
-            return preparedStatement.executeUpdate() != 0;
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DBRuntimeException();
         }
