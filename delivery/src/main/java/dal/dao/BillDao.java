@@ -1,14 +1,16 @@
 package dal.dao;
 
 import dal.entity.Bill;
+import dal.entity.Locality;
 import exeptions.AskedDataIsNotExist;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 
 public interface BillDao {
 
-    List<Bill> getInfoToPayBillByUserId(long UserId);
+    List<Bill> getInfoToPayBillByUserId(long UserId, Locale locale);
 
     long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotExist;
 

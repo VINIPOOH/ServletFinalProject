@@ -65,7 +65,7 @@
                         <div class="form-group">
                             <input type="email" class="form-control" id="addresseeEmail" name="addresseeEmail">
                         </div>
-                        <button class="btn btn-success" type="submit"><fmt:message key="homepage.form.button"/></button>
+                        <button class="btn btn-success" type="submit"><fmt:message key="user-delivery-initiation.button.massege"/></button>
                     </form>
                 </div>
             </div>

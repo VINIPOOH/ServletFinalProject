@@ -12,22 +12,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao {
     private final String BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID =
             "bill.create.by.cost.delivery.id.user.id";
-    private final String BILL_INFO_TO_PAY_BILL_BY_USER_ID =
-            "bill.pay.info.sellect.by.sender.id";
+    private final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN =
+            "bill.pay.info.sellect.by.sender.id.en";
     private final String GET_BILL_PRISE_IF_NOT_PAID =
             "bill.get.prise.if.not.paid";
     private final String SET_BILL_IS_PAID_TRUE =
             "bill.set.is.paid.true";
     private final String BILLS_HISTORY_BY_USER_ID =
             "bill.history.by.user.id";
-    private String GET_COST_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT =
-            "way.find.price.by.locality_send_id.and.locality_get_id.and.weight";
+    private final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU =
+            "bill.pay.info.sellect.by.sender.id.ru";
 
 
     public JDBCBillDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
@@ -36,21 +37,36 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
 
     @Override
-    public List<Bill> getInfoToPayBillByUserId(long user_id) {
-        ResultSetToEntityMapper<Bill> mapper = (resultSet -> Optional.of(Bill.builder()
-                .id(resultSet.getLong("bill_id"))
-                .costInCents(resultSet.getLong("price"))
-                .delivery(Delivery.builder()
-                        .addresser(User.builder().email(resultSet.getString("addresser_email")).build())
-                        .id(resultSet.getLong("delivery_id"))
-                        .weight(resultSet.getInt("weight"))
-                        .way(Way.builder()
-                                .localityGet(Locality.builder().nameEn(resultSet.getString("locality_get_name")).build())
-                                .localitySand(Locality.builder().nameEn(resultSet.getString("locality_sand_name")).build())
-                                .build())
-                        .build())
-                .build()));
-        return findAllByLongParam(user_id, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID), mapper);
+    public List<Bill> getInfoToPayBillByUserId(long user_id, Locale locale) {
+        ResultSetToEntityMapper<Bill> mapper = (resultSet -> {
+            Bill toReturn = Bill.builder()
+                    .id(resultSet.getLong("bill_id"))
+                    .costInCents(resultSet.getLong("price"))
+                    .delivery(Delivery.builder()
+                            .addresser(User.builder().email(resultSet.getString("addresser_email")).build())
+                            .id(resultSet.getLong("delivery_id"))
+                            .weight(resultSet.getInt("weight"))
+                            .build())
+                    .build();
+            if (locale.getLanguage().equals("ru")) {
+                toReturn.getDelivery().setWay(Way.builder()
+                        .localityGet(Locality.builder().nameRu(resultSet.getString("locality_get_name")).build())
+                        .localitySand(Locality.builder().nameRu(resultSet.getString("locality_sand_name")).build())
+                        .build());
+            }else {
+                toReturn.getDelivery().setWay(Way.builder()
+                        .localityGet(Locality.builder().nameEn(resultSet.getString("locality_get_name")).build())
+                        .localitySand(Locality.builder().nameEn(resultSet.getString("locality_sand_name")).build())
+                        .build());
+            }
+            return Optional.of(toReturn);
+        });
+
+        if (locale.getLanguage().equals("ru")) {
+            return findAllByLongParam(user_id, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU), mapper);
+        } else {
+            return findAllByLongParam(user_id, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN), mapper);
+        }
     }
 
     @Override

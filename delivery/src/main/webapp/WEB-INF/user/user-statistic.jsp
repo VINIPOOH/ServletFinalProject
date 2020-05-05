@@ -13,7 +13,7 @@
 <div name="deliveries" class="container">
     <c:forEach var="bill" items="${requestScope.billsList}">
     <div class="row border border-info mt-2 rounded">
-        <p1>номер счета ${bill.id} номер доставки${bill.deliveryId} цена в центах${bill.costInCents} дата оплаты${bill.dateOfPay}${bill.isDeliveryPaid}</p1>
+        <p1><fmt:message key="user-statistic.bill.number"/> ${bill.id} <fmt:message key="user-statistic.delivery.number"/>${bill.deliveryId} <fmt:message key="user-statistic.price"/>${bill.costInCents} <fmt:message key="user-statistic.pay.date"/>${bill.dateOfPay}</p1>
     </div>
     </c:forEach>
 </div>

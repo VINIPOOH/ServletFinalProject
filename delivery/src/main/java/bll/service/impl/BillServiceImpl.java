@@ -4,10 +4,12 @@ import bll.dto.BillDto;
 import bll.dto.BillInfoToPayDto;
 import bll.dto.mapper.Mapper;
 import bll.exeptions.UnsupportableWeightFactorException;
+import bll.service.BillService;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.entity.Bill;
+import dal.entity.Locality;
 import dal.handling.JDBCDaoSingleton;
 import dal.handling.conection.pool.TransactionalManager;
 import exeptions.AskedDataIsNotExist;
@@ -17,8 +19,9 @@ import web.dto.DeliveryOrderCreateDto;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class BillServiceImpl implements bll.service.BillService {
+public class BillServiceImpl implements BillService {
 
     private final BillDao billDao;
     private final UserDao userDao;
@@ -31,22 +34,32 @@ public class BillServiceImpl implements bll.service.BillService {
     }
 
     @Override
-    public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId) {
+    public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId, Locale locale) {
         List<BillInfoToPayDto> toReturn = new ArrayList<>();
-        Mapper<Bill, BillInfoToPayDto> mapper = bill -> BillInfoToPayDto.builder()
-                .weight(bill.getDelivery().getWeight())
-                .price(bill.getCostInCents())
-                .localitySandName(bill.getDelivery().getWay().getLocalitySand().getNameEn())
-                .localityGetName(bill.getDelivery().getWay().getLocalityGet().getNameEn())
-                .deliveryId(bill.getDelivery().getId())
-                .billId(bill.getId())
-                .addreeserEmail(bill.getDelivery().getAddresser().getEmail())
-                .build();
-        for (Bill b : billDao.getInfoToPayBillByUserId(userId)) {
+        Mapper<Bill, BillInfoToPayDto> mapper = bill -> {
+
+            BillInfoToPayDto billInfoToPayDto =BillInfoToPayDto.builder()
+                    .weight(bill.getDelivery().getWeight())
+                    .price(bill.getCostInCents())
+                    .deliveryId(bill.getDelivery().getId())
+                    .billId(bill.getId())
+                    .addreeserEmail(bill.getDelivery().getAddresser().getEmail())
+                    .build();
+            if(locale.getLanguage().equals("ru")){
+                billInfoToPayDto.setLocalitySandName(bill.getDelivery().getWay().getLocalitySand().getNameRu());
+                billInfoToPayDto.setLocalityGetName(bill.getDelivery().getWay().getLocalityGet().getNameRu());
+            }else {
+                billInfoToPayDto.setLocalitySandName(bill.getDelivery().getWay().getLocalitySand().getNameEn());
+                billInfoToPayDto.setLocalityGetName(bill.getDelivery().getWay().getLocalityGet().getNameEn());
+            }
+            return billInfoToPayDto;
+        };
+        for (Bill b : billDao.getInfoToPayBillByUserId(userId, locale)) {
             toReturn.add(mapper.map(b));
         }
         return toReturn;
     }
+
 
     @Override
     public boolean payForDelivery(long userId, long billId) {
