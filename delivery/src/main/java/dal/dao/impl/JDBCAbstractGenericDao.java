@@ -40,14 +40,7 @@ public abstract class JDBCAbstractGenericDao<E> {
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, param);
-            List<E> result;
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                result = new ArrayList<>();
-                while (resultSet.next()) {
-                    mapper.map(resultSet).ifPresent(result::add);
-                }
-            }
-            return result;
+            return mapPreparedStatementToEntitiesList(mapper, preparedStatement);
         } catch (SQLException e) {
             System.out.println(e);
             throw new DBRuntimeException();
@@ -58,16 +51,19 @@ public abstract class JDBCAbstractGenericDao<E> {
     public List<E> findAll(String query, ResultSetToEntityMapper<E> mapper) {
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            List<E> result;
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                result = new ArrayList<>();
-                while (resultSet.next()) {
-                    mapper.map(resultSet).ifPresent(result::add);
-                }
-            }
-            return result;
+            return mapPreparedStatementToEntitiesList(mapper, preparedStatement);
         } catch (SQLException e) {
             throw new DBRuntimeException();
+        }
+    }
+
+    private List<E> mapPreparedStatementToEntitiesList(ResultSetToEntityMapper<E> mapper, PreparedStatement preparedStatement) throws SQLException {
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            List<E> result = new ArrayList<>();
+            while (resultSet.next()) {
+                mapper.map(resultSet).ifPresent(result::add);
+            }
+            return result;
         }
     }
 
