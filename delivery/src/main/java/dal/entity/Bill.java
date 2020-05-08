@@ -8,13 +8,19 @@ public class Bill extends Entity {
     private Boolean isDeliveryPaid;
     private long costInCents;
     private LocalDate dateOfPay;
+    private User user;
 
-    public Bill(Long id, Delivery delivery, Boolean isDeliveryPaid, long costInCents, LocalDate dateOfPay) {
+    public User getUser() {
+        return user;
+    }
+
+    public Bill(Long id, Delivery delivery, Boolean isDeliveryPaid, long costInCents, LocalDate dateOfPay, User user) {
         super(id);
         this.delivery = delivery;
         this.isDeliveryPaid = isDeliveryPaid;
         this.costInCents = costInCents;
         this.dateOfPay = dateOfPay;
+        this.user=user;
     }
 
     public Bill() {
@@ -54,6 +60,7 @@ public class Bill extends Entity {
         private Boolean isDeliveryPaid;
         private long costInCents;
         private LocalDate dateOfPay;
+        private User user;
 
         BillBuilder() {
         }
@@ -65,6 +72,10 @@ public class Bill extends Entity {
 
         public BillBuilder delivery(Delivery delivery) {
             this.delivery = delivery;
+            return this;
+        }
+        public BillBuilder user(User user) {
+            this.user = user;
             return this;
         }
 
@@ -84,7 +95,7 @@ public class Bill extends Entity {
         }
 
         public Bill build() {
-            return new Bill(id, delivery, isDeliveryPaid, costInCents, dateOfPay);
+            return new Bill(id, delivery, isDeliveryPaid, costInCents, dateOfPay, user);
         }
     }
 }

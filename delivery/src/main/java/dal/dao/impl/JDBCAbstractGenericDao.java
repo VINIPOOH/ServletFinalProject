@@ -1,10 +1,10 @@
 package dal.dao.impl;
 
 
+import dal.control.conection.ConnectionAdapeter;
+import dal.control.conection.pool.TransactionalManager;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.exeptions.DBRuntimeException;
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.TransactionalManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +29,7 @@ public abstract class JDBCAbstractGenericDao<E> {
             preparedStatement.setLong(1, param);
             return mapPreparedStatementToEntitiesList(mapper, preparedStatement);
         } catch (SQLException e) {
+            System.out.println(e);
             throw new DBRuntimeException();
         }
     }

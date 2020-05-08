@@ -21,10 +21,10 @@ public class CommandContext {
     private static final Validator<RegistrationInfoDto> REGISTRATION_INFO_DTO_VALIDATOR = new RegistrationDtoValidator();
     private static final Validator<HttpServletRequest> DELIVERY_ORDER_CREATE_DTO_VALIDATOR = new DeliveryOrderCreateDtoValidator();
 
-    private static final UserService USER_SERVICE = ServicesSingleton.getUserService();
-    private static final LocalityService LOCALITY_SERVICE = ServicesSingleton.getLocalityService();
-    private static final DeliveryProcessService DELIVERY_PROCESS_SERVICE = ServicesSingleton.getDeliveryProcessService();
-    private static final BillService BILL_SERVICE = ServicesSingleton.getBillService();
+    private static final UserService USER_SERVICE = ServicesContext.getUserService();
+    private static final LocalityService LOCALITY_SERVICE = ServicesContext.getLocalityService();
+    private static final DeliveryProcessService DELIVERY_PROCESS_SERVICE = ServicesContext.getDeliveryProcessService();
+    private static final BillService BILL_SERVICE = ServicesContext.getBillService();
 
     private static final ActionCommand LOGIN = new Login(LOGIN_INFO_DTO_VALIDATOR, USER_SERVICE);
     private static final ActionCommand LOGOUT = new LogOut();
@@ -36,12 +36,11 @@ public class CommandContext {
     private static final ActionCommand EMPTY_COMMAND = new EmptyCommand();
     private static final ActionCommand COUNTER = new Counter(LOCALITY_SERVICE, DELIVERY_PROCESS_SERVICE);
     private static final ActionCommand USER_DELIVERY_INITIATION = new UserDeliveryInitiation(LOCALITY_SERVICE, BILL_SERVICE, DELIVERY_ORDER_CREATE_DTO_VALIDATOR);
-    private static final ActionCommand USER_DELIVERY_CONFIRM = new UserDeliveryConfirm(BILL_SERVICE);
+    private static final ActionCommand USER_DELIVERY_CONFIRM = new UserDeliveryPay(BILL_SERVICE);
     private static final ActionCommand USER_DELIVERY_GET = new UserDeliveryGet(DELIVERY_PROCESS_SERVICE);
     private static final ActionCommand USER_STATISTIC = new UserStatistic(BILL_SERVICE);
 
     private static final Map<String, ActionCommand> COMMANDS = new HashMap<>();
-
 
     static {
         COMMANDS.put("login", LOGIN);

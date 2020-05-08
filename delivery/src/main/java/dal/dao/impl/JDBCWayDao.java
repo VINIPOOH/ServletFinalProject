@@ -1,12 +1,12 @@
 package dal.dao.impl;
 
+import dal.control.conection.ConnectionAdapeter;
+import dal.control.conection.pool.TransactionalManager;
 import dal.dao.WayDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Way;
 import dal.exeptions.DBRuntimeException;
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.TransactionalManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,11 +1,11 @@
 package dal.dao.impl;
 
 import bll.dto.LocaliseLocalityDto;
+import dal.control.conection.ConnectionAdapeter;
+import dal.control.conection.pool.TransactionalManager;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.Locality;
 import dal.exeptions.DBRuntimeException;
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.TransactionalManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

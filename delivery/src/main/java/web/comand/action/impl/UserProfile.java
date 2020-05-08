@@ -1,8 +1,8 @@
 package web.comand.action.impl;
 
+import bll.exeptions.NoSuchUserException;
 import bll.service.UserService;
 import dal.entity.User;
-import bll.exeptions.NoSuchUserException;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.validation.Validator;
 

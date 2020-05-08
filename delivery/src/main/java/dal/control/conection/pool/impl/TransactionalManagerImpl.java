@@ -1,8 +1,8 @@
-package dal.handling.conection.pool.impl;
+package dal.control.conection.pool.impl;
 
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.impl.ConnectionAdapterImpl;
-import dal.handling.conection.pool.TransactionalManager;
+import dal.control.conection.ConnectionAdapeter;
+import dal.control.conection.impl.ConnectionAdapterImpl;
+import dal.control.conection.pool.TransactionalManager;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.SQLException;
@@ -46,7 +46,6 @@ public class TransactionalManagerImpl implements TransactionalManager {
 
     public ConnectionAdapeter getConnection() throws SQLException {
         ConnectionAdapeter connection = connectionThreadLocal.get();
-
         if (connection != null) {
             return connection;
         }

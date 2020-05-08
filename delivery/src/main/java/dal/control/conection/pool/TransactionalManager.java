@@ -1,6 +1,6 @@
-package dal.handling.conection.pool;
+package dal.control.conection.pool;
 
-import dal.handling.conection.ConnectionAdapeter;
+import dal.control.conection.ConnectionAdapeter;
 
 import java.sql.SQLException;
 

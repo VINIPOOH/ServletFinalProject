@@ -11,11 +11,11 @@ import static web.constants.AttributeConstants.SESSION_LANG;
 import static web.constants.AttributeConstants.SESSION_USER;
 import static web.constants.PageConstance.*;
 
-public class UserDeliveryConfirm extends MultipleMethodCommand {
+public class UserDeliveryPay extends MultipleMethodCommand {
 
     private final BillService billService;
 
-    public UserDeliveryConfirm(BillService billService) {
+    public UserDeliveryPay(BillService billService) {
         this.billService = billService;
     }
 

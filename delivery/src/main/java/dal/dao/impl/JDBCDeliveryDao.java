@@ -1,15 +1,12 @@
 package dal.dao.impl;
 
+import bll.exeptions.AskedDataIsNotExist;
+import dal.control.conection.ConnectionAdapeter;
+import dal.control.conection.pool.TransactionalManager;
 import dal.dao.DeliveryDao;
 import dal.dao.maper.ResultSetToEntityMapper;
-import dal.entity.Delivery;
-import dal.entity.Locality;
-import dal.entity.User;
-import dal.entity.Way;
+import dal.entity.*;
 import dal.exeptions.DBRuntimeException;
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.TransactionalManager;
-import bll.exeptions.AskedDataIsNotExist;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,7 +50,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
         return resultSet -> {
             Delivery toReturn = Delivery.builder()
                     .id(resultSet.getLong("id"))
-                    .addresser(User.builder().email(resultSet.getString("email")).build())
+                    .bill(Bill.builder().user(User.builder().email(resultSet.getString("email")).build()).build())
                     .way(new Way())
                     .build();
             if (locale.getLanguage().equals("ru")) {
@@ -84,12 +81,12 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
 
     }
 
-    public long createDelivery(String addreeseeEmail, long addresserId, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotExist {
+    public long createDelivery(String addreeseeEmail, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotExist {
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      resourceBundleRequests.getString(CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID), Statement.RETURN_GENERATED_KEYS)) {
 
-            prepareAndExecuteStatment(addreeseeEmail, addresserId, localitySandID, localityGetID, weight, preparedStatement);
+            prepareAndExecuteStatment(addreeseeEmail, localitySandID, localityGetID, weight, preparedStatement);
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 return resultSet.getLong(1);
@@ -100,12 +97,11 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
         }
     }
 
-    private void prepareAndExecuteStatment(String addreeseeEmail, long addresserId, long localitySandID, long localityGetID, int weight, PreparedStatement preparedStatement) throws SQLException {
+    private void prepareAndExecuteStatment(String addreeseeEmail, long localitySandID, long localityGetID, int weight, PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setString(1, addreeseeEmail);
-        preparedStatement.setLong(2, addresserId);
-        preparedStatement.setLong(3, localitySandID);
-        preparedStatement.setLong(4, localityGetID);
-        preparedStatement.setInt(5, weight);
+        preparedStatement.setLong(2, localitySandID);
+        preparedStatement.setLong(3, localityGetID);
+        preparedStatement.setInt(4, weight);
         preparedStatement.executeUpdate();
     }
 

@@ -1,7 +1,7 @@
 package web.comand.action.impl;
 
-import bll.service.UserService;
 import bll.exeptions.NoSuchUserException;
+import bll.service.UserService;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.LoginInfoDto;
 import web.dto.maper.RequestDtoMapper;
@@ -30,7 +30,6 @@ public class Login extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-
         LoginInfoDto loginInfoDto = getLoginInfoDtoRequestDtoMapper(request).mapToDto(request);
         if (!loginDtoValidator.isValid(loginInfoDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);

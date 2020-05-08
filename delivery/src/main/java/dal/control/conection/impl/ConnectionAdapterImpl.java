@@ -1,6 +1,6 @@
-package dal.handling.conection.impl;
+package dal.control.conection.impl;
 
-import dal.handling.conection.ConnectionAdapeter;
+import dal.control.conection.ConnectionAdapeter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

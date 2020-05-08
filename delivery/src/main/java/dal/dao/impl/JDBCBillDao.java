@@ -1,12 +1,12 @@
 package dal.dao.impl;
 
+import bll.exeptions.AskedDataIsNotExist;
+import dal.control.conection.ConnectionAdapeter;
+import dal.control.conection.pool.TransactionalManager;
 import dal.dao.BillDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
 import dal.exeptions.DBRuntimeException;
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.TransactionalManager;
-import bll.exeptions.AskedDataIsNotExist;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,7 +53,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
                     .id(resultSet.getLong("bill_id"))
                     .costInCents(resultSet.getLong("price"))
                     .delivery(Delivery.builder()
-                            .addresser(User.builder().email(resultSet.getString("addresser_email")).build())
+                            .addressee(User.builder().email(resultSet.getString("addressee_email")).build())
                             .id(resultSet.getLong("delivery_id"))
                             .weight(resultSet.getInt("weight"))
                             .build())
@@ -82,11 +82,13 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
                 if (resultSet.next()) {
-                    return resultSet.getLong(1);
+                    long d = resultSet.getLong(1);
+                    return d;
                 }
             }
             throw new AskedDataIsNotExist();
         } catch (SQLException e) {
+            System.out.println(e);
             throw new DBRuntimeException();
         }
     }
@@ -108,13 +110,6 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
                 .build());
     }
 
-
-    public long getBillPrice(long userId, long billId) throws SQLException, AskedDataIsNotExist {
-        try (ConnectionAdapeter connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
-            return prepareAndExecuteQuery(userId, billId, preparedStatement);
-        }
-    }
 
     private long prepareAndExecuteQuery(long userId, long billId, PreparedStatement preparedStatement) throws SQLException, AskedDataIsNotExist {
         preparedStatement.setLong(1, billId);

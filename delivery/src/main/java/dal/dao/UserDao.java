@@ -1,8 +1,8 @@
 package dal.dao;
 
+import bll.exeptions.NoSuchUserException;
 import dal.entity.User;
 import dal.exeptions.OccupiedLoginException;
-import bll.exeptions.NoSuchUserException;
 
 import java.sql.SQLException;
 import java.util.Optional;

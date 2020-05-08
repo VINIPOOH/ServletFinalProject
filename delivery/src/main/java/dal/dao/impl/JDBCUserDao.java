@@ -1,14 +1,14 @@
 package dal.dao.impl;
 
+import bll.exeptions.NoSuchUserException;
+import dal.control.conection.ConnectionAdapeter;
+import dal.control.conection.pool.TransactionalManager;
 import dal.dao.UserDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.RoleType;
 import dal.entity.User;
 import dal.exeptions.DBRuntimeException;
 import dal.exeptions.OccupiedLoginException;
-import dal.handling.conection.ConnectionAdapeter;
-import dal.handling.conection.pool.TransactionalManager;
-import bll.exeptions.NoSuchUserException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

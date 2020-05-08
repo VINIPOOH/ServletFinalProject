@@ -1,7 +1,7 @@
 package dal.dao;
 
-import dal.entity.Bill;
 import bll.exeptions.AskedDataIsNotExist;
+import dal.entity.Bill;
 
 import java.sql.SQLException;
 import java.util.List;

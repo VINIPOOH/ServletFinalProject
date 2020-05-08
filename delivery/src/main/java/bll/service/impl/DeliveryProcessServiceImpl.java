@@ -4,11 +4,11 @@ package bll.service.impl;
 import bll.dto.DeliveryInfoToGetDto;
 import bll.dto.PriceAndTimeOnDeliveryDto;
 import bll.dto.mapper.Mapper;
+import bll.exeptions.AskedDataIsNotExist;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Delivery;
-import bll.exeptions.AskedDataIsNotExist;
 import web.dto.DeliveryInfoRequestDto;
 
 import java.util.List;
@@ -34,13 +34,6 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
                 deliveryInfoRequestDto.getDeliveryWeight()).orElseThrow(AskedDataIsNotExist::new));
     }
 
-    private Mapper<DeliveryCostAndTimeDto, PriceAndTimeOnDeliveryDto> getDeliveryCostAndTimeDtoPriceAndTimeOnDeliveryDtoMapper() {
-        return deliveryCostAndTime -> PriceAndTimeOnDeliveryDto.builder()
-                .costInCents(deliveryCostAndTime.getCostInCents())
-                .timeOnWayInHours(deliveryCostAndTime.getTimeOnWayInHours())
-                .build();
-    }
-
 
     @Override
     public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId, Locale locale) {
@@ -49,10 +42,22 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void confirmGettingDelivery(long userId, long deliveryId) {
+        deliveryDao.confirmGettingDelivery(userId, deliveryId);
+    }
+
+    private Mapper<DeliveryCostAndTimeDto, PriceAndTimeOnDeliveryDto> getDeliveryCostAndTimeDtoPriceAndTimeOnDeliveryDtoMapper() {
+        return deliveryCostAndTime -> PriceAndTimeOnDeliveryDto.builder()
+                .costInCents(deliveryCostAndTime.getCostInCents())
+                .timeOnWayInHours(deliveryCostAndTime.getTimeOnWayInHours())
+                .build();
+    }
+
     private Mapper<Delivery, DeliveryInfoToGetDto> getDeliveryInfoToGetDtoMapper(Locale locale) {
         return delivery -> {
             DeliveryInfoToGetDto deliveryInfo = DeliveryInfoToGetDto.builder()
-                    .addresserEmail(delivery.getAddresser().getEmail())
+                    .addresserEmail(delivery.getBill().getUser().getEmail())
                     .deliveryId(delivery.getId())
                     .localitySandName(delivery.getWay().getLocalitySand().getNameEn())
                     .localityGetName(delivery.getWay().getLocalityGet().getNameEn())
@@ -66,11 +71,6 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
             }
             return deliveryInfo;
         };
-    }
-
-    @Override
-    public void confirmGettingDelivery(long userId, long deliveryId) {
-        deliveryDao.confirmGettingDelivery(userId, deliveryId);
     }
 
 }

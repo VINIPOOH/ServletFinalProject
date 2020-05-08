@@ -1,17 +1,17 @@
-package dal.handling;
+package dal.control;
 
+import dal.control.conection.pool.TransactionalManager;
+import dal.control.conection.pool.impl.TransactionalManagerImpl;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.dao.WayDao;
 import dal.dao.impl.*;
-import dal.handling.conection.pool.TransactionalManager;
-import dal.handling.conection.pool.impl.TransactionalManagerImpl;
 
 import java.util.ResourceBundle;
 
 
-public class JDBCDaoSingleton {
+public class JDBCDaoContext {
 
     private static final String PATH_TO_PROPERTY_FILE = "db-request";
     private static TransactionalManager dbConnectorPoolHolder = TransactionalManagerImpl.getDbConnectionPoolHolder();
@@ -25,7 +25,7 @@ public class JDBCDaoSingleton {
     private static DeliveryDao deliveryDao = new JDBCDeliveryDao(requestsBundle, dbConnectorPoolHolder);
     private static BillDao billDao = new JDBCBillDao(requestsBundle, dbConnectorPoolHolder);
 
-    private JDBCDaoSingleton() {
+    private JDBCDaoContext() {
     }
 
     public static UserDao getUserDao() {

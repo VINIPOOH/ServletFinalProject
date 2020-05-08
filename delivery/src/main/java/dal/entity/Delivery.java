@@ -6,23 +6,27 @@ public class Delivery extends Entity {
     private LocalDate arrivalDate;
     private Way way;
     private User addressee;
-    private User addresser;
     private Boolean isPackageReceived;
     private Boolean isDeliveryPaid;
     private int weight;
     private long costInCents;
+    private Bill bill;
 
-    public Delivery(Long id, LocalDate arrivalDate, Way way, User addressee, User addresser, Boolean isPackageReceived, Boolean isDeliveryPaid, int weight, long costInCents) {
+    public Bill getBill() {
+        return bill;
+    }
+
+    public Delivery(Long id, LocalDate arrivalDate, Way way, User addressee, Boolean isPackageReceived, Boolean isDeliveryPaid, int weight, long costInCents, Bill bill) {
         super(id);
 
         this.arrivalDate = arrivalDate;
         this.way = way;
         this.addressee = addressee;
-        this.addresser = addresser;
         this.isPackageReceived = isPackageReceived;
         this.isDeliveryPaid = isDeliveryPaid;
         this.weight = weight;
         this.costInCents = costInCents;
+        this.bill=bill;
     }
 
     public Delivery() {
@@ -48,9 +52,6 @@ public class Delivery extends Entity {
         return this.addressee;
     }
 
-    public User getAddresser() {
-        return this.addresser;
-    }
 
     public Boolean getIsPackageReceived() {
         return this.isPackageReceived;
@@ -82,11 +83,12 @@ public class Delivery extends Entity {
         private LocalDate arrivalDate;
         private Way way;
         private User addressee;
-        private User addresser;
+
         private Boolean isPackageReceived;
         private Boolean isDeliveryPaid;
         private int weight;
         private long costInCents;
+        private Bill bill;
 
         DeliveryBuilder() {
         }
@@ -106,16 +108,15 @@ public class Delivery extends Entity {
             return this;
         }
 
+        public DeliveryBuilder bill(Bill bill) {
+            this.bill = bill;
+            return this;
+        }
+
         public DeliveryBuilder addressee(User addressee) {
             this.addressee = addressee;
             return this;
         }
-
-        public DeliveryBuilder addresser(User addresser) {
-            this.addresser = addresser;
-            return this;
-        }
-
         public DeliveryBuilder isPackageReceived(Boolean isPackageReceived) {
             this.isPackageReceived = isPackageReceived;
             return this;
@@ -137,7 +138,7 @@ public class Delivery extends Entity {
         }
 
         public Delivery build() {
-            return new Delivery(id, arrivalDate, way, addressee, addresser, isPackageReceived, isDeliveryPaid, weight, costInCents);
+            return new Delivery(id, arrivalDate, way, addressee, isPackageReceived, isDeliveryPaid, weight, costInCents,bill);
         }
     }
 }

@@ -1,20 +1,20 @@
 package bll.service;
 
 import bll.service.impl.*;
+import dal.control.JDBCDaoContext;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.dao.WayDao;
 import dal.dao.impl.LocalityDao;
-import dal.handling.JDBCDaoSingleton;
 
-public class ServicesSingleton {
+public class ServicesContext {
 
-    private static final UserDao USER_DAO = JDBCDaoSingleton.getUserDao();
-    private static final LocalityDao LOCALITY_DAO = JDBCDaoSingleton.getLocalityDao();
-    private static final WayDao WAY_DAO = JDBCDaoSingleton.getWayDao();
-    private static final DeliveryDao DELIVERY_DAO = JDBCDaoSingleton.getDeliveryDao();
-    private static final BillDao BILL_DAO = JDBCDaoSingleton.getBillDao();
+    private static final UserDao USER_DAO = JDBCDaoContext.getUserDao();
+    private static final LocalityDao LOCALITY_DAO = JDBCDaoContext.getLocalityDao();
+    private static final WayDao WAY_DAO = JDBCDaoContext.getWayDao();
+    private static final DeliveryDao DELIVERY_DAO = JDBCDaoContext.getDeliveryDao();
+    private static final BillDao BILL_DAO = JDBCDaoContext.getBillDao();
 
 
     private static final bll.service.PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderServiceImpl();
@@ -23,7 +23,7 @@ public class ServicesSingleton {
     private static final bll.service.DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessServiceImpl(WAY_DAO, DELIVERY_DAO);
     private static final bll.service.BillService BILL_SERVICE = new BillServiceImpl(BILL_DAO, USER_DAO, DELIVERY_DAO);
 
-    private ServicesSingleton() {
+    private ServicesContext() {
     }
 
     public static bll.service.PasswordEncoderService getPasswordEncoderService() {
