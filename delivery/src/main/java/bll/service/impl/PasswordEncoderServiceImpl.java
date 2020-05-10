@@ -14,7 +14,7 @@ public class PasswordEncoderServiceImpl implements PasswordEncoderService {
 
     @Override
     public String encode(String password) {
-        log.debug("encode");
+        log.debug("password -"+password);
 
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

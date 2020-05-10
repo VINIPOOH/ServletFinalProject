@@ -39,7 +39,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId, Locale locale) {
-        log.debug("getInfoToPayBillsByUserID");
+        log.debug("userId - "+userId+" localeLang - "+locale.getLanguage() );
 
         return billDao.getInfoToPayBillByUserId(userId, locale).stream()
                 .map(getMapperBillInfoToPayDto(locale)::map)
@@ -49,7 +49,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public boolean payForDelivery(long userId, long billId) {
-        log.debug("payForDelivery");
+        log.debug("userId - "+userId+" billId - "+billId);
 
         try (TransactionalManager transactionalManager = JDBCDaoContext.getTransactionManager()) {
             transactionalManager.startTransaction();
@@ -68,7 +68,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
-        log.debug("initializeBill");
+        log.debug("deliveryOrderCreateDto - "+deliveryOrderCreateDto+ " initiatorId - "+initiatorId);
 
         try (TransactionalManager transactionalManager = JDBCDaoContext.getTransactionManager()) {
             transactionalManager.startTransaction();
@@ -87,7 +87,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<BillDto> getBillHistoryByUserId(long userId) {
-        log.debug("getBillHistoryByUserId");
+        log.debug("userId - "+userId);
 
         return billDao.getHistoricBailsByUserId(userId).stream()
                 .map(getBillBillDtoMapper()::map)

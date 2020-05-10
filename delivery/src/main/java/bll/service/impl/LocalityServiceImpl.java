@@ -23,7 +23,7 @@ public class LocalityServiceImpl implements LocalityService {
 
     @Override
     public List<LocaliseLocalityDto> getLocaliseLocalities(Locale locale) {
-        log.debug("getLocaliseLocalities");
+        log.debug("localeLang - "+ locale.getLanguage());
 
         return localityDao.findAllLocaliseLocalitiesWithoutConnection(locale);
     }

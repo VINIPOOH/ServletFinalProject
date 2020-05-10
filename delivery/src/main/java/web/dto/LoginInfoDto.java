@@ -9,6 +9,14 @@ public class LoginInfoDto {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "LoginInfoDto{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
     public static LoginInfoDtoBuilder builder() {
         return new LoginInfoDtoBuilder();
     }

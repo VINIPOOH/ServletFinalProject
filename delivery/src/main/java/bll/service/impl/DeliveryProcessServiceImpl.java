@@ -32,7 +32,7 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
 
     @Override
     public PriceAndTimeOnDeliveryDto getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) throws AskedDataIsNotExist {
-        log.debug("getDeliveryCostAndTimeDto");
+        log.debug("deliveryInfoRequestDto - "+deliveryInfoRequestDto);
 
         Mapper<DeliveryCostAndTimeDto, PriceAndTimeOnDeliveryDto> mapper =
                 getDeliveryCostAndTimeDtoPriceAndTimeOnDeliveryDtoMapper();
@@ -44,7 +44,7 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
 
     @Override
     public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId, Locale locale) {
-        log.debug("getInfoToGetDeliverisByUserID");
+        log.debug("userId - "+userId+" localeLang - "+locale.getLanguage() );
 
         return deliveryDao.getDeliveryInfoToGet(userId, locale).stream()
                 .map(getDeliveryInfoToGetDtoMapper(locale)::map)
@@ -53,7 +53,7 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
 
     @Override
     public void confirmGettingDelivery(long userId, long deliveryId) {
-        log.debug("confirmGettingDelivery");
+        log.debug("userId -"+userId+" deliveryId -"+deliveryId);
 
         deliveryDao.confirmGettingDelivery(userId, deliveryId);
     }

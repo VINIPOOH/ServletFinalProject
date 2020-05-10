@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loginUser(LoginInfoDto loginInfoDto) throws NoSuchUserException {
-        log.debug("loginUser");
+        log.debug("loginInfoDto -"+loginInfoDto);
 
         return userDao.findByEmailAndPasswordWithPermissions(loginInfoDto.getUsername(),
                 passwordEncoderService.encode(loginInfoDto.getPassword()))
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException {
-        log.debug("addNewUserToDB");
+        log.debug("registrationInfoDto -"+registrationInfoDto);
 
         userDao.save(registrationInfoDto.getUsername(), passwordEncoderService.encode(registrationInfoDto.getPassword()));
 
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException {
-        log.debug("replenishAccountBalance");
+        log.debug("userId -"+userId+" amountMoney -"+amountMoney);
 
         userDao.replenishUserBalance(userId, amountMoney);
     }

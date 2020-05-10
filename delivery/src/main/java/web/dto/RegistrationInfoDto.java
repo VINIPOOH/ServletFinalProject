@@ -11,6 +11,15 @@ public class RegistrationInfoDto {
         this.passwordRepeat = passwordRepeat;
     }
 
+    @Override
+    public String toString() {
+        return "RegistrationInfoDto{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordRepeat='" + passwordRepeat + '\'' +
+                '}';
+    }
+
     public static RegistrationInfoDtoBuilder builder() {
         return new RegistrationInfoDtoBuilder();
     }
