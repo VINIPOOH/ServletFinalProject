@@ -9,6 +9,8 @@ import dal.entity.RoleType;
 import dal.entity.User;
 import dal.exeptions.DBRuntimeException;
 import dal.exeptions.OccupiedLoginException;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +20,7 @@ import java.util.ResourceBundle;
 
 
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {
+    private static Logger log = LogManager.getLogger(JDBCUserDao.class);
 
     private static final String USER_FIND_BY_EMAIL = "user.find.by.email";
     private static final String USER_REPLENISH_BALANCE = "user.replenish.balance";
@@ -29,9 +32,13 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
 
     public JDBCUserDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
+        log.debug("created");
+
     }
 
     public Optional<User> findByEmailAndPasswordWithPermissions(String email, String password) {
+        log.debug("findByEmailAndPasswordWithPermissions");
+
         ResultSetToEntityMapper<User> mapper = getUserResultSetToEntityMapper();
 
         try (ConnectionAdapeter connection = connector.getConnection();
@@ -64,6 +71,8 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
 
     @Override
     public void replenishUserBalance(long userId, long money) throws NoSuchUserException {
+        log.debug("replenishUserBalance");
+
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_REPLENISH_BALANCE))) {
             preparedStatement.setLong(1, money);
@@ -76,6 +85,8 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
 
 
     public void save(String email, String password) throws OccupiedLoginException {
+        log.debug("save");
+
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_SAVE))) {
             preparedStatement.setString(1, email);
@@ -87,6 +98,8 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     }
 
     public boolean replenishUserBalenceOnSumeIfItPosible(long userId, long sumWhichUserNeed) throws SQLException {
+        log.debug("replenishUserBalenceOnSumeIfItPosible");
+
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_USER_BALANCE_IF_ENOGFE_MONEY))) {
             preparedStatement.setLong(1, sumWhichUserNeed);

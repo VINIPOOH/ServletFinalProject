@@ -14,7 +14,7 @@ public class Index implements ActionCommand {
     private static Logger log = LogManager.getLogger(Index.class);
     @Override
     public String execute(HttpServletRequest request) {
-        log.debug(request.getMethod()+" Index");
+        log.debug("");
         return MAIN_WEB_FOLDER + INDEX_FILE_NAME;
     }
 }

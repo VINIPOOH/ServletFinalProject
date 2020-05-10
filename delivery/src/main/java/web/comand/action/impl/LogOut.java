@@ -13,8 +13,7 @@ public class LogOut implements ActionCommand {
     private static Logger log = LogManager.getLogger(LogOut.class);
     @Override
     public String execute(HttpServletRequest request) {
-        log.debug(request.getMethod()+" LogOut");
-
+        log.debug("");
 
         request.getSession().invalidate();
         return REDIRECT_COMMAND + LOGIN_REQUEST_COMMAND;

@@ -24,7 +24,7 @@ public class UserDeliveryPay extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        log.debug(request.getMethod()+" UserDeliveryPay");
+        log.debug("");
 
         request.setAttribute("BillInfoToPay", billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME;
@@ -34,6 +34,7 @@ public class UserDeliveryPay extends MultipleMethodCommand {
     protected String performPost(HttpServletRequest request) {
         log.debug(request.getMethod()+" UserDeliveryPay");
 
+        //todo add validation and rework logging
         billService.payForDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter("Id")));
         request.setAttribute("BillInfoToPay", billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME;

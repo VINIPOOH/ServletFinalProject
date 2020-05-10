@@ -30,14 +30,14 @@ public class Counter extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        log.debug(request.getMethod()+" Counter");
+        log.debug("");
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
     }
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug(request.getMethod()+" Counter");
+        log.debug("isValidRequest = "+getDeliveryInfoRequestDtoValidator().isValid(request));
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         if (!getDeliveryInfoRequestDtoValidator().isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);

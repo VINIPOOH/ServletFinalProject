@@ -26,14 +26,14 @@ public class UserProfile extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        log.debug(request.getMethod()+" UserProfile");
+        log.debug("");
 
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
     }
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug(request.getMethod()+" UserProfile");
+        log.debug("isValidRequest = "+getValidator().isValid(request));
 
         if (!getValidator().isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);

@@ -28,7 +28,8 @@ public class Registration extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        log.debug(request.getMethod()+" Registration");
+        log.debug("");
+
         return MAIN_WEB_FOLDER + REGISTRATION_FILE_NAME;
     }
 
@@ -36,6 +37,7 @@ public class Registration extends MultipleMethodCommand {
     protected String performPost(HttpServletRequest request) {
         log.debug(request.getMethod()+" Registration");
 
+        //todo validation login and then rework log here
         RegistrationInfoDto registrationInfoDto = getRegistrationInfoDtoRequestDtoMapper(request).mapToDto(request);
         if (!registrationInfoDtoValidator.isValid(registrationInfoDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);

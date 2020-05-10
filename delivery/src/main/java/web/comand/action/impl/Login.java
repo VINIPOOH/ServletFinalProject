@@ -27,7 +27,7 @@ public class Login extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        log.debug(request.getMethod()+" Login");
+        log.debug("");
         return MAIN_WEB_FOLDER + LOGIN_FILE_NAME;
     }
 
@@ -35,6 +35,7 @@ public class Login extends MultipleMethodCommand {
     protected String performPost(HttpServletRequest request) {
         log.debug(request.getMethod()+" Login");
 
+        //todo validation login and then rework log here
         LoginInfoDto loginInfoDto = getLoginInfoDtoRequestDtoMapper(request).mapToDto(request);
         if (!loginDtoValidator.isValid(loginInfoDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);

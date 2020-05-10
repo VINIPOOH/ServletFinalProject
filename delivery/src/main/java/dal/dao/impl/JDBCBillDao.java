@@ -7,6 +7,9 @@ import dal.dao.BillDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
 import dal.exeptions.DBRuntimeException;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import web.comand.action.impl.Admin;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +20,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao {
+    private static Logger log = LogManager.getLogger(JDBCBillDao.class);
+
     private static final String BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID =
             "bill.create.by.cost.delivery.id.user.id";
     private static final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN =
@@ -33,11 +38,14 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
     public JDBCBillDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
+        log.debug("created");
     }
 
 
     @Override
     public List<Bill> getInfoToPayBillByUserId(long userId, Locale locale) {
+        log.debug("getInfoToPayBillByUserId");
+
         ResultSetToEntityMapper<Bill> mapper = getBillResultSetToEntityMapper(locale);
 
         if (locale.getLanguage().equals("ru")) {
@@ -75,6 +83,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
     @Override
     public long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotExist {
+        log.debug("getBillCostIfItIsNotPaid");
+
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
             preparedStatement.setLong(1, billId);
@@ -88,6 +98,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             }
             throw new AskedDataIsNotExist();
         } catch (SQLException e) {
+
             System.out.println(e);
             throw new DBRuntimeException();
         }
@@ -96,6 +107,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
     @Override
     public List<Bill> getHistoricBailsByUserId(long userId) {
+        log.debug("getHistoricBailsByUserId");
+
         ResultSetToEntityMapper<Bill> mapper = getBillResultSetToEntityMapper();
         return findAllByLongParam(userId, resourceBundleRequests.getString(BILLS_HISTORY_BY_USER_ID), mapper);
     }
@@ -123,6 +136,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     }
 
     public boolean murkBillAsPayed(long billId) throws SQLException {
+        log.debug("murkBillAsPayed");
+
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_BILL_IS_PAID_TRUE))) {
             preparedStatement.setLong(1, billId);
@@ -132,6 +147,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
 
     public boolean createBill(long deliveryId, long userId, long localitySandID, long localityGetID, int weight) throws SQLException {
+        log.debug("createBill");
+
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID))) {
             preparedStatement.setLong(1, localitySandID);

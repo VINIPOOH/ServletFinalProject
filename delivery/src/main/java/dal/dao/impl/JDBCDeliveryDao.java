@@ -7,6 +7,8 @@ import dal.dao.DeliveryDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
 import dal.exeptions.DBRuntimeException;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +20,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements DeliveryDao {
+    private static Logger log = LogManager.getLogger(JDBCDeliveryDao.class);
 
     private static final String DELIVERY_INFO_TO_GET_BY_USER_ID_EN =
             "delivery.get.not.recived.deliveries.by.user.id.en";
@@ -33,11 +36,14 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
 
     public JDBCDeliveryDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
+        log.debug("created");
     }
 
 
     @Override
     public List<Delivery> getDeliveryInfoToGet(long userId, Locale locale) {
+        log.debug("getDeliveryInfoToGet");
+
         ResultSetToEntityMapper<Delivery> mapper = getDeliveryResultSetToEntityMapper(locale);
         if (locale.getLanguage().equals("ru")) {
             return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_RU), mapper);
@@ -69,6 +75,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
     }
 
     public void confirmGettingDelivery(long userId, long deliveryId) {
+        log.debug("confirmGettingDelivery");
 
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_DELIVERY_RECIWED_STATUSE_TRUE))) {
@@ -82,6 +89,8 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
     }
 
     public long createDelivery(String addreeseeEmail, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotExist {
+        log.debug("createDelivery");
+
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      resourceBundleRequests.getString(CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID), Statement.RETURN_GENERATED_KEYS)) {
