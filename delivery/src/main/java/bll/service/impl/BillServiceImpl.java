@@ -13,6 +13,8 @@ import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.entity.Bill;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import web.dto.DeliveryOrderCreateDto;
 
 import java.sql.SQLException;
@@ -21,12 +23,15 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class BillServiceImpl implements BillService {
+    private static Logger log = LogManager.getLogger(BillServiceImpl.class);
 
     private final BillDao billDao;
     private final UserDao userDao;
     private final DeliveryDao deliveryDao;
 
     public BillServiceImpl(BillDao billDao, UserDao userDao, DeliveryDao deliveryDao) {
+        log.debug("created");
+
         this.billDao = billDao;
         this.userDao = userDao;
         this.deliveryDao = deliveryDao;
@@ -34,6 +39,8 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId, Locale locale) {
+        log.debug("getInfoToPayBillsByUserID");
+
         return billDao.getInfoToPayBillByUserId(userId, locale).stream()
                 .map(getMapperBillInfoToPayDto(locale)::map)
                 .collect(Collectors.toList());
@@ -42,6 +49,8 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public boolean payForDelivery(long userId, long billId) {
+        log.debug("payForDelivery");
+
         try (TransactionalManager transactionalManager = JDBCDaoContext.getTransactionManager()) {
             transactionalManager.startTransaction();
             if (userDao.replenishUserBalenceOnSumeIfItPosible(userId,
@@ -59,6 +68,8 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
+        log.debug("initializeBill");
+
         try (TransactionalManager transactionalManager = JDBCDaoContext.getTransactionManager()) {
             transactionalManager.startTransaction();
             long newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
@@ -76,6 +87,8 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<BillDto> getBillHistoryByUserId(long userId) {
+        log.debug("getBillHistoryByUserId");
+
         return billDao.getHistoricBailsByUserId(userId).stream()
                 .map(getBillBillDtoMapper()::map)
                 .collect(Collectors.toList());

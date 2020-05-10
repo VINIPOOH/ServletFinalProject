@@ -1,5 +1,7 @@
 package web;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import web.comand.factory.CommandContext;
 
 import javax.servlet.ServletException;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Servlet extends HttpServlet {
+    private static Logger log = LogManager.getLogger(Servlet.class);
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
@@ -24,7 +27,7 @@ public class Servlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        log.debug("servlet called with request - "+request.getRequestURI());
         String path = request.getRequestURI().replaceFirst(".*/delivery/", "");
         String page = CommandContext.defineCommand(path).execute(request);
         if (page.contains("redirect:")) {

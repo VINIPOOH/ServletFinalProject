@@ -2,6 +2,8 @@ package web.comand.action.impl;
 
 import bll.service.UserService;
 import dal.exeptions.OccupiedLoginException;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.RegistrationInfoDto;
 import web.dto.maper.RequestDtoMapper;
@@ -14,6 +16,7 @@ import static web.constants.ExceptionInfoForJspConstants.INPUT_LOGIN_ALREADY_TAK
 import static web.constants.PageConstance.*;
 
 public class Registration extends MultipleMethodCommand {
+    private static Logger log = LogManager.getLogger(Registration.class);
 
     private final Validator<RegistrationInfoDto> registrationInfoDtoValidator;
     private final UserService userService;
@@ -25,11 +28,14 @@ public class Registration extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
+        log.debug(request.getMethod()+" Registration");
         return MAIN_WEB_FOLDER + REGISTRATION_FILE_NAME;
     }
 
     @Override
     protected String performPost(HttpServletRequest request) {
+        log.debug(request.getMethod()+" Registration");
+
         RegistrationInfoDto registrationInfoDto = getRegistrationInfoDtoRequestDtoMapper(request).mapToDto(request);
         if (!registrationInfoDtoValidator.isValid(registrationInfoDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);

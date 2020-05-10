@@ -3,6 +3,8 @@ package web.comand.action.impl;
 import bll.exeptions.NoSuchUserException;
 import bll.service.UserService;
 import dal.entity.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.validation.Validator;
 
@@ -14,6 +16,8 @@ import static web.constants.PageConstance.*;
 
 public class UserProfile extends MultipleMethodCommand {
 
+    private static Logger log = LogManager.getLogger(UserProfile.class);
+
     private final UserService userService;
 
     public UserProfile(UserService userService) {
@@ -22,11 +26,15 @@ public class UserProfile extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
+        log.debug(request.getMethod()+" UserProfile");
+
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
     }
 
     @Override
     protected String performPost(HttpServletRequest request) {
+        log.debug(request.getMethod()+" UserProfile");
+
         if (!getValidator().isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;

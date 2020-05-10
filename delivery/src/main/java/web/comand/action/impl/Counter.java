@@ -3,6 +3,8 @@ package web.comand.action.impl;
 import bll.exeptions.AskedDataIsNotExist;
 import bll.service.DeliveryProcessService;
 import bll.service.LocalityService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.DeliveryInfoRequestDto;
 import web.dto.maper.RequestDtoMapper;
@@ -17,7 +19,7 @@ import static web.constants.PageConstance.COUNTER_FILE_NAME;
 import static web.constants.PageConstance.MAIN_WEB_FOLDER;
 
 public class Counter extends MultipleMethodCommand {
-
+    private static Logger log = LogManager.getLogger(Counter.class);
     private final LocalityService localityService;
     private final DeliveryProcessService deliveryProcessService;
 
@@ -28,12 +30,14 @@ public class Counter extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
+        log.debug(request.getMethod()+" Counter");
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
     }
 
     @Override
     protected String performPost(HttpServletRequest request) {
+        log.debug(request.getMethod()+" Counter");
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         if (!getDeliveryInfoRequestDtoValidator().isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);

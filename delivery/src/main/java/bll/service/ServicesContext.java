@@ -7,8 +7,13 @@ import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.dao.WayDao;
 import dal.dao.impl.LocalityDao;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class ServicesContext {
+
+    private static Logger log = LogManager.getLogger(ServicesContext.class);
+
 
     private static final UserDao USER_DAO = JDBCDaoContext.getUserDao();
     private static final LocalityDao LOCALITY_DAO = JDBCDaoContext.getLocalityDao();
@@ -26,23 +31,33 @@ public class ServicesContext {
     private ServicesContext() {
     }
 
-    public static bll.service.PasswordEncoderService getPasswordEncoderService() {
+    public static PasswordEncoderService getPasswordEncoderService() {
+        log.debug("static initialized");
+
         return PASSWORD_ENCODER_SERVICE;
     }
 
-    public static bll.service.UserService getUserService() {
+    public static UserService getUserService() {
+        log.debug("getUserService");
+
         return USER_SERVICE;
     }
 
-    public static bll.service.LocalityService getLocalityService() {
+    public static LocalityService getLocalityService() {
+        log.debug("getLocalityService");
+
         return LOCALITY_SERVICE;
     }
 
-    public static bll.service.DeliveryProcessService getDeliveryProcessService() {
+    public static DeliveryProcessService getDeliveryProcessService() {
+        log.debug("getDeliveryProcessService");
+
         return DELIVERY_PROCESS_SERVICE;
     }
 
-    public static bll.service.BillService getBillService() {
+    public static BillService getBillService() {
+        log.debug("getBillService");
+
         return BILL_SERVICE;
     }
 

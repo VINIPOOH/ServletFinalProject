@@ -2,14 +2,20 @@ package bll.service.impl;
 
 
 import bll.exeptions.PasswordEncodeException;
+import bll.service.PasswordEncoderService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class PasswordEncoderServiceImpl implements bll.service.PasswordEncoderService {
+public class PasswordEncoderServiceImpl implements PasswordEncoderService {
+    private static Logger log = LogManager.getLogger(PasswordEncoderServiceImpl.class);
 
     @Override
     public String encode(String password) {
+        log.debug("encode");
+
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(password.getBytes());

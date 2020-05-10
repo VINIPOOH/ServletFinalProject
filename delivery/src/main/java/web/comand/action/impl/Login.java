@@ -2,6 +2,8 @@ package web.comand.action.impl;
 
 import bll.exeptions.NoSuchUserException;
 import bll.service.UserService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.LoginInfoDto;
 import web.dto.maper.RequestDtoMapper;
@@ -14,7 +16,7 @@ import static web.constants.ExceptionInfoForJspConstants.INPUT_HAS_ERRORS;
 import static web.constants.PageConstance.*;
 
 public class Login extends MultipleMethodCommand {
-
+    private static Logger log = LogManager.getLogger(Login.class);
     private final Validator<LoginInfoDto> loginDtoValidator;
     private final UserService userService;
 
@@ -25,11 +27,14 @@ public class Login extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
+        log.debug(request.getMethod()+" Login");
         return MAIN_WEB_FOLDER + LOGIN_FILE_NAME;
     }
 
     @Override
     protected String performPost(HttpServletRequest request) {
+        log.debug(request.getMethod()+" Login");
+
         LoginInfoDto loginInfoDto = getLoginInfoDtoRequestDtoMapper(request).mapToDto(request);
         if (!loginDtoValidator.isValid(loginInfoDto)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);

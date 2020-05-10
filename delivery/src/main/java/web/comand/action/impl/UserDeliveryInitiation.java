@@ -5,6 +5,8 @@ import bll.exeptions.UnsupportableWeightFactorException;
 import bll.service.BillService;
 import bll.service.LocalityService;
 import dal.entity.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
 import web.dto.DeliveryOrderCreateDto;
 import web.dto.maper.RequestDtoMapper;
@@ -20,6 +22,7 @@ import static web.constants.ExceptionInfoForJspConstants.UNSUPPORTABLE_WEIGHT;
 import static web.constants.PageConstance.*;
 
 public class UserDeliveryInitiation extends MultipleMethodCommand {
+    private static Logger log = LogManager.getLogger(UserDeliveryInitiation.class);
 
     private final LocalityService localityService;
     private final BillService billService;
@@ -33,6 +36,8 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
+        log.debug(request.getMethod()+" UserDeliveryInitiation");
+
         Locale o = (Locale) request.getSession().getAttribute(SESSION_LANG);
         request.setAttribute("localityList", localityService.getLocaliseLocalities(o));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
@@ -40,6 +45,8 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
+        log.debug(request.getMethod()+" UserDeliveryInitiation");
+
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         if (!deliveryOrderCreateDtoValidator.isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);

@@ -4,11 +4,14 @@ import dal.control.conection.ConnectionAdapeter;
 import dal.control.conection.impl.ConnectionAdapterImpl;
 import dal.control.conection.pool.TransactionalManager;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class TransactionalManagerImpl implements TransactionalManager {
+    private static Logger log = LogManager.getLogger(TransactionalManagerImpl.class);
 
     private static final String RESOURCE_BUNDLE_DATABASE = "database";
     private static final String DB_URL = "db.url";
@@ -26,6 +29,8 @@ public class TransactionalManagerImpl implements TransactionalManager {
 
 
     public TransactionalManagerImpl() {
+        log.debug("created");
+
         ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE_DATABASE);
         BasicDataSource ds = new BasicDataSource();
         ds.setUrl(bundle.getString(DB_URL));
@@ -40,11 +45,15 @@ public class TransactionalManagerImpl implements TransactionalManager {
     }
 
     public static TransactionalManager getDbConnectionPoolHolder() {
+        log.debug("getDbConnectionPoolHolder");
+
         return transactionalManagerImpl;
     }
 
 
     public ConnectionAdapeter getConnection() throws SQLException {
+        log.debug("getConnection");
+
         ConnectionAdapeter connection = connectionThreadLocal.get();
         if (connection != null) {
             return connection;
@@ -53,6 +62,8 @@ public class TransactionalManagerImpl implements TransactionalManager {
     }
 
     public void startTransaction() throws SQLException {
+        log.debug("startTransaction");
+
         ConnectionAdapeter connection = connectionThreadLocal.get();
         if (connection != null) {
             throw new SQLException("Transaction already started");
@@ -64,6 +75,8 @@ public class TransactionalManagerImpl implements TransactionalManager {
     }
 
     public void commit() throws SQLException {
+        log.debug("commit");
+
         ConnectionAdapeter connection = connectionThreadLocal.get();
 
         if (connection == null) {
@@ -73,6 +86,8 @@ public class TransactionalManagerImpl implements TransactionalManager {
     }
 
     public void rollBack() throws SQLException {
+        log.debug("rollBack");
+
         ConnectionAdapeter connection = connectionThreadLocal.get();
 
         if (connection == null) {
@@ -83,6 +98,8 @@ public class TransactionalManagerImpl implements TransactionalManager {
     }
 
     public void close() throws SQLException {
+        log.debug("close");
+
         ConnectionAdapeter connection = connectionThreadLocal.get();
 
         if (connection == null) {
