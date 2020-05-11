@@ -1,6 +1,6 @@
 package web.comand.factory;
 
-import bll.service.*;
+import bl.service.*;
 import web.comand.action.ActionCommand;
 import web.comand.action.impl.*;
 import web.dto.LoginInfoDto;

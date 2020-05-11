@@ -1,7 +1,7 @@
 package web.comand.action.impl;
 
-import bll.service.UserService;
-import bll.exeptions.OccupiedLoginException;
+import bl.service.UserService;
+import bl.exeptions.OccupiedLoginException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;

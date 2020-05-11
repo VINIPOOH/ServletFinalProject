@@ -1,4 +1,4 @@
-package bll.dto;
+package bl.dto;
 
 public class DeliveryInfoToGetDto {
     private String addresserEmail;

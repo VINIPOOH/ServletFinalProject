@@ -1,4 +1,4 @@
-package bll.dto;
+package bl.dto;
 
 public class LocaliseLocalityDto {
     private Long id;

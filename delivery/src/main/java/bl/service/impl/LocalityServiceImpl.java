@@ -1,8 +1,8 @@
-package bll.service.impl;
+package bl.service.impl;
 
 
-import bll.dto.LocaliseLocalityDto;
-import bll.service.LocalityService;
+import bl.dto.LocaliseLocalityDto;
+import bl.service.LocalityService;
 import dal.dao.impl.LocalityDao;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

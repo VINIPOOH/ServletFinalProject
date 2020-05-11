@@ -1,8 +1,8 @@
 package web.comand.action.impl;
 
-import bll.dto.PriceAndTimeOnDeliveryDto;
-import bll.service.DeliveryProcessService;
-import bll.service.LocalityService;
+import bl.dto.PriceAndTimeOnDeliveryDto;
+import bl.service.DeliveryProcessService;
+import bl.service.LocalityService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;

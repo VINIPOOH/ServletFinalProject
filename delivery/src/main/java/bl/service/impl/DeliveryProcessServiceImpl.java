@@ -1,9 +1,9 @@
-package bll.service.impl;
+package bl.service.impl;
 
 
-import bll.dto.DeliveryInfoToGetDto;
-import bll.dto.PriceAndTimeOnDeliveryDto;
-import bll.dto.mapper.Mapper;
+import bl.dto.DeliveryInfoToGetDto;
+import bl.dto.PriceAndTimeOnDeliveryDto;
+import bl.dto.mapper.Mapper;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
 import dal.dto.DeliveryCostAndTimeDto;
@@ -17,7 +17,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessService {
+public class DeliveryProcessServiceImpl implements bl.service.DeliveryProcessService {
     private static Logger log = LogManager.getLogger(DeliveryProcessServiceImpl.class);
 
     private final WayDao wayDao;

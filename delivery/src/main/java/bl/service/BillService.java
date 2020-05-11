@@ -1,9 +1,9 @@
-package bll.service;
+package bl.service;
 
-import bll.dto.BillDto;
-import bll.dto.BillInfoToPayDto;
-import bll.exeptions.FailCreateDeliveryException;
-import bll.exeptions.UnsupportableWeightFactorException;
+import bl.dto.BillDto;
+import bl.dto.BillInfoToPayDto;
+import bl.exeptions.FailCreateDeliveryException;
+import bl.exeptions.UnsupportableWeightFactorException;
 import web.dto.DeliveryOrderCreateDto;
 
 import java.util.List;

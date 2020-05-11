@@ -1,6 +1,6 @@
-package bll.service;
+package bl.service;
 
-import bll.dto.LocaliseLocalityDto;
+import bl.dto.LocaliseLocalityDto;
 
 import java.util.List;
 import java.util.Locale;

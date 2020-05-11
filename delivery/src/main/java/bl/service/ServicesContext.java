@@ -1,6 +1,6 @@
-package bll.service;
+package bl.service;
 
-import bll.service.impl.*;
+import bl.service.impl.*;
 import dal.control.JDBCDaoContext;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
@@ -17,11 +17,11 @@ public class ServicesContext {
     private static final WayDao WAY_DAO = JDBCDaoContext.getWayDao();
     private static final DeliveryDao DELIVERY_DAO = JDBCDaoContext.getDeliveryDao();
     private static final BillDao BILL_DAO = JDBCDaoContext.getBillDao();
-    private static final bll.service.PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderServiceImpl();
-    private static final bll.service.UserService USER_SERVICE = new UserServiceImpl(PASSWORD_ENCODER_SERVICE, USER_DAO);
-    private static final bll.service.LocalityService LOCALITY_SERVICE = new LocalityServiceImpl(LOCALITY_DAO);
-    private static final bll.service.DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessServiceImpl(WAY_DAO, DELIVERY_DAO);
-    private static final bll.service.BillService BILL_SERVICE = new BillServiceImpl(BILL_DAO, USER_DAO, DELIVERY_DAO);
+    private static final bl.service.PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderServiceImpl();
+    private static final bl.service.UserService USER_SERVICE = new UserServiceImpl(PASSWORD_ENCODER_SERVICE, USER_DAO);
+    private static final bl.service.LocalityService LOCALITY_SERVICE = new LocalityServiceImpl(LOCALITY_DAO);
+    private static final bl.service.DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessServiceImpl(WAY_DAO, DELIVERY_DAO);
+    private static final bl.service.BillService BILL_SERVICE = new BillServiceImpl(BILL_DAO, USER_DAO, DELIVERY_DAO);
     private static Logger log = LogManager.getLogger(ServicesContext.class);
 
     private ServicesContext() {

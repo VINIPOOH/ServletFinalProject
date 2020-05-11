@@ -1,6 +1,6 @@
 package dal.dao.impl;
 
-import bll.dto.LocaliseLocalityDto;
+import bl.dto.LocaliseLocalityDto;
 import dal.control.conection.ConnectionAdapeter;
 import dal.control.conection.pool.TransactionalManager;
 import dal.dao.maper.ResultSetToEntityMapper;

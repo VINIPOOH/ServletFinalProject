@@ -1,13 +1,13 @@
-package bll.service.impl;
+package bl.service.impl;
 
 
-import bll.exeptions.NoSuchUserException;
-import bll.service.PasswordEncoderService;
-import bll.service.UserService;
+import bl.exeptions.NoSuchUserException;
+import bl.service.PasswordEncoderService;
+import bl.service.UserService;
 import dal.dao.UserDao;
 import dal.entity.User;
 import dal.exeptions.AskedDataIsNotCorrect;
-import bll.exeptions.OccupiedLoginException;
+import bl.exeptions.OccupiedLoginException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.dto.LoginInfoDto;

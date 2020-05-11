@@ -1,7 +1,7 @@
 package web.comand.action.impl;
 
-import bll.exeptions.NoSuchUserException;
-import bll.service.UserService;
+import bl.exeptions.NoSuchUserException;
+import bl.service.UserService;
 import dal.entity.User;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

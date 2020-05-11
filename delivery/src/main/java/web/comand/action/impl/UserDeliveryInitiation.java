@@ -1,9 +1,9 @@
 package web.comand.action.impl;
 
-import bll.exeptions.FailCreateDeliveryException;
-import bll.exeptions.UnsupportableWeightFactorException;
-import bll.service.BillService;
-import bll.service.LocalityService;
+import bl.exeptions.FailCreateDeliveryException;
+import bl.exeptions.UnsupportableWeightFactorException;
+import bl.service.BillService;
+import bl.service.LocalityService;
 import dal.entity.User;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

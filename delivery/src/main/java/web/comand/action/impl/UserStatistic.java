@@ -1,6 +1,6 @@
 package web.comand.action.impl;
 
-import bll.service.BillService;
+import bl.service.BillService;
 import dal.entity.User;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

@@ -1,7 +1,7 @@
-package bll.service;
+package bl.service;
 
-import bll.dto.DeliveryInfoToGetDto;
-import bll.dto.PriceAndTimeOnDeliveryDto;
+import bl.dto.DeliveryInfoToGetDto;
+import bl.dto.PriceAndTimeOnDeliveryDto;
 import web.dto.DeliveryInfoRequestDto;
 
 import java.util.List;

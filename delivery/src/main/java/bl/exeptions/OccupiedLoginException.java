@@ -1,4 +1,4 @@
-package bll.exeptions;
+package bl.exeptions;
 
 public class OccupiedLoginException extends Exception {
 
