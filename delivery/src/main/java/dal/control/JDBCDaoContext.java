@@ -14,9 +14,8 @@ import java.util.ResourceBundle;
 
 
 public class JDBCDaoContext {
-    private static Logger log = LogManager.getLogger(JDBCDaoContext.class);
-
     private static final String PATH_TO_PROPERTY_FILE = "db-request";
+    private static Logger log = LogManager.getLogger(JDBCDaoContext.class);
     private static TransactionalManager dbConnectorPoolHolder = TransactionalManagerImpl.getDbConnectionPoolHolder();
 
     private static ResourceBundle requestsBundle = ResourceBundle.getBundle(PATH_TO_PROPERTY_FILE);

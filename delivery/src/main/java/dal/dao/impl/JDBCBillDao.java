@@ -1,15 +1,14 @@
 package dal.dao.impl;
 
-import bll.exeptions.AskedDataIsNotExist;
 import dal.control.conection.ConnectionAdapeter;
 import dal.control.conection.pool.TransactionalManager;
 import dal.dao.BillDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
+import dal.exeptions.AskedDataIsNotCorrect;
 import dal.exeptions.DBRuntimeException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import web.comand.action.impl.Admin;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,8 +19,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao {
-    private static Logger log = LogManager.getLogger(JDBCBillDao.class);
-
     private static final String BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID =
             "bill.create.by.cost.delivery.id.user.id";
     private static final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN =
@@ -34,6 +31,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             "bill.history.by.user.id";
     private static final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU =
             "bill.pay.info.sellect.by.sender.id.ru";
+    private static Logger log = LogManager.getLogger(JDBCBillDao.class);
 
 
     public JDBCBillDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
@@ -82,7 +80,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     }
 
     @Override
-    public long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotExist {
+    public long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotCorrect {
         log.debug("getBillCostIfItIsNotPaid");
 
         try (ConnectionAdapeter connection = connector.getConnection();
@@ -90,16 +88,14 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             preparedStatement.setLong(1, billId);
             preparedStatement.setLong(2, userId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-
                 if (resultSet.next()) {
                     long d = resultSet.getLong(1);
                     return d;
                 }
             }
-            throw new AskedDataIsNotExist();
+            throw new AskedDataIsNotCorrect();
         } catch (SQLException e) {
-
-            System.out.println(e);
+            log.error("SQLException", e);
             throw new DBRuntimeException();
         }
     }
@@ -124,7 +120,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     }
 
 
-    private long prepareAndExecuteQuery(long userId, long billId, PreparedStatement preparedStatement) throws SQLException, AskedDataIsNotExist {
+    private long prepareAndExecuteQuery(long userId, long billId, PreparedStatement preparedStatement) throws SQLException, AskedDataIsNotCorrect {
         preparedStatement.setLong(1, billId);
         preparedStatement.setLong(2, userId);
         try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -132,7 +128,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
                 return resultSet.getLong(1);
             }
         }
-        throw new AskedDataIsNotExist();
+        throw new AskedDataIsNotCorrect();
     }
 
     public boolean murkBillAsPayed(long billId) throws SQLException {

@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class TransactionalManagerImpl implements TransactionalManager {
-    private static Logger log = LogManager.getLogger(TransactionalManagerImpl.class);
-
     private static final String RESOURCE_BUNDLE_DATABASE = "database";
     private static final String DB_URL = "db.url";
     private static final String DB_USER = "db.user";
@@ -22,7 +20,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
     private static final String DB_MAX_IDLE = "db.maxIdle";
     private static final String DB_INITIAL_SIZE = "db.initialSize";
     private static final String DB_MAX_OPEN_STATEMENT = "db.maxOpenStatement";
-
+    private static Logger log = LogManager.getLogger(TransactionalManagerImpl.class);
     private static TransactionalManagerImpl transactionalManagerImpl = new TransactionalManagerImpl();
     private final BasicDataSource dataSource;
     private ThreadLocal<ConnectionAdapeter> connectionThreadLocal = new ThreadLocal<>();
@@ -45,14 +43,14 @@ public class TransactionalManagerImpl implements TransactionalManager {
     }
 
     public static TransactionalManager getDbConnectionPoolHolder() {
-        log.debug("getDbConnectionPoolHolder");
+        log.debug("initialized");
 
         return transactionalManagerImpl;
     }
 
 
     public ConnectionAdapeter getConnection() throws SQLException {
-        log.debug("getConnection");
+        log.debug("");
 
         ConnectionAdapeter connection = connectionThreadLocal.get();
         if (connection != null) {

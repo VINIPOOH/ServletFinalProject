@@ -11,6 +11,7 @@ import static web.constants.PageConstance.REDIRECT_COMMAND;
 
 public class LogOut implements ActionCommand {
     private static Logger log = LogManager.getLogger(LogOut.class);
+
     @Override
     public String execute(HttpServletRequest request) {
         log.debug("");

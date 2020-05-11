@@ -33,7 +33,7 @@ public class Login extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug(request.getMethod()+" Login");
+        log.debug(request.getMethod() + " Login");
 
         //todo validation login and then rework log here
         LoginInfoDto loginInfoDto = getLoginInfoDtoRequestDtoMapper(request).mapToDto(request);

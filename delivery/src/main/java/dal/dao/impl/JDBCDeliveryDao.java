@@ -1,11 +1,11 @@
 package dal.dao.impl;
 
-import bll.exeptions.AskedDataIsNotExist;
 import dal.control.conection.ConnectionAdapeter;
 import dal.control.conection.pool.TransactionalManager;
 import dal.dao.DeliveryDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
+import dal.exeptions.AskedDataIsNotCorrect;
 import dal.exeptions.DBRuntimeException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -20,8 +20,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements DeliveryDao {
-    private static Logger log = LogManager.getLogger(JDBCDeliveryDao.class);
-
     private static final String DELIVERY_INFO_TO_GET_BY_USER_ID_EN =
             "delivery.get.not.recived.deliveries.by.user.id.en";
     private static final String DELIVERY_INFO_TO_GET_BY_USER_ID_RU =
@@ -30,9 +28,9 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
             "delivery.set.recived.statuse.true";
     private static final String CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID =
             "create.delivery.by.weight.id.locality.send.idlocality.get.adresee.email.adresser.id";
-
     private static final String LOCALITY_SEND_COLUMN_NAME = "locality_sand_name";
     private static final String LOCALITY_GET_COLUMN_NAME = "locality_get_name";
+    private static Logger log = LogManager.getLogger(JDBCDeliveryDao.class);
 
     public JDBCDeliveryDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
@@ -83,12 +81,13 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
             preparedStatement.setLong(2, deliveryId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            log.error("SQLException", e);
             throw new DBRuntimeException();
         }
 
     }
 
-    public long createDelivery(String addreeseeEmail, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotExist {
+    public long createDelivery(String addreeseeEmail, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotCorrect {
         log.debug("createDelivery");
 
         try (ConnectionAdapeter connection = connector.getConnection();
@@ -100,9 +99,10 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
             if (resultSet.next()) {
                 return resultSet.getLong(1);
             }
-            throw new AskedDataIsNotExist();
+            throw new AskedDataIsNotCorrect();
         } catch (SQLException e) {
-            throw new AskedDataIsNotExist();
+            log.error("SQLException", e);
+            throw new AskedDataIsNotCorrect();
         }
     }
 

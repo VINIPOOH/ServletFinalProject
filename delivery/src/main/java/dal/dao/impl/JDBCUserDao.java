@@ -1,14 +1,13 @@
 package dal.dao.impl;
 
-import bll.exeptions.NoSuchUserException;
 import dal.control.conection.ConnectionAdapeter;
 import dal.control.conection.pool.TransactionalManager;
 import dal.dao.UserDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.RoleType;
 import dal.entity.User;
+import dal.exeptions.AskedDataIsNotCorrect;
 import dal.exeptions.DBRuntimeException;
-import dal.exeptions.OccupiedLoginException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -20,14 +19,12 @@ import java.util.ResourceBundle;
 
 
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {
-    private static Logger log = LogManager.getLogger(JDBCUserDao.class);
-
     private static final String USER_FIND_BY_EMAIL = "user.find.by.email";
     private static final String USER_REPLENISH_BALANCE = "user.replenish.balance";
-
     private static final String USER_SAVE = "user.save";
     private static final String GET_USER_BALANCE_IF_ENOGFE_MONEY =
             "user.get.user.bulance.if.enought.money";
+    private static Logger log = LogManager.getLogger(JDBCUserDao.class);
 
 
     public JDBCUserDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
@@ -51,6 +48,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             }
             return user;
         } catch (SQLException e) {
+            log.error("SQLException", e);
             throw new DBRuntimeException();
         }
     }
@@ -70,7 +68,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     }
 
     @Override
-    public void replenishUserBalance(long userId, long money) throws NoSuchUserException {
+    public void replenishUserBalance(long userId, long money) throws AskedDataIsNotCorrect {
         log.debug("replenishUserBalance");
 
         try (ConnectionAdapeter connection = connector.getConnection();
@@ -79,12 +77,13 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             preparedStatement.setLong(2, userId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new NoSuchUserException();
+            log.error("SQLException", e);
+            throw new AskedDataIsNotCorrect();
         }
     }
 
 
-    public void save(String email, String password) throws OccupiedLoginException {
+    public void save(String email, String password) throws AskedDataIsNotCorrect {
         log.debug("save");
 
         try (ConnectionAdapeter connection = connector.getConnection();
@@ -93,7 +92,8 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             preparedStatement.setString(2, password);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new OccupiedLoginException();
+            log.error("SQLException", e);
+            throw new AskedDataIsNotCorrect();
         }
     }
 

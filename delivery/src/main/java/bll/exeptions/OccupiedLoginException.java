@@ -1,4 +1,4 @@
-package dal.exeptions;
+package bll.exeptions;
 
 public class OccupiedLoginException extends Exception {
 

@@ -12,6 +12,7 @@ import static web.constants.PageConstance.REDIRECT_COMMAND;
 
 public class EmptyCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(EmptyCommand.class);
+
     @Override
     public String execute(HttpServletRequest request) {
         log.debug("");

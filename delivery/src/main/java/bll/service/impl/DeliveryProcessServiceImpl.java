@@ -4,7 +4,6 @@ package bll.service.impl;
 import bll.dto.DeliveryInfoToGetDto;
 import bll.dto.PriceAndTimeOnDeliveryDto;
 import bll.dto.mapper.Mapper;
-import bll.exeptions.AskedDataIsNotExist;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
 import dal.dto.DeliveryCostAndTimeDto;
@@ -15,6 +14,7 @@ import web.dto.DeliveryInfoRequestDto;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessService {
@@ -31,20 +31,17 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
     }
 
     @Override
-    public PriceAndTimeOnDeliveryDto getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) throws AskedDataIsNotExist {
-        log.debug("deliveryInfoRequestDto - "+deliveryInfoRequestDto);
-
-        Mapper<DeliveryCostAndTimeDto, PriceAndTimeOnDeliveryDto> mapper =
-                getDeliveryCostAndTimeDtoPriceAndTimeOnDeliveryDtoMapper();
-        return mapper.map(wayDao.findByLocalitySandIdAndLocalityGetId(deliveryInfoRequestDto.getLocalitySandID(),
-                deliveryInfoRequestDto.getLocalityGetID(),
-                deliveryInfoRequestDto.getDeliveryWeight()).orElseThrow(AskedDataIsNotExist::new));
+    public Optional<PriceAndTimeOnDeliveryDto> getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) {
+        log.debug("deliveryInfoRequestDto - " + deliveryInfoRequestDto);
+        return wayDao.findByLocalitySandIdAndLocalityGetId(deliveryInfoRequestDto.getLocalitySandID(),
+                deliveryInfoRequestDto.getLocalityGetID(), deliveryInfoRequestDto.getDeliveryWeight())
+                .map(deliveryCostAndTimeDto -> getDeliveryCostAndTimeDtoPriceAndTimeOnDeliveryDtoMapper().map(deliveryCostAndTimeDto));
     }
 
 
     @Override
     public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId, Locale locale) {
-        log.debug("userId - "+userId+" localeLang - "+locale.getLanguage() );
+        log.debug("userId - " + userId + " localeLang - " + locale.getLanguage());
 
         return deliveryDao.getDeliveryInfoToGet(userId, locale).stream()
                 .map(getDeliveryInfoToGetDtoMapper(locale)::map)
@@ -53,7 +50,7 @@ public class DeliveryProcessServiceImpl implements bll.service.DeliveryProcessSe
 
     @Override
     public void confirmGettingDelivery(long userId, long deliveryId) {
-        log.debug("userId -"+userId+" deliveryId -"+deliveryId);
+        log.debug("userId -" + userId + " deliveryId -" + deliveryId);
 
         deliveryDao.confirmGettingDelivery(userId, deliveryId);
     }

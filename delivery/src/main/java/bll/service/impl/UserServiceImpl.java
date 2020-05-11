@@ -6,7 +6,8 @@ import bll.service.PasswordEncoderService;
 import bll.service.UserService;
 import dal.dao.UserDao;
 import dal.entity.User;
-import dal.exeptions.OccupiedLoginException;
+import dal.exeptions.AskedDataIsNotCorrect;
+import bll.exeptions.OccupiedLoginException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.dto.LoginInfoDto;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loginUser(LoginInfoDto loginInfoDto) throws NoSuchUserException {
-        log.debug("loginInfoDto -"+loginInfoDto);
+        log.debug("loginInfoDto -" + loginInfoDto);
 
         return userDao.findByEmailAndPasswordWithPermissions(loginInfoDto.getUsername(),
                 passwordEncoderService.encode(loginInfoDto.getPassword()))
@@ -37,16 +38,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException {
-        log.debug("registrationInfoDto -"+registrationInfoDto);
+        log.debug("registrationInfoDto -" + registrationInfoDto);
 
-        userDao.save(registrationInfoDto.getUsername(), passwordEncoderService.encode(registrationInfoDto.getPassword()));
+        try {
+            userDao.save(registrationInfoDto.getUsername(), passwordEncoderService.encode(registrationInfoDto.getPassword()));
+        } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
+            log.error("login is occupied", askedDataIsNotCorrect);
+            throw new OccupiedLoginException();
+        }
 
     }
 
     @Override
     public void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException {
-        log.debug("userId -"+userId+" amountMoney -"+amountMoney);
+        log.debug("userId -" + userId + " amountMoney -" + amountMoney);
 
-        userDao.replenishUserBalance(userId, amountMoney);
+        try {
+            userDao.replenishUserBalance(userId, amountMoney);
+        } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
+            log.error("no user", askedDataIsNotCorrect);
+            throw new NoSuchUserException();
+        }
     }
 }

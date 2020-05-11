@@ -2,14 +2,14 @@ package bll.service;
 
 import bll.dto.DeliveryInfoToGetDto;
 import bll.dto.PriceAndTimeOnDeliveryDto;
-import bll.exeptions.AskedDataIsNotExist;
 import web.dto.DeliveryInfoRequestDto;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 public interface DeliveryProcessService {
-    PriceAndTimeOnDeliveryDto getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) throws AskedDataIsNotExist;
+    Optional<PriceAndTimeOnDeliveryDto> getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto);
 
     List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId, Locale locale);
 

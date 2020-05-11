@@ -33,7 +33,7 @@ public class UserProfile extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug("isValidRequest = "+getValidator().isValid(request));
+        log.debug("isValidRequest = " + getValidator().isValid(request));
 
         if (!getValidator().isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);

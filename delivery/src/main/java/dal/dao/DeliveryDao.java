@@ -1,7 +1,7 @@
 package dal.dao;
 
-import bll.exeptions.AskedDataIsNotExist;
 import dal.entity.Delivery;
+import dal.exeptions.AskedDataIsNotCorrect;
 
 import java.util.List;
 import java.util.Locale;
@@ -12,6 +12,6 @@ public interface DeliveryDao {
 
     void confirmGettingDelivery(long userId, long deliveryId);
 
-    long createDelivery(String addreeseeEmail, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotExist;
+    long createDelivery(String addreeseeEmail, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotCorrect;
 
 }

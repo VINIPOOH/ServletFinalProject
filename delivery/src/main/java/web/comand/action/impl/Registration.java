@@ -1,7 +1,7 @@
 package web.comand.action.impl;
 
 import bll.service.UserService;
-import dal.exeptions.OccupiedLoginException;
+import bll.exeptions.OccupiedLoginException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
@@ -35,7 +35,7 @@ public class Registration extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug(request.getMethod()+" Registration");
+        log.debug(request.getMethod() + " Registration");
 
         //todo validation login and then rework log here
         RegistrationInfoDto registrationInfoDto = getRegistrationInfoDtoRequestDtoMapper(request).mapToDto(request);

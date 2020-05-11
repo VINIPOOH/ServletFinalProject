@@ -3,7 +3,6 @@ package bll.service.impl;
 import bll.dto.BillDto;
 import bll.dto.BillInfoToPayDto;
 import bll.dto.mapper.Mapper;
-import bll.exeptions.AskedDataIsNotExist;
 import bll.exeptions.FailCreateDeliveryException;
 import bll.exeptions.UnsupportableWeightFactorException;
 import bll.service.BillService;
@@ -13,6 +12,7 @@ import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.entity.Bill;
+import dal.exeptions.AskedDataIsNotCorrect;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.dto.DeliveryOrderCreateDto;
@@ -39,7 +39,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId, Locale locale) {
-        log.debug("userId - "+userId+" localeLang - "+locale.getLanguage() );
+        log.debug("userId - " + userId + " localeLang - " + locale.getLanguage());
 
         return billDao.getInfoToPayBillByUserId(userId, locale).stream()
                 .map(getMapperBillInfoToPayDto(locale)::map)
@@ -49,7 +49,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public boolean payForDelivery(long userId, long billId) {
-        log.debug("userId - "+userId+" billId - "+billId);
+        log.debug("userId - " + userId + " billId - " + billId);
 
         try (TransactionalManager transactionalManager = JDBCDaoContext.getTransactionManager()) {
             transactionalManager.startTransaction();
@@ -61,14 +61,19 @@ public class BillServiceImpl implements BillService {
             }
             transactionalManager.rollBack();
             return false;
-        } catch (SQLException | AskedDataIsNotExist e) {
+        } catch (SQLException e) {
+            log.error("problem with db", e);
+            return false;
+        } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
+            log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
             return false;
         }
+
     }
 
     @Override
     public void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
-        log.debug("deliveryOrderCreateDto - "+deliveryOrderCreateDto+ " initiatorId - "+initiatorId);
+        log.debug("deliveryOrderCreateDto - " + deliveryOrderCreateDto + " initiatorId - " + initiatorId);
 
         try (TransactionalManager transactionalManager = JDBCDaoContext.getTransactionManager()) {
             transactionalManager.startTransaction();
@@ -80,14 +85,18 @@ public class BillServiceImpl implements BillService {
             }
             transactionalManager.rollBack();
             throw new UnsupportableWeightFactorException();
-        } catch (SQLException | AskedDataIsNotExist e) {
+        } catch (SQLException e) {
+            log.error("problem with db", e);
             throw new FailCreateDeliveryException();
+        } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
+            log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
+            askedDataIsNotCorrect.printStackTrace();
         }
     }
 
     @Override
     public List<BillDto> getBillHistoryByUserId(long userId) {
-        log.debug("userId - "+userId);
+        log.debug("userId - " + userId);
 
         return billDao.getHistoricBailsByUserId(userId).stream()
                 .map(getBillBillDtoMapper()::map)

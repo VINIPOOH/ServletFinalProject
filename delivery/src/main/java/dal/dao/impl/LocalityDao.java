@@ -20,7 +20,6 @@ public class LocalityDao extends JDBCAbstractGenericDao<Locality> {
     public LocalityDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
         log.debug("created");
-
     }
 
 
@@ -45,6 +44,7 @@ public class LocalityDao extends JDBCAbstractGenericDao<Locality> {
             }
             return result;
         } catch (SQLException e) {
+            log.error("SQLException", e);
             throw new DBRuntimeException();
         }
     }

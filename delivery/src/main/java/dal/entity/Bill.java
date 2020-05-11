@@ -10,17 +10,13 @@ public class Bill extends Entity {
     private LocalDate dateOfPay;
     private User user;
 
-    public User getUser() {
-        return user;
-    }
-
     public Bill(Long id, Delivery delivery, Boolean isDeliveryPaid, long costInCents, LocalDate dateOfPay, User user) {
         super(id);
         this.delivery = delivery;
         this.isDeliveryPaid = isDeliveryPaid;
         this.costInCents = costInCents;
         this.dateOfPay = dateOfPay;
-        this.user=user;
+        this.user = user;
     }
 
     public Bill() {
@@ -28,6 +24,10 @@ public class Bill extends Entity {
 
     public static BillBuilder builder() {
         return new BillBuilder();
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public Delivery getDelivery() {
@@ -74,6 +74,7 @@ public class Bill extends Entity {
             this.delivery = delivery;
             return this;
         }
+
         public BillBuilder user(User user) {
             this.user = user;
             return this;

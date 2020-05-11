@@ -5,6 +5,8 @@ import dal.control.conection.ConnectionAdapeter;
 import dal.control.conection.pool.TransactionalManager;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.exeptions.DBRuntimeException;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +16,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public abstract class JDBCAbstractGenericDao<E> {
+
+    private static Logger log = LogManager.getLogger(JDBCAbstractGenericDao.class);
 
     protected final ResourceBundle resourceBundleRequests;
     protected final TransactionalManager connector;
@@ -29,7 +33,7 @@ public abstract class JDBCAbstractGenericDao<E> {
             preparedStatement.setLong(1, param);
             return mapPreparedStatementToEntitiesList(mapper, preparedStatement);
         } catch (SQLException e) {
-            System.out.println(e);
+            log.error("SQLException", e);
             throw new DBRuntimeException();
         }
     }

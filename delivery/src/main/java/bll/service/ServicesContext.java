@@ -12,21 +12,17 @@ import org.apache.log4j.Logger;
 
 public class ServicesContext {
 
-    private static Logger log = LogManager.getLogger(ServicesContext.class);
-
-
     private static final UserDao USER_DAO = JDBCDaoContext.getUserDao();
     private static final LocalityDao LOCALITY_DAO = JDBCDaoContext.getLocalityDao();
     private static final WayDao WAY_DAO = JDBCDaoContext.getWayDao();
     private static final DeliveryDao DELIVERY_DAO = JDBCDaoContext.getDeliveryDao();
     private static final BillDao BILL_DAO = JDBCDaoContext.getBillDao();
-
-
     private static final bll.service.PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderServiceImpl();
     private static final bll.service.UserService USER_SERVICE = new UserServiceImpl(PASSWORD_ENCODER_SERVICE, USER_DAO);
     private static final bll.service.LocalityService LOCALITY_SERVICE = new LocalityServiceImpl(LOCALITY_DAO);
     private static final bll.service.DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryProcessServiceImpl(WAY_DAO, DELIVERY_DAO);
     private static final bll.service.BillService BILL_SERVICE = new BillServiceImpl(BILL_DAO, USER_DAO, DELIVERY_DAO);
+    private static Logger log = LogManager.getLogger(ServicesContext.class);
 
     private ServicesContext() {
     }

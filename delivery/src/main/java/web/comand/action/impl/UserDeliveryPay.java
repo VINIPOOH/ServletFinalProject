@@ -32,7 +32,7 @@ public class UserDeliveryPay extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug(request.getMethod()+" UserDeliveryPay");
+        log.debug(request.getMethod() + " UserDeliveryPay");
 
         //todo add validation and rework logging
         billService.payForDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter("Id")));

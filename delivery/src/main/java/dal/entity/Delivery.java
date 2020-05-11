@@ -12,10 +12,6 @@ public class Delivery extends Entity {
     private long costInCents;
     private Bill bill;
 
-    public Bill getBill() {
-        return bill;
-    }
-
     public Delivery(Long id, LocalDate arrivalDate, Way way, User addressee, Boolean isPackageReceived, Boolean isDeliveryPaid, int weight, long costInCents, Bill bill) {
         super(id);
 
@@ -26,7 +22,7 @@ public class Delivery extends Entity {
         this.isDeliveryPaid = isDeliveryPaid;
         this.weight = weight;
         this.costInCents = costInCents;
-        this.bill=bill;
+        this.bill = bill;
     }
 
     public Delivery() {
@@ -34,6 +30,10 @@ public class Delivery extends Entity {
 
     public static DeliveryBuilder builder() {
         return new DeliveryBuilder();
+    }
+
+    public Bill getBill() {
+        return bill;
     }
 
     public LocalDate getArrivalDate() {
@@ -117,6 +117,7 @@ public class Delivery extends Entity {
             this.addressee = addressee;
             return this;
         }
+
         public DeliveryBuilder isPackageReceived(Boolean isPackageReceived) {
             this.isPackageReceived = isPackageReceived;
             return this;
@@ -138,7 +139,7 @@ public class Delivery extends Entity {
         }
 
         public Delivery build() {
-            return new Delivery(id, arrivalDate, way, addressee, isPackageReceived, isDeliveryPaid, weight, costInCents,bill);
+            return new Delivery(id, arrivalDate, way, addressee, isPackageReceived, isDeliveryPaid, weight, costInCents, bill);
         }
     }
 }

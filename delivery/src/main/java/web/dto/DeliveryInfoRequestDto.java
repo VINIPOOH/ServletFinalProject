@@ -9,15 +9,6 @@ public class DeliveryInfoRequestDto {
 
     private long localityGetID;
 
-    @Override
-    public String toString() {
-        return "DeliveryInfoRequestDto{" +
-                "deliveryWeight=" + deliveryWeight +
-                ", localitySandID=" + localitySandID +
-                ", localityGetID=" + localityGetID +
-                '}';
-    }
-
     DeliveryInfoRequestDto(int deliveryWeight, long localitySandID, long localityGetID) {
         this.deliveryWeight = deliveryWeight;
         this.localitySandID = localitySandID;
@@ -26,6 +17,15 @@ public class DeliveryInfoRequestDto {
 
     public static DeliveryInfoRequestDtoBuilder builder() {
         return new DeliveryInfoRequestDtoBuilder();
+    }
+
+    @Override
+    public String toString() {
+        return "DeliveryInfoRequestDto{" +
+                "deliveryWeight=" + deliveryWeight +
+                ", localitySandID=" + localitySandID +
+                ", localityGetID=" + localityGetID +
+                '}';
     }
 
     public int getDeliveryWeight() {

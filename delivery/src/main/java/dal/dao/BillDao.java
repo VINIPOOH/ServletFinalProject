@@ -1,7 +1,7 @@
 package dal.dao;
 
-import bll.exeptions.AskedDataIsNotExist;
 import dal.entity.Bill;
+import dal.exeptions.AskedDataIsNotCorrect;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,7 +11,7 @@ public interface BillDao {
 
     List<Bill> getInfoToPayBillByUserId(long userId, Locale locale);
 
-    long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotExist;
+    long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotCorrect;
 
     List<Bill> getHistoricBailsByUserId(long userId);
 

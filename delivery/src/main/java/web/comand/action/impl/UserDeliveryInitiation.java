@@ -36,7 +36,7 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     @Override
     protected String performGet(HttpServletRequest request) {
-        log.debug(request.getMethod()+" UserDeliveryInitiation");
+        log.debug(request.getMethod() + " UserDeliveryInitiation");
 
         Locale o = (Locale) request.getSession().getAttribute(SESSION_LANG);
         request.setAttribute("localityList", localityService.getLocaliseLocalities(o));
@@ -45,7 +45,7 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug("isValidRequest = "+ deliveryOrderCreateDtoValidator.isValid(request));
+        log.debug("isValidRequest = " + deliveryOrderCreateDtoValidator.isValid(request));
 
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         if (!deliveryOrderCreateDtoValidator.isValid(request)) {

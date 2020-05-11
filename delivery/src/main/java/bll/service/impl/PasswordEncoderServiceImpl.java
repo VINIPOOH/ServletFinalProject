@@ -14,7 +14,7 @@ public class PasswordEncoderServiceImpl implements PasswordEncoderService {
 
     @Override
     public String encode(String password) {
-        log.debug("password -"+password);
+        log.debug("password -" + password);
 
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -26,6 +26,7 @@ public class PasswordEncoderServiceImpl implements PasswordEncoderService {
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
+            log.fatal("not correct encode algorithm", e);
             throw new PasswordEncodeException("Password encode error");
         }
     }

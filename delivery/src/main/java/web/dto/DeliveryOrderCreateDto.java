@@ -6,16 +6,6 @@ public class DeliveryOrderCreateDto {
     private long localityGetID;
     private String addresseeEmail;
 
-    @Override
-    public String toString() {
-        return "DeliveryOrderCreateDto{" +
-                "deliveryWeight=" + deliveryWeight +
-                ", localitySandID=" + localitySandID +
-                ", localityGetID=" + localityGetID +
-                ", addresseeEmail='" + addresseeEmail + '\'' +
-                '}';
-    }
-
     DeliveryOrderCreateDto(int deliveryWeight, long localitySandID, long localityGetID, String addresseeEmail) {
         this.deliveryWeight = deliveryWeight;
         this.localitySandID = localitySandID;
@@ -25,6 +15,16 @@ public class DeliveryOrderCreateDto {
 
     public static DeliveryOrderCreateDtoBuilder builder() {
         return new DeliveryOrderCreateDtoBuilder();
+    }
+
+    @Override
+    public String toString() {
+        return "DeliveryOrderCreateDto{" +
+                "deliveryWeight=" + deliveryWeight +
+                ", localitySandID=" + localitySandID +
+                ", localityGetID=" + localityGetID +
+                ", addresseeEmail='" + addresseeEmail + '\'' +
+                '}';
     }
 
     public int getDeliveryWeight() {

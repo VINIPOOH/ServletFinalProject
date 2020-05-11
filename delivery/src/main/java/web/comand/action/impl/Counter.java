@@ -1,6 +1,6 @@
 package web.comand.action.impl;
 
-import bll.exeptions.AskedDataIsNotExist;
+import bll.dto.PriceAndTimeOnDeliveryDto;
 import bll.service.DeliveryProcessService;
 import bll.service.LocalityService;
 import org.apache.log4j.LogManager;
@@ -12,6 +12,7 @@ import web.dto.validation.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
+import java.util.Optional;
 
 import static web.constants.AttributeConstants.SESSION_LANG;
 import static web.constants.ExceptionInfoForJspConstants.INPUT_HAS_ERRORS;
@@ -37,19 +38,19 @@ public class Counter extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug("isValidRequest = "+getDeliveryInfoRequestDtoValidator().isValid(request));
+        log.debug("isValidRequest = " + getDeliveryInfoRequestDtoValidator().isValid(request));
         request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         if (!getDeliveryInfoRequestDtoValidator().isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
         }
-        try {
-            request.setAttribute("CostAndTimeDto", deliveryProcessService.getDeliveryCostAndTimeDto
-                    (getDeliveryInfoRequestDtoRequestDtoMapper(request).mapToDto(request)));
+        Optional<PriceAndTimeOnDeliveryDto> deliveryCostAndTimeDto = deliveryProcessService.getDeliveryCostAndTimeDto
+                (getDeliveryInfoRequestDtoRequestDtoMapper(request).mapToDto(request));
+        if (deliveryCostAndTimeDto.isPresent()) {
+            request.setAttribute("CostAndTimeDto", deliveryCostAndTimeDto);
             return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
-        } catch (AskedDataIsNotExist askedDataIsNotExist) {
-            request.setAttribute("IsNotExistSuchWayOrWeightForThisWay", true);
         }
+        request.setAttribute("IsNotExistSuchWayOrWeightForThisWay", true);
         return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
     }
 
