@@ -6,14 +6,14 @@ import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.dao.WayDao;
-import dal.dao.impl.LocalityDao;
+import dal.dao.impl.JDBCLocalityDao;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class ServicesContext {
 
     private static final UserDao USER_DAO = JDBCDaoContext.getUserDao();
-    private static final LocalityDao LOCALITY_DAO = JDBCDaoContext.getLocalityDao();
+    private static final JDBCLocalityDao LOCALITY_DAO = JDBCDaoContext.getJDBCLocalityDao();
     private static final WayDao WAY_DAO = JDBCDaoContext.getWayDao();
     private static final DeliveryDao DELIVERY_DAO = JDBCDaoContext.getDeliveryDao();
     private static final BillDao BILL_DAO = JDBCDaoContext.getBillDao();

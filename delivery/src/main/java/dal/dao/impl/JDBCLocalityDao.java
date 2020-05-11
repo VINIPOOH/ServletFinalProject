@@ -1,8 +1,8 @@
 package dal.dao.impl;
 
-import bl.dto.LocaliseLocalityDto;
 import dal.control.conection.ConnectionAdapeter;
 import dal.control.conection.pool.TransactionalManager;
+import dal.dao.LocalityDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.Locality;
 import dal.exeptions.DBRuntimeException;
@@ -14,19 +14,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class LocalityDao extends JDBCAbstractGenericDao<Locality> {
-    private static Logger log = LogManager.getLogger(LocalityDao.class);
+public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements LocalityDao {
+    private static Logger log = LogManager.getLogger(JDBCLocalityDao.class);
 
-    public LocalityDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
+    public JDBCLocalityDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
         log.debug("created");
     }
 
 
-    public List<LocaliseLocalityDto> findAllLocaliseLocalitiesWithoutConnection(Locale locale) {
+    @Override
+    public List<Locality> findAllLocaliseLocalitiesWithoutConnection(Locale locale) {
         log.debug("findAllLocaliseLocalitiesWithoutConnection");
 
-        ResultSetToEntityMapper<LocaliseLocalityDto> mapper = getLocaliseLocalityMapper();
+        ResultSetToEntityMapper<Locality> mapper = getLocaliseLocalityMapper(locale);
         String localedQuery;
         if (locale.getLanguage().equals("ru")) {
             localedQuery = resourceBundleRequests.getString("locality.find.all.ru");
@@ -35,7 +36,7 @@ public class LocalityDao extends JDBCAbstractGenericDao<Locality> {
         }
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(localedQuery)) {
-            List<LocaliseLocalityDto> result;
+            List<Locality> result;
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 result = new ArrayList<>();
                 while (resultSet.next()) {
@@ -49,11 +50,18 @@ public class LocalityDao extends JDBCAbstractGenericDao<Locality> {
         }
     }
 
-    private ResultSetToEntityMapper<LocaliseLocalityDto> getLocaliseLocalityMapper() {
-        return resultSet -> Optional.of(LocaliseLocalityDto.builder()
-                .id(resultSet.getLong("id"))
-                .name(resultSet.getString("name"))
-                .build());
+    private ResultSetToEntityMapper<Locality> getLocaliseLocalityMapper(Locale locale) {
+        return resultSet -> {
+            Locality toReturn =Locality.builder()
+                    .id(resultSet.getLong("id"))
+                    .build();
+            if (locale.getLanguage().equals("ru")) {
+                toReturn.setNameRu(resultSet.getString("name"));
+            } else {
+                toReturn.setNameEn(resultSet.getString("name"));
+            }
+            return Optional.of(toReturn);
+        };
     }
 
 }

@@ -5,6 +5,15 @@ import java.util.List;
 public class Locality extends Entity {
     private String nameRu;
     private String nameEn;
+
+    public void setNameRu(String nameRu) {
+        this.nameRu = nameRu;
+    }
+
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
+    }
+
     private List<Way> waysWhereThisLocalityIsSend;
     private List<Way> waysWhereThisLocalityIsGet;
 

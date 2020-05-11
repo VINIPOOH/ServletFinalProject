@@ -22,7 +22,7 @@ public class JDBCDaoContext {
 
 
     private static UserDao userDao = new JDBCUserDao(requestsBundle, dbConnectorPoolHolder);
-    private static LocalityDao localityDao = new LocalityDao(requestsBundle, dbConnectorPoolHolder);
+    private static JDBCLocalityDao JDBCLocalityDao = new JDBCLocalityDao(requestsBundle, dbConnectorPoolHolder);
     private static WayDao wayDao = new JDBCWayDao(requestsBundle, dbConnectorPoolHolder);
     private static DeliveryDao deliveryDao = new JDBCDeliveryDao(requestsBundle, dbConnectorPoolHolder);
     private static BillDao billDao = new JDBCBillDao(requestsBundle, dbConnectorPoolHolder);
@@ -36,9 +36,9 @@ public class JDBCDaoContext {
         return userDao;
     }
 
-    public static LocalityDao getLocalityDao() {
-        log.debug("getLocalityDao");
-        return localityDao;
+    public static JDBCLocalityDao getJDBCLocalityDao() {
+        log.debug("getJDBCLocalityDao");
+        return JDBCLocalityDao;
     }
 
     public static WayDao getWayDao() {

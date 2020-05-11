@@ -89,8 +89,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             preparedStatement.setLong(2, userId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    long d = resultSet.getLong(1);
-                    return d;
+                    return resultSet.getLong(1);
                 }
             }
             throw new AskedDataIsNotCorrect();
