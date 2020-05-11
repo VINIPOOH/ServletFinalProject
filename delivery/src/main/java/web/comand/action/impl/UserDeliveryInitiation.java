@@ -26,9 +26,9 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     private final LocalityService localityService;
     private final BillService billService;
-    private final Validator<HttpServletRequest> deliveryOrderCreateDtoValidator;
+    private final Validator deliveryOrderCreateDtoValidator;
 
-    public UserDeliveryInitiation(LocalityService localityService, BillService billService, Validator<HttpServletRequest> deliveryOrderCreateDtoValidator) {
+    public UserDeliveryInitiation(LocalityService localityService, BillService billService, Validator deliveryOrderCreateDtoValidator) {
         this.localityService = localityService;
         this.billService = billService;
         this.deliveryOrderCreateDtoValidator = deliveryOrderCreateDtoValidator;

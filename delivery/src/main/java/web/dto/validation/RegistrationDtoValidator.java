@@ -3,15 +3,18 @@ package web.dto.validation;
 
 import web.dto.RegistrationInfoDto;
 
-public class RegistrationDtoValidator implements Validator<RegistrationInfoDto> {
+import javax.servlet.http.HttpServletRequest;
+
+public class RegistrationDtoValidator implements Validator {
 
     private static final String LOGIN_REGEX = "([A-Za-z \\d-_.]+)(@[A-Za-z]+)(\\.[A-Za-z]{2,4})";
 
+
+
+
     @Override
-    public boolean isValid(RegistrationInfoDto dto) {
-        return isStringValid(dto.getUsername(), LOGIN_REGEX)
-                && dto.getPassword().equals(dto.getPasswordRepeat());
+    public boolean isValid(HttpServletRequest request) {
+        return isStringValid(request.getParameter("username"), LOGIN_REGEX)
+                && request.getParameter("password").equals(request.getParameter("passwordRepeat"));
     }
-
-
 }

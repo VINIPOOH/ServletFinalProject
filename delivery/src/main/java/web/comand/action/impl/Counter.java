@@ -62,7 +62,7 @@ public class Counter extends MultipleMethodCommand {
                 .build();
     }
 
-    private Validator<HttpServletRequest> getDeliveryInfoRequestDtoValidator() {
+    private Validator getDeliveryInfoRequestDtoValidator() {
         return request -> {
             try {
                 return ((Integer.parseInt(request.getParameter("deliveryWeight")) > 0) &&

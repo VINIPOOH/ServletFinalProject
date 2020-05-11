@@ -51,7 +51,7 @@ public class UserProfile extends MultipleMethodCommand {
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
     }
 
-    private Validator<HttpServletRequest> getValidator() {
+    private Validator getValidator() {
         return request -> {
             try {
                 return Long.parseLong(request.getParameter("money")) > 0;

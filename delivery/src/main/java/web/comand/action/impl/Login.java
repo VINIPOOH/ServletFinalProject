@@ -17,10 +17,10 @@ import static web.constants.PageConstance.*;
 
 public class Login extends MultipleMethodCommand {
     private static Logger log = LogManager.getLogger(Login.class);
-    private final Validator<LoginInfoDto> loginDtoValidator;
+    private final Validator loginDtoValidator;
     private final UserService userService;
 
-    public Login(Validator<LoginInfoDto> loginDtoValidator, UserService userService) {
+    public Login(Validator loginDtoValidator, UserService userService) {
         this.loginDtoValidator = loginDtoValidator;
         this.userService = userService;
     }
@@ -33,15 +33,13 @@ public class Login extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug(request.getMethod() + " Login");
-
-        //todo validation login and then rework log here
-        LoginInfoDto loginInfoDto = getLoginInfoDtoRequestDtoMapper(request).mapToDto(request);
-        if (!loginDtoValidator.isValid(loginInfoDto)) {
+        log.debug("isValidRequest = " + loginDtoValidator.isValid(request));
+        if (!loginDtoValidator.isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + LOGIN_FILE_NAME;
         }
-        return processingServiceLoginRequest(request, loginInfoDto);
+
+        return processingServiceLoginRequest(request, getLoginInfoDtoRequestDtoMapper(request).mapToDto(request));
     }
 
     private RequestDtoMapper<LoginInfoDto> getLoginInfoDtoRequestDtoMapper(HttpServletRequest request) {

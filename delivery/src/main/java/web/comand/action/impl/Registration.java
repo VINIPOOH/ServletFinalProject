@@ -18,10 +18,10 @@ import static web.constants.PageConstance.*;
 public class Registration extends MultipleMethodCommand {
     private static Logger log = LogManager.getLogger(Registration.class);
 
-    private final Validator<RegistrationInfoDto> registrationInfoDtoValidator;
+    private final Validator registrationInfoDtoValidator;
     private final UserService userService;
 
-    public Registration(Validator<RegistrationInfoDto> registrationInfoDtoValidator, UserService userService) {
+    public Registration(Validator registrationInfoDtoValidator, UserService userService) {
         this.registrationInfoDtoValidator = registrationInfoDtoValidator;
         this.userService = userService;
     }
@@ -35,15 +35,12 @@ public class Registration extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug(request.getMethod() + " Registration");
-
-        //todo validation login and then rework log here
-        RegistrationInfoDto registrationInfoDto = getRegistrationInfoDtoRequestDtoMapper(request).mapToDto(request);
-        if (!registrationInfoDtoValidator.isValid(registrationInfoDto)) {
+        log.debug("isValidRequest = " + registrationInfoDtoValidator.isValid(request));
+        if (!registrationInfoDtoValidator.isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + REGISTRATION_FILE_NAME;
         }
-        return processingServiseRegistrationRequest(request, registrationInfoDto);
+        return processingServiseRegistrationRequest(request, getRegistrationInfoDtoRequestDtoMapper(request).mapToDto(request));
     }
 
     private RequestDtoMapper<RegistrationInfoDto> getRegistrationInfoDtoRequestDtoMapper(HttpServletRequest request) {

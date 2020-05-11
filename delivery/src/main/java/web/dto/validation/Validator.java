@@ -1,8 +1,10 @@
 package web.dto.validation;
 
+import javax.servlet.http.HttpServletRequest;
+
 @FunctionalInterface
-public interface Validator<T> {
-    boolean isValid(T request);
+public interface Validator {
+    boolean isValid(HttpServletRequest request);
 
     default boolean isStringValid(String param, String regex) {
         return param.matches(regex);

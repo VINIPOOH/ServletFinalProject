@@ -17,9 +17,9 @@ import java.util.Map;
 public class CommandContext {
 
 
-    private static final Validator<LoginInfoDto> LOGIN_INFO_DTO_VALIDATOR = new LoginDtoValidator();
-    private static final Validator<RegistrationInfoDto> REGISTRATION_INFO_DTO_VALIDATOR = new RegistrationDtoValidator();
-    private static final Validator<HttpServletRequest> DELIVERY_ORDER_CREATE_DTO_VALIDATOR = new DeliveryOrderCreateDtoValidator();
+    private static final Validator LOGIN_INFO_DTO_VALIDATOR = new LoginDtoValidator();
+    private static final Validator REGISTRATION_INFO_DTO_VALIDATOR = new RegistrationDtoValidator();
+    private static final Validator DELIVERY_ORDER_CREATE_DTO_VALIDATOR = new DeliveryOrderCreateDtoValidator();
 
     private static final UserService USER_SERVICE = ServicesContext.getUserService();
     private static final LocalityService LOCALITY_SERVICE = ServicesContext.getLocalityService();

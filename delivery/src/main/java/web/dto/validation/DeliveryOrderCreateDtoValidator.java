@@ -2,7 +2,7 @@ package web.dto.validation;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class DeliveryOrderCreateDtoValidator implements Validator<HttpServletRequest> {
+public class DeliveryOrderCreateDtoValidator implements Validator {
     private static final String EMAIL_REGEX = "([A-Za-z \\d-_.]+)(@[A-Za-z]+)(\\.[A-Za-z]{2,4})";
 
 
