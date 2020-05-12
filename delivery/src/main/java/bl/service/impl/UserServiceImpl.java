@@ -62,4 +62,14 @@ public class UserServiceImpl implements UserService {
             throw new NoSuchUserException();
         }
     }
+
+    @Override
+    public long getUserBalance(long userId) {
+        try {
+            return userDao.getUserBalanceByUserID(userId);
+        } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
+            log.error("Problems with db user must be correct", askedDataIsNotCorrect);
+            throw new RuntimeException();
+        }
+    }
 }

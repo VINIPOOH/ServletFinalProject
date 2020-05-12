@@ -32,7 +32,7 @@ public class CommandContext {
     private static final ActionCommand EMPTY_COMMAND = new EmptyCommand();
     private static final ActionCommand COUNTER = new Counter(LOCALITY_SERVICE, DELIVERY_PROCESS_SERVICE);
     private static final ActionCommand USER_DELIVERY_INITIATION = new UserDeliveryInitiation(LOCALITY_SERVICE, BILL_SERVICE, DELIVERY_ORDER_CREATE_DTO_VALIDATOR);
-    private static final ActionCommand USER_DELIVERY_CONFIRM = new UserDeliveryPay(BILL_SERVICE, ID_VALIDATOR);
+    private static final ActionCommand USER_DELIVERY_CONFIRM = new UserDeliveryPay(BILL_SERVICE, USER_SERVICE, ID_VALIDATOR);
     private static final ActionCommand USER_DELIVERY_GET = new UserDeliveryGet(ID_VALIDATOR, DELIVERY_PROCESS_SERVICE);
     private static final ActionCommand USER_STATISTIC = new UserStatistic(BILL_SERVICE);
 

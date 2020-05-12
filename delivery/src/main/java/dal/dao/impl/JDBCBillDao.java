@@ -131,16 +131,6 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     }
 
 
-    private long prepareAndExecuteQuery(long userId, long billId, PreparedStatement preparedStatement) throws SQLException, AskedDataIsNotCorrect {
-        preparedStatement.setLong(1, billId);
-        preparedStatement.setLong(2, userId);
-        try (ResultSet resultSet = preparedStatement.executeQuery()) {
-            if (resultSet.next()) {
-                return resultSet.getLong(1);
-            }
-        }
-        throw new AskedDataIsNotCorrect();
-    }
 
     public boolean murkBillAsPayed(long billId) throws SQLException {
         log.debug("murkBillAsPayed");

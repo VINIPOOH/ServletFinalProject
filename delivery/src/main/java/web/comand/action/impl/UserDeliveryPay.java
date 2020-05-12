@@ -1,6 +1,7 @@
 package web.comand.action.impl;
 
 import bl.service.BillService;
+import bl.service.UserService;
 import dal.entity.User;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -21,10 +22,12 @@ public class UserDeliveryPay extends MultipleMethodCommand {
     private static Logger log = LogManager.getLogger(UserDeliveryPay.class);
 
     private final BillService billService;
+    private final UserService userService;
     private final IDValidator idValidator;
 
-    public UserDeliveryPay(BillService billService, IDValidator idValidator) {
+    public UserDeliveryPay(BillService billService, UserService userService, IDValidator idValidator) {
         this.billService = billService;
+        this.userService = userService;
         this.idValidator = idValidator;
     }
 
@@ -43,7 +46,10 @@ public class UserDeliveryPay extends MultipleMethodCommand {
             log.error("id is not valid client is broken");
             throw new RuntimeException();
         }
-        billService.payForDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter(ID1)));
+        User sessionUser=(User) request.getSession().getAttribute(SESSION_USER);
+        if (billService.payForDelivery(sessionUser.getId(), Long.parseLong(request.getParameter(ID1)))){
+            sessionUser.setUserMoneyInCents(userService.getUserBalance(sessionUser.getId()));
+        }
         request.setAttribute(BILL_INFO_TO_PAY, billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME;
     }

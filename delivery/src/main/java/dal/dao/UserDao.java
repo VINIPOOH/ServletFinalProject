@@ -16,4 +16,5 @@ public interface UserDao {
 
     boolean replenishUserBalenceOnSumeIfItPosible(long userId, long sumWhichUserNeed) throws SQLException;
 
+    long getUserBalanceByUserID(long userId) throws AskedDataIsNotCorrect;
 }

@@ -13,4 +13,6 @@ public interface UserService {
     void addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException;
 
     void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException;
+
+    long getUserBalance(long userId);
 }

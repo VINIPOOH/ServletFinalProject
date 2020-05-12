@@ -24,6 +24,8 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     private static final String USER_SAVE = "user.save";
     private static final String GET_USER_BALANCE_IF_ENOGFE_MONEY =
             "user.get.user.bulance.if.enought.money";
+    private static final String GET_USER_BALANCE_BY_ID="user.get.balance.by.id";
+
     public static final String ID = "id";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
@@ -115,6 +117,24 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             preparedStatement.setLong(2, userId);
             preparedStatement.setLong(3, sumWhichUserNeed);
             return preparedStatement.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public long getUserBalanceByUserID(long userId) throws AskedDataIsNotCorrect {
+        try (ConnectionAdapeter connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_USER_BALANCE_BY_ID))) {
+            preparedStatement.setLong(1, userId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getLong(USER_MONEY_IN_CENTS);
+                }
+                throw new AskedDataIsNotCorrect();
+            }
+        } catch (SQLException e) {
+            log.error("SQLException", e);
+
+            throw new AskedDataIsNotCorrect();
         }
     }
 }
