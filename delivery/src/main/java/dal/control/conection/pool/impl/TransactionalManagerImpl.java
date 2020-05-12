@@ -26,7 +26,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
     private ThreadLocal<ConnectionAdapeter> connectionThreadLocal = new ThreadLocal<>();
 
 
-    public TransactionalManagerImpl() {
+    private TransactionalManagerImpl() {
         log.debug("created");
 
         ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE_DATABASE);
@@ -78,7 +78,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
         ConnectionAdapeter connection = connectionThreadLocal.get();
 
         if (connection == null) {
-            throw new SQLException("Transaction not started to be commit.");
+            throw new SQLException("Transaction not started to be commit");
         }
         connection.commit();
     }
@@ -89,7 +89,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
         ConnectionAdapeter connection = connectionThreadLocal.get();
 
         if (connection == null) {
-            throw new SQLException("Transaction not started to be rollback.");
+            throw new SQLException("Transaction not started to be rollback");
         }
 
         connection.rollBack();
@@ -101,7 +101,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
         ConnectionAdapeter connection = connectionThreadLocal.get();
 
         if (connection == null) {
-            throw new SQLException("Transaction not started to be rollback.");
+            throw new SQLException("Transaction not started to be rollback");
         }
         connection.setIsTransaction(false);
         connection.close();

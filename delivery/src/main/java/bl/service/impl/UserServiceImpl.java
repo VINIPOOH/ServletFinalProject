@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
             userDao.save(registrationInfoDto.getUsername(), passwordEncoderService.encode(registrationInfoDto.getPassword()));
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("login is occupied", askedDataIsNotCorrect);
+
             throw new OccupiedLoginException();
         }
 
@@ -57,6 +58,7 @@ public class UserServiceImpl implements UserService {
             userDao.replenishUserBalance(userId, amountMoney);
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("no user", askedDataIsNotCorrect);
+
             throw new NoSuchUserException();
         }
     }

@@ -24,6 +24,15 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     private static final String USER_SAVE = "user.save";
     private static final String GET_USER_BALANCE_IF_ENOGFE_MONEY =
             "user.get.user.bulance.if.enought.money";
+    public static final String ID = "id";
+    public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
+    public static final String ACCOUNT_NON_EXPIRED = "account_non_expired";
+    public static final String ACCOUNT_NON_LOCKED = "account_non_locked";
+    public static final String CREDENTIALS_NON_EXPIRED = "credentials_non_expired";
+    public static final String ENABLED = "enabled";
+    public static final String USER_MONEY_IN_CENTS = "user_money_in_cents";
+    public static final String ROLE = "role";
     private static Logger log = LogManager.getLogger(JDBCUserDao.class);
 
 
@@ -55,15 +64,15 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
 
     private ResultSetToEntityMapper<User> getUserResultSetToEntityMapper() {
         return resultSet -> Optional.of(User.builder()
-                .id(resultSet.getLong("id"))
-                .email(resultSet.getString("email"))
-                .password(resultSet.getString("password"))
-                .accountNonExpired(resultSet.getBoolean("account_non_expired"))
-                .accountNonLocked(resultSet.getBoolean("account_non_locked"))
-                .credentialsNonExpired(resultSet.getBoolean("credentials_non_expired"))
-                .enabled(resultSet.getBoolean("enabled"))
-                .userMoneyInCents(resultSet.getLong("user_money_in_cents"))
-                .roleType(RoleType.valueOf(resultSet.getString("role")))
+                .id(resultSet.getLong(ID))
+                .email(resultSet.getString(EMAIL))
+                .password(resultSet.getString(PASSWORD))
+                .accountNonExpired(resultSet.getBoolean(ACCOUNT_NON_EXPIRED))
+                .accountNonLocked(resultSet.getBoolean(ACCOUNT_NON_LOCKED))
+                .credentialsNonExpired(resultSet.getBoolean(CREDENTIALS_NON_EXPIRED))
+                .enabled(resultSet.getBoolean(ENABLED))
+                .userMoneyInCents(resultSet.getLong(USER_MONEY_IN_CENTS))
+                .roleType(RoleType.valueOf(resultSet.getString(ROLE)))
                 .build());
     }
 

@@ -12,13 +12,15 @@ import web.dto.validation.Validator;
 import javax.servlet.http.HttpServletRequest;
 
 import static web.constants.AttributeConstants.SESSION_USER;
-import static web.constants.ExceptionInfoForJspConstants.INPUT_HAS_ERRORS;
 import static web.constants.PageConstance.*;
 
 public class Login extends MultipleMethodCommand {
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
     private static Logger log = LogManager.getLogger(Login.class);
     private final Validator loginDtoValidator;
     private final UserService userService;
+    String INPUT_HAS_ERRORS = "inputHasErrors";
 
     public Login(Validator loginDtoValidator, UserService userService) {
         this.loginDtoValidator = loginDtoValidator;
@@ -44,8 +46,8 @@ public class Login extends MultipleMethodCommand {
 
     private RequestDtoMapper<LoginInfoDto> getLoginInfoDtoRequestDtoMapper(HttpServletRequest request) {
         return request1 -> LoginInfoDto.builder()
-                .username(request.getParameter("username"))
-                .password(request.getParameter("password"))
+                .username(request.getParameter(USERNAME))
+                .password(request.getParameter(PASSWORD))
                 .build();
     }
 

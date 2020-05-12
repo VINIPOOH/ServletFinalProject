@@ -18,6 +18,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
+
 public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao {
     private static final String BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID =
             "bill.create.by.cost.delivery.id.user.id";
@@ -31,6 +33,16 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             "bill.history.by.user.id";
     private static final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU =
             "bill.pay.info.sellect.by.sender.id.ru";
+    public static final String BILL_ID = "bill_id";
+    public static final String PRICE = "price";
+    public static final String ADDRESSEE_EMAIL = "addressee_email";
+    public static final String DELIVERY_ID = "delivery_id";
+    public static final String WEIGHT = "weight";
+    public static final String LOCALITY_GET_NAME = "locality_get_name";
+    public static final String LOCALITY_SAND_NAME = "locality_sand_name";
+    public static final String IS_DELIVERY_PAID = "is_delivery_paid";
+    public static final String COST_IN_CENTS = "cost_in_cents";
+    public static final String DATE_OF_PAY = "date_of_pay";
     private static Logger log = LogManager.getLogger(JDBCBillDao.class);
 
 
@@ -46,7 +58,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
         ResultSetToEntityMapper<Bill> mapper = getBillResultSetToEntityMapper(locale);
 
-        if (locale.getLanguage().equals("ru")) {
+        if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
             return findAllByLongParam(userId, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU), mapper);
         } else {
             return findAllByLongParam(userId, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN), mapper);
@@ -56,23 +68,23 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     private ResultSetToEntityMapper<Bill> getBillResultSetToEntityMapper(Locale locale) {
         return resultSet -> {
             Bill toReturn = Bill.builder()
-                    .id(resultSet.getLong("bill_id"))
-                    .costInCents(resultSet.getLong("price"))
+                    .id(resultSet.getLong(BILL_ID))
+                    .costInCents(resultSet.getLong(PRICE))
                     .delivery(Delivery.builder()
-                            .addressee(User.builder().email(resultSet.getString("addressee_email")).build())
-                            .id(resultSet.getLong("delivery_id"))
-                            .weight(resultSet.getInt("weight"))
+                            .addressee(User.builder().email(resultSet.getString(ADDRESSEE_EMAIL)).build())
+                            .id(resultSet.getLong(DELIVERY_ID))
+                            .weight(resultSet.getInt(WEIGHT))
                             .build())
                     .build();
-            if (locale.getLanguage().equals("ru")) {
+            if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
                 toReturn.getDelivery().setWay(Way.builder()
-                        .localityGet(Locality.builder().nameRu(resultSet.getString("locality_get_name")).build())
-                        .localitySand(Locality.builder().nameRu(resultSet.getString("locality_sand_name")).build())
+                        .localityGet(Locality.builder().nameRu(resultSet.getString(LOCALITY_GET_NAME)).build())
+                        .localitySand(Locality.builder().nameRu(resultSet.getString(LOCALITY_SAND_NAME)).build())
                         .build());
             } else {
                 toReturn.getDelivery().setWay(Way.builder()
-                        .localityGet(Locality.builder().nameEn(resultSet.getString("locality_get_name")).build())
-                        .localitySand(Locality.builder().nameEn(resultSet.getString("locality_sand_name")).build())
+                        .localityGet(Locality.builder().nameEn(resultSet.getString(LOCALITY_GET_NAME)).build())
+                        .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SAND_NAME)).build())
                         .build());
             }
             return Optional.of(toReturn);
@@ -110,11 +122,11 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
     private ResultSetToEntityMapper<Bill> getBillResultSetToEntityMapper() {
         return resultSet -> Optional.of(Bill.builder()
-                .id(resultSet.getLong("id"))
-                .delivery(Delivery.builder().id(resultSet.getLong("delivery_id")).build())
-                .isDeliveryPaid(resultSet.getBoolean("is_delivery_paid"))
-                .costInCents(resultSet.getLong("cost_in_cents"))
-                .dateOfPay(resultSet.getTimestamp("date_of_pay").toLocalDateTime().toLocalDate())
+                .id(resultSet.getLong(BILL_ID))
+                .delivery(Delivery.builder().id(resultSet.getLong(DELIVERY_ID)).build())
+                .isDeliveryPaid(resultSet.getBoolean(IS_DELIVERY_PAID))
+                .costInCents(resultSet.getLong(COST_IN_CENTS))
+                .dateOfPay(resultSet.getTimestamp(DATE_OF_PAY).toLocalDateTime().toLocalDate())
                 .build());
     }
 

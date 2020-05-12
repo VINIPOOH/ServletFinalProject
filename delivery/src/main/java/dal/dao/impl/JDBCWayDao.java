@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
     private static final String GET_COST_AND_TIME_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT =
             "way.find.price.and.time.by.locality_send_id.and.locality_get_id.and.weight";
+    public static final String PRICE = "price";
+    public static final String TIME_ON_WAY_IN_DAYS = "time_on_way_in_days";
     private static Logger log = LogManager.getLogger(JDBCWayDao.class);
 
 
@@ -54,8 +56,8 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
 
     private ResultSetToEntityMapper<DeliveryCostAndTimeDto> getDeliveryCostAndTimeDtoResultSetToEntityMapper() {
         return resultSet -> Optional.of(DeliveryCostAndTimeDto.builder()
-                .costInCents(resultSet.getLong("price"))
-                .timeOnWayInHours(resultSet.getInt("time_on_way_in_days"))
+                .costInCents(resultSet.getLong(PRICE))
+                .timeOnWayInHours(resultSet.getInt(TIME_ON_WAY_IN_DAYS))
                 .build());
     }
 

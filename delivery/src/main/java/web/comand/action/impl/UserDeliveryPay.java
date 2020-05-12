@@ -15,6 +15,9 @@ import static web.constants.AttributeConstants.SESSION_USER;
 import static web.constants.PageConstance.*;
 
 public class UserDeliveryPay extends MultipleMethodCommand {
+    public static final String BILL_INFO_TO_PAY = "BillInfoToPay";
+    public static final String ID = "Id";
+    public static final String ID1 = "Id";
     private static Logger log = LogManager.getLogger(UserDeliveryPay.class);
 
     private final BillService billService;
@@ -29,19 +32,19 @@ public class UserDeliveryPay extends MultipleMethodCommand {
     protected String performGet(HttpServletRequest request) {
         log.debug("");
 
-        request.setAttribute("BillInfoToPay", billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
+        request.setAttribute(BILL_INFO_TO_PAY, billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME;
     }
 
     @Override
     protected String performPost(HttpServletRequest request) {
         log.debug("");
-        if (!idValidator.isValid(request, "Id")){
+        if (!idValidator.isValid(request, ID)){
             log.error("id is not valid client is broken");
             throw new RuntimeException();
         }
-        billService.payForDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter("Id")));
-        request.setAttribute("BillInfoToPay", billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
+        billService.payForDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter(ID1)));
+        request.setAttribute(BILL_INFO_TO_PAY, billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME;
     }
 }

@@ -16,6 +16,7 @@ public class Error404 implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         log.debug("");
+
         return MAIN_WEB_FOLDER + ERROR_404_FILE_NAME;
     }
 }

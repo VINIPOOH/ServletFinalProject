@@ -17,6 +17,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static bl.service.ServicesConstants.RUSSIAN_LANG_COD;
+
 public class DeliveryProcessServiceImpl implements bl.service.DeliveryProcessService {
     private static Logger log = LogManager.getLogger(DeliveryProcessServiceImpl.class);
 
@@ -70,7 +72,7 @@ public class DeliveryProcessServiceImpl implements bl.service.DeliveryProcessSer
                     .localitySandName(delivery.getWay().getLocalitySand().getNameEn())
                     .localityGetName(delivery.getWay().getLocalityGet().getNameEn())
                     .build();
-            if (locale.getLanguage().equals("ru")) {
+            if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
                 deliveryInfo.setLocalitySandName(delivery.getWay().getLocalitySand().getNameRu());
                 deliveryInfo.setLocalityGetName(delivery.getWay().getLocalityGet().getNameRu());
             } else {

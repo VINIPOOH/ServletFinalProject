@@ -11,14 +11,16 @@ import web.dto.validation.Validator;
 import javax.servlet.http.HttpServletRequest;
 
 import static web.constants.AttributeConstants.SESSION_USER;
-import static web.constants.ExceptionInfoForJspConstants.INPUT_HAS_ERRORS;
+
 import static web.constants.PageConstance.*;
 
 public class UserProfile extends MultipleMethodCommand {
 
+    public static final String MONEY = "money";
     private static Logger log = LogManager.getLogger(UserProfile.class);
 
     private final UserService userService;
+    String INPUT_HAS_ERRORS = "inputHasErrors";
 
     public UserProfile(UserService userService) {
         this.userService = userService;
@@ -39,7 +41,7 @@ public class UserProfile extends MultipleMethodCommand {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
         }
-        long money = Long.parseLong(request.getParameter("money"));
+        long money = Long.parseLong(request.getParameter(MONEY));
         User user = (User) request.getSession().getAttribute(SESSION_USER);
         try {
             userService.replenishAccountBalance(user.getId(), money);
@@ -54,7 +56,7 @@ public class UserProfile extends MultipleMethodCommand {
     private Validator getValidator() {
         return request -> {
             try {
-                return Long.parseLong(request.getParameter("money")) > 0;
+                return Long.parseLong(request.getParameter(MONEY)) > 0;
             } catch (NumberFormatException ex) {
                 return false;
             }

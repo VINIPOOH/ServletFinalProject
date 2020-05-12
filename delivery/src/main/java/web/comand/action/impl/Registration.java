@@ -11,12 +11,16 @@ import web.dto.validation.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constants.ExceptionInfoForJspConstants.INPUT_HAS_ERRORS;
-import static web.constants.ExceptionInfoForJspConstants.INPUT_LOGIN_ALREADY_TAKEN;
 import static web.constants.PageConstance.*;
 
 public class Registration extends MultipleMethodCommand {
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String PASSWORD_REPEAT = "passwordRepeat";
     private static Logger log = LogManager.getLogger(Registration.class);
+
+    String INPUT_HAS_ERRORS = "inputHasErrors";
+    String INPUT_LOGIN_ALREADY_TAKEN = "inputLoginAlreadyTaken";
 
     private final Validator registrationInfoDtoValidator;
     private final UserService userService;
@@ -36,6 +40,7 @@ public class Registration extends MultipleMethodCommand {
     @Override
     protected String performPost(HttpServletRequest request) {
         log.debug("isValidRequest = " + registrationInfoDtoValidator.isValid(request));
+
         if (!registrationInfoDtoValidator.isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + REGISTRATION_FILE_NAME;
@@ -45,9 +50,9 @@ public class Registration extends MultipleMethodCommand {
 
     private RequestDtoMapper<RegistrationInfoDto> getRegistrationInfoDtoRequestDtoMapper(HttpServletRequest request) {
         return req -> RegistrationInfoDto.builder()
-                .username(request.getParameter("username"))
-                .password(request.getParameter("password"))
-                .passwordRepeat(request.getParameter("passwordRepeat"))
+                .username(request.getParameter(USERNAME))
+                .password(request.getParameter(PASSWORD))
+                .passwordRepeat(request.getParameter(PASSWORD_REPEAT))
                 .build();
     }
 

@@ -16,6 +16,7 @@ public class EmptyCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         log.debug("");
+
         return REDIRECT_COMMAND + INDEX_REQUEST_COMMAND;
     }
 }

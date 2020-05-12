@@ -19,6 +19,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
+
 public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements DeliveryDao {
     private static final String DELIVERY_INFO_TO_GET_BY_USER_ID_EN =
             "delivery.get.not.recived.deliveries.by.user.id.en";
@@ -43,7 +45,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
         log.debug("getDeliveryInfoToGet");
 
         ResultSetToEntityMapper<Delivery> mapper = getDeliveryResultSetToEntityMapper(locale);
-        if (locale.getLanguage().equals("ru")) {
+        if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
             return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_RU), mapper);
         } else {
             return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_EN), mapper);

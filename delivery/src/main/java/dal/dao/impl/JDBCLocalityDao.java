@@ -14,7 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
+
 public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements LocalityDao {
+    public static final String LOCALITY_FIND_ALL_RU = "locality.find.all.ru";
+    public static final String LOCALITY_FIND_ALL_EN = "locality.find.all.en";
+    public static final String ID = "id";
+    public static final String LOCALITY_NAME = "name";
     private static Logger log = LogManager.getLogger(JDBCLocalityDao.class);
 
     public JDBCLocalityDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
@@ -29,10 +35,10 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
 
         ResultSetToEntityMapper<Locality> mapper = getLocaliseLocalityMapper(locale);
         String localedQuery;
-        if (locale.getLanguage().equals("ru")) {
-            localedQuery = resourceBundleRequests.getString("locality.find.all.ru");
+        if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
+            localedQuery = resourceBundleRequests.getString(LOCALITY_FIND_ALL_RU);
         } else {
-            localedQuery = resourceBundleRequests.getString("locality.find.all.en");
+            localedQuery = resourceBundleRequests.getString(LOCALITY_FIND_ALL_EN);
         }
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(localedQuery)) {
@@ -53,12 +59,12 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
     private ResultSetToEntityMapper<Locality> getLocaliseLocalityMapper(Locale locale) {
         return resultSet -> {
             Locality toReturn =Locality.builder()
-                    .id(resultSet.getLong("id"))
+                    .id(resultSet.getLong(ID))
                     .build();
-            if (locale.getLanguage().equals("ru")) {
-                toReturn.setNameRu(resultSet.getString("name"));
+            if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
+                toReturn.setNameRu(resultSet.getString(LOCALITY_NAME));
             } else {
-                toReturn.setNameEn(resultSet.getString("name"));
+                toReturn.setNameEn(resultSet.getString(LOCALITY_NAME));
             }
             return Optional.of(toReturn);
         };

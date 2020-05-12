@@ -16,6 +16,7 @@ public class Index implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         log.debug("");
+
         return MAIN_WEB_FOLDER + INDEX_FILE_NAME;
     }
 }

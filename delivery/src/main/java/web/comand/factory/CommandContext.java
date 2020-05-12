@@ -38,19 +38,43 @@ public class CommandContext {
 
     private static final Map<String, ActionCommand> COMMANDS = new HashMap<>();
 
+    public static final String LOGIN_KEY = "login";
+
+    public static final String LOGOUT_KEY = "logout";
+
+    public static final String REGISTRATION_KEY = "registration";
+
+    public static final String ADMIN_KEY = "admin";
+
+    public static final String USER_USERPROFILE_KEY = "user/userprofile";
+
+    public static final String INDEX_KEY = "index";
+
+    public static final String KEY_404 = "404";
+
+    public static final String COUNTER_KEY = "counter";
+
+    public static final String USER_USER_DELIVERY_INITIATION_KEY = "user/user-delivery-initiation";
+
+    public static final String USER_USER_DELIVERY_REQUEST_CONFIRM_KEY = "user/user-delivery-request-confirm";
+
+    public static final String USER_DELIVERS_TO_GET_KEY = "user/delivers-to-get";
+
+    public static final String USER_USER_STATISTIC_KEY = "user/user-statistic";
+
     static {
-        COMMANDS.put("login", LOGIN);
-        COMMANDS.put("logout", LOGOUT);
-        COMMANDS.put("registration", REGISTRATION);
-        COMMANDS.put("admin", ADMIN);
-        COMMANDS.put("user/userprofile", USER_PROFILE);
-        COMMANDS.put("index", INDEX);
-        COMMANDS.put("404", ERROR_404);
-        COMMANDS.put("counter", COUNTER);
-        COMMANDS.put("user/user-delivery-initiation", USER_DELIVERY_INITIATION);
-        COMMANDS.put("user/user-delivery-request-confirm", USER_DELIVERY_CONFIRM);
-        COMMANDS.put("user/delivers-to-get", USER_DELIVERY_GET);
-        COMMANDS.put("user/user-statistic", USER_STATISTIC);
+        COMMANDS.put(LOGIN_KEY, LOGIN);
+        COMMANDS.put(LOGOUT_KEY, LOGOUT);
+        COMMANDS.put(REGISTRATION_KEY, REGISTRATION);
+        COMMANDS.put(ADMIN_KEY, ADMIN);
+        COMMANDS.put(USER_USERPROFILE_KEY, USER_PROFILE);
+        COMMANDS.put(INDEX_KEY, INDEX);
+        COMMANDS.put(KEY_404, ERROR_404);
+        COMMANDS.put(COUNTER_KEY, COUNTER);
+        COMMANDS.put(USER_USER_DELIVERY_INITIATION_KEY, USER_DELIVERY_INITIATION);
+        COMMANDS.put(USER_USER_DELIVERY_REQUEST_CONFIRM_KEY, USER_DELIVERY_CONFIRM);
+        COMMANDS.put(USER_DELIVERS_TO_GET_KEY, USER_DELIVERY_GET);
+        COMMANDS.put(USER_USER_STATISTIC_KEY, USER_STATISTIC);
     }
 
     private CommandContext() {

@@ -17,11 +17,16 @@ import java.util.Locale;
 
 import static web.constants.AttributeConstants.SESSION_LANG;
 import static web.constants.AttributeConstants.SESSION_USER;
-import static web.constants.ExceptionInfoForJspConstants.INPUT_HAS_ERRORS;
-import static web.constants.ExceptionInfoForJspConstants.UNSUPPORTABLE_WEIGHT;
 import static web.constants.PageConstance.*;
 
 public class UserDeliveryInitiation extends MultipleMethodCommand {
+    public static final String LOCALITY_LIST = "localityList";
+    public static final String DELIVERY_WEIGHT = "deliveryWeight";
+    public static final String LOCALITY_GET_ID = "localityGetID";
+    public static final String LOCALITY_SAND_ID = "localitySandID";
+    public static final String ADDRESSEE_EMAIL = "addresseeEmail";
+    String INPUT_HAS_ERRORS = "inputHasErrors";
+    String UNSUPPORTABLE_WEIGHT = "unsupportableWeightOrWay";
     private static Logger log = LogManager.getLogger(UserDeliveryInitiation.class);
 
     private final LocalityService localityService;
@@ -39,7 +44,7 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
         log.debug(request.getMethod() + " UserDeliveryInitiation");
 
         Locale o = (Locale) request.getSession().getAttribute(SESSION_LANG);
-        request.setAttribute("localityList", localityService.getLocaliseLocalities(o));
+        request.setAttribute(LOCALITY_LIST, localityService.getLocaliseLocalities(o));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
     }
 
@@ -47,7 +52,7 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
     protected String performPost(HttpServletRequest request) {
         log.debug("isValidRequest = " + deliveryOrderCreateDtoValidator.isValid(request));
 
-        request.setAttribute("localityList", localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
+        request.setAttribute(LOCALITY_LIST, localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
         if (!deliveryOrderCreateDtoValidator.isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
@@ -62,10 +67,10 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     private RequestDtoMapper<DeliveryOrderCreateDto> getDeliveryOrderCreateDtoRequestDtoMapper(HttpServletRequest request) {
         return request1 -> DeliveryOrderCreateDto.builder()
-                .deliveryWeight(Integer.parseInt(request.getParameter("deliveryWeight")))
-                .localityGetID(Long.parseLong(request.getParameter("localityGetID")))
-                .localitySandID(Long.parseLong(request.getParameter("localitySandID")))
-                .addresseeEmail(request.getParameter("addresseeEmail"))
+                .deliveryWeight(Integer.parseInt(request.getParameter(DELIVERY_WEIGHT)))
+                .localityGetID(Long.parseLong(request.getParameter(LOCALITY_GET_ID)))
+                .localitySandID(Long.parseLong(request.getParameter(LOCALITY_SAND_ID)))
+                .addresseeEmail(request.getParameter(ADDRESSEE_EMAIL))
                 .build();
     }
 

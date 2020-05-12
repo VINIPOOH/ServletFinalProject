@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import static bl.service.ServicesConstants.RUSSIAN_LANG_COD;
+
 public class BillServiceImpl implements BillService {
     private static Logger log = LogManager.getLogger(BillServiceImpl.class);
 
@@ -112,7 +114,7 @@ public class BillServiceImpl implements BillService {
                     .billId(bill.getId())
                     .addreeserEmail(bill.getDelivery().getAddressee().getEmail())
                     .build();
-            if (locale.getLanguage().equals("ru")) {
+            if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
                 billInfoToPayDto.setLocalitySandName(bill.getDelivery().getWay().getLocalitySand().getNameRu());
                 billInfoToPayDto.setLocalityGetName(bill.getDelivery().getWay().getLocalityGet().getNameRu());
             } else {

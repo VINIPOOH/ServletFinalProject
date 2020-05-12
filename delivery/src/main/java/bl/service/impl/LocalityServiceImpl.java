@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import static bl.service.ServicesConstants.RUSSIAN_LANG_COD;
+
 public class LocalityServiceImpl implements LocalityService {
     private static Logger log = LogManager.getLogger(LocalityServiceImpl.class);
 
@@ -42,7 +44,7 @@ public class LocalityServiceImpl implements LocalityService {
             LocaliseLocalityDto toReturn = LocaliseLocalityDto.builder()
                     .id(locality.getId())
                     .build();
-            if (locale.getLanguage().equals("ru")) {
+            if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
                 toReturn.setName(locality.getNameRu());
             } else {
                 toReturn.setName(locality.getNameEn());
