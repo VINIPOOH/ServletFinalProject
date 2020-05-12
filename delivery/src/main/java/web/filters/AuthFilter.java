@@ -33,21 +33,15 @@ public class AuthFilter implements Filter {
         final HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         String path = req.getRequestURI();
-
         User user = (User) session.getAttribute(SESSION_USER);
 
-
-        if(path.contains(USER_REQUEST)){
-            if (user==null|| !(user.getRoleType().equals(RoleType.ROLE_ADMIN)||(user.getRoleType().equals(RoleType.ROLE_USER)))) {
+        if((path.contains(USER_REQUEST)) && (user==null|| !(user.getRoleType().equals(RoleType.ROLE_ADMIN)||(user.getRoleType().equals(RoleType.ROLE_USER))))) {
                 res.sendRedirect(REDIRECT_ON_ERROR_404_STRAIGHT);
                 return;
-            }
         }
-        if (path.contains(ADMIN_REQUEST)){
-            if (user==null|| !(user.getRoleType().equals(RoleType.ROLE_ADMIN)||(user.getRoleType().equals(RoleType.ROLE_USER)))) {
+        if ((path.contains(ADMIN_REQUEST)) && (user==null|| !(user.getRoleType().equals(RoleType.ROLE_ADMIN)||(user.getRoleType().equals(RoleType.ROLE_USER))))) {
                 res.sendRedirect(REDIRECT_ON_ERROR_404_STRAIGHT);
                 return;
-            }
         }
         if ((path.contains(ANONYMOUS))&&user!=null){
             res.sendRedirect(REDIRECT_ON_ERROR_404_STRAIGHT);
