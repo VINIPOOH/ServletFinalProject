@@ -15,8 +15,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import static web.constants.AttributeConstants.SESSION_LANG;
-import static web.constants.PageConstance.COUNTER_FILE_NAME;
-import static web.constants.PageConstance.MAIN_WEB_FOLDER;
+import static web.constants.PageConstance.*;
 
 public class Counter extends MultipleMethodCommand {
     public static final String LOCALITY_LIST = "localityList";

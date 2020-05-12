@@ -38,17 +38,17 @@ public class CommandContext {
 
     private static final Map<String, ActionCommand> COMMANDS = new HashMap<>();
 
-    public static final String LOGIN_KEY = "login";
+    public static final String LOGIN_KEY = "anonymous/login";
 
-    public static final String LOGOUT_KEY = "logout";
+    public static final String LOGOUT_KEY = "user/logout";
 
-    public static final String REGISTRATION_KEY = "registration";
+    public static final String REGISTRATION_KEY = "anonymous/registration";
 
     public static final String ADMIN_KEY = "admin";
 
     public static final String USER_USERPROFILE_KEY = "user/userprofile";
 
-    public static final String INDEX_KEY = "index";
+    public static final String INDEX_KEY = "anonymous/index";
 
     public static final String KEY_404 = "404";
 

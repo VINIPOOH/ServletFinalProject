@@ -6,8 +6,7 @@ import web.comand.action.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constants.PageConstance.INDEX_FILE_NAME;
-import static web.constants.PageConstance.MAIN_WEB_FOLDER;
+import static web.constants.PageConstance.*;
 
 
 public class Index implements ActionCommand {
@@ -17,6 +16,6 @@ public class Index implements ActionCommand {
     public String execute(HttpServletRequest request) {
         log.debug("");
 
-        return MAIN_WEB_FOLDER + INDEX_FILE_NAME;
+        return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER+INDEX_FILE_NAME;
     }
 }

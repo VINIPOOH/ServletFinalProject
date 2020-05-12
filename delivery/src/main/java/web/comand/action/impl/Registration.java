@@ -34,7 +34,7 @@ public class Registration extends MultipleMethodCommand {
     protected String performGet(HttpServletRequest request) {
         log.debug("");
 
-        return MAIN_WEB_FOLDER + REGISTRATION_FILE_NAME;
+        return MAIN_WEB_FOLDER +ANONYMOUS_FOLDER+ REGISTRATION_FILE_NAME;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Registration extends MultipleMethodCommand {
 
         if (!registrationInfoDtoValidator.isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
-            return MAIN_WEB_FOLDER + REGISTRATION_FILE_NAME;
+            return MAIN_WEB_FOLDER +ANONYMOUS_FOLDER+ REGISTRATION_FILE_NAME;
         }
         return processingServiseRegistrationRequest(request, getRegistrationInfoDtoRequestDtoMapper(request).mapToDto(request));
     }
@@ -62,7 +62,7 @@ public class Registration extends MultipleMethodCommand {
             return REDIRECT_COMMAND + LOGIN_REQUEST_COMMAND;
         } catch (OccupiedLoginException e) {
             request.setAttribute(INPUT_LOGIN_ALREADY_TAKEN, true);
-            return MAIN_WEB_FOLDER + REGISTRATION_FILE_NAME;
+            return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER+ REGISTRATION_FILE_NAME;
         }
     }
 }

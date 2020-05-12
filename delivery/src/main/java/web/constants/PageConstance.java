@@ -4,6 +4,7 @@ public interface PageConstance {
     String REDIRECT_COMMAND = "redirect:";
     String MAIN_WEB_FOLDER = "/WEB-INF/";
     String USER_FOLDER = "user/";
+    String ANONYMOUS_FOLDER ="anonymous/";
     String ADMIN_FOLDER = "admin/";
 
     String REGISTRATION_FILE_NAME = "registration.jsp";

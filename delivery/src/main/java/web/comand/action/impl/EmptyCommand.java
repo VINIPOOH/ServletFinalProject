@@ -6,8 +6,7 @@ import web.comand.action.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constants.PageConstance.INDEX_REQUEST_COMMAND;
-import static web.constants.PageConstance.REDIRECT_COMMAND;
+import static web.constants.PageConstance.*;
 
 
 public class EmptyCommand implements ActionCommand {
@@ -17,6 +16,6 @@ public class EmptyCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         log.debug("");
 
-        return REDIRECT_COMMAND + INDEX_REQUEST_COMMAND;
+        return REDIRECT_COMMAND +ANONYMOUS_FOLDER+ INDEX_REQUEST_COMMAND;
     }
 }

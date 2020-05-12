@@ -26,16 +26,16 @@
             <label>${sessionScope.user.email}</label>
             </div>
             <div class="col-md-6">
-            <a class="btn border" href="${pageContext.request.contextPath}/logout" ><fmt:message
+            <a class="btn border" href="${pageContext.request.contextPath}/user/logout" ><fmt:message
                 key="layout.header.link.logout"/></a>
             </div>
             </div>
         </c:if>
         <c:if test="${sessionScope.user==null}">
             <div class="row">
-            <a class="btn btn-success" href="${pageContext.request.contextPath}/login" type="submit" ><fmt:message
+            <a class="btn btn-success" href="${pageContext.request.contextPath}/anonymous/login" type="submit" ><fmt:message
                 key="lofinpage.button.login"/></a>
-            <a class="btn" align="left" href="${pageContext.request.contextPath}/registration" ><fmt:message
+            <a class="btn" align="left" href="${pageContext.request.contextPath}/anonymous/registration" ><fmt:message
                 key="lofinpage.button.gotoRegistration"/></a>
             </div>
         </c:if>
