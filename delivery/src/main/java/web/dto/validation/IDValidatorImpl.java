@@ -2,7 +2,6 @@ package web.dto.validation;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import web.comand.action.impl.Registration;
 
 import javax.servlet.http.HttpServletRequest;
 

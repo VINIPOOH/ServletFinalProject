@@ -5,8 +5,8 @@ import java.io.IOException;
 
 public class EncodingFilter implements Filter {
 
-    public static final String CONTENT_TYPE = "text/html";
-    public static final String ENCODING = "UTF-8";
+    private static final String CONTENT_TYPE = "text/html";
+    private static final String ENCODING = "UTF-8";
 
     @Override
     public void init(FilterConfig filterConfig) {

@@ -15,8 +15,8 @@ import static web.constants.AttributeConstants.SESSION_USER;
 import static web.constants.PageConstance.*;
 
 public class UserDeliveryGet extends MultipleMethodCommand {
-    public static final String DELIVERIES_WHICH_ADDRESSED_FOR_USER = "deliveriesWhichAddressedForUser";
-    public static final String DELIVERY_ID = "deliveryId";
+    private static final String DELIVERIES_WHICH_ADDRESSED_FOR_USER = "deliveriesWhichAddressedForUser";
+    private static final String DELIVERY_ID = "deliveryId";
     private static Logger log = LogManager.getLogger(UserDeliveryGet.class);
 
     private final IDValidator idValidator;
@@ -37,7 +37,7 @@ public class UserDeliveryGet extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        if (!idValidator.isValid(request, DELIVERY_ID)){
+        if (!idValidator.isValid(request, DELIVERY_ID)) {
             log.error("id is not valid client is broken");
 
             throw new RuntimeException();

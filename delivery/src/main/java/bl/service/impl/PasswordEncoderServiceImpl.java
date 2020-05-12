@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class PasswordEncoderServiceImpl implements PasswordEncoderService {
     private static Logger log = LogManager.getLogger(PasswordEncoderServiceImpl.class);
-    private static String encodingAlgorithmKey="MD5";
+    private static String encodingAlgorithmKey = "MD5";
 
     @Override
     public String encode(String password) {

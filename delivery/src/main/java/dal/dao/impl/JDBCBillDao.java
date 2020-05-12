@@ -21,6 +21,16 @@ import java.util.ResourceBundle;
 import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
 
 public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao {
+    private static final String BILL_ID = "bill_id";
+    private static final String PRICE = "price";
+    private static final String ADDRESSEE_EMAIL = "addressee_email";
+    private static final String DELIVERY_ID = "delivery_id";
+    private static final String WEIGHT = "weight";
+    private static final String LOCALITY_GET_NAME = "locality_get_name";
+    private static final String LOCALITY_SAND_NAME = "locality_sand_name";
+    private static final String IS_DELIVERY_PAID = "is_delivery_paid";
+    private static final String COST_IN_CENTS = "cost_in_cents";
+    private static final String DATE_OF_PAY = "date_of_pay";
     private static final String BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID =
             "bill.create.by.cost.delivery.id.user.id";
     private static final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN =
@@ -33,16 +43,6 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             "bill.history.by.user.id";
     private static final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU =
             "bill.pay.info.sellect.by.sender.id.ru";
-    public static final String BILL_ID = "bill_id";
-    public static final String PRICE = "price";
-    public static final String ADDRESSEE_EMAIL = "addressee_email";
-    public static final String DELIVERY_ID = "delivery_id";
-    public static final String WEIGHT = "weight";
-    public static final String LOCALITY_GET_NAME = "locality_get_name";
-    public static final String LOCALITY_SAND_NAME = "locality_sand_name";
-    public static final String IS_DELIVERY_PAID = "is_delivery_paid";
-    public static final String COST_IN_CENTS = "cost_in_cents";
-    public static final String DATE_OF_PAY = "date_of_pay";
     private static Logger log = LogManager.getLogger(JDBCBillDao.class);
 
 
@@ -129,7 +129,6 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
                 .dateOfPay(resultSet.getTimestamp(DATE_OF_PAY).toLocalDateTime().toLocalDate())
                 .build());
     }
-
 
 
     public boolean murkBillAsPayed(long billId) throws SQLException {

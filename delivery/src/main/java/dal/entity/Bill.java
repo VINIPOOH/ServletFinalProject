@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Bill extends Entity {
 
-    Delivery delivery;
+    private Delivery delivery;
     private Boolean isDeliveryPaid;
     private long costInCents;
     private LocalDate dateOfPay;

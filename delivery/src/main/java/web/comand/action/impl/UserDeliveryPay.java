@@ -16,9 +16,9 @@ import static web.constants.AttributeConstants.SESSION_USER;
 import static web.constants.PageConstance.*;
 
 public class UserDeliveryPay extends MultipleMethodCommand {
-    public static final String BILL_INFO_TO_PAY = "BillInfoToPay";
-    public static final String ID = "Id";
-    public static final String ID1 = "Id";
+    private static final String BILL_INFO_TO_PAY = "BillInfoToPay";
+    private static final String ID = "Id";
+    private static final String ID1 = "Id";
     private static Logger log = LogManager.getLogger(UserDeliveryPay.class);
 
     private final BillService billService;
@@ -42,12 +42,12 @@ public class UserDeliveryPay extends MultipleMethodCommand {
     @Override
     protected String performPost(HttpServletRequest request) {
         log.debug("");
-        if (!idValidator.isValid(request, ID)){
+        if (!idValidator.isValid(request, ID)) {
             log.error("id is not valid client is broken");
             throw new RuntimeException();
         }
-        User sessionUser=(User) request.getSession().getAttribute(SESSION_USER);
-        if (billService.payForDelivery(sessionUser.getId(), Long.parseLong(request.getParameter(ID1)))){
+        User sessionUser = (User) request.getSession().getAttribute(SESSION_USER);
+        if (billService.payForDelivery(sessionUser.getId(), Long.parseLong(request.getParameter(ID1)))) {
             sessionUser.setUserMoneyInCents(userService.getUserBalance(sessionUser.getId()));
         }
         request.setAttribute(BILL_INFO_TO_PAY, billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));

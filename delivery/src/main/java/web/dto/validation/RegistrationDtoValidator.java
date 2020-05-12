@@ -1,15 +1,11 @@
 package web.dto.validation;
 
 
-import web.dto.RegistrationInfoDto;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class RegistrationDtoValidator implements Validator {
 
     private static final String LOGIN_REGEX = "([A-Za-z \\d-_.]+)(@[A-Za-z]+)(\\.[A-Za-z]{2,4})";
-
-
 
 
     @Override

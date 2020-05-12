@@ -16,6 +16,6 @@ public class Index implements ActionCommand {
     public String execute(HttpServletRequest request) {
         log.debug("");
 
-        return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER+INDEX_FILE_NAME;
+        return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + INDEX_FILE_NAME;
     }
 }

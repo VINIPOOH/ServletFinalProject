@@ -19,22 +19,21 @@ import java.util.ResourceBundle;
 
 
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {
+    private static final String ID = "id";
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
+    private static final String ACCOUNT_NON_EXPIRED = "account_non_expired";
+    private static final String ACCOUNT_NON_LOCKED = "account_non_locked";
+    private static final String CREDENTIALS_NON_EXPIRED = "credentials_non_expired";
+    private static final String ENABLED = "enabled";
+    private static final String USER_MONEY_IN_CENTS = "user_money_in_cents";
+    private static final String ROLE = "role";
     private static final String USER_FIND_BY_EMAIL = "user.find.by.email";
     private static final String USER_REPLENISH_BALANCE = "user.replenish.balance";
     private static final String USER_SAVE = "user.save";
     private static final String GET_USER_BALANCE_IF_ENOGFE_MONEY =
             "user.get.user.bulance.if.enought.money";
-    private static final String GET_USER_BALANCE_BY_ID="user.get.balance.by.id";
-
-    public static final String ID = "id";
-    public static final String EMAIL = "email";
-    public static final String PASSWORD = "password";
-    public static final String ACCOUNT_NON_EXPIRED = "account_non_expired";
-    public static final String ACCOUNT_NON_LOCKED = "account_non_locked";
-    public static final String CREDENTIALS_NON_EXPIRED = "credentials_non_expired";
-    public static final String ENABLED = "enabled";
-    public static final String USER_MONEY_IN_CENTS = "user_money_in_cents";
-    public static final String ROLE = "role";
+    private static final String GET_USER_BALANCE_BY_ID = "user.get.balance.by.id";
     private static Logger log = LogManager.getLogger(JDBCUserDao.class);
 
 

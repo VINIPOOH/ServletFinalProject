@@ -20,18 +20,17 @@ import static web.constants.AttributeConstants.SESSION_USER;
 import static web.constants.PageConstance.*;
 
 public class UserDeliveryInitiation extends MultipleMethodCommand {
-    public static final String LOCALITY_LIST = "localityList";
-    public static final String DELIVERY_WEIGHT = "deliveryWeight";
-    public static final String LOCALITY_GET_ID = "localityGetID";
-    public static final String LOCALITY_SAND_ID = "localitySandID";
-    public static final String ADDRESSEE_EMAIL = "addresseeEmail";
-    String INPUT_HAS_ERRORS = "inputHasErrors";
-    String UNSUPPORTABLE_WEIGHT = "unsupportableWeightOrWay";
+    private static final String LOCALITY_LIST = "localityList";
+    private static final String DELIVERY_WEIGHT = "deliveryWeight";
+    private static final String LOCALITY_GET_ID = "localityGetID";
+    private static final String LOCALITY_SAND_ID = "localitySandID";
+    private static final String ADDRESSEE_EMAIL = "addresseeEmail";
     private static Logger log = LogManager.getLogger(UserDeliveryInitiation.class);
-
     private final LocalityService localityService;
     private final BillService billService;
     private final Validator deliveryOrderCreateDtoValidator;
+    private String INPUT_HAS_ERRORS = "inputHasErrors";
+    private String UNSUPPORTABLE_WEIGHT = "unsupportableWeightOrWay";
 
     public UserDeliveryInitiation(LocalityService localityService, BillService billService, Validator deliveryOrderCreateDtoValidator) {
         this.localityService = localityService;

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public abstract class JDBCAbstractGenericDao<E> {
+abstract class JDBCAbstractGenericDao<E> {
 
     private static Logger log = LogManager.getLogger(JDBCAbstractGenericDao.class);
 

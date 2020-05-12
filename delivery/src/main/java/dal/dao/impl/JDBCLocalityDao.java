@@ -17,10 +17,10 @@ import java.util.*;
 import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
 
 public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements LocalityDao {
-    public static final String LOCALITY_FIND_ALL_RU = "locality.find.all.ru";
-    public static final String LOCALITY_FIND_ALL_EN = "locality.find.all.en";
-    public static final String ID = "id";
-    public static final String LOCALITY_NAME = "name";
+    private static final String LOCALITY_FIND_ALL_RU = "locality.find.all.ru";
+    private static final String LOCALITY_FIND_ALL_EN = "locality.find.all.en";
+    private static final String ID = "id";
+    private static final String LOCALITY_NAME = "name";
     private static Logger log = LogManager.getLogger(JDBCLocalityDao.class);
 
     public JDBCLocalityDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
@@ -58,7 +58,7 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
 
     private ResultSetToEntityMapper<Locality> getLocaliseLocalityMapper(Locale locale) {
         return resultSet -> {
-            Locality toReturn =Locality.builder()
+            Locality toReturn = Locality.builder()
                     .id(resultSet.getLong(ID))
                     .build();
             if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {

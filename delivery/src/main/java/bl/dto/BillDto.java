@@ -3,7 +3,7 @@ package bl.dto;
 import java.time.LocalDate;
 
 public class BillDto {
-    long deliveryId;
+    private long deliveryId;
     private long id;
     private Boolean isDeliveryPaid;
     private long costInCents;

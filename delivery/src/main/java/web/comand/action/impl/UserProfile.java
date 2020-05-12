@@ -11,16 +11,15 @@ import web.dto.validation.Validator;
 import javax.servlet.http.HttpServletRequest;
 
 import static web.constants.AttributeConstants.SESSION_USER;
-
 import static web.constants.PageConstance.*;
 
 public class UserProfile extends MultipleMethodCommand {
 
-    public static final String MONEY = "money";
+    private static final String MONEY = "money";
     private static Logger log = LogManager.getLogger(UserProfile.class);
 
     private final UserService userService;
-    String INPUT_HAS_ERRORS = "inputHasErrors";
+    private String INPUT_HAS_ERRORS = "inputHasErrors";
 
     public UserProfile(UserService userService) {
         this.userService = userService;

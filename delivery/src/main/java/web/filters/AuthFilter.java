@@ -10,14 +10,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static web.constants.AttributeConstants.SESSION_USER;
-import static web.constants.PageConstance.*;
+import static web.constants.PageConstance.REDIRECT_ON_ERROR_404_STRAIGHT;
 
 
 public class AuthFilter implements Filter {
 
     private static final String ADMIN_REQUEST = "/admin";
     private static final String USER_REQUEST = "/user";
-    private static final String ANONYMOUS ="/anonymous";
+    private static final String ANONYMOUS = "/anonymous";
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -35,15 +35,15 @@ public class AuthFilter implements Filter {
         String path = req.getRequestURI();
         User user = (User) session.getAttribute(SESSION_USER);
 
-        if((path.contains(USER_REQUEST)) && (user==null|| !(user.getRoleType().equals(RoleType.ROLE_ADMIN)||(user.getRoleType().equals(RoleType.ROLE_USER))))) {
-                res.sendRedirect(REDIRECT_ON_ERROR_404_STRAIGHT);
-                return;
+        if ((path.contains(USER_REQUEST)) && (user == null || !(user.getRoleType().equals(RoleType.ROLE_ADMIN) || (user.getRoleType().equals(RoleType.ROLE_USER))))) {
+            res.sendRedirect(REDIRECT_ON_ERROR_404_STRAIGHT);
+            return;
         }
-        if ((path.contains(ADMIN_REQUEST)) && (user==null|| !(user.getRoleType().equals(RoleType.ROLE_ADMIN)||(user.getRoleType().equals(RoleType.ROLE_USER))))) {
-                res.sendRedirect(REDIRECT_ON_ERROR_404_STRAIGHT);
-                return;
+        if ((path.contains(ADMIN_REQUEST)) && (user == null || !(user.getRoleType().equals(RoleType.ROLE_ADMIN) || (user.getRoleType().equals(RoleType.ROLE_USER))))) {
+            res.sendRedirect(REDIRECT_ON_ERROR_404_STRAIGHT);
+            return;
         }
-        if ((path.contains(ANONYMOUS))&&user!=null){
+        if ((path.contains(ANONYMOUS)) && user != null) {
             res.sendRedirect(REDIRECT_ON_ERROR_404_STRAIGHT);
             return;
         }

@@ -15,19 +15,20 @@ import java.util.Locale;
 import java.util.Optional;
 
 import static web.constants.AttributeConstants.SESSION_LANG;
-import static web.constants.PageConstance.*;
+import static web.constants.PageConstance.COUNTER_FILE_NAME;
+import static web.constants.PageConstance.MAIN_WEB_FOLDER;
 
 public class Counter extends MultipleMethodCommand {
-    public static final String LOCALITY_LIST = "localityList";
-    public static final String COST_AND_TIME_DTO = "CostAndTimeDto";
-    public static final String IS_NOT_EXIST_SUCH_WAY_OR_WEIGHT_FOR_THIS_WAY = "IsNotExistSuchWayOrWeightForThisWay";
-    public static final String DELIVERY_WEIGHT = "deliveryWeight";
-    public static final String LOCALITY_GET_ID = "localityGetID";
-    public static final String LOCALITY_SAND_ID = "localitySandID";
-    String INPUT_HAS_ERRORS = "inputHasErrors";
+    private static final String LOCALITY_LIST = "localityList";
+    private static final String COST_AND_TIME_DTO = "CostAndTimeDto";
+    private static final String IS_NOT_EXIST_SUCH_WAY_OR_WEIGHT_FOR_THIS_WAY = "IsNotExistSuchWayOrWeightForThisWay";
+    private static final String DELIVERY_WEIGHT = "deliveryWeight";
+    private static final String LOCALITY_GET_ID = "localityGetID";
+    private static final String LOCALITY_SAND_ID = "localitySandID";
     private static Logger log = LogManager.getLogger(Counter.class);
     private final LocalityService localityService;
     private final DeliveryProcessService deliveryProcessService;
+    private String INPUT_HAS_ERRORS = "inputHasErrors";
 
     public Counter(LocalityService localityService, DeliveryProcessService deliveryProcessService) {
         this.localityService = localityService;

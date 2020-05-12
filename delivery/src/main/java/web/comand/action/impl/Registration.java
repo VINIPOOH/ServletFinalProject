@@ -1,7 +1,7 @@
 package web.comand.action.impl;
 
-import bl.service.UserService;
 import bl.exeptions.OccupiedLoginException;
+import bl.service.UserService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
@@ -14,16 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import static web.constants.PageConstance.*;
 
 public class Registration extends MultipleMethodCommand {
-    public static final String USERNAME = "username";
-    public static final String PASSWORD = "password";
-    public static final String PASSWORD_REPEAT = "passwordRepeat";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String PASSWORD_REPEAT = "passwordRepeat";
     private static Logger log = LogManager.getLogger(Registration.class);
-
-    String INPUT_HAS_ERRORS = "inputHasErrors";
-    String INPUT_LOGIN_ALREADY_TAKEN = "inputLoginAlreadyTaken";
-
     private final Validator registrationInfoDtoValidator;
     private final UserService userService;
+    private String INPUT_HAS_ERRORS = "inputHasErrors";
+    private String INPUT_LOGIN_ALREADY_TAKEN = "inputLoginAlreadyTaken";
 
     public Registration(Validator registrationInfoDtoValidator, UserService userService) {
         this.registrationInfoDtoValidator = registrationInfoDtoValidator;
@@ -34,7 +32,7 @@ public class Registration extends MultipleMethodCommand {
     protected String performGet(HttpServletRequest request) {
         log.debug("");
 
-        return MAIN_WEB_FOLDER +ANONYMOUS_FOLDER+ REGISTRATION_FILE_NAME;
+        return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME;
     }
 
     @Override
@@ -43,7 +41,7 @@ public class Registration extends MultipleMethodCommand {
 
         if (!registrationInfoDtoValidator.isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
-            return MAIN_WEB_FOLDER +ANONYMOUS_FOLDER+ REGISTRATION_FILE_NAME;
+            return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME;
         }
         return processingServiseRegistrationRequest(request, getRegistrationInfoDtoRequestDtoMapper(request).mapToDto(request));
     }
@@ -62,7 +60,7 @@ public class Registration extends MultipleMethodCommand {
             return REDIRECT_COMMAND + LOGIN_REQUEST_COMMAND;
         } catch (OccupiedLoginException e) {
             request.setAttribute(INPUT_LOGIN_ALREADY_TAKEN, true);
-            return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER+ REGISTRATION_FILE_NAME;
+            return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME;
         }
     }
 }

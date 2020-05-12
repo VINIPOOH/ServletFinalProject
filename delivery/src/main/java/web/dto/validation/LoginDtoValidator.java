@@ -1,8 +1,6 @@
 package web.dto.validation;
 
 
-import web.dto.LoginInfoDto;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class LoginDtoValidator implements Validator {

@@ -16,6 +16,6 @@ public class EmptyCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         log.debug("");
 
-        return REDIRECT_COMMAND +ANONYMOUS_FOLDER+ INDEX_REQUEST_COMMAND;
+        return REDIRECT_COMMAND + ANONYMOUS_FOLDER + INDEX_REQUEST_COMMAND;
     }
 }

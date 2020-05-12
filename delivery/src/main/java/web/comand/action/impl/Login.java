@@ -15,12 +15,12 @@ import static web.constants.AttributeConstants.SESSION_USER;
 import static web.constants.PageConstance.*;
 
 public class Login extends MultipleMethodCommand {
-    public static final String USERNAME = "username";
-    public static final String PASSWORD = "password";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
     private static Logger log = LogManager.getLogger(Login.class);
     private final Validator loginDtoValidator;
     private final UserService userService;
-    String INPUT_HAS_ERRORS = "inputHasErrors";
+    private String INPUT_HAS_ERRORS = "inputHasErrors";
 
     public Login(Validator loginDtoValidator, UserService userService) {
         this.loginDtoValidator = loginDtoValidator;
@@ -30,7 +30,7 @@ public class Login extends MultipleMethodCommand {
     @Override
     protected String performGet(HttpServletRequest request) {
         log.debug("");
-        return MAIN_WEB_FOLDER +ANONYMOUS_FOLDER+ LOGIN_FILE_NAME;
+        return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + LOGIN_FILE_NAME;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Login extends MultipleMethodCommand {
         log.debug("isValidRequest = " + loginDtoValidator.isValid(request));
         if (!loginDtoValidator.isValid(request)) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
-            return MAIN_WEB_FOLDER +ANONYMOUS_FOLDER+ LOGIN_FILE_NAME;
+            return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + LOGIN_FILE_NAME;
         }
 
         return processingServiceLoginRequest(request, getLoginInfoDtoRequestDtoMapper(request).mapToDto(request));
@@ -57,7 +57,7 @@ public class Login extends MultipleMethodCommand {
             return REDIRECT_COMMAND + USER_PROFILE_REQUEST_COMMAND;
         } catch (NoSuchUserException ignored) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
-            return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER+LOGIN_FILE_NAME;
+            return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + LOGIN_FILE_NAME;
         }
     }
 }

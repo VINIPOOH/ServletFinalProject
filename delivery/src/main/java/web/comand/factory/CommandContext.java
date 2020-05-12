@@ -11,17 +11,26 @@ import java.util.Map;
 public class CommandContext {
 
 
+    private static final String LOGIN_KEY = "anonymous/login";
+    private static final String LOGOUT_KEY = "user/logout";
+    private static final String REGISTRATION_KEY = "anonymous/registration";
+    private static final String ADMIN_KEY = "admin";
+    private static final String USER_USERPROFILE_KEY = "user/userprofile";
+    private static final String INDEX_KEY = "anonymous/index";
+    private static final String KEY_404 = "404";
+    private static final String COUNTER_KEY = "counter";
+    private static final String USER_USER_DELIVERY_INITIATION_KEY = "user/user-delivery-initiation";
+    private static final String USER_USER_DELIVERY_REQUEST_CONFIRM_KEY = "user/user-delivery-request-confirm";
+    private static final String USER_DELIVERS_TO_GET_KEY = "user/delivers-to-get";
+    private static final String USER_USER_STATISTIC_KEY = "user/user-statistic";
     private static final Validator LOGIN_INFO_DTO_VALIDATOR = new LoginDtoValidator();
     private static final Validator REGISTRATION_INFO_DTO_VALIDATOR = new RegistrationDtoValidator();
     private static final Validator DELIVERY_ORDER_CREATE_DTO_VALIDATOR = new DeliveryOrderCreateDtoValidator();
-
     private static final IDValidator ID_VALIDATOR = new IDValidatorImpl();
-
     private static final UserService USER_SERVICE = ServicesContext.getUserService();
     private static final LocalityService LOCALITY_SERVICE = ServicesContext.getLocalityService();
     private static final DeliveryProcessService DELIVERY_PROCESS_SERVICE = ServicesContext.getDeliveryProcessService();
     private static final BillService BILL_SERVICE = ServicesContext.getBillService();
-
     private static final ActionCommand LOGIN = new Login(LOGIN_INFO_DTO_VALIDATOR, USER_SERVICE);
     private static final ActionCommand LOGOUT = new LogOut();
     private static final ActionCommand REGISTRATION = new Registration(REGISTRATION_INFO_DTO_VALIDATOR, USER_SERVICE);
@@ -35,32 +44,7 @@ public class CommandContext {
     private static final ActionCommand USER_DELIVERY_CONFIRM = new UserDeliveryPay(BILL_SERVICE, USER_SERVICE, ID_VALIDATOR);
     private static final ActionCommand USER_DELIVERY_GET = new UserDeliveryGet(ID_VALIDATOR, DELIVERY_PROCESS_SERVICE);
     private static final ActionCommand USER_STATISTIC = new UserStatistic(BILL_SERVICE);
-
     private static final Map<String, ActionCommand> COMMANDS = new HashMap<>();
-
-    public static final String LOGIN_KEY = "anonymous/login";
-
-    public static final String LOGOUT_KEY = "user/logout";
-
-    public static final String REGISTRATION_KEY = "anonymous/registration";
-
-    public static final String ADMIN_KEY = "admin";
-
-    public static final String USER_USERPROFILE_KEY = "user/userprofile";
-
-    public static final String INDEX_KEY = "anonymous/index";
-
-    public static final String KEY_404 = "404";
-
-    public static final String COUNTER_KEY = "counter";
-
-    public static final String USER_USER_DELIVERY_INITIATION_KEY = "user/user-delivery-initiation";
-
-    public static final String USER_USER_DELIVERY_REQUEST_CONFIRM_KEY = "user/user-delivery-request-confirm";
-
-    public static final String USER_DELIVERS_TO_GET_KEY = "user/delivers-to-get";
-
-    public static final String USER_USER_STATISTIC_KEY = "user/user-statistic";
 
     static {
         COMMANDS.put(LOGIN_KEY, LOGIN);

@@ -1,8 +1,8 @@
 package bl.service;
 
 import bl.exeptions.NoSuchUserException;
-import dal.entity.User;
 import bl.exeptions.OccupiedLoginException;
+import dal.entity.User;
 import web.dto.LoginInfoDto;
 import web.dto.RegistrationInfoDto;
 

@@ -14,7 +14,7 @@ import static web.constants.PageConstance.*;
 
 public class UserStatistic implements ActionCommand {
 
-    public static final String BILLS_LIST = "billsList";
+    private static final String BILLS_LIST = "billsList";
     private static Logger log = LogManager.getLogger(UserStatistic.class);
 
     private final BillService billService;

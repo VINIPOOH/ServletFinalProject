@@ -2,12 +2,12 @@ package bl.service.impl;
 
 
 import bl.exeptions.NoSuchUserException;
+import bl.exeptions.OccupiedLoginException;
 import bl.service.PasswordEncoderService;
 import bl.service.UserService;
 import dal.dao.UserDao;
 import dal.entity.User;
 import dal.exeptions.AskedDataIsNotCorrect;
-import bl.exeptions.OccupiedLoginException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.dto.LoginInfoDto;

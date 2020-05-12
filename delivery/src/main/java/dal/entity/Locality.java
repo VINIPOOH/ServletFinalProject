@@ -5,15 +5,6 @@ import java.util.List;
 public class Locality extends Entity {
     private String nameRu;
     private String nameEn;
-
-    public void setNameRu(String nameRu) {
-        this.nameRu = nameRu;
-    }
-
-    public void setNameEn(String nameEn) {
-        this.nameEn = nameEn;
-    }
-
     private List<Way> waysWhereThisLocalityIsSend;
     private List<Way> waysWhereThisLocalityIsGet;
 
@@ -25,7 +16,6 @@ public class Locality extends Entity {
         this.waysWhereThisLocalityIsGet = waysWhereThisLocalityIsGet;
     }
 
-
     public static LocalityBuilder builder() {
         return new LocalityBuilder();
     }
@@ -34,8 +24,16 @@ public class Locality extends Entity {
         return this.nameRu;
     }
 
+    public void setNameRu(String nameRu) {
+        this.nameRu = nameRu;
+    }
+
     public String getNameEn() {
         return this.nameEn;
+    }
+
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 
     public List<Way> getWaysWhereThisLocalityIsSend() {
