@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
@@ -70,7 +69,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
                         .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SEND_COLUMN_NAME)).build())
                         .build());
             }
-            return Optional.of(toReturn);
+            return toReturn;
         };
     }
 

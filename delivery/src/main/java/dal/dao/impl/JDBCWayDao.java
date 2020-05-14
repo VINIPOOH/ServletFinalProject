@@ -45,7 +45,7 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
             preparedStatement.setInt(3, weight);
             preparedStatement.setInt(4, weight);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                return resultSet.next() ? mapper.map(resultSet) : Optional.empty();
+                return resultSet.next() ? Optional.of(mapper.map(resultSet)) : Optional.empty();
             }
         } catch (SQLException e) {
             log.error("SQLException", e);
@@ -55,10 +55,10 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
     }
 
     private ResultSetToEntityMapper<DeliveryCostAndTimeDto> getDeliveryCostAndTimeDtoResultSetToEntityMapper() {
-        return resultSet -> Optional.of(DeliveryCostAndTimeDto.builder()
+        return resultSet -> DeliveryCostAndTimeDto.builder()
                 .costInCents(resultSet.getLong(PRICE))
                 .timeOnWayInHours(resultSet.getInt(TIME_ON_WAY_IN_DAYS))
-                .build());
+                .build();
     }
 
 }

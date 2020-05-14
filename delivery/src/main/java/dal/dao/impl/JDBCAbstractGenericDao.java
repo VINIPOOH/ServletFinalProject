@@ -42,7 +42,7 @@ abstract class JDBCAbstractGenericDao<E> {
         try (ResultSet resultSet = preparedStatement.executeQuery()) {
             List<E> result = new ArrayList<>();
             while (resultSet.next()) {
-                mapper.map(resultSet).ifPresent(result::add);
+                result.add(mapper.map(resultSet));
             }
             return result;
         }

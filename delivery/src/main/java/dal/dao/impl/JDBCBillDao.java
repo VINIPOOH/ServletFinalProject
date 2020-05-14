@@ -15,7 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
@@ -87,7 +86,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
                         .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SAND_NAME)).build())
                         .build());
             }
-            return Optional.of(toReturn);
+            return toReturn;
         };
     }
 
@@ -121,7 +120,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     }
 
     private ResultSetToEntityMapper<Bill> getBillResultSetToEntityMapper() {
-        return resultSet -> Optional.of(Bill.builder()
+        return resultSet -> (Bill.builder()
                 .id(resultSet.getLong(BILL_ID))
                 .delivery(Delivery.builder().id(resultSet.getLong(DELIVERY_ID)).build())
                 .isDeliveryPaid(resultSet.getBoolean(IS_DELIVERY_PAID))

@@ -54,7 +54,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             preparedStatement.setString(2, password);
             Optional<User> user;
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                user = resultSet.next() ? mapper.map(resultSet) : Optional.empty();
+                user = resultSet.next() ? Optional.of(mapper.map(resultSet)) : Optional.empty();
             }
             return user;
         } catch (SQLException e) {
@@ -64,7 +64,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     }
 
     private ResultSetToEntityMapper<User> getUserResultSetToEntityMapper() {
-        return resultSet -> Optional.of(User.builder()
+        return resultSet -> User.builder()
                 .id(resultSet.getLong(ID))
                 .email(resultSet.getString(EMAIL))
                 .password(resultSet.getString(PASSWORD))
@@ -74,7 +74,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
                 .enabled(resultSet.getBoolean(ENABLED))
                 .userMoneyInCents(resultSet.getLong(USER_MONEY_IN_CENTS))
                 .roleType(RoleType.valueOf(resultSet.getString(ROLE)))
-                .build());
+                .build();
     }
 
     @Override

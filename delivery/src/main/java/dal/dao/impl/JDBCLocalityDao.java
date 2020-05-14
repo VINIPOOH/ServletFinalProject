@@ -12,7 +12,10 @@ import org.apache.log4j.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
 
@@ -46,7 +49,7 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 result = new ArrayList<>();
                 while (resultSet.next()) {
-                    mapper.map(resultSet).ifPresent(result::add);
+                    result.add(mapper.map(resultSet));
                 }
             }
             return result;
@@ -66,7 +69,7 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
             } else {
                 toReturn.setNameEn(resultSet.getString(LOCALITY_NAME));
             }
-            return Optional.of(toReturn);
+            return toReturn;
         };
     }
 
