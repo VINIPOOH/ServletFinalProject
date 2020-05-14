@@ -25,12 +25,15 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
     private static final String LOCALITY_GET_ID = "localityGetID";
     private static final String LOCALITY_SAND_ID = "localitySandID";
     private static final String ADDRESSEE_EMAIL = "addresseeEmail";
+    private static final String INPUT_HAS_ERRORS = "inputHasErrors";
+    private static final String UNSUPPORTABLE_WEIGHT = "unsupportableWeightOrWay";
+
+
     private static Logger log = LogManager.getLogger(UserDeliveryInitiation.class);
+
     private final LocalityService localityService;
     private final BillService billService;
     private final Validator deliveryOrderCreateDtoValidator;
-    private String INPUT_HAS_ERRORS = "inputHasErrors";
-    private String UNSUPPORTABLE_WEIGHT = "unsupportableWeightOrWay";
 
     public UserDeliveryInitiation(LocalityService localityService, BillService billService, Validator deliveryOrderCreateDtoValidator) {
         this.localityService = localityService;
