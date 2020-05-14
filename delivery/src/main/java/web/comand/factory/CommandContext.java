@@ -27,10 +27,10 @@ public class CommandContext {
     private static final Validator REGISTRATION_INFO_DTO_VALIDATOR = new RegistrationDtoValidator();
     private static final Validator DELIVERY_ORDER_CREATE_DTO_VALIDATOR = new DeliveryOrderCreateDtoValidator();
     private static final IDValidator ID_VALIDATOR = new IDValidatorImpl();
-    private static final UserService USER_SERVICE = ServicesContext.getUserService();
-    private static final LocalityService LOCALITY_SERVICE = ServicesContext.getLocalityService();
-    private static final DeliveryProcessService DELIVERY_PROCESS_SERVICE = ServicesContext.getDeliveryProcessService();
-    private static final BillService BILL_SERVICE = ServicesContext.getBillService();
+    private static final UserService USER_SERVICE = ServicesContext.getObject(UserService.class);
+    private static final LocalityService LOCALITY_SERVICE = ServicesContext.getObject(LocalityService.class);
+    private static final DeliveryProcessService DELIVERY_PROCESS_SERVICE = ServicesContext.getObject(DeliveryProcessService.class);
+    private static final BillService BILL_SERVICE = ServicesContext.getObject(BillService.class);
     private static final ActionCommand LOGIN = new Login(LOGIN_INFO_DTO_VALIDATOR, USER_SERVICE);
     private static final ActionCommand LOGOUT = new LogOut();
     private static final ActionCommand REGISTRATION = new Registration(REGISTRATION_INFO_DTO_VALIDATOR, USER_SERVICE);

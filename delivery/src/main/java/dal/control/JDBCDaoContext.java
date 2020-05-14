@@ -15,16 +15,16 @@ import java.util.ResourceBundle;
 public class JDBCDaoContext {
     private static final String PATH_TO_PROPERTY_FILE = "db-request";
     private static Logger log = LogManager.getLogger(JDBCDaoContext.class);
-    private static TransactionalManager dbConnectorPoolHolder = TransactionalManagerImpl.getDbConnectionPoolHolder();
+    private static final TransactionalManager DB_CONNECTION_POOL_HOLDER = TransactionalManagerImpl.getDbConnectionPoolHolder();
 
-    private static ResourceBundle requestsBundle = ResourceBundle.getBundle(PATH_TO_PROPERTY_FILE);
+    private static final ResourceBundle REQUESTS_BUNDLE = ResourceBundle.getBundle(PATH_TO_PROPERTY_FILE);
 
 
-    private static UserDao userDao = new JDBCUserDao(requestsBundle, dbConnectorPoolHolder);
-    private static JDBCLocalityDao localityDao = new JDBCLocalityDao(requestsBundle, dbConnectorPoolHolder);
-    private static WayDao wayDao = new JDBCWayDao(requestsBundle, dbConnectorPoolHolder);
-    private static DeliveryDao deliveryDao = new JDBCDeliveryDao(requestsBundle, dbConnectorPoolHolder);
-    private static BillDao billDao = new JDBCBillDao(requestsBundle, dbConnectorPoolHolder);
+    private static final UserDao USER_DAO = new JDBCUserDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
+    private static final LocalityDao LOCALITY_DAO = new JDBCLocalityDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
+    private static final WayDao WAY_DAO = new JDBCWayDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
+    private static final DeliveryDao DELIVERY_DAO = new JDBCDeliveryDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
+    private static final BillDao BILL_DAO = new JDBCBillDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
 
     private static Map<Class, Object> contextMap;
 
@@ -34,12 +34,12 @@ public class JDBCDaoContext {
 
     static {
         contextMap = new HashMap<>();
-        contextMap.put(UserDao.class, userDao);
-        contextMap.put(LocalityDao.class, localityDao);
-        contextMap.put(WayDao.class, wayDao);
-        contextMap.put(DeliveryDao.class, deliveryDao);
-        contextMap.put(BillDao.class, billDao);
-        contextMap.put(TransactionalManager.class, dbConnectorPoolHolder);
+        contextMap.put(UserDao.class, USER_DAO);
+        contextMap.put(LocalityDao.class, LOCALITY_DAO);
+        contextMap.put(WayDao.class, WAY_DAO);
+        contextMap.put(DeliveryDao.class, DELIVERY_DAO);
+        contextMap.put(BillDao.class, BILL_DAO);
+        contextMap.put(TransactionalManager.class, DB_CONNECTION_POOL_HOLDER);
 
     }
 
@@ -50,7 +50,7 @@ public class JDBCDaoContext {
 
     public static TransactionalManager getTransactionManager() {
         log.debug("getTransactionManager");
-        return dbConnectorPoolHolder;
+        return DB_CONNECTION_POOL_HOLDER;
     }
 
 
