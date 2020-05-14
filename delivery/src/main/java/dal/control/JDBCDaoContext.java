@@ -2,14 +2,13 @@ package dal.control;
 
 import dal.control.conection.pool.TransactionalManager;
 import dal.control.conection.pool.impl.TransactionalManagerImpl;
-import dal.dao.BillDao;
-import dal.dao.DeliveryDao;
-import dal.dao.UserDao;
-import dal.dao.WayDao;
+import dal.dao.*;
 import dal.dao.impl.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 
@@ -22,39 +21,32 @@ public class JDBCDaoContext {
 
 
     private static UserDao userDao = new JDBCUserDao(requestsBundle, dbConnectorPoolHolder);
-    private static JDBCLocalityDao JDBCLocalityDao = new JDBCLocalityDao(requestsBundle, dbConnectorPoolHolder);
+    private static JDBCLocalityDao localityDao = new JDBCLocalityDao(requestsBundle, dbConnectorPoolHolder);
     private static WayDao wayDao = new JDBCWayDao(requestsBundle, dbConnectorPoolHolder);
     private static DeliveryDao deliveryDao = new JDBCDeliveryDao(requestsBundle, dbConnectorPoolHolder);
     private static BillDao billDao = new JDBCBillDao(requestsBundle, dbConnectorPoolHolder);
+
+    private static Map<Class, Object> contextMap;
 
     private JDBCDaoContext() {
         log.debug("created");
     }
 
-    public static UserDao getUserDao() {
-        log.debug("getUserDao");
-        return userDao;
+    static {
+        contextMap = new HashMap<>();
+        contextMap.put(UserDao.class, userDao);
+        contextMap.put(LocalityDao.class, localityDao);
+        contextMap.put(WayDao.class, wayDao);
+        contextMap.put(DeliveryDao.class, deliveryDao);
+        contextMap.put(BillDao.class, billDao);
+        contextMap.put(TransactionalManager.class, dbConnectorPoolHolder);
+
     }
 
-    public static JDBCLocalityDao getJDBCLocalityDao() {
-        log.debug("getJDBCLocalityDao");
-        return JDBCLocalityDao;
+    public static <T> T getObject(Class<T> classType) {
+        return (T) contextMap.get(classType);
     }
 
-    public static WayDao getWayDao() {
-        log.debug("getWayDao");
-        return wayDao;
-    }
-
-    public static DeliveryDao getDeliveryDao() {
-        log.debug("getDeliveryDao");
-        return deliveryDao;
-    }
-
-    public static BillDao getBillDao() {
-        log.debug("getBillDao");
-        return billDao;
-    }
 
     public static TransactionalManager getTransactionManager() {
         log.debug("getTransactionManager");

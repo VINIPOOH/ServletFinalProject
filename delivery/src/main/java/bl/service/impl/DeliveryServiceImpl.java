@@ -19,13 +19,13 @@ import java.util.stream.Collectors;
 
 import static bl.service.ServicesConstants.RUSSIAN_LANG_COD;
 
-public class DeliveryProcessServiceImpl implements bl.service.DeliveryProcessService {
-    private static Logger log = LogManager.getLogger(DeliveryProcessServiceImpl.class);
+public class DeliveryServiceImpl implements bl.service.DeliveryProcessService {
+    private static Logger log = LogManager.getLogger(DeliveryServiceImpl.class);
 
     private final WayDao wayDao;
     private final DeliveryDao deliveryDao;
 
-    public DeliveryProcessServiceImpl(WayDao wayDao, DeliveryDao deliveryDao) {
+    public DeliveryServiceImpl(WayDao wayDao, DeliveryDao deliveryDao) {
         log.debug("created");
 
         this.wayDao = wayDao;
