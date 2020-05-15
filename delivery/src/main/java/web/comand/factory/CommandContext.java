@@ -4,6 +4,7 @@ import bl.service.*;
 import web.comand.action.ActionCommand;
 import web.comand.action.impl.*;
 import web.dto.validation.*;
+import web.util.Pagination;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +27,9 @@ public class CommandContext {
     private static final Validator LOGIN_INFO_DTO_VALIDATOR = new LoginDtoValidator();
     private static final Validator REGISTRATION_INFO_DTO_VALIDATOR = new RegistrationDtoValidator();
     private static final Validator DELIVERY_ORDER_CREATE_DTO_VALIDATOR = new DeliveryOrderCreateDtoValidator();
+
+    private static final Pagination PAGINATION = new Pagination();
+
     private static final IDValidator ID_VALIDATOR = new IDValidatorImpl();
     private static final UserService USER_SERVICE = ServicesContext.getObject(UserService.class);
     private static final LocalityService LOCALITY_SERVICE = ServicesContext.getObject(LocalityService.class);
@@ -43,7 +47,7 @@ public class CommandContext {
     private static final ActionCommand USER_DELIVERY_INITIATION = new UserDeliveryInitiation(LOCALITY_SERVICE, BILL_SERVICE, DELIVERY_ORDER_CREATE_DTO_VALIDATOR);
     private static final ActionCommand USER_DELIVERY_CONFIRM = new UserDeliveryPay(BILL_SERVICE, USER_SERVICE, ID_VALIDATOR);
     private static final ActionCommand USER_DELIVERY_GET = new UserDeliveryGet(ID_VALIDATOR, DELIVERY_PROCESS_SERVICE);
-    private static final ActionCommand USER_STATISTIC = new UserStatistic(BILL_SERVICE);
+    private static final ActionCommand USER_STATISTIC = new UserStatistic(PAGINATION, ID_VALIDATOR, BILL_SERVICE);
     private static final Map<String, ActionCommand> COMMANDS = new HashMap<>();
 
     static {

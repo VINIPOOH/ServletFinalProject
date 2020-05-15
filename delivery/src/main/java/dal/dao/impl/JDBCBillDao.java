@@ -42,6 +42,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             "bill.history.by.user.id";
     private static final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU =
             "bill.pay.info.sellect.by.sender.id.ru";
+    private static final String COUNT_ALL_NOT_PAYED_BILLS_BY_USER_ID =
+            "count.all.not.payed.bills.by.user.id";
     private static Logger log = LogManager.getLogger(JDBCBillDao.class);
 
 
@@ -111,12 +113,13 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     }
 
 
+
     @Override
-    public List<Bill> getHistoricBailsByUserId(long userId) {
+    public List<Bill> getHistoricBillsByUserId(long userId, Integer offset, Integer limit) {
         log.debug("getHistoricBailsByUserId");
 
         ResultSetToEntityMapper<Bill> mapper = getBillResultSetToEntityMapper();
-        return findAllByLongParam(userId, resourceBundleRequests.getString(BILLS_HISTORY_BY_USER_ID), mapper);
+        return findAllByLongParamPageable(userId, offset, limit, resourceBundleRequests.getString(BILLS_HISTORY_BY_USER_ID), mapper);
     }
 
     private ResultSetToEntityMapper<Bill> getBillResultSetToEntityMapper() {
@@ -154,5 +157,10 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             preparedStatement.setLong(6, userId);
             return preparedStatement.executeUpdate() != 0;
         }
+    }
+
+    @Override
+    public long countAllBillsByUserId(long userId) {
+        return countAllByLongParam(userId, resourceBundleRequests.getString(COUNT_ALL_NOT_PAYED_BILLS_BY_USER_ID));
     }
 }

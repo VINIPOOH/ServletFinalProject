@@ -13,9 +13,12 @@ public interface BillDao {
 
     long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotCorrect;
 
-    List<Bill> getHistoricBailsByUserId(long userId);
+
+    List<Bill> getHistoricBillsByUserId(long userId, Integer offset, Integer limit);
 
     boolean murkBillAsPayed(long billId) throws SQLException;
 
     boolean createBill(long deliveryId, long userId, long localitySandID, long localityGetID, int weight) throws SQLException;
+
+    long countAllBillsByUserId(long userId);
 }

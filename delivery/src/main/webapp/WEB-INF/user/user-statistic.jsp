@@ -20,5 +20,8 @@
     </div>
     </c:forEach>
 </div>
+
+<c:import url="../layout/pagination.jsp"/>
+
 </body>
 </html>

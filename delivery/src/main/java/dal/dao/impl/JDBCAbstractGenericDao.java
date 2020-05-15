@@ -38,6 +38,22 @@ abstract class JDBCAbstractGenericDao<E> {
         }
     }
 
+    public List<E> findAllByLongParamPageable(long param, Integer offset, Integer limit, String query, ResultSetToEntityMapper<E> mapper) {
+        try (ConnectionAdapeter connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, param);
+            preparedStatement.setInt(2, offset);
+            preparedStatement.setInt(3, limit);
+            return mapPreparedStatementToEntitiesList(mapper, preparedStatement);
+        } catch (SQLException e) {
+            log.error("SQLException", e);
+            throw new DBRuntimeException();
+        }
+
+    }
+
+
+
     private List<E> mapPreparedStatementToEntitiesList(ResultSetToEntityMapper<E> mapper, PreparedStatement preparedStatement) throws SQLException {
         try (ResultSet resultSet = preparedStatement.executeQuery()) {
             List<E> result = new ArrayList<>();
@@ -48,5 +64,18 @@ abstract class JDBCAbstractGenericDao<E> {
         }
     }
 
+    protected long countAllByLongParam(long param, String query) {
+        try (ConnectionAdapeter connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, param);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return resultSet.getLong(1);
+            }
+        } catch (SQLException e) {
+            log.error("SQLException", e);
+            throw new DBRuntimeException();
+        }
+    }
 
 }

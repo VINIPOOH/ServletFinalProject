@@ -74,6 +74,11 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
+    public long countAllBillsBiUserId(long userId) {
+        return billDao.countAllBillsByUserId(userId);
+    }
+
+    @Override
     public void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
         log.debug("deliveryOrderCreateDto - " + deliveryOrderCreateDto + " initiatorId - " + initiatorId);
 
@@ -97,10 +102,10 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public List<BillDto> getBillHistoryByUserId(long userId) {
+    public List<BillDto> getBillHistoryByUserId(long userId, int offset, int limit) {
         log.debug("userId - " + userId);
 
-        return billDao.getHistoricBailsByUserId(userId).stream()
+        return billDao.getHistoricBillsByUserId(userId, offset, limit).stream()
                 .map(getBillBillDtoMapper()::map)
                 .collect(Collectors.toList());
     }

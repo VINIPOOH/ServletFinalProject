@@ -9,7 +9,8 @@
         <a class="col-1" href="${pageContext.request.contextPath}/user/userprofile" ><fmt:message key="layout.userheader.balance"/></a>
         <a class="col-2" href="${pageContext.request.contextPath}/user/user-delivery-initiation" ><fmt:message key="layout.userheader.delivery.initiation"/></a>
         <a class="col-2" href="${pageContext.request.contextPath}/user/user-delivery-request-confirm" ><fmt:message key="layout.userheader.delivery.pay"/></a>
-        <a class="col-2" href="${pageContext.request.contextPath}/user/user-statistic" ><fmt:message key="layout.userheader.user.statistic"/></a>
+            <a class="col-2" href="${pageContext.request.contextPath}/user/user-statistic?page=1&size=10" ><fmt:message
+            key="layout.userheader.user.statistic"/></a>
         </div>
         </div>
         </nav>
