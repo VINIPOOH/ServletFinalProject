@@ -7,7 +7,6 @@ import dal.entity.Delivery;
 import dto.DeliveryInfoRequestDto;
 import dto.DeliveryInfoToGetDto;
 import dto.PriceAndTimeOnDeliveryDto;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -37,10 +36,6 @@ public class DeliveryServiceImplTest {
 
     @Mock
     DeliveryDao deliveryDao;
-
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     public void getDeliveryCostAndTimeDto() {
@@ -114,11 +109,4 @@ public class DeliveryServiceImplTest {
                 .build();
     }
 
-    private DeliveryInfoRequestDto getDeliveryInfoRequestDto(int weightRangeReal) {
-        return DeliveryInfoRequestDto.builder()
-                .deliveryWeight(weightRangeReal)
-                .localityGetID(1)
-                .localitySandID(1)
-                .build();
-    }
 }

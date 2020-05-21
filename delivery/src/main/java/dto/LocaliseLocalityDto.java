@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.Objects;
+
 public class LocaliseLocalityDto {
     private Long id;
     private String name;
@@ -30,6 +32,19 @@ public class LocaliseLocalityDto {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LocaliseLocalityDto that = (LocaliseLocalityDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 
     public static class LocaliseLocalityDtoBuilder {
         private Long id;

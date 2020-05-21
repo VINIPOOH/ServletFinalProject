@@ -30,7 +30,6 @@ public class LocalityServiceImpl implements LocalityService {
     public List<LocaliseLocalityDto> getLocaliseLocalities(Locale locale) {
         log.debug("localeLang - " + locale.getLanguage());
 
-
         return localityDao.findAllLocaliseLocalitiesWithoutConnection(locale).stream()
                 .map(getLocalityToLocaliseLocalityDto(locale)::map)
                 .collect(Collectors.toList());
@@ -49,6 +48,4 @@ public class LocalityServiceImpl implements LocalityService {
             return toReturn;
         };
     }
-
-
 }
