@@ -32,6 +32,7 @@ public class User extends Entity {
     public User() {
     }
 
+
     public static UserBuilder builder() {
         return new UserBuilder();
     }
@@ -50,6 +51,10 @@ public class User extends Entity {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getUserMoneyInCents() {

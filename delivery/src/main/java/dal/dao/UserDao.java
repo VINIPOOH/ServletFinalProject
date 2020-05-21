@@ -10,9 +10,9 @@ public interface UserDao {
 
     Optional<User> findByEmailAndPasswordWithPermissions(String email, String password);
 
-    void save(String email, String password) throws AskedDataIsNotCorrect;
+    boolean save(String email, String password) throws AskedDataIsNotCorrect;
 
-    void replenishUserBalance(long userId, long amountMoney) throws AskedDataIsNotCorrect;
+    boolean replenishUserBalance(long userId, long amountMoney) throws AskedDataIsNotCorrect;
 
     boolean replenishUserBalenceOnSumeIfItPosible(long userId, long sumWhichUserNeed) throws SQLException;
 

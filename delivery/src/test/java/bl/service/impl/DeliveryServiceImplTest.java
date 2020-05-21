@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,8 +21,6 @@ import java.util.Optional;
 import static bl.service.impl.ServisesTestConstant.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -32,7 +30,7 @@ public class DeliveryServiceImplTest {
     DeliveryServiceImpl deliveryService;
 
     @Mock
-    WayDao billDao;
+    WayDao wayDao;
 
     @Mock
     DeliveryDao deliveryDao;
@@ -45,11 +43,11 @@ public class DeliveryServiceImplTest {
                 .build();
         PriceAndTimeOnDeliveryDto expected = getPriceAndTimeOnDeliveryDto();
         DeliveryInfoRequestDto deliveryInfoRequestDto = getDeliveryInfoRequestDto();
-        when(billDao.findByLocalitySandIdAndLocalityGetId(anyLong(), anyInt(), anyInt())).thenReturn(Optional.of(deliveryCostAndTimeDto));
+        when(wayDao.findByLocalitySandIdAndLocalityGetId(anyLong(), anyLong(), anyInt())).thenReturn(Optional.of(deliveryCostAndTimeDto));
 
         Optional<PriceAndTimeOnDeliveryDto> result = deliveryService.getDeliveryCostAndTimeDto(deliveryInfoRequestDto);
 
-        verify(billDao, times(1)).findByLocalitySandIdAndLocalityGetId(anyLong(), anyInt(), anyInt());
+        verify(wayDao, times(1)).findByLocalitySandIdAndLocalityGetId(anyLong(), anyLong(), anyInt());
         assertEquals(expected, result.get());
     }
 

@@ -10,9 +10,9 @@ public interface UserService {
 
     User loginUser(LoginInfoDto loginInfoDto) throws NoSuchUserException;
 
-    void addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException;
+    boolean addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException;
 
-    void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException;
+    boolean replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException;
 
     long getUserBalance(long userId);
 }

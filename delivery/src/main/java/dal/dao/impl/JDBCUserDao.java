@@ -78,14 +78,14 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     }
 
     @Override
-    public void replenishUserBalance(long userId, long money) throws AskedDataIsNotCorrect {
+    public boolean replenishUserBalance(long userId, long money) throws AskedDataIsNotCorrect {
         log.debug("replenishUserBalance");
 
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_REPLENISH_BALANCE))) {
             preparedStatement.setLong(1, money);
             preparedStatement.setLong(2, userId);
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             log.error("SQLException", e);
             throw new AskedDataIsNotCorrect();
@@ -93,14 +93,14 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     }
 
 
-    public void save(String email, String password) throws AskedDataIsNotCorrect {
+    public boolean save(String email, String password) throws AskedDataIsNotCorrect {
         log.debug("save");
 
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_SAVE))) {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             log.error("SQLException", e);
             throw new AskedDataIsNotCorrect();

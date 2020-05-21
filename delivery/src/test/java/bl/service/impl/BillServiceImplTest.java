@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -23,7 +23,6 @@ import java.util.Locale;
 
 import static bl.service.impl.ServisesTestConstant.*;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -78,7 +77,6 @@ public class BillServiceImplTest {
     @Test
     public void initializeBillCreateBillIncorrectDeliveryData() throws UnsupportableWeightFactorException, FailCreateDeliveryException, AskedDataIsNotCorrect, SQLException {
         when(deliveryDao.createDelivery(anyString(), anyLong(), anyLong(), anyInt())).thenThrow(AskedDataIsNotCorrect.class);
-        when(billDao.createBill(anyLong(), anyLong(), anyLong(), anyLong(), anyInt())).thenReturn(true);
 
         boolean result = billService.initializeBill(getDeliveryOrderCreateDto(), getUserId());
 
@@ -105,7 +103,6 @@ public class BillServiceImplTest {
     @Test
     public void payForDeliveryUserHaveNotMoney() throws AskedDataIsNotCorrect, SQLException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(1L);
-        when(billDao.murkBillAsPayed(anyLong())).thenReturn(true);
         when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenReturn(false);
 
 
@@ -120,7 +117,6 @@ public class BillServiceImplTest {
     @Test
     public void payForDeliveryIncorrectUserData() throws AskedDataIsNotCorrect, SQLException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(1L);
-        when(billDao.murkBillAsPayed(anyLong())).thenReturn(true);
         when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenThrow(SQLException.class);
 
 
@@ -135,9 +131,6 @@ public class BillServiceImplTest {
     @Test
     public void payForDeliveryIncorrectBillData() throws AskedDataIsNotCorrect, SQLException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenThrow(AskedDataIsNotCorrect.class);
-        when(billDao.murkBillAsPayed(anyLong())).thenReturn(true);
-        when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenReturn(true);
-
         boolean payResult = billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());

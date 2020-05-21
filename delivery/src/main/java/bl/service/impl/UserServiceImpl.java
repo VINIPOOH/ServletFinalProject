@@ -37,11 +37,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException {
+    public boolean addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException {
         log.debug("registrationInfoDto -" + registrationInfoDto);
 
         try {
-            userDao.save(registrationInfoDto.getUsername(), passwordEncoderService.encode(registrationInfoDto.getPassword()));
+            return userDao.save(registrationInfoDto.getUsername(), passwordEncoderService.encode(registrationInfoDto.getPassword()));
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("login is occupied", askedDataIsNotCorrect);
 
@@ -51,11 +51,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException {
+    public boolean replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException {
         log.debug("userId -" + userId + " amountMoney -" + amountMoney);
 
         try {
-            userDao.replenishUserBalance(userId, amountMoney);
+            return userDao.replenishUserBalance(userId, amountMoney);
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("no user", askedDataIsNotCorrect);
 
