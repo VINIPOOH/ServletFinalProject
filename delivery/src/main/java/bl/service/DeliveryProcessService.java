@@ -1,8 +1,8 @@
 package bl.service;
 
-import bl.dto.DeliveryInfoToGetDto;
-import bl.dto.PriceAndTimeOnDeliveryDto;
-import web.dto.DeliveryInfoRequestDto;
+import dto.DeliveryInfoRequestDto;
+import dto.DeliveryInfoToGetDto;
+import dto.PriceAndTimeOnDeliveryDto;
 
 import java.util.List;
 import java.util.Locale;

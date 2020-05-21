@@ -3,8 +3,8 @@ package bl.service;
 import bl.exeptions.NoSuchUserException;
 import bl.exeptions.OccupiedLoginException;
 import dal.entity.User;
-import web.dto.LoginInfoDto;
-import web.dto.RegistrationInfoDto;
+import dto.LoginInfoDto;
+import dto.RegistrationInfoDto;
 
 public interface UserService {
 

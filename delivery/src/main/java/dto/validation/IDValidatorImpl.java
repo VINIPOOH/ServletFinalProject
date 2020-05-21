@@ -1,4 +1,4 @@
-package web.dto.validation;
+package dto.validation;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

@@ -1,4 +1,4 @@
-package bl.dto;
+package dto;
 
 import java.time.LocalDate;
 

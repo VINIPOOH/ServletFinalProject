@@ -3,10 +3,10 @@ package web.comand.action.impl;
 import bl.service.BillService;
 import bl.service.UserService;
 import dal.entity.User;
+import dto.validation.IDValidator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
-import web.dto.validation.IDValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;

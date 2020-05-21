@@ -8,10 +8,10 @@ import bl.service.UserService;
 import dal.dao.UserDao;
 import dal.entity.User;
 import dal.exeptions.AskedDataIsNotCorrect;
+import dto.LoginInfoDto;
+import dto.RegistrationInfoDto;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import web.dto.LoginInfoDto;
-import web.dto.RegistrationInfoDto;
 
 public class UserServiceImpl implements UserService {
     private static Logger log = LogManager.getLogger(UserService.class);

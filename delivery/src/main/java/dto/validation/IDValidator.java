@@ -1,4 +1,4 @@
-package web.dto.validation;
+package dto.validation;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,30 +1,29 @@
-package web.dto;
+package dto;
 
-public class DeliveryInfoRequestDto {
-
-
+public class DeliveryOrderCreateDto {
     private int deliveryWeight;
-
     private long localitySandID;
-
     private long localityGetID;
+    private String addresseeEmail;
 
-    DeliveryInfoRequestDto(int deliveryWeight, long localitySandID, long localityGetID) {
+    DeliveryOrderCreateDto(int deliveryWeight, long localitySandID, long localityGetID, String addresseeEmail) {
         this.deliveryWeight = deliveryWeight;
         this.localitySandID = localitySandID;
         this.localityGetID = localityGetID;
+        this.addresseeEmail = addresseeEmail;
     }
 
-    public static DeliveryInfoRequestDtoBuilder builder() {
-        return new DeliveryInfoRequestDtoBuilder();
+    public static DeliveryOrderCreateDtoBuilder builder() {
+        return new DeliveryOrderCreateDtoBuilder();
     }
 
     @Override
     public String toString() {
-        return "DeliveryInfoRequestDto{" +
+        return "DeliveryOrderCreateDto{" +
                 "deliveryWeight=" + deliveryWeight +
                 ", localitySandID=" + localitySandID +
                 ", localityGetID=" + localityGetID +
+                ", addresseeEmail='" + addresseeEmail + '\'' +
                 '}';
     }
 
@@ -48,36 +47,41 @@ public class DeliveryInfoRequestDto {
         this.localityGetID = localityGetID;
     }
 
+    public String getAddresseeEmail() {
+        return this.addresseeEmail;
+    }
 
-    public static class DeliveryInfoRequestDtoBuilder {
+    public static class DeliveryOrderCreateDtoBuilder {
         private int deliveryWeight;
         private long localitySandID;
         private long localityGetID;
+        private String addresseeEmail;
 
-        DeliveryInfoRequestDtoBuilder() {
+        DeliveryOrderCreateDtoBuilder() {
         }
 
-        public DeliveryInfoRequestDto.DeliveryInfoRequestDtoBuilder deliveryWeight(int deliveryWeight) {
+        public DeliveryOrderCreateDto.DeliveryOrderCreateDtoBuilder deliveryWeight(int deliveryWeight) {
             this.deliveryWeight = deliveryWeight;
             return this;
         }
 
-        public DeliveryInfoRequestDto.DeliveryInfoRequestDtoBuilder localitySandID(long localitySandID) {
+        public DeliveryOrderCreateDto.DeliveryOrderCreateDtoBuilder localitySandID(long localitySandID) {
             this.localitySandID = localitySandID;
             return this;
         }
 
-        public DeliveryInfoRequestDto.DeliveryInfoRequestDtoBuilder localityGetID(long localityGetID) {
+        public DeliveryOrderCreateDto.DeliveryOrderCreateDtoBuilder localityGetID(long localityGetID) {
             this.localityGetID = localityGetID;
             return this;
         }
 
-        public DeliveryInfoRequestDto build() {
-            return new DeliveryInfoRequestDto(deliveryWeight, localitySandID, localityGetID);
+        public DeliveryOrderCreateDto.DeliveryOrderCreateDtoBuilder addresseeEmail(String addresseeEmail) {
+            this.addresseeEmail = addresseeEmail;
+            return this;
         }
 
-        public String toString() {
-            return "DeliveryInfoRequestDto.DeliveryInfoRequestDtoBuilder(deliveryWeight=" + this.deliveryWeight + ", localitySandID=" + this.localitySandID + ", localityGetID=" + this.localityGetID + ")";
+        public DeliveryOrderCreateDto build() {
+            return new DeliveryOrderCreateDto(deliveryWeight, localitySandID, localityGetID, addresseeEmail);
         }
     }
 }

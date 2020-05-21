@@ -1,4 +1,4 @@
-package web.dto;
+package dto;
 
 public class RegistrationInfoDto {
     private String username;

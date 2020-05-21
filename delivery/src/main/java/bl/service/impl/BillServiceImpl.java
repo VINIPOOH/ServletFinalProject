@@ -1,8 +1,5 @@
 package bl.service.impl;
 
-import bl.dto.BillDto;
-import bl.dto.BillInfoToPayDto;
-import bl.dto.mapper.Mapper;
 import bl.exeptions.FailCreateDeliveryException;
 import bl.exeptions.UnsupportableWeightFactorException;
 import bl.service.BillService;
@@ -13,9 +10,12 @@ import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.entity.Bill;
 import dal.exeptions.AskedDataIsNotCorrect;
+import dto.BillDto;
+import dto.BillInfoToPayDto;
+import dto.DeliveryOrderCreateDto;
+import dto.mapper.Mapper;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import web.dto.DeliveryOrderCreateDto;
 
 import java.sql.SQLException;
 import java.util.List;

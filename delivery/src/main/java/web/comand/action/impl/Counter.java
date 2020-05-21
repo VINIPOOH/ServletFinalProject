@@ -1,14 +1,14 @@
 package web.comand.action.impl;
 
-import bl.dto.PriceAndTimeOnDeliveryDto;
 import bl.service.DeliveryProcessService;
 import bl.service.LocalityService;
+import dto.DeliveryInfoRequestDto;
+import dto.PriceAndTimeOnDeliveryDto;
+import dto.mapper.RequestDtoMapper;
+import dto.validation.Validator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
-import web.dto.DeliveryInfoRequestDto;
-import web.dto.maper.RequestDtoMapper;
-import web.dto.validation.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;

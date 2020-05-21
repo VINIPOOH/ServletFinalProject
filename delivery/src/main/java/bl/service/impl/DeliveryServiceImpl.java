@@ -1,16 +1,16 @@
 package bl.service.impl;
 
 
-import bl.dto.DeliveryInfoToGetDto;
-import bl.dto.PriceAndTimeOnDeliveryDto;
-import bl.dto.mapper.Mapper;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Delivery;
+import dto.DeliveryInfoRequestDto;
+import dto.DeliveryInfoToGetDto;
+import dto.PriceAndTimeOnDeliveryDto;
+import dto.mapper.Mapper;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import web.dto.DeliveryInfoRequestDto;
 
 import java.util.List;
 import java.util.Locale;

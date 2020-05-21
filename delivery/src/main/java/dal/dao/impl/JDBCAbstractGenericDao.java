@@ -53,7 +53,6 @@ abstract class JDBCAbstractGenericDao<E> {
     }
 
 
-
     private List<E> mapPreparedStatementToEntitiesList(ResultSetToEntityMapper<E> mapper, PreparedStatement preparedStatement) throws SQLException {
         try (ResultSet resultSet = preparedStatement.executeQuery()) {
             List<E> result = new ArrayList<>();

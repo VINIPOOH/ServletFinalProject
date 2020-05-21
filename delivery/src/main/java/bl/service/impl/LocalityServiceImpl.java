@@ -1,11 +1,11 @@
 package bl.service.impl;
 
 
-import bl.dto.LocaliseLocalityDto;
-import bl.dto.mapper.Mapper;
 import bl.service.LocalityService;
 import dal.dao.LocalityDao;
 import dal.entity.Locality;
+import dto.LocaliseLocalityDto;
+import dto.mapper.Mapper;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

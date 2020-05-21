@@ -113,7 +113,6 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     }
 
 
-
     @Override
     public List<Bill> getHistoricBillsByUserId(long userId, Integer offset, Integer limit) {
         log.debug("getHistoricBailsByUserId");

@@ -1,4 +1,4 @@
-package web.dto;
+package dto;
 
 public class LoginInfoDto {
     private String username;

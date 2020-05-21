@@ -1,4 +1,4 @@
-package bl.dto.mapper;
+package dto.mapper;
 
 @FunctionalInterface
 public interface Mapper<E, Dto> {

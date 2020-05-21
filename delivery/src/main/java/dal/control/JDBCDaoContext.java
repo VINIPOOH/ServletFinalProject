@@ -14,23 +14,15 @@ import java.util.ResourceBundle;
 
 public class JDBCDaoContext {
     private static final String PATH_TO_PROPERTY_FILE = "db-request";
-    private static Logger log = LogManager.getLogger(JDBCDaoContext.class);
     private static final TransactionalManager DB_CONNECTION_POOL_HOLDER = TransactionalManagerImpl.getDbConnectionPoolHolder();
-
     private static final ResourceBundle REQUESTS_BUNDLE = ResourceBundle.getBundle(PATH_TO_PROPERTY_FILE);
-
-
     private static final UserDao USER_DAO = new JDBCUserDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
     private static final LocalityDao LOCALITY_DAO = new JDBCLocalityDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
     private static final WayDao WAY_DAO = new JDBCWayDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
     private static final DeliveryDao DELIVERY_DAO = new JDBCDeliveryDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
     private static final BillDao BILL_DAO = new JDBCBillDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
-
+    private static Logger log = LogManager.getLogger(JDBCDaoContext.class);
     private static Map<Class, Object> contextMap;
-
-    private JDBCDaoContext() {
-        log.debug("created");
-    }
 
     static {
         contextMap = new HashMap<>();
@@ -41,6 +33,10 @@ public class JDBCDaoContext {
         contextMap.put(BillDao.class, BILL_DAO);
         contextMap.put(TransactionalManager.class, DB_CONNECTION_POOL_HOLDER);
 
+    }
+
+    private JDBCDaoContext() {
+        log.debug("created");
     }
 
     public static <T> T getObject(Class<T> classType) {

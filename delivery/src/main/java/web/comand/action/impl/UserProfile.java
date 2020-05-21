@@ -3,10 +3,10 @@ package web.comand.action.impl;
 import bl.exeptions.NoSuchUserException;
 import bl.service.UserService;
 import dal.entity.User;
+import dto.validation.Validator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
-import web.dto.validation.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 

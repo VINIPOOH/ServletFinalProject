@@ -5,12 +5,12 @@ import bl.exeptions.UnsupportableWeightFactorException;
 import bl.service.BillService;
 import bl.service.LocalityService;
 import dal.entity.User;
+import dto.DeliveryOrderCreateDto;
+import dto.mapper.RequestDtoMapper;
+import dto.validation.Validator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
-import web.dto.DeliveryOrderCreateDto;
-import web.dto.maper.RequestDtoMapper;
-import web.dto.validation.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;

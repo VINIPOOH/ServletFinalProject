@@ -17,9 +17,9 @@ import static web.constants.PageConstance.*;
 public class UserStatistic implements ActionCommand {
 
     public static final String USER_USER_STATISTIC = "user/user-statistic";
-    private static final String BILLS_LIST = "billsList";
     public static final int PAGE_ATRIBUTE = 1;
     public static final int PAGE_SIZE = 10;
+    private static final String BILLS_LIST = "billsList";
     private static Logger log = LogManager.getLogger(UserStatistic.class);
     private final Pagination pagination;
     private final IDValidator idValidator;

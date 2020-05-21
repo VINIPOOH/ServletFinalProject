@@ -1,4 +1,4 @@
-package bl.dto;
+package dto;
 
 public class BillInfoToPayDto {
     private long billId;

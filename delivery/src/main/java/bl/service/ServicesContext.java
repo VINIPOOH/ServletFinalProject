@@ -25,9 +25,6 @@ public class ServicesContext {
 
     private static Map<Class, Object> contextMap;
 
-    private ServicesContext() {
-    }
-
     static {
         contextMap = new HashMap<>();
         contextMap.put(PasswordEncoderService.class, PASSWORD_ENCODER_SERVICE);
@@ -35,6 +32,9 @@ public class ServicesContext {
         contextMap.put(LocalityService.class, LOCALITY_SERVICE);
         contextMap.put(DeliveryProcessService.class, DELIVERY_PROCESS_SERVICE);
         contextMap.put(BillService.class, BILL_SERVICE);
+    }
+
+    private ServicesContext() {
     }
 
     public static <T> T getObject(Class<T> classType) {

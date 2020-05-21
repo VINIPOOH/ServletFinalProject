@@ -1,4 +1,4 @@
-package web.dto.maper;
+package dto.mapper;
 
 import javax.servlet.http.HttpServletRequest;
 

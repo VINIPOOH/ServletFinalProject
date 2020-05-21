@@ -2,12 +2,12 @@ package web.comand.action.impl;
 
 import bl.exeptions.OccupiedLoginException;
 import bl.service.UserService;
+import dto.RegistrationInfoDto;
+import dto.mapper.RequestDtoMapper;
+import dto.validation.Validator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
-import web.dto.RegistrationInfoDto;
-import web.dto.maper.RequestDtoMapper;
-import web.dto.validation.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 

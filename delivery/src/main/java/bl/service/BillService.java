@@ -1,10 +1,10 @@
 package bl.service;
 
-import bl.dto.BillDto;
-import bl.dto.BillInfoToPayDto;
 import bl.exeptions.FailCreateDeliveryException;
 import bl.exeptions.UnsupportableWeightFactorException;
-import web.dto.DeliveryOrderCreateDto;
+import dto.BillDto;
+import dto.BillInfoToPayDto;
+import dto.DeliveryOrderCreateDto;
 
 import java.util.List;
 import java.util.Locale;
@@ -17,7 +17,6 @@ public interface BillService {
     long countAllBillsBiUserId(long userId);
 
     void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException;
-
 
     List<BillDto> getBillHistoryByUserId(long userId, int offset, int limit);
 }
