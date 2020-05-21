@@ -52,6 +52,9 @@ public class Delivery extends Entity {
         return this.addressee;
     }
 
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
 
     public Boolean getIsPackageReceived() {
         return this.isPackageReceived;

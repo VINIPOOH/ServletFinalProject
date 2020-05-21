@@ -73,14 +73,14 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
         };
     }
 
-    public void confirmGettingDelivery(long userId, long deliveryId) {
+    public boolean confirmGettingDelivery(long userId, long deliveryId) {
         log.debug("confirmGettingDelivery");
 
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_DELIVERY_RECIWED_STATUSE_TRUE))) {
             preparedStatement.setLong(1, userId);
             preparedStatement.setLong(2, deliveryId);
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             log.error("SQLException", e);
             throw new DBRuntimeException();

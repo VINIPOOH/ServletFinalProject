@@ -51,10 +51,10 @@ public class DeliveryServiceImpl implements bl.service.DeliveryProcessService {
     }
 
     @Override
-    public void confirmGettingDelivery(long userId, long deliveryId) {
+    public boolean confirmGettingDelivery(long userId, long deliveryId) {
         log.debug("userId -" + userId + " deliveryId -" + deliveryId);
 
-        deliveryDao.confirmGettingDelivery(userId, deliveryId);
+        return deliveryDao.confirmGettingDelivery(userId, deliveryId);
     }
 
     private Mapper<DeliveryCostAndTimeDto, PriceAndTimeOnDeliveryDto> getDeliveryCostAndTimeDtoPriceAndTimeOnDeliveryDtoMapper() {

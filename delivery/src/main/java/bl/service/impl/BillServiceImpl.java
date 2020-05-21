@@ -74,12 +74,12 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public long countAllBillsBiUserId(long userId) {
+    public long countAllBillsByUserId(long userId) {
         return billDao.countAllBillsByUserId(userId);
     }
 
     @Override
-    public void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
+    public boolean initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
         log.debug("deliveryOrderCreateDto - " + deliveryOrderCreateDto + " initiatorId - " + initiatorId);
 
         try (TransactionalManager transactionalManager = JDBCDaoContext.getTransactionManager()) {
@@ -88,7 +88,7 @@ public class BillServiceImpl implements BillService {
             if (billDao.createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
                     , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
                 transactionalManager.commit();
-                return;
+                return true;
             }
             transactionalManager.rollBack();
             throw new UnsupportableWeightFactorException();
@@ -99,6 +99,7 @@ public class BillServiceImpl implements BillService {
             log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
             askedDataIsNotCorrect.printStackTrace();
         }
+        return false;
     }
 
     @Override
@@ -117,7 +118,7 @@ public class BillServiceImpl implements BillService {
                     .price(bill.getCostInCents())
                     .deliveryId(bill.getDelivery().getId())
                     .billId(bill.getId())
-                    .addreeserEmail(bill.getDelivery().getAddressee().getEmail())
+                    .addreeseeEmail(bill.getDelivery().getAddressee().getEmail())
                     .build();
             if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
                 billInfoToPayDto.setLocalitySandName(bill.getDelivery().getWay().getLocalitySand().getNameRu());

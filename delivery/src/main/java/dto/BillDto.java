@@ -1,6 +1,7 @@
 package dto;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class BillDto {
     private long deliveryId;
@@ -49,6 +50,22 @@ public class BillDto {
         this.costInCents = costInCents;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BillDto billDto = (BillDto) o;
+        return deliveryId == billDto.deliveryId &&
+                id == billDto.id &&
+                costInCents == billDto.costInCents &&
+                Objects.equals(isDeliveryPaid, billDto.isDeliveryPaid) &&
+                Objects.equals(dateOfPay, billDto.dateOfPay);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(deliveryId, id, isDeliveryPaid, costInCents, dateOfPay);
+    }
 
     public static class BillDtoBuilder {
         private long deliveryId;

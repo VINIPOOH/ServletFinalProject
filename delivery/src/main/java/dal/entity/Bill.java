@@ -34,6 +34,10 @@ public class Bill extends Entity {
         return this.delivery;
     }
 
+    public void setDeliveryPaid(Boolean deliveryPaid) {
+        isDeliveryPaid = deliveryPaid;
+    }
+
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
     }

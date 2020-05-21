@@ -1,20 +1,22 @@
 package dto;
 
+import java.util.Objects;
+
 public class BillInfoToPayDto {
     private long billId;
     private long price;
     private long deliveryId;
     private int weight;
-    private String addreeserEmail;
+    private String addreeseeEmail;
     private String localitySandName;
     private String localityGetName;
 
-    BillInfoToPayDto(long billId, long price, long deliveryId, int weight, String addreeserEmail, String localitySandName, String localityGetName) {
+    BillInfoToPayDto(long billId, long price, long deliveryId, int weight, String addreeseeEmail, String localitySandName, String localityGetName) {
         this.billId = billId;
         this.price = price;
         this.deliveryId = deliveryId;
         this.weight = weight;
-        this.addreeserEmail = addreeserEmail;
+        this.addreeseeEmail = addreeseeEmail;
         this.localitySandName = localitySandName;
         this.localityGetName = localityGetName;
     }
@@ -55,12 +57,12 @@ public class BillInfoToPayDto {
         this.weight = weight;
     }
 
-    public String getAddreeserEmail() {
-        return this.addreeserEmail;
+    public String getAddreeseeEmail() {
+        return this.addreeseeEmail;
     }
 
-    public void setAddreeserEmail(String addreeserEmail) {
-        this.addreeserEmail = addreeserEmail;
+    public void setAddreeseeEmail(String addreeseeEmail) {
+        this.addreeseeEmail = addreeseeEmail;
     }
 
     public String getLocalitySandName() {
@@ -80,12 +82,31 @@ public class BillInfoToPayDto {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BillInfoToPayDto that = (BillInfoToPayDto) o;
+        return billId == that.billId &&
+                price == that.price &&
+                deliveryId == that.deliveryId &&
+                weight == that.weight &&
+                addreeseeEmail.equals(that.addreeseeEmail) &&
+                localitySandName.equals(that.localitySandName) &&
+                localityGetName.equals(that.localityGetName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(billId, price, deliveryId, weight, addreeseeEmail, localitySandName, localityGetName);
+    }
+
     public static class BillInfoToPayDtoBuilder {
         private long billId;
         private long price;
         private long deliveryId;
         private int weight;
-        private String addreeserEmail;
+        private String addreeseeEmail;
         private String localitySandName;
         private String localityGetName;
 
@@ -112,8 +133,8 @@ public class BillInfoToPayDto {
             return this;
         }
 
-        public BillInfoToPayDto.BillInfoToPayDtoBuilder addreeserEmail(String addreeserEmail) {
-            this.addreeserEmail = addreeserEmail;
+        public BillInfoToPayDto.BillInfoToPayDtoBuilder addreeseeEmail(String addreeserEmail) {
+            this.addreeseeEmail = addreeserEmail;
             return this;
         }
 
@@ -128,11 +149,11 @@ public class BillInfoToPayDto {
         }
 
         public BillInfoToPayDto build() {
-            return new BillInfoToPayDto(billId, price, deliveryId, weight, addreeserEmail, localitySandName, localityGetName);
+            return new BillInfoToPayDto(billId, price, deliveryId, weight, addreeseeEmail, localitySandName, localityGetName);
         }
 
         public String toString() {
-            return "BillInfoToPayDto.BillInfoToPayDtoBuilder(billId=" + this.billId + ", price=" + this.price + ", deliveryId=" + this.deliveryId + ", weight=" + this.weight + ", addreeserEmail=" + this.addreeserEmail + ", localitySandName=" + this.localitySandName + ", localityGetName=" + this.localityGetName + ")";
+            return "BillInfoToPayDto.BillInfoToPayDtoBuilder(billId=" + this.billId + ", price=" + this.price + ", deliveryId=" + this.deliveryId + ", weight=" + this.weight + ", addreeserEmail=" + this.addreeseeEmail + ", localitySandName=" + this.localitySandName + ", localityGetName=" + this.localityGetName + ")";
         }
     }
 }

@@ -42,7 +42,7 @@ public class UserStatistic implements ActionCommand {
             pageSize = Integer.parseInt(request.getParameter("size"));
         }
 
-        pagination.paginate(pageAtribute, pageSize, billService.countAllBillsBiUserId(((User) request.getSession().getAttribute(SESSION_USER)).getId()), request, USER_USER_STATISTIC);
+        pagination.paginate(pageAtribute, pageSize, billService.countAllBillsByUserId(((User) request.getSession().getAttribute(SESSION_USER)).getId()), request, USER_USER_STATISTIC);
         //todo rework offset
         request.setAttribute(BILLS_LIST, billService.getBillHistoryByUserId(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (pageAtribute - 1) * pageSize, pageSize));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_STATISTIC_FILE_NAME;

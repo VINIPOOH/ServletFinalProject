@@ -14,9 +14,9 @@ public interface BillService {
 
     boolean payForDelivery(long userId, long billId);
 
-    long countAllBillsBiUserId(long userId);
+    long countAllBillsByUserId(long userId);
 
-    void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException;
+    boolean initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException;
 
     List<BillDto> getBillHistoryByUserId(long userId, int offset, int limit);
 }

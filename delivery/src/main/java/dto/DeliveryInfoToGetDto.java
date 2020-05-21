@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.Objects;
+
 public class DeliveryInfoToGetDto {
     private String addresserEmail;
     private Long deliveryId;
@@ -45,6 +47,22 @@ public class DeliveryInfoToGetDto {
         this.localityGetName = localityGetName;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeliveryInfoToGetDto that = (DeliveryInfoToGetDto) o;
+        return Objects.equals(addresserEmail, that.addresserEmail) &&
+                Objects.equals(deliveryId, that.deliveryId) &&
+                Objects.equals(localitySandName, that.localitySandName) &&
+                Objects.equals(localityGetName, that.localityGetName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(addresserEmail, deliveryId, localitySandName, localityGetName);
+    }
 
     public static class DeliveryInfoToGetDtoBuilder {
         private String addresserEmail;

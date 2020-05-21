@@ -10,7 +10,7 @@ public interface DeliveryDao {
 
     List<Delivery> getDeliveryInfoToGet(long userId, Locale locale);
 
-    void confirmGettingDelivery(long userId, long deliveryId);
+    boolean confirmGettingDelivery(long userId, long deliveryId);
 
     long createDelivery(String addreeseeEmail, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotCorrect;
 

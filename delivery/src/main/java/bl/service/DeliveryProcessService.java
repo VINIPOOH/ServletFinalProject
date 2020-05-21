@@ -13,5 +13,5 @@ public interface DeliveryProcessService {
 
     List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId, Locale locale);
 
-    void confirmGettingDelivery(long userId, long deliveryId);
+    boolean confirmGettingDelivery(long userId, long deliveryId);
 }
