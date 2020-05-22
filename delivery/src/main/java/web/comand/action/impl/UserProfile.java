@@ -19,7 +19,7 @@ public class UserProfile extends MultipleMethodCommand {
     private static Logger log = LogManager.getLogger(UserProfile.class);
 
     private final UserService userService;
-    private String INPUT_HAS_ERRORS = "inputHasErrors";
+    private static final String INPUT_HAS_ERRORS = "inputHasErrors";
 
     public UserProfile(UserService userService) {
         this.userService = userService;

@@ -20,7 +20,7 @@ public class Pagination {
         request.setAttribute(COMMAND_ATTR, command);
     }
 
-    public boolean Validate(HttpServletRequest request) {
+    public boolean validate(HttpServletRequest request) {
         try {
             return Long.parseLong(request.getParameter(PAGE_ATTR)) > 0
                     && Long.parseLong(request.getParameter(SIZE_ATTR)) > 0;

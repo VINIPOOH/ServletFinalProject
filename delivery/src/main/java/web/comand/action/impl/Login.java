@@ -20,7 +20,7 @@ public class Login extends MultipleMethodCommand {
     private static Logger log = LogManager.getLogger(Login.class);
     private final Validator loginDtoValidator;
     private final UserService userService;
-    private String INPUT_HAS_ERRORS = "inputHasErrors";
+    private static final String INPUT_HAS_ERRORS = "inputHasErrors";
 
     public Login(Validator loginDtoValidator, UserService userService) {
         this.loginDtoValidator = loginDtoValidator;

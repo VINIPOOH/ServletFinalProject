@@ -28,7 +28,7 @@ public class Counter extends MultipleMethodCommand {
     private static Logger log = LogManager.getLogger(Counter.class);
     private final LocalityService localityService;
     private final DeliveryProcessService deliveryProcessService;
-    private String INPUT_HAS_ERRORS = "inputHasErrors";
+    private static final String INPUT_HAS_ERRORS = "inputHasErrors";
 
     public Counter(LocalityService localityService, DeliveryProcessService deliveryProcessService) {
         this.localityService = localityService;

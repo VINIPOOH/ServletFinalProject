@@ -97,7 +97,6 @@ public class BillServiceImpl implements BillService {
             throw new FailCreateDeliveryException();
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
-            askedDataIsNotCorrect.printStackTrace();
         }
         return false;
     }

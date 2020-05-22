@@ -20,8 +20,8 @@ public class Registration extends MultipleMethodCommand {
     private static Logger log = LogManager.getLogger(Registration.class);
     private final Validator registrationInfoDtoValidator;
     private final UserService userService;
-    private String INPUT_HAS_ERRORS = "inputHasErrors";
-    private String INPUT_LOGIN_ALREADY_TAKEN = "inputLoginAlreadyTaken";
+    private static final String INPUT_HAS_ERRORS = "inputHasErrors";
+    private static final String INPUT_LOGIN_ALREADY_TAKEN = "inputLoginAlreadyTaken";
 
     public Registration(Validator registrationInfoDtoValidator, UserService userService) {
         this.registrationInfoDtoValidator = registrationInfoDtoValidator;

@@ -26,6 +26,8 @@ public class ServicesContext {
     private static Map<Class, Object> contextMap;
 
     static {
+        log.debug("created");
+
         contextMap = new HashMap<>();
         contextMap.put(PasswordEncoderService.class, PASSWORD_ENCODER_SERVICE);
         contextMap.put(UserService.class, USER_SERVICE);

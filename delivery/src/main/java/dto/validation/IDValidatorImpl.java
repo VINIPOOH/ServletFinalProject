@@ -11,7 +11,7 @@ public class IDValidatorImpl implements IDValidator {
     public boolean isValid(HttpServletRequest request, String[] idFieldNames) {
         try {
             for (String str : idFieldNames) {
-                if (!(Long.parseLong(request.getParameter(str)) > 0)) {
+                if (Long.parseLong(request.getParameter(str)) <= 0) {
                     return false;
                 }
             }
