@@ -8,6 +8,7 @@
 <body>
 <%@ include file="../layout/header.jsp" %>
 <%@ include file="../layout/userheader.jsp" %>
+<%@ include file="../layout/adminHeader.jsp" %>
 
 
 <div th:include="~{layout/header.html::header}"></div>

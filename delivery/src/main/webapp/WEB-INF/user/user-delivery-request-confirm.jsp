@@ -8,6 +8,7 @@
 <body>
 <%@ include file="../layout/header.jsp" %>
 <%@ include file="../layout/userheader.jsp" %>
+<%@ include file="../layout/adminHeader.jsp" %>
 
 <div name="deliveries-which-wait-getting" class="container">
     <c:forEach var="billToPay" items="${requestScope.BillInfoToPay}">

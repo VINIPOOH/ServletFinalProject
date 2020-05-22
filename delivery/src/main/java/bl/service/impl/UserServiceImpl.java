@@ -10,8 +10,13 @@ import dal.entity.User;
 import dal.exeptions.AskedDataIsNotCorrect;
 import dto.LoginInfoDto;
 import dto.RegistrationInfoDto;
+import dto.UserStatisticDto;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class UserServiceImpl implements UserService {
     private static Logger log = LogManager.getLogger(UserService.class);
@@ -71,5 +76,20 @@ public class UserServiceImpl implements UserService {
             log.error("Problems with db user must be correct", askedDataIsNotCorrect);
             throw new RuntimeException();
         }
+    }
+
+    @Override
+    public List<UserStatisticDto> getAllUsers() {
+        return userDao.getAllUsers().stream()
+                .map(getUserUserStatisticDtoMapper())
+                .collect(Collectors.toList());
+    }
+
+    private Function<User, UserStatisticDto> getUserUserStatisticDtoMapper() {
+        return user -> UserStatisticDto.builder()
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .roleType(user.getRoleType().name())
+                .build();
     }
 }

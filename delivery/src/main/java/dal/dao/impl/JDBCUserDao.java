@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -34,6 +36,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     private static final String GET_USER_BALANCE_IF_ENOGFE_MONEY =
             "user.get.user.bulance.if.enought.money";
     private static final String GET_USER_BALANCE_BY_ID = "user.get.balance.by.id";
+    private static final String GET_ALL_USERS_INFO = "get.all.users.info";
     private static Logger log = LogManager.getLogger(JDBCUserDao.class);
 
 
@@ -134,6 +137,27 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             log.error("SQLException", e);
 
             throw new AskedDataIsNotCorrect();
+        }
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        try (ConnectionAdapeter connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_ALL_USERS_INFO))) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                List<User> result = new ArrayList<>();
+                while (resultSet.next()) {
+                    result.add(User.builder()
+                            .email(resultSet.getString(EMAIL))
+                            .password(resultSet.getString(PASSWORD))
+                            .roleType(RoleType.valueOf(resultSet.getString(ROLE)))
+                            .build());
+                }
+                return result;
+            }
+        } catch (SQLException e) {
+            log.error("SQLException", e);
+            throw new DBRuntimeException();
         }
     }
 }

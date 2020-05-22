@@ -39,7 +39,7 @@ public class AuthFilter implements Filter {
             res.sendRedirect(REDIRECT_ON_ERROR_404_STRAIGHT);
             return;
         }
-        if ((path.contains(ADMIN_REQUEST)) && (user == null || !(user.getRoleType().equals(RoleType.ROLE_ADMIN) || (user.getRoleType().equals(RoleType.ROLE_USER))))) {
+        if ((path.contains(ADMIN_REQUEST)) && (user == null || !(user.getRoleType().equals(RoleType.ROLE_ADMIN)))) {
             res.sendRedirect(REDIRECT_ON_ERROR_404_STRAIGHT);
             return;
         }

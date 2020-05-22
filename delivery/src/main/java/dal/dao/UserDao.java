@@ -4,6 +4,7 @@ import dal.entity.User;
 import dal.exeptions.AskedDataIsNotCorrect;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
@@ -17,4 +18,6 @@ public interface UserDao {
     boolean replenishUserBalenceOnSumeIfItPosible(long userId, long sumWhichUserNeed) throws SQLException;
 
     long getUserBalanceByUserID(long userId) throws AskedDataIsNotCorrect;
+
+    List<User> getAllUsers();
 }

@@ -15,7 +15,7 @@ public class CommandContext {
     private static final String LOGIN_KEY = "anonymous/login";
     private static final String LOGOUT_KEY = "user/logout";
     private static final String REGISTRATION_KEY = "anonymous/registration";
-    private static final String ADMIN_KEY = "admin";
+    private static final String ADMIN_KEY = "admin/users";
     private static final String USER_USERPROFILE_KEY = "user/userprofile";
     private static final String INDEX_KEY = "anonymous/index";
     private static final String KEY_404 = "404";
@@ -38,7 +38,7 @@ public class CommandContext {
     private static final ActionCommand LOGIN = new Login(LOGIN_INFO_DTO_VALIDATOR, USER_SERVICE);
     private static final ActionCommand LOGOUT = new LogOut();
     private static final ActionCommand REGISTRATION = new Registration(REGISTRATION_INFO_DTO_VALIDATOR, USER_SERVICE);
-    private static final ActionCommand ADMIN = new Admin();
+    private static final ActionCommand ADMIN = new Admin(USER_SERVICE);
     private static final ActionCommand USER_PROFILE = new UserProfile(USER_SERVICE);
     private static final ActionCommand INDEX = new Index();
     private static final ActionCommand ERROR_404 = new Error404();

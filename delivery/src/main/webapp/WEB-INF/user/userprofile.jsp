@@ -8,6 +8,8 @@
 <body>
 <%@ include file="../layout/header.jsp" %>
 <%@ include file="../layout/userheader.jsp"%>
+<%@ include file="../layout/adminHeader.jsp" %>
+
 <div class="container">
     <div class="row">
         <div class="col-md-6">

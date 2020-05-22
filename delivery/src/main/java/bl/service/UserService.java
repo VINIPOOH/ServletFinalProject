@@ -5,6 +5,9 @@ import bl.exeptions.OccupiedLoginException;
 import dal.entity.User;
 import dto.LoginInfoDto;
 import dto.RegistrationInfoDto;
+import dto.UserStatisticDto;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -15,4 +18,7 @@ public interface UserService {
     boolean replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException;
 
     long getUserBalance(long userId);
+
+    List<UserStatisticDto> getAllUsers();
+
 }
