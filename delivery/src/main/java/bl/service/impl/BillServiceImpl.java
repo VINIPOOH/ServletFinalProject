@@ -88,6 +88,7 @@ public class BillServiceImpl implements BillService {
             if (billDao.createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
                     , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
                 connectionManager.commit();
+                //todo
                 return true;
             }
             connectionManager.rollBack();

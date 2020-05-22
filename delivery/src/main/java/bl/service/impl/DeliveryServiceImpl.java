@@ -1,6 +1,7 @@
 package bl.service.impl;
 
 
+import bl.service.DeliveryProcessService;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
 import dal.dto.DeliveryCostAndTimeDto;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 
 import static bl.service.ServicesConstants.RUSSIAN_LANG_COD;
 
-public class DeliveryServiceImpl implements bl.service.DeliveryProcessService {
+public class DeliveryServiceImpl implements DeliveryProcessService {
     private static Logger log = LogManager.getLogger(DeliveryServiceImpl.class);
 
     private final WayDao wayDao;
@@ -37,9 +38,9 @@ public class DeliveryServiceImpl implements bl.service.DeliveryProcessService {
         log.debug("deliveryInfoRequestDto - " + deliveryInfoRequestDto);
         return wayDao.findByLocalitySandIdAndLocalityGetId(deliveryInfoRequestDto.getLocalitySandID(),
                 deliveryInfoRequestDto.getLocalityGetID(), deliveryInfoRequestDto.getDeliveryWeight())
-                .map(deliveryCostAndTimeDto -> getDeliveryCostAndTimeDtoPriceAndTimeOnDeliveryDtoMapper().map(deliveryCostAndTimeDto));
+                .map(deliveryCostAndTimeDto -> getDeliveryCostAndTimeDtoPriceAndTimeOnDeliveryDtoMapper()
+                        .map(deliveryCostAndTimeDto));
     }
-
 
     @Override
     public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId, Locale locale) {

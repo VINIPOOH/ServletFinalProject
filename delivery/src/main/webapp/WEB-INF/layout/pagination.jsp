@@ -23,8 +23,10 @@
         <ul class="pagination">
         <c:if test="${page ne 1}">
             <li class="page-item"><a class="page-link"
-            href="${pageContext.request.contextPath}/${command}?page=${page - 1}&size=${size}"><fmt:message
-                key="pagination.prev"/></a>
+            href="${pageContext.request.contextPath}/${command}?page=${page - 1}&size=${size}">
+            <fmt:message key="pagination.prev"/>
+            <<<
+            </a>
             </li>
         </c:if>
 
@@ -47,8 +49,10 @@
 
         <c:if test="${page lt numberOfPages}">
             <li class="page-item"><a class="page-link"
-            href="${pageContext.request.contextPath}/${command}?page=${page + 1}&size=${size}"><fmt:message
-                key="pagination.next"/></a>
+            href="${pageContext.request.contextPath}/${command}?page=${page + 1}&size=${size}">
+            <%--            <fmt:message key="pagination.next"/>--%>
+            >>>
+            </a>
             </li>
         </c:if>
         </ul>

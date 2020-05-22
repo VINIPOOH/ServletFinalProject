@@ -14,7 +14,8 @@
     <c:forEach var="billToPay" items="${requestScope.BillInfoToPay}">
     <div class="row border border-info mt-2 rounded">
         <div class="card-body col-md-3">
-            <h5 class="card-title"><fmt:message key="user-delivery-request-confirm.card.title"/>${billToPay.addreeserEmail}</h5>
+            <h5 class="card-title"><fmt:message
+                    key="user-delivery-request-confirm.card.title"/>${billToPay.addreeseeEmail}</h5>
         </div>
         <div class="col-md-4 mt-3">
             <p1 class="list-group-item"><fmt:message key="user-delivery-request-confirm.card.list.from.city"/>${billToPay.localitySandName}</p1>
