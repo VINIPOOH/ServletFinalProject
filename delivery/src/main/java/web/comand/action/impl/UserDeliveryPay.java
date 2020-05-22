@@ -11,9 +11,9 @@ import web.comand.action.MultipleMethodCommand;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
-import static web.constants.AttributeConstants.SESSION_LANG;
-import static web.constants.AttributeConstants.SESSION_USER;
-import static web.constants.PageConstance.*;
+import static web.constant.AttributeConstants.SESSION_LANG;
+import static web.constant.AttributeConstants.SESSION_USER;
+import static web.constant.PageConstance.*;
 
 public class UserDeliveryPay extends MultipleMethodCommand {
     private static final String BILL_INFO_TO_PAY = "BillInfoToPay";

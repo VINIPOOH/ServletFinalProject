@@ -1,4 +1,4 @@
-package dal.exeptions;
+package dal.exeption;
 
 public class DBRuntimeException extends RuntimeException {
 }

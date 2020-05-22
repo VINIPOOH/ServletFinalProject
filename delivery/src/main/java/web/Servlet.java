@@ -2,7 +2,7 @@ package web;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import web.comand.factory.CommandContext;
+import web.comand.CommandContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

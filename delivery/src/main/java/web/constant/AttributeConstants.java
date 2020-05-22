@@ -1,4 +1,4 @@
-package web.constants;
+package web.constant;
 
 public interface AttributeConstants {
     String SESSION_LANG = "javax.servlet.jsp.jstl.fmt.locale.session";

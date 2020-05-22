@@ -1,4 +1,4 @@
-package web.filters;
+package web.filter;
 
 
 import javax.servlet.*;
@@ -7,8 +7,8 @@ import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
 import java.util.Locale;
 
-import static web.constants.AttributeConstants.REQUEST_LANG;
-import static web.constants.AttributeConstants.SESSION_LANG;
+import static web.constant.AttributeConstants.REQUEST_LANG;
+import static web.constant.AttributeConstants.SESSION_LANG;
 
 
 public class LocaleFilter implements Filter {

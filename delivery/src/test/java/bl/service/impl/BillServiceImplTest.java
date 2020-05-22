@@ -1,12 +1,12 @@
 package bl.service.impl;
 
-import bl.exeptions.FailCreateDeliveryException;
-import bl.exeptions.UnsupportableWeightFactorException;
+import bl.exeption.FailCreateDeliveryException;
+import bl.exeption.UnsupportableWeightFactorException;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.entity.Bill;
-import dal.exeptions.AskedDataIsNotCorrect;
+import dal.exeption.AskedDataIsNotCorrect;
 import dto.BillDto;
 import dto.BillInfoToPayDto;
 import org.junit.Before;

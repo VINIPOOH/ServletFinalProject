@@ -1,7 +1,7 @@
 package dal.dao;
 
 import dal.entity.Bill;
-import dal.exeptions.AskedDataIsNotCorrect;
+import dal.exeption.AskedDataIsNotCorrect;
 
 import java.sql.SQLException;
 import java.util.List;

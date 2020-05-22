@@ -1,7 +1,7 @@
 package bl.service;
 
-import bl.exeptions.FailCreateDeliveryException;
-import bl.exeptions.UnsupportableWeightFactorException;
+import bl.exeption.FailCreateDeliveryException;
+import bl.exeption.UnsupportableWeightFactorException;
 import dto.BillDto;
 import dto.BillInfoToPayDto;
 import dto.DeliveryOrderCreateDto;

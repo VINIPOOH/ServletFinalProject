@@ -1,7 +1,7 @@
 package dal.dao;
 
 import dal.entity.Delivery;
-import dal.exeptions.AskedDataIsNotCorrect;
+import dal.exeption.AskedDataIsNotCorrect;
 
 import java.util.List;
 import java.util.Locale;

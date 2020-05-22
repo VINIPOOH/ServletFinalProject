@@ -1,9 +1,9 @@
-package dal.control;
+package dal.persistance;
 
-import dal.control.conection.pool.TransactionalManager;
-import dal.control.conection.pool.impl.TransactionalManagerImpl;
 import dal.dao.*;
 import dal.dao.impl.*;
+import dal.persistance.conection.pool.ConnectionManager;
+import dal.persistance.conection.pool.impl.ConnectionManagerImpl;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 
 public class JDBCDaoContext {
     private static final String PATH_TO_PROPERTY_FILE = "db-request";
-    private static final TransactionalManager DB_CONNECTION_POOL_HOLDER = TransactionalManagerImpl.getDbConnectionPoolHolder();
+    private static final ConnectionManager DB_CONNECTION_POOL_HOLDER = ConnectionManagerImpl.getDbConnectionPoolHolder();
     private static final ResourceBundle REQUESTS_BUNDLE = ResourceBundle.getBundle(PATH_TO_PROPERTY_FILE);
     private static final UserDao USER_DAO = new JDBCUserDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
     private static final LocalityDao LOCALITY_DAO = new JDBCLocalityDao(REQUESTS_BUNDLE, DB_CONNECTION_POOL_HOLDER);
@@ -31,7 +31,7 @@ public class JDBCDaoContext {
         contextMap.put(WayDao.class, WAY_DAO);
         contextMap.put(DeliveryDao.class, DELIVERY_DAO);
         contextMap.put(BillDao.class, BILL_DAO);
-        contextMap.put(TransactionalManager.class, DB_CONNECTION_POOL_HOLDER);
+        contextMap.put(ConnectionManager.class, DB_CONNECTION_POOL_HOLDER);
 
     }
 
@@ -44,7 +44,7 @@ public class JDBCDaoContext {
     }
 
 
-    public static TransactionalManager getTransactionManager() {
+    public static ConnectionManager getTransactionManager() {
         log.debug("getTransactionManager");
         return DB_CONNECTION_POOL_HOLDER;
     }

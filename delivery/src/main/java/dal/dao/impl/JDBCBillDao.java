@@ -1,12 +1,12 @@
 package dal.dao.impl;
 
-import dal.control.conection.ConnectionAdapeter;
-import dal.control.conection.pool.TransactionalManager;
 import dal.dao.BillDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
-import dal.exeptions.AskedDataIsNotCorrect;
-import dal.exeptions.DBRuntimeException;
+import dal.exeption.AskedDataIsNotCorrect;
+import dal.exeption.DBRuntimeException;
+import dal.persistance.conection.ConnectionAdapeter;
+import dal.persistance.conection.pool.ConnectionManager;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -47,7 +47,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     private static Logger log = LogManager.getLogger(JDBCBillDao.class);
 
 
-    public JDBCBillDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
+    public JDBCBillDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
         super(resourceBundleRequests, connector);
         log.debug("created");
     }

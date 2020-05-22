@@ -12,7 +12,7 @@
 
   <filter>
     <filter-name>XSSFilter</filter-name>
-    <filter-class>web.filters.XSSFilter</filter-class>
+      <filter-class>web.filter.XSSFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>XSSFilter</filter-name>
@@ -22,7 +22,7 @@
 
   <filter>
     <filter-name>LocaleFilter</filter-name>
-    <filter-class>web.filters.LocaleFilter</filter-class>
+      <filter-class>web.filter.LocaleFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>LocaleFilter</filter-name>
@@ -31,7 +31,7 @@
 
   <filter>
     <filter-name>EncodingFilter</filter-name>
-    <filter-class>web.filters.EncodingFilter</filter-class>
+      <filter-class>web.filter.EncodingFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>EncodingFilter</filter-name>
@@ -41,7 +41,7 @@
 
   <filter>
     <filter-name>AuthFilter</filter-name>
-    <filter-class>web.filters.AuthFilter</filter-class>
+      <filter-class>web.filter.AuthFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>AuthFilter</filter-name>

@@ -1,10 +1,10 @@
-package dal.control.conection.pool;
+package dal.persistance.conection.pool;
 
-import dal.control.conection.ConnectionAdapeter;
+import dal.persistance.conection.ConnectionAdapeter;
 
 import java.sql.SQLException;
 
-public interface TransactionalManager extends AutoCloseable {
+public interface ConnectionManager extends AutoCloseable {
     ConnectionAdapeter getConnection() throws SQLException;
 
     void startTransaction() throws SQLException;

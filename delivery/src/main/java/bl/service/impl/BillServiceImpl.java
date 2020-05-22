@@ -1,15 +1,15 @@
 package bl.service.impl;
 
-import bl.exeptions.FailCreateDeliveryException;
-import bl.exeptions.UnsupportableWeightFactorException;
+import bl.exeption.FailCreateDeliveryException;
+import bl.exeption.UnsupportableWeightFactorException;
 import bl.service.BillService;
-import dal.control.JDBCDaoContext;
-import dal.control.conection.pool.TransactionalManager;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.entity.Bill;
-import dal.exeptions.AskedDataIsNotCorrect;
+import dal.exeption.AskedDataIsNotCorrect;
+import dal.persistance.JDBCDaoContext;
+import dal.persistance.conection.pool.ConnectionManager;
 import dto.BillDto;
 import dto.BillInfoToPayDto;
 import dto.DeliveryOrderCreateDto;
@@ -53,15 +53,15 @@ public class BillServiceImpl implements BillService {
     public boolean payForDelivery(long userId, long billId) {
         log.debug("userId - " + userId + " billId - " + billId);
 
-        try (TransactionalManager transactionalManager = JDBCDaoContext.getTransactionManager()) {
-            transactionalManager.startTransaction();
+        try (ConnectionManager connectionManager = JDBCDaoContext.getTransactionManager()) {
+            connectionManager.startTransaction();
             if (userDao.replenishUserBalenceOnSumeIfItPosible(userId,
                     billDao.getBillCostIfItIsNotPaid(billId, userId))
                     && billDao.murkBillAsPayed(billId)) {
-                transactionalManager.commit();
+                connectionManager.commit();
                 return true;
             }
-            transactionalManager.rollBack();
+            connectionManager.rollBack();
             return false;
         } catch (SQLException e) {
             log.error("problem with db", e);
@@ -82,15 +82,15 @@ public class BillServiceImpl implements BillService {
     public boolean initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
         log.debug("deliveryOrderCreateDto - " + deliveryOrderCreateDto + " initiatorId - " + initiatorId);
 
-        try (TransactionalManager transactionalManager = JDBCDaoContext.getTransactionManager()) {
-            transactionalManager.startTransaction();
+        try (ConnectionManager connectionManager = JDBCDaoContext.getTransactionManager()) {
+            connectionManager.startTransaction();
             long newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
             if (billDao.createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
                     , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
-                transactionalManager.commit();
+                connectionManager.commit();
                 return true;
             }
-            transactionalManager.rollBack();
+            connectionManager.rollBack();
             throw new UnsupportableWeightFactorException();
         } catch (SQLException e) {
             log.error("problem with db", e);

@@ -1,6 +1,5 @@
-package dal.control.conection.impl;
+package dal.persistance.conection;
 
-import dal.control.conection.ConnectionAdapeter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

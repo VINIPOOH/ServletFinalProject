@@ -1,12 +1,12 @@
 package dal.dao.impl;
 
-import dal.control.conection.ConnectionAdapeter;
-import dal.control.conection.pool.TransactionalManager;
 import dal.dao.WayDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Way;
-import dal.exeptions.DBRuntimeException;
+import dal.exeption.DBRuntimeException;
+import dal.persistance.conection.ConnectionAdapeter;
+import dal.persistance.conection.pool.ConnectionManager;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -24,7 +24,7 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
     private static Logger log = LogManager.getLogger(JDBCWayDao.class);
 
 
-    public JDBCWayDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
+    public JDBCWayDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
         super(resourceBundleRequests, connector);
         log.debug("created");
 

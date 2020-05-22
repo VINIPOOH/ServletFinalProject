@@ -6,8 +6,8 @@ import web.comand.action.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constants.PageConstance.LOGIN_REQUEST_COMMAND;
-import static web.constants.PageConstance.REDIRECT_COMMAND;
+import static web.constant.PageConstance.LOGIN_REQUEST_COMMAND;
+import static web.constant.PageConstance.REDIRECT_COMMAND;
 
 public class LogOut implements ActionCommand {
     private static Logger log = LogManager.getLogger(LogOut.class);

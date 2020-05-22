@@ -1,7 +1,7 @@
 package bl.service.impl;
 
 
-import bl.exeptions.PasswordEncodeException;
+import bl.exeption.PasswordEncodeException;
 import bl.service.PasswordEncoderService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

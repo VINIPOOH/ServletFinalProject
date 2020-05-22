@@ -1,7 +1,7 @@
 package web.comand.action.impl;
 
-import bl.exeptions.FailCreateDeliveryException;
-import bl.exeptions.UnsupportableWeightFactorException;
+import bl.exeption.FailCreateDeliveryException;
+import bl.exeption.UnsupportableWeightFactorException;
 import bl.service.BillService;
 import bl.service.LocalityService;
 import dal.entity.User;
@@ -15,9 +15,9 @@ import web.comand.action.MultipleMethodCommand;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
-import static web.constants.AttributeConstants.SESSION_LANG;
-import static web.constants.AttributeConstants.SESSION_USER;
-import static web.constants.PageConstance.*;
+import static web.constant.AttributeConstants.SESSION_LANG;
+import static web.constant.AttributeConstants.SESSION_USER;
+import static web.constant.PageConstance.*;
 
 public class UserDeliveryInitiation extends MultipleMethodCommand {
     private static final String LOCALITY_LIST = "localityList";

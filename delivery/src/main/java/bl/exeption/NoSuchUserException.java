@@ -1,4 +1,4 @@
-package bl.exeptions;
+package bl.exeption;
 
 public class NoSuchUserException extends Exception {
 }

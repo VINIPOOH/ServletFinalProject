@@ -6,7 +6,7 @@ import web.comand.action.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constants.PageConstance.*;
+import static web.constant.PageConstance.*;
 
 
 public class EmptyCommand implements ActionCommand {

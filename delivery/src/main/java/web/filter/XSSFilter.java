@@ -1,4 +1,4 @@
-package web.filters;
+package web.filter;
 
 
 import javax.servlet.*;

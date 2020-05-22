@@ -1,8 +1,8 @@
-package dal.control.conection.pool.impl;
+package dal.persistance.conection.pool.impl;
 
-import dal.control.conection.ConnectionAdapeter;
-import dal.control.conection.impl.ConnectionAdapterImpl;
-import dal.control.conection.pool.TransactionalManager;
+import dal.persistance.conection.ConnectionAdapeter;
+import dal.persistance.conection.ConnectionAdapterImpl;
+import dal.persistance.conection.pool.ConnectionManager;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class TransactionalManagerImpl implements TransactionalManager {
+public class ConnectionManagerImpl implements ConnectionManager {
     private static final String RESOURCE_BUNDLE_DATABASE = "database";
     private static final String DB_URL = "db.url";
     private static final String DB_USER = "db.user";
@@ -20,13 +20,13 @@ public class TransactionalManagerImpl implements TransactionalManager {
     private static final String DB_MAX_IDLE = "db.maxIdle";
     private static final String DB_INITIAL_SIZE = "db.initialSize";
     private static final String DB_MAX_OPEN_STATEMENT = "db.maxOpenStatement";
-    private static Logger log = LogManager.getLogger(TransactionalManagerImpl.class);
-    private static TransactionalManagerImpl transactionalManagerImpl = new TransactionalManagerImpl();
+    private static Logger log = LogManager.getLogger(ConnectionManagerImpl.class);
+    private static ConnectionManagerImpl transactionalManagerImpl = new ConnectionManagerImpl();
     private final BasicDataSource dataSource;
     private ThreadLocal<ConnectionAdapeter> connectionThreadLocal = new ThreadLocal<>();
 
 
-    private TransactionalManagerImpl() {
+    private ConnectionManagerImpl() {
         log.debug("created");
 
         ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE_DATABASE);
@@ -42,7 +42,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
         dataSource = ds;
     }
 
-    public static TransactionalManager getDbConnectionPoolHolder() {
+    public static ConnectionManager getDbConnectionPoolHolder() {
         log.debug("initialized");
 
         return transactionalManagerImpl;

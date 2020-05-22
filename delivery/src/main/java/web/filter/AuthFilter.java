@@ -1,4 +1,4 @@
-package web.filters;
+package web.filter;
 
 import dal.entity.RoleType;
 import dal.entity.User;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static web.constants.AttributeConstants.SESSION_USER;
-import static web.constants.PageConstance.REDIRECT_ON_ERROR_404_STRAIGHT;
+import static web.constant.AttributeConstants.SESSION_USER;
+import static web.constant.PageConstance.REDIRECT_ON_ERROR_404_STRAIGHT;
 
 
 public class AuthFilter implements Filter {

@@ -10,8 +10,8 @@ import web.util.Pagination;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constants.AttributeConstants.SESSION_USER;
-import static web.constants.PageConstance.*;
+import static web.constant.AttributeConstants.SESSION_USER;
+import static web.constant.PageConstance.*;
 
 
 public class UserStatistic implements ActionCommand {

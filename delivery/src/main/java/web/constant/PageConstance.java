@@ -1,4 +1,4 @@
-package web.constants;
+package web.constant;
 
 public interface PageConstance {
     String REDIRECT_COMMAND = "redirect:";

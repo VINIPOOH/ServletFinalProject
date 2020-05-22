@@ -1,11 +1,11 @@
 package dal.dao.impl;
 
-import dal.control.conection.ConnectionAdapeter;
-import dal.control.conection.pool.TransactionalManager;
 import dal.dao.LocalityDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.Locality;
-import dal.exeptions.DBRuntimeException;
+import dal.exeption.DBRuntimeException;
+import dal.persistance.conection.ConnectionAdapeter;
+import dal.persistance.conection.pool.ConnectionManager;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -26,7 +26,7 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
     private static final String LOCALITY_NAME = "name";
     private static Logger log = LogManager.getLogger(JDBCLocalityDao.class);
 
-    public JDBCLocalityDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
+    public JDBCLocalityDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
         super(resourceBundleRequests, connector);
         log.debug("created");
     }

@@ -1,4 +1,4 @@
-package dal.control.conection;
+package dal.persistance.conection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

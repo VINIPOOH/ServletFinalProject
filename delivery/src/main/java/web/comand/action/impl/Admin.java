@@ -7,8 +7,8 @@ import web.comand.action.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constants.PageConstance.ADMIN_FOLDER;
-import static web.constants.PageConstance.MAIN_WEB_FOLDER;
+import static web.constant.PageConstance.ADMIN_FOLDER;
+import static web.constant.PageConstance.MAIN_WEB_FOLDER;
 
 public class Admin implements ActionCommand {
     public static final String USERS_LIST = "usersList";

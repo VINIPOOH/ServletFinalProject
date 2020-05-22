@@ -1,8 +1,9 @@
-package bl.service;
+package bl;
 
+import bl.service.*;
 import bl.service.impl.*;
-import dal.control.JDBCDaoContext;
 import dal.dao.*;
+import dal.persistance.JDBCDaoContext;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

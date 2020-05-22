@@ -1,6 +1,6 @@
 package web.comand.action.impl;
 
-import bl.exeptions.NoSuchUserException;
+import bl.exeption.NoSuchUserException;
 import bl.service.UserService;
 import dto.LoginInfoDto;
 import dto.mapper.RequestDtoMapper;
@@ -11,8 +11,8 @@ import web.comand.action.MultipleMethodCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constants.AttributeConstants.SESSION_USER;
-import static web.constants.PageConstance.*;
+import static web.constant.AttributeConstants.SESSION_USER;
+import static web.constant.PageConstance.*;
 
 public class Login extends MultipleMethodCommand {
     private static final String USERNAME = "username";

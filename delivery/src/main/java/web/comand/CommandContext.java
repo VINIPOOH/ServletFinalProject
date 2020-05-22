@@ -1,6 +1,10 @@
-package web.comand.factory;
+package web.comand;
 
-import bl.service.*;
+import bl.ServicesContext;
+import bl.service.BillService;
+import bl.service.DeliveryProcessService;
+import bl.service.LocalityService;
+import bl.service.UserService;
 import dto.validation.*;
 import web.comand.action.ActionCommand;
 import web.comand.action.impl.*;

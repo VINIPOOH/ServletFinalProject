@@ -1,6 +1,6 @@
 package web.comand.action.impl;
 
-import bl.exeptions.OccupiedLoginException;
+import bl.exeption.OccupiedLoginException;
 import bl.service.UserService;
 import dto.RegistrationInfoDto;
 import dto.mapper.RequestDtoMapper;
@@ -11,7 +11,7 @@ import web.comand.action.MultipleMethodCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constants.PageConstance.*;
+import static web.constant.PageConstance.*;
 
 public class Registration extends MultipleMethodCommand {
     private static final String USERNAME = "username";
