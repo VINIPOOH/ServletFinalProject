@@ -13,12 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static constants.TestConstant.getAdverser;
-import static constants.TestConstant.getLocaleEn;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static web.constant.AttributeConstants.SESSION_LANG;
 import static web.constant.PageConstance.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -37,14 +35,13 @@ public class UserProfileTest {
     @Before
     public void setUp() throws Exception {
         when(httpServletRequest.getSession()).thenReturn(session);
-        when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(session.getAttribute("user")).thenReturn(getAdverser());
         when(httpServletRequest.getParameter(MONEY)).thenReturn("1");
     }
 
     @Test
     public void performGet() {
-        String actual = userProfile.execute(httpServletRequest);
+        String actual = userProfile.performGet(httpServletRequest);
 
         assertEquals(MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME, actual);
     }
@@ -63,7 +60,6 @@ public class UserProfileTest {
 
     @Test
     public void performPostInputMoneyZero() throws NoSuchUserException {
-        when(userService.replenishAccountBalance(anyLong(), anyLong())).thenReturn(true);
         when(httpServletRequest.getParameter(MONEY)).thenReturn("0");
 
         String actual = userProfile.performPost(httpServletRequest);

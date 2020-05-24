@@ -14,12 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static constants.TestConstant.getAdverser;
-import static constants.TestConstant.getLocaleEn;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.*;
-import static web.constant.AttributeConstants.SESSION_LANG;
 import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
@@ -42,9 +40,7 @@ public class UserStatisticTest {
     @Before
     public void setUp() {
         when(httpServletRequest.getSession()).thenReturn(session);
-        when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(session.getAttribute("user")).thenReturn(getAdverser());
-        when(httpServletRequest.getParameter("deliveryId")).thenReturn("1");
     }
 
     @Test

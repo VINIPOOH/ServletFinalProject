@@ -97,7 +97,6 @@ public class CounterTest {
     @Test
     public void performPostIncorrectInputDeliveryWeightZero() {
         PriceAndTimeOnDeliveryDto priceAndTimeOnDeliveryDto = getPriceAndTimeOnDeliveryDto();
-        when(deliveryService.getDeliveryCostAndTimeDto(any(DeliveryInfoRequestDto.class))).thenReturn(Optional.of(priceAndTimeOnDeliveryDto));
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(httpServletRequest.getParameter(LOCALITY_GET_ID)).thenReturn("0");
 
@@ -118,7 +117,6 @@ public class CounterTest {
     @Test
     public void performPostIncorrectInputDeliverySendZero() {
         PriceAndTimeOnDeliveryDto priceAndTimeOnDeliveryDto = getPriceAndTimeOnDeliveryDto();
-        when(deliveryService.getDeliveryCostAndTimeDto(any(DeliveryInfoRequestDto.class))).thenReturn(Optional.of(priceAndTimeOnDeliveryDto));
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(httpServletRequest.getParameter(LOCALITY_SAND_ID)).thenReturn("0");
 
@@ -139,7 +137,6 @@ public class CounterTest {
     @Test
     public void performPostIncorrectInputGetZero() {
         PriceAndTimeOnDeliveryDto priceAndTimeOnDeliveryDto = getPriceAndTimeOnDeliveryDto();
-        when(deliveryService.getDeliveryCostAndTimeDto(any(DeliveryInfoRequestDto.class))).thenReturn(Optional.of(priceAndTimeOnDeliveryDto));
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(httpServletRequest.getParameter(DELIVERY_WEIGHT)).thenReturn("0");
 

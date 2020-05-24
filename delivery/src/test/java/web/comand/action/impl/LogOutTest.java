@@ -10,10 +10,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static constants.TestConstant.getLocaleEn;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-import static web.constant.AttributeConstants.SESSION_LANG;
 import static web.constant.PageConstance.LOGIN_REQUEST_COMMAND;
 import static web.constant.PageConstance.REDIRECT_COMMAND;
 
@@ -29,7 +27,6 @@ public class LogOutTest {
     @Before
     public void setUp() {
         when(httpServletRequest.getSession()).thenReturn(session);
-        when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
     }
 
     @Test

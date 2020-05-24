@@ -106,7 +106,6 @@ public class UserDeliveryInitiationTest {
     //
     @Test
     public void performPostIncorrectInputIncorrect() throws UnsupportableWeightFactorException, FailCreateDeliveryException {
-        when(billService.initializeBill(any(DeliveryOrderCreateDto.class), anyLong())).thenReturn(true);
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(deliveryOrderCreateDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(false);
 

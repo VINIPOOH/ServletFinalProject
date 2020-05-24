@@ -16,12 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static constants.TestConstant.getAdverser;
-import static constants.TestConstant.getLocaleEn;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static web.constant.AttributeConstants.SESSION_LANG;
 import static web.constant.PageConstance.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -45,7 +43,6 @@ public class LoginTest {
     @Before
     public void setUp() throws Exception {
         when(httpServletRequest.getSession()).thenReturn(session);
-        when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(httpServletRequest.getParameter(USERNAME)).thenReturn("user");
         when(httpServletRequest.getParameter(PASSWORD)).thenReturn("password");
     }
@@ -77,7 +74,6 @@ public class LoginTest {
     public void performPostIncorrectInput() throws NoSuchUserException {
         User user = getAdverser();
         when(loginDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(false);
-        when(userService.loginUser(any(LoginInfoDto.class))).thenReturn(user);
 
         String actual = login.performPost(httpServletRequest);
 
@@ -91,9 +87,7 @@ public class LoginTest {
 
     @Test
     public void performPostIncorrectData() throws NoSuchUserException {
-        User user = getAdverser();
         when(loginDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(false);
-        when(userService.loginUser(any(LoginInfoDto.class))).thenThrow(NoSuchUserException.class);
 
         String actual = login.performPost(httpServletRequest);
 
