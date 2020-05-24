@@ -13,7 +13,7 @@
         <c:if test="${not empty param.lang}">
             <fmt:setLocale value="${param.lang}" scope="session"/>
         </c:if>
-        <fmt:setBundle basename="message"/>
+        <fmt:setBundle basename="page"/>
         <html>
         <head>
         <title>Pagination</title>
@@ -50,7 +50,7 @@
         <c:if test="${page lt numberOfPages}">
             <li class="page-item"><a class="page-link"
             href="${pageContext.request.contextPath}/${command}?page=${page + 1}&size=${size}">
-            <%--            <fmt:message key="pagination.next"/>--%>
+            <fmt:message key="pagination.next"/>
             >>>
             </a>
             </li>
