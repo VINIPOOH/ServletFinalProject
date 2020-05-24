@@ -35,12 +35,12 @@ public class Login extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug("isValidRequest = " + loginDtoValidator.isValid(request));
-        if (!loginDtoValidator.isValid(request)) {
+        boolean isValid = loginDtoValidator.isValid(request);
+        log.debug("isValidRequest = " + isValid);
+        if (!isValid) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + LOGIN_FILE_NAME;
         }
-
         return processingServiceLoginRequest(request, getLoginInfoDtoRequestDtoMapper(request).mapToDto(request));
     }
 
