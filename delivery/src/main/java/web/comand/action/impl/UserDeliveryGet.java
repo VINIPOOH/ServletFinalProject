@@ -37,7 +37,9 @@ public class UserDeliveryGet extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        if (!idValidator.isValid(request, DELIVERY_ID)) {
+        boolean isValid = idValidator.isValid(request, DELIVERY_ID);
+        log.debug("isValid" + isValid);
+        if (!isValid) {
             log.error("id is not valid client is broken");
 
             throw new RuntimeException();

@@ -73,7 +73,7 @@ public class CounterTest {
 
 
     @Test
-    public void homeCountAllCorrect() {
+    public void performPostAllCorrect() {
         DeliveryInfoRequestDto deliveryInfoRequestDto = getDeliveryInfoRequestDto();
         PriceAndTimeOnDeliveryDto priceAndTimeOnDeliveryDto = getPriceAndTimeOnDeliveryDto();
         when(deliveryService.getDeliveryCostAndTimeDto(any(DeliveryInfoRequestDto.class))).thenReturn(Optional.of(priceAndTimeOnDeliveryDto));
@@ -95,7 +95,7 @@ public class CounterTest {
     }
 
     @Test
-    public void homeCountIncorrectInputDeliveryWeightZero() {
+    public void performPostIncorrectInputDeliveryWeightZero() {
         PriceAndTimeOnDeliveryDto priceAndTimeOnDeliveryDto = getPriceAndTimeOnDeliveryDto();
         when(deliveryService.getDeliveryCostAndTimeDto(any(DeliveryInfoRequestDto.class))).thenReturn(Optional.of(priceAndTimeOnDeliveryDto));
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
@@ -116,7 +116,7 @@ public class CounterTest {
     }
 
     @Test
-    public void homeCountIncorrectInputDeliverySendZero() {
+    public void performPostIncorrectInputDeliverySendZero() {
         PriceAndTimeOnDeliveryDto priceAndTimeOnDeliveryDto = getPriceAndTimeOnDeliveryDto();
         when(deliveryService.getDeliveryCostAndTimeDto(any(DeliveryInfoRequestDto.class))).thenReturn(Optional.of(priceAndTimeOnDeliveryDto));
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
@@ -137,7 +137,7 @@ public class CounterTest {
     }
 
     @Test
-    public void homeCountIncorrectInputGetZero() {
+    public void performPostIncorrectInputGetZero() {
         PriceAndTimeOnDeliveryDto priceAndTimeOnDeliveryDto = getPriceAndTimeOnDeliveryDto();
         when(deliveryService.getDeliveryCostAndTimeDto(any(DeliveryInfoRequestDto.class))).thenReturn(Optional.of(priceAndTimeOnDeliveryDto));
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
@@ -158,7 +158,7 @@ public class CounterTest {
     }
 
     @Test
-    public void homeCountIncorrectData() {
+    public void performPostIncorrectData() {
         PriceAndTimeOnDeliveryDto priceAndTimeOnDeliveryDto = getPriceAndTimeOnDeliveryDto();
         when(deliveryService.getDeliveryCostAndTimeDto(any(DeliveryInfoRequestDto.class))).thenReturn(Optional.empty());
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());

@@ -52,10 +52,11 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug("isValidRequest = " + deliveryOrderCreateDtoValidator.isValid(request));
+        boolean isValid = deliveryOrderCreateDtoValidator.isValid(request);
+        log.debug("isValidRequest = " + isValid);
 
         request.setAttribute(LOCALITY_LIST, localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
-        if (!deliveryOrderCreateDtoValidator.isValid(request)) {
+        if (!isValid) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_INITIATION_FILE_NAME;
         }
