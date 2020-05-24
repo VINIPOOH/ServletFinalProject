@@ -23,7 +23,6 @@ import static web.constant.AttributeConstants.SESSION_LANG;
 import static web.constant.PageConstance.*;
 
 @RunWith(MockitoJUnitRunner.class)
-
 public class UserDeliveryGetTest {
 
     @InjectMocks
