@@ -1,4 +1,4 @@
-package bl.service.impl;
+package constants;
 
 import dal.entity.*;
 import dto.BillDto;
@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class ServisesTestConstant {
+public class TestConstant {
 
     private final static long USER_ID = 1L;
     private static final long BILL_ID = 1L;

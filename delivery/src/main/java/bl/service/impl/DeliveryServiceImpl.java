@@ -1,7 +1,7 @@
 package bl.service.impl;
 
 
-import bl.service.DeliveryProcessService;
+import bl.service.DeliveryService;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
 import dal.dto.DeliveryCostAndTimeDto;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 import static bl.service.ServicesConstants.RUSSIAN_LANG_COD;
 
-public class DeliveryServiceImpl implements DeliveryProcessService {
+public class DeliveryServiceImpl implements DeliveryService {
     private static Logger log = LogManager.getLogger(DeliveryServiceImpl.class);
 
     private final WayDao wayDao;

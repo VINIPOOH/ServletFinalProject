@@ -1,6 +1,6 @@
 package web.comand.action.impl;
 
-import bl.service.DeliveryProcessService;
+import bl.service.DeliveryService;
 import dal.entity.User;
 import dto.validation.IDValidator;
 import org.apache.log4j.LogManager;
@@ -20,18 +20,18 @@ public class UserDeliveryGet extends MultipleMethodCommand {
     private static Logger log = LogManager.getLogger(UserDeliveryGet.class);
 
     private final IDValidator idValidator;
-    private final DeliveryProcessService deliveryProcessService;
+    private final DeliveryService deliveryService;
 
-    public UserDeliveryGet(IDValidator idValidator, DeliveryProcessService deliveryProcessService) {
+    public UserDeliveryGet(IDValidator idValidator, DeliveryService deliveryService) {
         this.idValidator = idValidator;
-        this.deliveryProcessService = deliveryProcessService;
+        this.deliveryService = deliveryService;
     }
 
     @Override
     protected String performGet(HttpServletRequest request) {
         log.debug("");
 
-        request.setAttribute(DELIVERIES_WHICH_ADDRESSED_FOR_USER, deliveryProcessService.getInfoToGetDeliverisByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
+        request.setAttribute(DELIVERIES_WHICH_ADDRESSED_FOR_USER, deliveryService.getInfoToGetDeliverisByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_GET_CONFIRM_FILE_NAME;
     }
 
@@ -42,8 +42,8 @@ public class UserDeliveryGet extends MultipleMethodCommand {
 
             throw new RuntimeException();
         }
-        deliveryProcessService.confirmGettingDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter(DELIVERY_ID)));
-        request.setAttribute(DELIVERIES_WHICH_ADDRESSED_FOR_USER, deliveryProcessService.getInfoToGetDeliverisByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
+        deliveryService.confirmGettingDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter(DELIVERY_ID)));
+        request.setAttribute(DELIVERIES_WHICH_ADDRESSED_FOR_USER, deliveryService.getInfoToGetDeliverisByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_GET_CONFIRM_FILE_NAME;
     }
 }

@@ -19,7 +19,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
-import static bl.service.impl.ServisesTestConstant.getUserId;
+import static constants.TestConstant.getUserId;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;

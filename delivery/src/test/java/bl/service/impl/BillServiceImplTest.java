@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import static bl.service.impl.ServisesTestConstant.*;
+import static constants.TestConstant.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 

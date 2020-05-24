@@ -7,8 +7,7 @@ import web.comand.action.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constant.PageConstance.ADMIN_FOLDER;
-import static web.constant.PageConstance.MAIN_WEB_FOLDER;
+import static web.constant.PageConstance.*;
 
 public class Admin implements ActionCommand {
     public static final String USERS_LIST = "usersList";
@@ -25,6 +24,6 @@ public class Admin implements ActionCommand {
         log.debug(request.getMethod() + " admin");
 
         request.setAttribute(USERS_LIST, userService.getAllUsers());
-        return MAIN_WEB_FOLDER + ADMIN_FOLDER + "users.jsp";
+        return MAIN_WEB_FOLDER + ADMIN_FOLDER + USERS_JSP;
     }
 }

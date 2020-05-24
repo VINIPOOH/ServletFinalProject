@@ -2,7 +2,7 @@ package web.comand;
 
 import bl.ServicesContext;
 import bl.service.BillService;
-import bl.service.DeliveryProcessService;
+import bl.service.DeliveryService;
 import bl.service.LocalityService;
 import bl.service.UserService;
 import dto.validation.*;
@@ -37,7 +37,7 @@ public class CommandContext {
     private static final IDValidator ID_VALIDATOR = new IDValidatorImpl();
     private static final UserService USER_SERVICE = ServicesContext.getObject(UserService.class);
     private static final LocalityService LOCALITY_SERVICE = ServicesContext.getObject(LocalityService.class);
-    private static final DeliveryProcessService DELIVERY_PROCESS_SERVICE = ServicesContext.getObject(DeliveryProcessService.class);
+    private static final DeliveryService DELIVERY_PROCESS_SERVICE = ServicesContext.getObject(DeliveryService.class);
     private static final BillService BILL_SERVICE = ServicesContext.getObject(BillService.class);
     private static final ActionCommand LOGIN = new Login(LOGIN_INFO_DTO_VALIDATOR, USER_SERVICE);
     private static final ActionCommand LOGOUT = new LogOut();

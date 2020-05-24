@@ -1,6 +1,6 @@
 package web.comand.action.impl;
 
-import bl.service.DeliveryProcessService;
+import bl.service.DeliveryService;
 import bl.service.LocalityService;
 import dto.DeliveryInfoRequestDto;
 import dto.PriceAndTimeOnDeliveryDto;
@@ -27,12 +27,12 @@ public class Counter extends MultipleMethodCommand {
     private static final String LOCALITY_SAND_ID = "localitySandID";
     private static Logger log = LogManager.getLogger(Counter.class);
     private final LocalityService localityService;
-    private final DeliveryProcessService deliveryProcessService;
+    private final DeliveryService deliveryService;
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
 
-    public Counter(LocalityService localityService, DeliveryProcessService deliveryProcessService) {
+    public Counter(LocalityService localityService, DeliveryService deliveryService) {
         this.localityService = localityService;
-        this.deliveryProcessService = deliveryProcessService;
+        this.deliveryService = deliveryService;
     }
 
     @Override
@@ -45,14 +45,15 @@ public class Counter extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug("isValidRequest = " + getDeliveryInfoRequestDtoValidator().isValid(request));
+        boolean isDataValid = getDeliveryInfoRequestDtoValidator().isValid(request);
+        log.debug("isValidRequest = " + isDataValid);
 
         request.setAttribute(LOCALITY_LIST, localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
-        if (!getDeliveryInfoRequestDtoValidator().isValid(request)) {
+        if (!isDataValid) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + COUNTER_FILE_NAME;
         }
-        Optional<PriceAndTimeOnDeliveryDto> deliveryCostAndTimeDto = deliveryProcessService.getDeliveryCostAndTimeDto
+        Optional<PriceAndTimeOnDeliveryDto> deliveryCostAndTimeDto = deliveryService.getDeliveryCostAndTimeDto
                 (getDeliveryInfoRequestDtoRequestDtoMapper(request).mapToDto(request));
         if (deliveryCostAndTimeDto.isPresent()) {
             request.setAttribute(COST_AND_TIME_DTO, deliveryCostAndTimeDto.get());

@@ -20,7 +20,7 @@ public class ServicesContext {
     private static final PasswordEncoderService PASSWORD_ENCODER_SERVICE = new PasswordEncoderServiceImpl();
     private static final UserService USER_SERVICE = new UserServiceImpl(PASSWORD_ENCODER_SERVICE, USER_DAO);
     private static final LocalityService LOCALITY_SERVICE = new LocalityServiceImpl(LOCALITY_DAO);
-    private static final DeliveryProcessService DELIVERY_PROCESS_SERVICE = new DeliveryServiceImpl(WAY_DAO, DELIVERY_DAO);
+    private static final DeliveryService DELIVERY_PROCESS_SERVICE = new DeliveryServiceImpl(WAY_DAO, DELIVERY_DAO);
     private static final BillService BILL_SERVICE = new BillServiceImpl(BILL_DAO, USER_DAO, DELIVERY_DAO);
     private static Logger log = LogManager.getLogger(ServicesContext.class);
 
@@ -33,7 +33,7 @@ public class ServicesContext {
         contextMap.put(PasswordEncoderService.class, PASSWORD_ENCODER_SERVICE);
         contextMap.put(UserService.class, USER_SERVICE);
         contextMap.put(LocalityService.class, LOCALITY_SERVICE);
-        contextMap.put(DeliveryProcessService.class, DELIVERY_PROCESS_SERVICE);
+        contextMap.put(DeliveryService.class, DELIVERY_PROCESS_SERVICE);
         contextMap.put(BillService.class, BILL_SERVICE);
     }
 
