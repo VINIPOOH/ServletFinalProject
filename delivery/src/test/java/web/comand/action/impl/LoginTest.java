@@ -105,10 +105,4 @@ public class LoginTest {
         assertEquals(MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + LOGIN_FILE_NAME, actual);
     }
 
-    private LoginInfoDto getLoginInfoDto(User user) {
-        return LoginInfoDto.builder()
-                .username(user.getEmail())
-                .password(user.getPassword())
-                .build();
-    }
 }

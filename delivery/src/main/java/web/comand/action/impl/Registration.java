@@ -37,9 +37,10 @@ public class Registration extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug("isValidRequest = " + registrationInfoDtoValidator.isValid(request));
+        boolean isValid = registrationInfoDtoValidator.isValid(request);
+        log.debug("isValidRequest = " + isValid);
 
-        if (!registrationInfoDtoValidator.isValid(request)) {
+        if (!isValid) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME;
         }
