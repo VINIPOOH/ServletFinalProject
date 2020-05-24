@@ -96,7 +96,7 @@ public class UserDeliveryInitiationTest {
         verify(localityService, times(1)).getLocaliseLocalities(any(Locale.class));
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
         verify(httpServletRequest, times(2)).getSession();
-        verify(deliveryOrderCreateDtoValidator, times(2)).isValid(any(HttpServletRequest.class));
+        verify(deliveryOrderCreateDtoValidator, times(1)).isValid(any(HttpServletRequest.class));
         verify(session, times(1)).getAttribute(SESSION_LANG);
         verify(billService, times(1)).initializeBill(any(DeliveryOrderCreateDto.class), anyLong());
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
