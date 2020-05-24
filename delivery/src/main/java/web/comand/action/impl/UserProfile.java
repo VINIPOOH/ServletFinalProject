@@ -14,12 +14,13 @@ import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
 public class UserProfile extends MultipleMethodCommand {
-
-    private static final String MONEY = "money";
     private static Logger log = LogManager.getLogger(UserProfile.class);
 
-    private final UserService userService;
+    private static final String MONEY = "money";
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
+
+    private final UserService userService;
+
 
     public UserProfile(UserService userService) {
         this.userService = userService;
@@ -34,9 +35,10 @@ public class UserProfile extends MultipleMethodCommand {
 
     @Override
     protected String performPost(HttpServletRequest request) {
-        log.debug("isValidRequest = " + getValidator().isValid(request));
+        boolean isValid = getValidator().isValid(request);
+        log.debug("isValidRequest = " + isValid);
 
-        if (!getValidator().isValid(request)) {
+        if (!isValid) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
         }
