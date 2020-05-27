@@ -38,6 +38,7 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
 
         ResultSetToEntityMapper<Locality> mapper = getLocaliseLocalityMapper(locale);
         String localedQuery;
+
         if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
             localedQuery = resourceBundleRequests.getString(LOCALITY_FIND_ALL_RU);
         } else {

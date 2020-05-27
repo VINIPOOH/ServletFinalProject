@@ -8,10 +8,21 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
+
+import static web.constant.AttributeConstants.LOGGINED_USER_NAMES;
 
 public class Servlet extends HttpServlet {
+
     private static Logger log = LogManager.getLogger(Servlet.class);
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.getServletContext().setAttribute(LOGGINED_USER_NAMES, new ConcurrentHashMap<String, HttpSession>());
+    }
 
     @Override
     public void doGet(HttpServletRequest request,

@@ -2,6 +2,7 @@ package web.comand.action.impl;
 
 import bl.exeption.NoSuchUserException;
 import bl.service.UserService;
+import dal.entity.User;
 import dto.LoginInfoDto;
 import dto.mapper.RequestDtoMapper;
 import dto.validation.Validator;
@@ -10,7 +11,10 @@ import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Map;
 
+import static web.constant.AttributeConstants.LOGGINED_USER_NAMES;
 import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
@@ -41,7 +45,22 @@ public class Login extends MultipleMethodCommand {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + LOGIN_FILE_NAME;
         }
-        return processingServiceLoginRequest(request, getLoginInfoDtoRequestDtoMapper(request).mapToDto(request));
+        LoginInfoDto loginInfoDto = getLoginInfoDtoRequestDtoMapper(request).mapToDto(request);
+        Map<String, HttpSession> loggedUsers = (Map<String, HttpSession>) request
+                .getSession().getServletContext()
+                .getAttribute(LOGGINED_USER_NAMES);
+        if (loggedUsers.containsKey(loginInfoDto.getUsername())) {
+            loggedUsers.get(loginInfoDto.getUsername()).invalidate();
+        }
+        try {
+            User user = userService.loginUser(loginInfoDto);
+            loggedUsers.put(loginInfoDto.getUsername(), request.getSession());
+            request.getSession().setAttribute(SESSION_USER, user);
+            return REDIRECT_COMMAND + USER_PROFILE_REQUEST_COMMAND;
+        } catch (NoSuchUserException ignored) {
+            request.setAttribute(INPUT_HAS_ERRORS, true);
+            return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + LOGIN_FILE_NAME;
+        }
     }
 
     private RequestDtoMapper<LoginInfoDto> getLoginInfoDtoRequestDtoMapper(HttpServletRequest request) {
@@ -51,13 +70,4 @@ public class Login extends MultipleMethodCommand {
                 .build();
     }
 
-    private String processingServiceLoginRequest(HttpServletRequest request, LoginInfoDto loginInfoDto) {
-        try {
-            request.getSession().setAttribute(SESSION_USER, userService.loginUser(loginInfoDto));
-            return REDIRECT_COMMAND + USER_PROFILE_REQUEST_COMMAND;
-        } catch (NoSuchUserException ignored) {
-            request.setAttribute(INPUT_HAS_ERRORS, true);
-            return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + LOGIN_FILE_NAME;
-        }
-    }
 }
