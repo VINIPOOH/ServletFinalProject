@@ -88,7 +88,6 @@ public class BillServiceImpl implements BillService {
             if (billDao.createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
                     , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
                 connectionManager.commit();
-                //todo
                 return true;
             }
             connectionManager.rollBack();
@@ -112,23 +111,19 @@ public class BillServiceImpl implements BillService {
     }
 
     private Mapper<Bill, BillInfoToPayDto> getMapperBillInfoToPayDto(Locale locale) {
-        return bill -> {
-            BillInfoToPayDto billInfoToPayDto = BillInfoToPayDto.builder()
-                    .weight(bill.getDelivery().getWeight())
-                    .price(bill.getCostInCents())
-                    .deliveryId(bill.getDelivery().getId())
-                    .billId(bill.getId())
-                    .addreeseeEmail(bill.getDelivery().getAddressee().getEmail())
-                    .build();
-            if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
-                billInfoToPayDto.setLocalitySandName(bill.getDelivery().getWay().getLocalitySand().getNameRu());
-                billInfoToPayDto.setLocalityGetName(bill.getDelivery().getWay().getLocalityGet().getNameRu());
-            } else {
-                billInfoToPayDto.setLocalitySandName(bill.getDelivery().getWay().getLocalitySand().getNameEn());
-                billInfoToPayDto.setLocalityGetName(bill.getDelivery().getWay().getLocalityGet().getNameEn());
-            }
-            return billInfoToPayDto;
-        };
+        return bill -> BillInfoToPayDto.builder()
+                .weight(bill.getDelivery().getWeight())
+                .price(bill.getCostInCents())
+                .deliveryId(bill.getDelivery().getId())
+                .billId(bill.getId())
+                .addreeseeEmail(bill.getDelivery().getAddressee().getEmail())
+                .localitySandName(locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                        bill.getDelivery().getWay().getLocalitySand().getNameRu() :
+                        bill.getDelivery().getWay().getLocalitySand().getNameEn())
+                .localityGetName(locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                        bill.getDelivery().getWay().getLocalityGet().getNameRu() :
+                        bill.getDelivery().getWay().getLocalityGet().getNameEn())
+                .build();
     }
 
     private Mapper<Bill, BillDto> getBillBillDtoMapper() {

@@ -36,16 +36,11 @@ public class LocalityServiceImpl implements LocalityService {
     }
 
     private Mapper<Locality, LocaliseLocalityDto> getLocalityToLocaliseLocalityDto(Locale locale) {
-        return locality -> {
-            LocaliseLocalityDto toReturn = LocaliseLocalityDto.builder()
-                    .id(locality.getId())
-                    .build();
-            if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
-                toReturn.setName(locality.getNameRu());
-            } else {
-                toReturn.setName(locality.getNameEn());
-            }
-            return toReturn;
-        };
+        return locality -> LocaliseLocalityDto.builder()
+                .id(locality.getId())
+                .name(locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                        locality.getNameRu() :
+                        locality.getNameEn())
+                .build();
     }
 }

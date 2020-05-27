@@ -44,33 +44,26 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
         log.debug("getDeliveryInfoToGet");
 
         ResultSetToEntityMapper<Delivery> mapper = getDeliveryResultSetToEntityMapper(locale);
-        if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
-            return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_RU), mapper);
-        } else {
-            return findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_EN), mapper);
-        }
+        return locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_RU), mapper) :
+                findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_EN), mapper);
     }
 
     private ResultSetToEntityMapper<Delivery> getDeliveryResultSetToEntityMapper(Locale locale) {
-        return resultSet -> {
-            Delivery toReturn = Delivery.builder()
-                    .id(resultSet.getLong("id"))
-                    .bill(Bill.builder().user(User.builder().email(resultSet.getString("email")).build()).build())
-                    .way(new Way())
-                    .build();
-            if (locale.getLanguage().equals("ru")) {
-                toReturn.setWay(Way.builder()
-                        .localityGet(Locality.builder().nameRu(resultSet.getString(LOCALITY_GET_COLUMN_NAME)).build())
-                        .localitySand(Locality.builder().nameRu(resultSet.getString(LOCALITY_SEND_COLUMN_NAME)).build())
-                        .build());
-            } else {
-                toReturn.setWay(Way.builder()
-                        .localityGet(Locality.builder().nameEn(resultSet.getString(LOCALITY_GET_COLUMN_NAME)).build())
-                        .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SEND_COLUMN_NAME)).build())
-                        .build());
-            }
-            return toReturn;
-        };
+        return resultSet -> Delivery.builder()
+                .id(resultSet.getLong("id"))
+                .bill(Bill.builder().user(User.builder().email(resultSet.getString("email")).build()).build())
+                .way(locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                        Way.builder()
+                                .localityGet(Locality.builder().nameRu(resultSet.getString(LOCALITY_GET_COLUMN_NAME)).build())
+                                .localitySand(Locality.builder().nameRu(resultSet.getString(LOCALITY_SEND_COLUMN_NAME)).build())
+                                .build() :
+                        Way.builder()
+                                .localityGet(Locality.builder().nameEn(resultSet.getString(LOCALITY_GET_COLUMN_NAME)).build())
+                                .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SEND_COLUMN_NAME)).build())
+                                .build()
+                )
+                .build();
     }
 
     public boolean confirmGettingDelivery(long userId, long deliveryId) {

@@ -59,37 +59,31 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
 
         ResultSetToEntityMapper<Bill> mapper = getBillResultSetToEntityMapper(locale);
 
-        if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
-            return findAllByLongParam(userId, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU), mapper);
-        } else {
-            return findAllByLongParam(userId, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN), mapper);
-        }
+        return locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                findAllByLongParam(userId, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU), mapper) :
+                findAllByLongParam(userId, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN), mapper);
     }
 
     private ResultSetToEntityMapper<Bill> getBillResultSetToEntityMapper(Locale locale) {
-        return resultSet -> {
-            Bill toReturn = Bill.builder()
-                    .id(resultSet.getLong(BILL_ID))
-                    .costInCents(resultSet.getLong(PRICE))
-                    .delivery(Delivery.builder()
-                            .addressee(User.builder().email(resultSet.getString(ADDRESSEE_EMAIL)).build())
-                            .id(resultSet.getLong(DELIVERY_ID))
-                            .weight(resultSet.getInt(WEIGHT))
-                            .build())
-                    .build();
-            if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
-                toReturn.getDelivery().setWay(Way.builder()
-                        .localityGet(Locality.builder().nameRu(resultSet.getString(LOCALITY_GET_NAME)).build())
-                        .localitySand(Locality.builder().nameRu(resultSet.getString(LOCALITY_SAND_NAME)).build())
-                        .build());
-            } else {
-                toReturn.getDelivery().setWay(Way.builder()
-                        .localityGet(Locality.builder().nameEn(resultSet.getString(LOCALITY_GET_NAME)).build())
-                        .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SAND_NAME)).build())
-                        .build());
-            }
-            return toReturn;
-        };
+        return resultSet -> Bill.builder()
+                .id(resultSet.getLong(BILL_ID))
+                .costInCents(resultSet.getLong(PRICE))
+                .delivery(Delivery.builder()
+                        .addressee(User.builder().email(resultSet.getString(ADDRESSEE_EMAIL)).build())
+                        .id(resultSet.getLong(DELIVERY_ID))
+                        .weight(resultSet.getInt(WEIGHT))
+                        .way(locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                                Way.builder()
+                                        .localityGet(Locality.builder().nameRu(resultSet.getString(LOCALITY_GET_NAME)).build())
+                                        .localitySand(Locality.builder().nameRu(resultSet.getString(LOCALITY_SAND_NAME)).build())
+                                        .build() :
+                                Way.builder()
+                                        .localityGet(Locality.builder().nameEn(resultSet.getString(LOCALITY_GET_NAME)).build())
+                                        .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SAND_NAME)).build())
+                                        .build()
+                        )
+                        .build())
+                .build();
     }
 
     @Override

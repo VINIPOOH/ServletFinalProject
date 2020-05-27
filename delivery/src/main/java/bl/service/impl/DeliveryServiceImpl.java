@@ -66,22 +66,16 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     private Mapper<Delivery, DeliveryInfoToGetDto> getDeliveryInfoToGetDtoMapper(Locale locale) {
-        return delivery -> {
-            DeliveryInfoToGetDto deliveryInfo = DeliveryInfoToGetDto.builder()
-                    .addresserEmail(delivery.getBill().getUser().getEmail())
-                    .deliveryId(delivery.getId())
-                    .localitySandName(delivery.getWay().getLocalitySand().getNameEn())
-                    .localityGetName(delivery.getWay().getLocalityGet().getNameEn())
-                    .build();
-            if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
-                deliveryInfo.setLocalitySandName(delivery.getWay().getLocalitySand().getNameRu());
-                deliveryInfo.setLocalityGetName(delivery.getWay().getLocalityGet().getNameRu());
-            } else {
-                deliveryInfo.setLocalitySandName(delivery.getWay().getLocalitySand().getNameEn());
-                deliveryInfo.setLocalityGetName(delivery.getWay().getLocalityGet().getNameEn());
-            }
-            return deliveryInfo;
-        };
+        return delivery -> DeliveryInfoToGetDto.builder()
+                .addresserEmail(delivery.getBill().getUser().getEmail())
+                .deliveryId(delivery.getId())
+                .localitySandName(locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                        delivery.getWay().getLocalitySand().getNameRu() :
+                        delivery.getWay().getLocalitySand().getNameEn())
+                .localityGetName(locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                        delivery.getWay().getLocalityGet().getNameRu() :
+                        delivery.getWay().getLocalityGet().getNameEn())
+                .build();
     }
 
 }

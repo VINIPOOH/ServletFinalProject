@@ -38,12 +38,9 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
 
         ResultSetToEntityMapper<Locality> mapper = getLocaliseLocalityMapper(locale);
         String localedQuery;
-
-        if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
-            localedQuery = resourceBundleRequests.getString(LOCALITY_FIND_ALL_RU);
-        } else {
-            localedQuery = resourceBundleRequests.getString(LOCALITY_FIND_ALL_EN);
-        }
+        localedQuery = locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                resourceBundleRequests.getString(LOCALITY_FIND_ALL_RU) :
+                resourceBundleRequests.getString(LOCALITY_FIND_ALL_EN);
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(localedQuery)) {
             List<Locality> result;
@@ -61,17 +58,11 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
     }
 
     private ResultSetToEntityMapper<Locality> getLocaliseLocalityMapper(Locale locale) {
-        return resultSet -> {
-            Locality toReturn = Locality.builder()
-                    .id(resultSet.getLong(ID))
-                    .build();
-            if (locale.getLanguage().equals(RUSSIAN_LANG_COD)) {
-                toReturn.setNameRu(resultSet.getString(LOCALITY_NAME));
-            } else {
-                toReturn.setNameEn(resultSet.getString(LOCALITY_NAME));
-            }
-            return toReturn;
-        };
+        return resultSet -> Locality.builder()
+                .id(resultSet.getLong(ID))
+                .nameRu(locale.getLanguage().equals(RUSSIAN_LANG_COD) ? resultSet.getString(LOCALITY_NAME) : null)
+                .nameEn(locale.getLanguage().equals(RUSSIAN_LANG_COD) ? resultSet.getString(LOCALITY_NAME) : null)
+                .build();
     }
 
 }
