@@ -7,6 +7,8 @@ import dal.exeption.AskedDataIsNotCorrect;
 import dal.exeption.DBRuntimeException;
 import dal.persistance.conection.ConnectionAdapeter;
 import dal.persistance.conection.pool.ConnectionManager;
+import infrastructure.anotation.HasParentWhichNeedConfig;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -19,6 +21,8 @@ import java.util.ResourceBundle;
 
 import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
 
+@Singleton
+@HasParentWhichNeedConfig
 public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao {
     private static final String BILL_ID = "bill_id";
     private static final String PRICE = "price";
@@ -46,6 +50,8 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             "count.all.not.payed.bills.by.user.id";
     private static Logger log = LogManager.getLogger(JDBCBillDao.class);
 
+    public JDBCBillDao() {
+    }
 
     public JDBCBillDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
         super(resourceBundleRequests, connector);

@@ -8,12 +8,13 @@ import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
 import dal.entity.Bill;
 import dal.exeption.AskedDataIsNotCorrect;
-import dal.persistance.JDBCDaoContext;
 import dal.persistance.conection.pool.ConnectionManager;
 import dto.BillDto;
 import dto.BillInfoToPayDto;
 import dto.DeliveryOrderCreateDto;
 import dto.mapper.Mapper;
+import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -24,12 +25,20 @@ import java.util.stream.Collectors;
 
 import static bl.service.ServicesConstants.RUSSIAN_LANG_COD;
 
+@Singleton
 public class BillServiceImpl implements BillService {
     private static Logger log = LogManager.getLogger(BillServiceImpl.class);
+    @InjectByType
+    private BillDao billDao;
+    @InjectByType
+    private UserDao userDao;
+    @InjectByType
+    private DeliveryDao deliveryDao;
+    @InjectByType
+    ConnectionManager connectionManager;
 
-    private final BillDao billDao;
-    private final UserDao userDao;
-    private final DeliveryDao deliveryDao;
+    public BillServiceImpl() {
+    }
 
     public BillServiceImpl(BillDao billDao, UserDao userDao, DeliveryDao deliveryDao) {
         log.debug("created");
@@ -53,7 +62,7 @@ public class BillServiceImpl implements BillService {
     public boolean payForDelivery(long userId, long billId) {
         log.debug("userId - " + userId + " billId - " + billId);
 
-        try (ConnectionManager connectionManager = JDBCDaoContext.getTransactionManager()) {
+        try {
             connectionManager.startTransaction();
             if (userDao.replenishUserBalenceOnSumeIfItPosible(userId,
                     billDao.getBillCostIfItIsNotPaid(billId, userId))
@@ -69,6 +78,8 @@ public class BillServiceImpl implements BillService {
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
             return false;
+        } finally {
+            connectionManager.close();
         }
 
     }
@@ -82,7 +93,7 @@ public class BillServiceImpl implements BillService {
     public boolean initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
         log.debug("deliveryOrderCreateDto - " + deliveryOrderCreateDto + " initiatorId - " + initiatorId);
 
-        try (ConnectionManager connectionManager = JDBCDaoContext.getTransactionManager()) {
+        try {
             connectionManager.startTransaction();
             long newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
             if (billDao.createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
@@ -97,6 +108,8 @@ public class BillServiceImpl implements BillService {
             throw new FailCreateDeliveryException();
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
+        } finally {
+            connectionManager.close();
         }
         return false;
     }

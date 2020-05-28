@@ -10,6 +10,8 @@ import dto.DeliveryInfoRequestDto;
 import dto.DeliveryInfoToGetDto;
 import dto.PriceAndTimeOnDeliveryDto;
 import dto.mapper.Mapper;
+import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -20,11 +22,16 @@ import java.util.stream.Collectors;
 
 import static bl.service.ServicesConstants.RUSSIAN_LANG_COD;
 
+@Singleton
 public class DeliveryServiceImpl implements DeliveryService {
     private static Logger log = LogManager.getLogger(DeliveryServiceImpl.class);
+    @InjectByType
+    private WayDao wayDao;
+    @InjectByType
+    private DeliveryDao deliveryDao;
 
-    private final WayDao wayDao;
-    private final DeliveryDao deliveryDao;
+    public DeliveryServiceImpl() {
+    }
 
     public DeliveryServiceImpl(WayDao wayDao, DeliveryDao deliveryDao) {
         log.debug("created");

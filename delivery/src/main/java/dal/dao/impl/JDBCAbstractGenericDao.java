@@ -7,6 +7,7 @@ import dal.dao.maper.ResultSetToEntityMapper;
 import dal.exeption.DBRuntimeException;
 import dal.persistance.conection.ConnectionAdapeter;
 import dal.persistance.conection.pool.ConnectionManager;
+import infrastructure.anotation.InjectByType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -21,9 +22,13 @@ import java.util.ResourceBundle;
 abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
     private static Logger log = LogManager.getLogger(JDBCAbstractGenericDao.class);
+    @InjectByType
+    protected ResourceBundle resourceBundleRequests;
+    @InjectByType
+    protected ConnectionManager connector;
 
-    protected final ResourceBundle resourceBundleRequests;
-    protected final ConnectionManager connector;
+    public JDBCAbstractGenericDao() {
+    }
 
     public JDBCAbstractGenericDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
         this.resourceBundleRequests = resourceBundleRequests;

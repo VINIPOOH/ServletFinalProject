@@ -4,6 +4,9 @@ import bl.exeption.NoSuchUserException;
 import bl.service.UserService;
 import dal.entity.User;
 import dto.validation.Validator;
+import infrastructure.anotation.Endpoint;
+import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
@@ -13,14 +16,17 @@ import javax.servlet.http.HttpServletRequest;
 import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
+@Singleton
+@Endpoint("user/userprofile")
 public class UserProfile extends MultipleMethodCommand {
-    private static Logger log = LogManager.getLogger(UserProfile.class);
-
     private static final String MONEY = "money";
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
+    private static Logger log = LogManager.getLogger(UserProfile.class);
+    @InjectByType
+    private UserService userService;
 
-    private final UserService userService;
-
+    public UserProfile() {
+    }
 
     public UserProfile(UserService userService) {
         this.userService = userService;

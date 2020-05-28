@@ -14,5 +14,5 @@ public interface ConnectionManager extends AutoCloseable {
     void rollBack() throws SQLException;
 
     @Override
-    void close() throws SQLException;
+    void close();
 }

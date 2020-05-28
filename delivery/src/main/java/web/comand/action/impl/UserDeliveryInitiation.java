@@ -8,6 +8,9 @@ import dal.entity.User;
 import dto.DeliveryOrderCreateDto;
 import dto.mapper.RequestDtoMapper;
 import dto.validation.Validator;
+import infrastructure.anotation.Endpoint;
+import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
@@ -19,6 +22,8 @@ import static web.constant.AttributeConstants.SESSION_LANG;
 import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
+@Singleton
+@Endpoint("user/user-delivery-initiation")
 public class UserDeliveryInitiation extends MultipleMethodCommand {
     private static final String LOCALITY_LIST = "localityList";
     private static final String DELIVERY_WEIGHT = "deliveryWeight";
@@ -31,9 +36,15 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
 
     private static Logger log = LogManager.getLogger(UserDeliveryInitiation.class);
 
-    private final LocalityService localityService;
-    private final BillService billService;
-    private final Validator deliveryOrderCreateDtoValidator;
+    @InjectByType
+    private LocalityService localityService;
+    @InjectByType
+    private BillService billService;
+    @InjectByType
+    private Validator deliveryOrderCreateDtoValidator;
+
+    public UserDeliveryInitiation() {
+    }
 
     public UserDeliveryInitiation(LocalityService localityService, BillService billService, Validator deliveryOrderCreateDtoValidator) {
         this.localityService = localityService;

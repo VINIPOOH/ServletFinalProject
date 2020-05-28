@@ -3,12 +3,14 @@ package bl.service.impl;
 
 import bl.exeption.PasswordEncodeException;
 import bl.service.PasswordEncoderService;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Singleton
 public class PasswordEncoderServiceImpl implements PasswordEncoderService {
     private static Logger log = LogManager.getLogger(PasswordEncoderServiceImpl.class);
     private static String encodingAlgorithmKey = "MD5";

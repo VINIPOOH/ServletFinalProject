@@ -7,6 +7,8 @@ import dal.entity.Way;
 import dal.exeption.DBRuntimeException;
 import dal.persistance.conection.ConnectionAdapeter;
 import dal.persistance.conection.pool.ConnectionManager;
+import infrastructure.anotation.HasParentWhichNeedConfig;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -16,6 +18,8 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+@Singleton
+@HasParentWhichNeedConfig
 public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
     private static final String PRICE = "price";
     private static final String TIME_ON_WAY_IN_DAYS = "time_on_way_in_days";
@@ -23,6 +27,8 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
             "way.find.price.and.time.by.locality_send_id.and.locality_get_id.and.weight";
     private static Logger log = LogManager.getLogger(JDBCWayDao.class);
 
+    public JDBCWayDao() {
+    }
 
     public JDBCWayDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
         super(resourceBundleRequests, connector);

@@ -36,6 +36,10 @@ public class Delivery extends Entity {
         return bill;
     }
 
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+
     public LocalDate getArrivalDate() {
         return this.arrivalDate;
     }
@@ -50,10 +54,6 @@ public class Delivery extends Entity {
 
     public User getAddressee() {
         return this.addressee;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
     }
 
     public Boolean getIsPackageReceived() {

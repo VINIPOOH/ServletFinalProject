@@ -3,6 +3,9 @@ package web.comand.action.impl;
 import bl.service.DeliveryService;
 import dal.entity.User;
 import dto.validation.IDValidator;
+import infrastructure.anotation.Endpoint;
+import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
@@ -14,13 +17,20 @@ import static web.constant.AttributeConstants.SESSION_LANG;
 import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
+@Singleton
+@Endpoint("user/delivers-to-get")
 public class UserDeliveryGet extends MultipleMethodCommand {
     private static final String DELIVERIES_WHICH_ADDRESSED_FOR_USER = "deliveriesWhichAddressedForUser";
     private static final String DELIVERY_ID = "deliveryId";
     private static Logger log = LogManager.getLogger(UserDeliveryGet.class);
 
-    private final IDValidator idValidator;
-    private final DeliveryService deliveryService;
+    @InjectByType
+    private IDValidator idValidator;
+    @InjectByType
+    private DeliveryService deliveryService;
+
+    public UserDeliveryGet() {
+    }
 
     public UserDeliveryGet(IDValidator idValidator, DeliveryService deliveryService) {
         this.idValidator = idValidator;

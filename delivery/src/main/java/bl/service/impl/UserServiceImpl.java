@@ -11,6 +11,8 @@ import dal.exeption.AskedDataIsNotCorrect;
 import dto.LoginInfoDto;
 import dto.RegistrationInfoDto;
 import dto.UserStatisticDto;
+import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -18,11 +20,16 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Singleton
 public class UserServiceImpl implements UserService {
     private static Logger log = LogManager.getLogger(UserService.class);
+    @InjectByType
+    private PasswordEncoderService passwordEncoderService;
+    @InjectByType
+    private UserDao userDao;
 
-    private final PasswordEncoderService passwordEncoderService;
-    private final UserDao userDao;
+    public UserServiceImpl() {
+    }
 
     public UserServiceImpl(PasswordEncoderService passwordEncoderService, UserDao userDao) {
         log.debug("created");

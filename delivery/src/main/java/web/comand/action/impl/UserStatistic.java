@@ -2,7 +2,9 @@ package web.comand.action.impl;
 
 import bl.service.BillService;
 import dal.entity.User;
-import dto.validation.IDValidator;
+import infrastructure.anotation.Endpoint;
+import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.ActionCommand;
@@ -13,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
-
+@Singleton
+@Endpoint("user/user-statistic")
 public class UserStatistic implements ActionCommand {
 
     public static final String USER_USER_STATISTIC = "user/user-statistic";
@@ -21,14 +24,16 @@ public class UserStatistic implements ActionCommand {
     public static final int PAGE_SIZE = 10;
     private static final String BILLS_LIST = "billsList";
     private static Logger log = LogManager.getLogger(UserStatistic.class);
-    private final Pagination pagination;
-    private final IDValidator idValidator;
-    private final BillService billService;
+    @InjectByType
+    private Pagination pagination;
+    @InjectByType
+    private BillService billService;
 
+    public UserStatistic() {
+    }
 
-    public UserStatistic(Pagination pagination, IDValidator idValidator, BillService billService) {
+    public UserStatistic(Pagination pagination, BillService billService) {
         this.pagination = pagination;
-        this.idValidator = idValidator;
         this.billService = billService;
     }
 

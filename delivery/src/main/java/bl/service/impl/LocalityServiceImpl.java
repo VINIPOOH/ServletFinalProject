@@ -6,6 +6,8 @@ import dal.dao.LocalityDao;
 import dal.entity.Locality;
 import dto.LocaliseLocalityDto;
 import dto.mapper.Mapper;
+import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -15,10 +17,14 @@ import java.util.stream.Collectors;
 
 import static bl.service.ServicesConstants.RUSSIAN_LANG_COD;
 
+@Singleton
 public class LocalityServiceImpl implements LocalityService {
     private static Logger log = LogManager.getLogger(LocalityServiceImpl.class);
+    @InjectByType
+    private LocalityDao localityDao;
 
-    private final LocalityDao localityDao;
+    public LocalityServiceImpl() {
+    }
 
     public LocalityServiceImpl(LocalityDao localityDao) {
         this.localityDao = localityDao;

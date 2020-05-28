@@ -4,7 +4,10 @@ import bl.exeption.OccupiedLoginException;
 import bl.service.UserService;
 import dto.RegistrationInfoDto;
 import dto.mapper.RequestDtoMapper;
-import dto.validation.Validator;
+import dto.validation.RegistrationDtoValidator;
+import infrastructure.anotation.Endpoint;
+import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
@@ -13,17 +16,24 @@ import javax.servlet.http.HttpServletRequest;
 
 import static web.constant.PageConstance.*;
 
+@Singleton
+@Endpoint("anonymous/registration")
 public class Registration extends MultipleMethodCommand {
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
     private static final String PASSWORD_REPEAT = "passwordRepeat";
-    private static Logger log = LogManager.getLogger(Registration.class);
-    private final Validator registrationInfoDtoValidator;
-    private final UserService userService;
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
     private static final String INPUT_LOGIN_ALREADY_TAKEN = "inputLoginAlreadyTaken";
+    private static Logger log = LogManager.getLogger(Registration.class);
+    @InjectByType
+    private RegistrationDtoValidator registrationInfoDtoValidator;
+    @InjectByType
+    private UserService userService;
 
-    public Registration(Validator registrationInfoDtoValidator, UserService userService) {
+    public Registration() {
+    }
+
+    public Registration(RegistrationDtoValidator registrationInfoDtoValidator, UserService userService) {
         this.registrationInfoDtoValidator = registrationInfoDtoValidator;
         this.userService = userService;
     }

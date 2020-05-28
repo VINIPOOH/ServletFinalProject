@@ -6,6 +6,9 @@ import dto.DeliveryInfoRequestDto;
 import dto.PriceAndTimeOnDeliveryDto;
 import dto.mapper.RequestDtoMapper;
 import dto.validation.Validator;
+import infrastructure.anotation.Endpoint;
+import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
@@ -18,6 +21,8 @@ import static web.constant.AttributeConstants.SESSION_LANG;
 import static web.constant.PageConstance.COUNTER_FILE_NAME;
 import static web.constant.PageConstance.MAIN_WEB_FOLDER;
 
+@Singleton
+@Endpoint("counter")
 public class Counter extends MultipleMethodCommand {
     private static final String LOCALITY_LIST = "localityList";
     private static final String COST_AND_TIME_DTO = "CostAndTimeDto";
@@ -25,10 +30,15 @@ public class Counter extends MultipleMethodCommand {
     private static final String DELIVERY_WEIGHT = "deliveryWeight";
     private static final String LOCALITY_GET_ID = "localityGetID";
     private static final String LOCALITY_SAND_ID = "localitySandID";
-    private static Logger log = LogManager.getLogger(Counter.class);
-    private final LocalityService localityService;
-    private final DeliveryService deliveryService;
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
+    private static Logger log = LogManager.getLogger(Counter.class);
+    @InjectByType
+    private LocalityService localityService;
+    @InjectByType
+    private DeliveryService deliveryService;
+
+    public Counter() {
+    }
 
     public Counter(LocalityService localityService, DeliveryService deliveryService) {
         this.localityService = localityService;

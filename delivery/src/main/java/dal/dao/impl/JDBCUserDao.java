@@ -8,6 +8,8 @@ import dal.exeption.AskedDataIsNotCorrect;
 import dal.exeption.DBRuntimeException;
 import dal.persistance.conection.ConnectionAdapeter;
 import dal.persistance.conection.pool.ConnectionManager;
+import infrastructure.anotation.HasParentWhichNeedConfig;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -19,7 +21,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
+@Singleton
+@HasParentWhichNeedConfig
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {
     private static final String ID = "id";
     private static final String EMAIL = "email";
@@ -39,6 +42,8 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     private static final String GET_ALL_USERS_INFO = "get.all.users.info";
     private static Logger log = LogManager.getLogger(JDBCUserDao.class);
 
+    public JDBCUserDao() {
+    }
 
     public JDBCUserDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
         super(resourceBundleRequests, connector);

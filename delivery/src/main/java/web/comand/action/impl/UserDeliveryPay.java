@@ -4,6 +4,9 @@ import bl.service.BillService;
 import bl.service.UserService;
 import dal.entity.User;
 import dto.validation.IDValidator;
+import infrastructure.anotation.Endpoint;
+import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.action.MultipleMethodCommand;
@@ -15,20 +18,28 @@ import static web.constant.AttributeConstants.SESSION_LANG;
 import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
+@Singleton
+@Endpoint("user/user-delivery-request-confirm")
 public class UserDeliveryPay extends MultipleMethodCommand {
     private static final String BILL_INFO_TO_PAY = "BillInfoToPay";
     private static final String ID = "Id";
     private static final String ID1 = "Id";
     private static Logger log = LogManager.getLogger(UserDeliveryPay.class);
 
-    private final BillService billService;
-    private final UserService userService;
-    private final IDValidator idValidator;
+    @InjectByType
+    private BillService billService;
+    @InjectByType
+    private UserService userService;
+    @InjectByType
+    private IDValidator idValidator;
 
     public UserDeliveryPay(BillService billService, UserService userService, IDValidator idValidator) {
         this.billService = billService;
         this.userService = userService;
         this.idValidator = idValidator;
+    }
+
+    public UserDeliveryPay() {
     }
 
     @Override

@@ -18,5 +18,8 @@ public class DeliveryOrderCreateDtoValidator implements Validator {
         }
     }
 
+    private boolean isStringValid(String param, String regex) {
+        return param.matches(regex);
+    }
 
 }
