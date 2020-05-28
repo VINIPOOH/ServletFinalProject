@@ -1,5 +1,6 @@
 package bl.service.impl;
 
+import dal.conection.pool.impl.ConnectionManagerImpl;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
@@ -38,9 +39,13 @@ public class BillServiceImplTest {
     UserDao userDao;
     @Mock
     DeliveryDao deliveryDao;
+    @Mock
+    ConnectionManagerImpl connectionManager;
 
     @Before
     public void setUp() throws Exception {
+        doNothing().when(connectionManager).startTransaction();
+
     }
 
     @Test
@@ -119,7 +124,6 @@ public class BillServiceImplTest {
     public void payForDeliveryIncorrectUserData() throws AskedDataIsNotCorrect, SQLException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(1L);
         when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenThrow(SQLException.class);
-
 
         boolean payResult = billService.payForDelivery(getUserId(), getBillId());
 

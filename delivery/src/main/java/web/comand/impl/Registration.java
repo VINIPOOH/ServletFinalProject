@@ -33,10 +33,6 @@ public class Registration extends MultipleMethodCommand {
     public Registration() {
     }
 
-    public Registration(RegistrationDtoValidator registrationInfoDtoValidator, UserService userService) {
-        this.registrationInfoDtoValidator = registrationInfoDtoValidator;
-        this.userService = userService;
-    }
 
     @Override
     protected String performGet(HttpServletRequest request) {

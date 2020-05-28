@@ -36,10 +36,6 @@ public class Login extends MultipleMethodCommand {
     public Login() {
     }
 
-    public Login(LoginDtoValidator loginDtoValidator, UserService userService) {
-        this.loginDtoValidator = loginDtoValidator;
-        this.userService = userService;
-    }
 
     @Override
     protected String performGet(HttpServletRequest request) {

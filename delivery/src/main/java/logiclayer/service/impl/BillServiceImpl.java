@@ -39,14 +39,6 @@ public class BillServiceImpl implements BillService {
     public BillServiceImpl() {
     }
 
-    public BillServiceImpl(BillDao billDao, UserDao userDao, DeliveryDao deliveryDao) {
-        log.debug("created");
-
-        this.billDao = billDao;
-        this.userDao = userDao;
-        this.deliveryDao = deliveryDao;
-    }
-
     @Override
     public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId, Locale locale) {
         log.debug("userId - " + userId + " localeLang - " + locale.getLanguage());

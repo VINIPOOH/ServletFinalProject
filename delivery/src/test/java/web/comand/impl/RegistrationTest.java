@@ -1,7 +1,7 @@
 package web.comand.impl;
 
 import dto.RegistrationInfoDto;
-import dto.validation.Validator;
+import dto.validation.RegistrationDtoValidator;
 import logiclayer.exeption.OccupiedLoginException;
 import logiclayer.service.UserService;
 import org.junit.Before;
@@ -26,7 +26,7 @@ public class RegistrationTest {
     @Mock
     HttpServletRequest httpServletRequest;
     @Mock
-    Validator loginDtoValidator;
+    RegistrationDtoValidator registrationDtoValidator;
     @Mock
     UserService userService;
 
@@ -50,7 +50,7 @@ public class RegistrationTest {
 
     @Test
     public void performPost() throws OccupiedLoginException {
-        when(loginDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
+        when(registrationDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
         when(userService.addNewUserToDB(any(RegistrationInfoDto.class))).thenReturn(true);
 
         String actual = registration.performPost(httpServletRequest);
@@ -59,13 +59,13 @@ public class RegistrationTest {
         verify(httpServletRequest, times(1)).getParameter(PASSWORD);
         verify(httpServletRequest, times(1)).getParameter(PASSWORD_REPEAT);
         verify(httpServletRequest, times(0)).setAttribute(anyString(), any(Object.class));
-        verify(loginDtoValidator, times(1)).isValid(any(HttpServletRequest.class));
+        verify(registrationDtoValidator, times(1)).isValid(any(HttpServletRequest.class));
         assertEquals(REDIRECT_COMMAND + LOGIN_REQUEST_COMMAND, actual);
     }
 
     @Test
     public void performPostIncorrectInput() {
-        when(loginDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(false);
+        when(registrationDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(false);
 
         String actual = registration.performPost(httpServletRequest);
 
@@ -73,13 +73,13 @@ public class RegistrationTest {
         verify(httpServletRequest, times(0)).getParameter(PASSWORD);
         verify(httpServletRequest, times(0)).getParameter(PASSWORD_REPEAT);
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
-        verify(loginDtoValidator, times(1)).isValid(any(HttpServletRequest.class));
+        verify(registrationDtoValidator, times(1)).isValid(any(HttpServletRequest.class));
         assertEquals(MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME, actual);
     }
 
     @Test
     public void performPostIncorrectData() throws OccupiedLoginException {
-        when(loginDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
+        when(registrationDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
         when(userService.addNewUserToDB(any(RegistrationInfoDto.class))).thenThrow(OccupiedLoginException.class);
 
         String actual = registration.performPost(httpServletRequest);
@@ -88,7 +88,7 @@ public class RegistrationTest {
         verify(httpServletRequest, times(1)).getParameter(PASSWORD);
         verify(httpServletRequest, times(1)).getParameter(PASSWORD_REPEAT);
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
-        verify(loginDtoValidator, times(1)).isValid(any(HttpServletRequest.class));
+        verify(registrationDtoValidator, times(1)).isValid(any(HttpServletRequest.class));
         assertEquals(MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME, actual);
     }
 }

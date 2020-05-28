@@ -2,7 +2,7 @@ package web.comand.impl;
 
 import dal.entity.User;
 import dto.LoginInfoDto;
-import dto.validation.Validator;
+import dto.validation.LoginDtoValidator;
 import logiclayer.exeption.NoSuchUserException;
 import logiclayer.service.UserService;
 import org.junit.Before;
@@ -31,7 +31,7 @@ public class LoginTest {
     Login login;
 
     @Mock
-    Validator loginDtoValidator;
+    LoginDtoValidator loginDtoValidator;
     @Mock
     UserService userService;
 
