@@ -51,7 +51,7 @@ public class UserDeliveryGet extends MultipleMethodCommand {
         log.debug("isValid" + isValid);
         if (!isValid) {
             log.error("id is not valid client is broken");
-
+//todo
             throw new RuntimeException();
         }
         deliveryService.confirmGettingDelivery(((User) request.getSession().getAttribute(SESSION_USER)).getId(), Long.parseLong(request.getParameter(DELIVERY_ID)));

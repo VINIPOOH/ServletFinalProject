@@ -1,42 +1,59 @@
 package infrastructure;
 
 import infrastructure.Configurators.ObjectConfigurator;
-import lombok.SneakyThrows;
+import infrastructure.exceptions.ReflectionException;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ObjectFactory {
+    private static Logger log = LogManager.getLogger(ObjectFactory.class);
+
     private final ApplicationContext context;
     private List<ObjectConfigurator> configurators = new ArrayList<>();
 
-    @SneakyThrows
+
     public ObjectFactory(ApplicationContext context) {
+        log.debug("");
+
         this.context = context;
-        for (Class<? extends ObjectConfigurator> aClass : context.getConfig().getScanner().getSubTypesOf(ObjectConfigurator.class)) {
-            configurators.add(aClass.getDeclaredConstructor().newInstance());
-        }
+        context.getConfig().getScanner().getSubTypesOf(ObjectConfigurator.class).stream()
+                .forEach(aClass -> {
+                    try {
+                        configurators.add(aClass.getDeclaredConstructor().newInstance());
+                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                        throw new ReflectionException();
+                    }
+                });
     }
 
 
-    @SneakyThrows
-    public <T> T createObject(Class<T> implClass) {
+    public <T> T createObject(Class<T> implClass) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        log.debug("");
+
         T t = create(implClass);
         configure(t);
         invokeInit(implClass, t);
         return t;
     }
 
-    private <T> void invokeInit(Class<T> implClass, T t) throws IllegalAccessException, InvocationTargetException {
-        for (Method method : implClass.getMethods()) {
-            if (method.isAnnotationPresent(PostConstruct.class)) {
-                method.invoke(t);
-            }
-        }
+    private <T> void invokeInit(Class<T> implClass, T t) {
+        Arrays.stream(implClass.getMethods()).filter(method -> method.isAnnotationPresent(PostConstruct.class))
+                .forEach(method -> {
+                    try {
+                        method.invoke(t);
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        throw new ReflectionException();
+                    }
+                });
     }
+
+
 
     private <T> void configure(T t) {
         configurators.forEach(objectConfigurator -> objectConfigurator.configure(t, context));

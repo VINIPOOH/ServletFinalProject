@@ -15,6 +15,8 @@ import java.sql.SQLException;
 @Singleton
 public class ConnectionManagerImpl implements ConnectionManager {
 
+    private static Logger log = LogManager.getLogger(ConnectionManagerImpl.class);
+
     @InjectProperty()
     private String dbUrl;
     @InjectProperty()
@@ -31,7 +33,6 @@ public class ConnectionManagerImpl implements ConnectionManager {
     private String dbInitialSize;
     @InjectProperty("db.maxOpenStatement")
     private String dbMaxOpenStatement;
-    private static Logger log = LogManager.getLogger(ConnectionManagerImpl.class);
     private BasicDataSource dataSource;
     private ThreadLocal<ConnectionAdapeter> connectionThreadLocal = new ThreadLocal<>();
 
