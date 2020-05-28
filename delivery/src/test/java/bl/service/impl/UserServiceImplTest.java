@@ -1,15 +1,16 @@
 package bl.service.impl;
 
 
-import bl.exeption.NoSuchUserException;
-import bl.exeption.OccupiedLoginException;
-import bl.service.PasswordEncoderService;
 import dal.dao.UserDao;
 import dal.entity.RoleType;
 import dal.entity.User;
 import dal.exeption.AskedDataIsNotCorrect;
 import dto.LoginInfoDto;
 import dto.RegistrationInfoDto;
+import logiclayer.exeption.NoSuchUserException;
+import logiclayer.exeption.OccupiedLoginException;
+import logiclayer.service.PasswordEncoderService;
+import logiclayer.service.impl.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

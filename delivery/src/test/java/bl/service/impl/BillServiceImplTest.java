@@ -1,7 +1,5 @@
 package bl.service.impl;
 
-import bl.exeption.FailCreateDeliveryException;
-import bl.exeption.UnsupportableWeightFactorException;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
@@ -9,6 +7,9 @@ import dal.entity.Bill;
 import dal.exeption.AskedDataIsNotCorrect;
 import dto.BillDto;
 import dto.BillInfoToPayDto;
+import logiclayer.exeption.FailCreateDeliveryException;
+import logiclayer.exeption.UnsupportableWeightFactorException;
+import logiclayer.service.impl.BillServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

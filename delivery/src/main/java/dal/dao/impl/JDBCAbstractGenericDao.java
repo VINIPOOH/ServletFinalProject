@@ -1,12 +1,12 @@
 package dal.dao.impl;
 
 
+import dal.conection.ConnectionAdapeter;
+import dal.conection.pool.ConnectionManager;
 import dal.dao.AbstractGenericDao;
 import dal.dao.maper.EntityToPreparedStatmentMapper;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.exeption.DBRuntimeException;
-import dal.persistance.conection.ConnectionAdapeter;
-import dal.persistance.conection.pool.ConnectionManager;
 import infrastructure.anotation.InjectByType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

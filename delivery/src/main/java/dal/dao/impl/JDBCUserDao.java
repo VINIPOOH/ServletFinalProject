@@ -1,13 +1,13 @@
 package dal.dao.impl;
 
+import dal.conection.ConnectionAdapeter;
+import dal.conection.pool.ConnectionManager;
 import dal.dao.UserDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.RoleType;
 import dal.entity.User;
 import dal.exeption.AskedDataIsNotCorrect;
 import dal.exeption.DBRuntimeException;
-import dal.persistance.conection.ConnectionAdapeter;
-import dal.persistance.conection.pool.ConnectionManager;
 import infrastructure.anotation.HasParentWhichNeedConfig;
 import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;

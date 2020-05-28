@@ -1,5 +1,6 @@
 package bl.service.impl;
 
+import logiclayer.service.impl.PasswordEncoderServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

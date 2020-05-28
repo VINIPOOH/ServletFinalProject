@@ -5,8 +5,8 @@ import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.Singleton;
 import lombok.Getter;
 import lombok.Setter;
-import web.comand.action.ActionCommand;
-import web.comand.action.impl.EmptyCommand;
+import web.comand.ActionCommand;
+import web.comand.impl.EmptyCommand;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,0 +1,94 @@
+package web.comand.impl;
+
+import dto.RegistrationInfoDto;
+import dto.validation.Validator;
+import logiclayer.exeption.OccupiedLoginException;
+import logiclayer.service.UserService;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import javax.servlet.http.HttpServletRequest;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+import static web.constant.PageConstance.*;
+
+@RunWith(MockitoJUnitRunner.class)
+public class RegistrationTest {
+    @InjectMocks
+    Registration registration;
+    @Mock
+    HttpServletRequest httpServletRequest;
+    @Mock
+    Validator loginDtoValidator;
+    @Mock
+    UserService userService;
+
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String PASSWORD_REPEAT = "passwordRepeat";
+
+    @Before
+    public void setUp() {
+        when(httpServletRequest.getParameter(USERNAME)).thenReturn("user");
+        when(httpServletRequest.getParameter(PASSWORD)).thenReturn("password");
+        when(httpServletRequest.getParameter(PASSWORD_REPEAT)).thenReturn("password");
+    }
+
+    @Test
+    public void performGet() {
+        String actual = registration.performGet(httpServletRequest);
+
+        assertEquals(MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME, actual);
+    }
+
+    @Test
+    public void performPost() throws OccupiedLoginException {
+        when(loginDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
+        when(userService.addNewUserToDB(any(RegistrationInfoDto.class))).thenReturn(true);
+
+        String actual = registration.performPost(httpServletRequest);
+
+        verify(httpServletRequest, times(1)).getParameter(USERNAME);
+        verify(httpServletRequest, times(1)).getParameter(PASSWORD);
+        verify(httpServletRequest, times(1)).getParameter(PASSWORD_REPEAT);
+        verify(httpServletRequest, times(0)).setAttribute(anyString(), any(Object.class));
+        verify(loginDtoValidator, times(1)).isValid(any(HttpServletRequest.class));
+        assertEquals(REDIRECT_COMMAND + LOGIN_REQUEST_COMMAND, actual);
+    }
+
+    @Test
+    public void performPostIncorrectInput() {
+        when(loginDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(false);
+
+        String actual = registration.performPost(httpServletRequest);
+
+        verify(httpServletRequest, times(0)).getParameter(USERNAME);
+        verify(httpServletRequest, times(0)).getParameter(PASSWORD);
+        verify(httpServletRequest, times(0)).getParameter(PASSWORD_REPEAT);
+        verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
+        verify(loginDtoValidator, times(1)).isValid(any(HttpServletRequest.class));
+        assertEquals(MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME, actual);
+    }
+
+    @Test
+    public void performPostIncorrectData() throws OccupiedLoginException {
+        when(loginDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
+        when(userService.addNewUserToDB(any(RegistrationInfoDto.class))).thenThrow(OccupiedLoginException.class);
+
+        String actual = registration.performPost(httpServletRequest);
+
+        verify(httpServletRequest, times(1)).getParameter(USERNAME);
+        verify(httpServletRequest, times(1)).getParameter(PASSWORD);
+        verify(httpServletRequest, times(1)).getParameter(PASSWORD_REPEAT);
+        verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
+        verify(loginDtoValidator, times(1)).isValid(any(HttpServletRequest.class));
+        assertEquals(MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME, actual);
+    }
+}

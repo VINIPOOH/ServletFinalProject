@@ -3,6 +3,7 @@ package bl.service.impl;
 import dal.dao.LocalityDao;
 import dal.entity.Locality;
 import dto.LocaliseLocalityDto;
+import logiclayer.service.impl.LocalityServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
