@@ -12,7 +12,6 @@ import web.comand.ActionCommand;
 import web.comand.impl.EmptyCommand;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -21,24 +20,25 @@ public class ApplicationContext {
 
     @Setter
     private ObjectFactory factory;
-    private Map<Class, Object> cache;
+    private Map<Class, Object> objectsCash;
     @Getter
     private Config config;
-    private static final Map<String, ActionCommand> COMMANDS = new HashMap<>();
-    private static final Class defaultEndpoint = EmptyCommand.class;
+    private final Map<String, ActionCommand> commands;
+    private final Class defaultEndpoint = EmptyCommand.class;
 
-    public ApplicationContext(Config config, Map<Class, Object> preparedCash) {
+    public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, ActionCommand> commandsPrepared) {
         log.debug("");
 
+        this.commands = commandsPrepared;
         this.config = config;
-        this.cache = preparedCash;
+        this.objectsCash = preparedCash;
     }
 
     public <T> T getObject(Class<T> type) {
         log.debug("");
 
-        if (cache.containsKey(type)) {
-            return (T) cache.get(type);
+        if (objectsCash.containsKey(type)) {
+            return (T) objectsCash.get(type);
         }
         Class<? extends T> implClass = type;
 
@@ -53,7 +53,7 @@ public class ApplicationContext {
         }
 
         if (implClass.isAnnotationPresent(Singleton.class)) {
-            cache.put(type, t);
+            objectsCash.put(type, t);
         }
         return t;
     }
@@ -61,15 +61,16 @@ public class ApplicationContext {
     public ActionCommand getCommand(String link) {
         log.debug("");
 
-        if (COMMANDS.containsKey(link)) {
-            return COMMANDS.get(link);
+        if (commands.containsKey(link)) {
+            return commands.get(link);
         }
         for (Class<?> clazz : config.getScanner().getTypesAnnotatedWith(Endpoint.class)) {
             Endpoint annotation = clazz.getAnnotation(Endpoint.class);
             if (annotation.value().equals(link)) {
                 ActionCommand toReturn = (ActionCommand) getObject(clazz);
                 if (clazz.isAnnotationPresent(Singleton.class)) {
-                    COMMANDS.put(link, toReturn);
+                    commands.put(link, toReturn);
+                    objectsCash.put(toReturn.getClass(), toReturn);
                 }
                 return toReturn;
             }

@@ -22,17 +22,19 @@ import static web.constant.AttributeConstants.LOGGINED_USER_NAMES;
 public class Servlet extends HttpServlet {
 
     private static Logger log = LogManager.getLogger(Servlet.class);
-    private static final Map<Class, Object> paramMap = new HashMap<>();
-    private static final JavaConfig config = new JavaConfig("", new HashMap<>());
-    private static final ApplicationContext context = new ApplicationContext(config, paramMap);
-    private static final ObjectFactory objectFactory = new ObjectFactory(context);
+    private ApplicationContext context;
 
     @Override
     public void init() throws ServletException {
         super.init();
         this.getServletContext().setAttribute(LOGGINED_USER_NAMES, new ConcurrentHashMap<String, HttpSession>());
-        context.setFactory(objectFactory);
+
+        Map<Class, Object> paramMap = new ConcurrentHashMap<>();
         paramMap.put(ResourceBundle.class, ResourceBundle.getBundle("db-request"));
+        context = new ApplicationContext(new JavaConfig("", new HashMap<>()), paramMap, new ConcurrentHashMap<>());
+        ObjectFactory objectFactory = new ObjectFactory(context);
+        context.setFactory(objectFactory);
+
     }
 
     @Override
