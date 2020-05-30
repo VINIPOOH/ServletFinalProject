@@ -20,7 +20,7 @@ public class ApplicationContext {
 
     @Setter
     private ObjectFactory factory;
-    private Map<Class, Object> objectsCash;
+    private final Map<Class, Object> objectsCash;
     @Getter
     private Config config;
     private final Map<String, ActionCommand> commands;
@@ -40,22 +40,27 @@ public class ApplicationContext {
         if (objectsCash.containsKey(type)) {
             return (T) objectsCash.get(type);
         }
-        Class<? extends T> implClass = type;
+        synchronized (objectsCash) {
+            if (objectsCash.containsKey(type)) {
+                return (T) objectsCash.get(type);
+            }
+            Class<? extends T> implClass = type;
 
-        if (type.isInterface()) {
-            implClass = config.getImplClass(type);
-        }
-        T t = null;
-        try {
-            t = factory.createObject(implClass);
-        } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
-            throw new ReflectionException();
-        }
+            if (type.isInterface()) {
+                implClass = config.getImplClass(type);
+            }
+            T t = null;
+            try {
+                t = factory.createObject(implClass);
+            } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
+                throw new ReflectionException();
+            }
 
-        if (implClass.isAnnotationPresent(Singleton.class)) {
-            objectsCash.put(type, t);
+            if (implClass.isAnnotationPresent(Singleton.class)) {
+                objectsCash.put(type, t);
+            }
+            return t;
         }
-        return t;
     }
 
     public ActionCommand getCommand(String link) {
@@ -64,18 +69,23 @@ public class ApplicationContext {
         if (commands.containsKey(link)) {
             return commands.get(link);
         }
-        for (Class<?> clazz : config.getScanner().getTypesAnnotatedWith(Endpoint.class)) {
-            Endpoint annotation = clazz.getAnnotation(Endpoint.class);
-            if (annotation.value().equals(link)) {
-                ActionCommand toReturn = (ActionCommand) getObject(clazz);
-                if (clazz.isAnnotationPresent(Singleton.class)) {
-                    commands.put(link, toReturn);
-                    objectsCash.put(toReturn.getClass(), toReturn);
+        synchronized (commands) {
+            if (commands.containsKey(link)) {
+                return commands.get(link);
+            }
+            for (Class<?> clazz : config.getScanner().getTypesAnnotatedWith(Endpoint.class)) {
+                Endpoint annotation = clazz.getAnnotation(Endpoint.class);
+                if (annotation.value().equals(link)) {
+                    ActionCommand toReturn = (ActionCommand) getObject(clazz);
+                    if (clazz.isAnnotationPresent(Singleton.class)) {
+                        commands.put(link, toReturn);
+                    }
+                    return toReturn;
                 }
-                return toReturn;
             }
         }
         return (ActionCommand) getObject(defaultEndpoint);
+
     }
 
 }
