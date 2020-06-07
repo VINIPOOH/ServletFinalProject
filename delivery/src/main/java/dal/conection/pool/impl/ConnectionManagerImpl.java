@@ -17,19 +17,19 @@ public class ConnectionManagerImpl implements ConnectionManager {
 
     private static Logger log = LogManager.getLogger(ConnectionManagerImpl.class);
 
-    @InjectProperty()
+    @InjectProperty
     private String dbUrl;
-    @InjectProperty()
+    @InjectProperty
     private String dbUser;
-    @InjectProperty()
+    @InjectProperty
     private String dbPassword;
-    @InjectProperty()
+    @InjectProperty
     private String dbDriver;
-    @InjectProperty()
+    @InjectProperty
     private String dbMinIdle;
-    @InjectProperty()
+    @InjectProperty
     private String dbMaxIdle;
-    @InjectProperty()
+    @InjectProperty
     private String dbInitialSize;
     @InjectProperty("db.maxOpenStatement")
     private String dbMaxOpenStatement;
