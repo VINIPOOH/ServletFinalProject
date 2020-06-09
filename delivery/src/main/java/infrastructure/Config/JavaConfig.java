@@ -1,6 +1,5 @@
 package infrastructure.Config;
 
-import lombok.Getter;
 import org.reflections.Reflections;
 
 import java.util.Map;
@@ -9,7 +8,6 @@ import java.util.Set;
 
 public class JavaConfig implements Config {
 
-    @Getter
     private Reflections scanner;
     private Map<Class, Class> ifc2ImplClass;
 
@@ -25,10 +23,13 @@ public class JavaConfig implements Config {
             if (classes.size() != 1) {
                 throw new RuntimeException(ifc + " has 0 or more than one impl please update your config");
             }
-
             return classes.iterator().next();
         });
 
+    }
+
+    public Reflections getScanner() {
+        return this.scanner;
     }
 }
 

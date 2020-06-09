@@ -4,8 +4,6 @@ import infrastructure.Config.Config;
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.Singleton;
 import infrastructure.exceptions.ReflectionException;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.ActionCommand;
@@ -20,9 +18,7 @@ public class ApplicationContext {
     private final Map<Class, Object> objectsCash;
     private final Map<String, ActionCommand> commands;
     private final Class defaultEndpoint = EmptyCommand.class;
-    @Setter
     private ObjectFactory factory;
-    @Getter
     private Config config;
 
     public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, ActionCommand> commandsPrepared) {
@@ -87,4 +83,11 @@ public class ApplicationContext {
 
     }
 
+    public Config getConfig() {
+        return this.config;
+    }
+
+    public void setFactory(ObjectFactory factory) {
+        this.factory = factory;
+    }
 }
