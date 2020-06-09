@@ -1,7 +1,10 @@
 package infrastructure.Configurators;
 
 import infrastructure.ApplicationContext;
+import lombok.SneakyThrows;
 
 public interface ObjectConfigurator {
-    void configure(Object t, ApplicationContext context);
+
+    @SneakyThrows
+    void configure(Object t, Class clazz, ApplicationContext context);
 }

@@ -6,7 +6,7 @@ import dal.dao.LocalityDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.Locality;
 import dal.exeption.DBRuntimeException;
-import infrastructure.anotation.HasParentWhichNeedConfig;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
 
 @Singleton
-@HasParentWhichNeedConfig
+@NeedConfig
 public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements LocalityDao {
     private static final String LOCALITY_FIND_ALL_RU = "locality.find.all.ru";
     private static final String LOCALITY_FIND_ALL_EN = "locality.find.all.en";

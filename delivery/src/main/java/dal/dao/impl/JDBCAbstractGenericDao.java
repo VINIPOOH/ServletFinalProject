@@ -8,6 +8,7 @@ import dal.dao.maper.EntityToPreparedStatmentMapper;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.exeption.DBRuntimeException;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+@NeedConfig
 abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
     private static Logger log = LogManager.getLogger(JDBCAbstractGenericDao.class);

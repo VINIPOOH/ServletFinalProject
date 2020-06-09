@@ -6,6 +6,7 @@ import dal.entity.Locality;
 import dto.LocaliseLocalityDto;
 import dto.mapper.Mapper;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.service.LocalityService;
 import org.apache.log4j.LogManager;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 import static logiclayer.service.ServicesConstants.RUSSIAN_LANG_COD;
 
 @Singleton
+@NeedConfig
 public class LocalityServiceImpl implements LocalityService {
     private static Logger log = LogManager.getLogger(LocalityServiceImpl.class);
     @InjectByType

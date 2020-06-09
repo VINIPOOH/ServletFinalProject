@@ -11,6 +11,7 @@ import dto.BillInfoToPayDto;
 import dto.DeliveryOrderCreateDto;
 import dto.mapper.Mapper;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.exeption.FailCreateDeliveryException;
 import logiclayer.exeption.UnsupportableWeightFactorException;
@@ -25,16 +26,17 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Singleton
+@NeedConfig
 public class BillServiceImpl implements BillService {
     private static Logger log = LogManager.getLogger(BillServiceImpl.class);
+    @InjectByType
+    TransactionalManager transactionalManager;
     @InjectByType
     private BillDao billDao;
     @InjectByType
     private UserDao userDao;
     @InjectByType
     private DeliveryDao deliveryDao;
-    @InjectByType
-    TransactionalManager transactionalManager;
 
     public BillServiceImpl() {
     }

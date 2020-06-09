@@ -10,6 +10,7 @@ import dto.DeliveryInfoToGetDto;
 import dto.PriceAndTimeOnDeliveryDto;
 import dto.mapper.Mapper;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.service.DeliveryService;
 import logiclayer.service.ServicesConstants;
@@ -22,6 +23,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Singleton
+@NeedConfig
 public class DeliveryServiceImpl implements DeliveryService {
     private static Logger log = LogManager.getLogger(DeliveryServiceImpl.class);
     @InjectByType

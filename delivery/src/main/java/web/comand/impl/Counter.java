@@ -6,6 +6,7 @@ import dto.mapper.RequestDtoMapper;
 import dto.validation.Validator;
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.service.DeliveryService;
 import logiclayer.service.LocalityService;
@@ -22,6 +23,7 @@ import static web.constant.PageConstance.COUNTER_FILE_NAME;
 import static web.constant.PageConstance.MAIN_WEB_FOLDER;
 
 @Singleton
+@NeedConfig
 @Endpoint("counter")
 public class Counter extends MultipleMethodCommand {
     private static final String LOCALITY_LIST = "localityList";

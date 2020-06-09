@@ -4,6 +4,7 @@ import dal.entity.User;
 import dto.validation.IDValidator;
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.service.DeliveryService;
 import org.apache.log4j.LogManager;
@@ -18,6 +19,7 @@ import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
 @Singleton
+@NeedConfig
 @Endpoint("user/delivers-to-get")
 public class UserDeliveryGet extends MultipleMethodCommand {
     private static final String DELIVERIES_WHICH_ADDRESSED_FOR_USER = "deliveriesWhichAddressedForUser";

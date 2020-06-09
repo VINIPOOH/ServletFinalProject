@@ -6,6 +6,7 @@ import dto.mapper.RequestDtoMapper;
 import dto.validation.LoginDtoValidator;
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.exeption.NoSuchUserException;
 import logiclayer.service.UserService;
@@ -22,6 +23,7 @@ import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
 @Singleton
+@NeedConfig
 @Endpoint("anonymous/login")
 public class Login extends MultipleMethodCommand {
     private static final String USERNAME = "username";

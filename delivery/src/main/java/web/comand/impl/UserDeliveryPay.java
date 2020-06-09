@@ -4,6 +4,7 @@ import dal.entity.User;
 import dto.validation.IDValidator;
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.service.BillService;
 import logiclayer.service.UserService;
@@ -19,6 +20,7 @@ import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
 @Singleton
+@NeedConfig
 @Endpoint("user/user-delivery-request-confirm")
 public class UserDeliveryPay extends MultipleMethodCommand {
     private static final String BILL_INFO_TO_PAY = "BillInfoToPay";

@@ -2,6 +2,7 @@ package web.comand.impl;
 
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.service.UserService;
 import org.apache.log4j.LogManager;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import static web.constant.PageConstance.*;
 
 @Singleton
+@NeedConfig
 @Endpoint("admin/users")
 public class Admin implements ActionCommand {
     public static final String USERS_LIST = "usersList";

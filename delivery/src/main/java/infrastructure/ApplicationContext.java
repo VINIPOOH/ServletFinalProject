@@ -17,14 +17,13 @@ import java.util.Map;
 
 public class ApplicationContext {
     private static Logger log = LogManager.getLogger(ApplicationContext.class);
-
-    @Setter
-    private ObjectFactory factory;
     private final Map<Class, Object> objectsCash;
-    @Getter
-    private Config config;
     private final Map<String, ActionCommand> commands;
     private final Class defaultEndpoint = EmptyCommand.class;
+    @Setter
+    private ObjectFactory factory;
+    @Getter
+    private Config config;
 
     public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, ActionCommand> commandsPrepared) {
         log.debug("");

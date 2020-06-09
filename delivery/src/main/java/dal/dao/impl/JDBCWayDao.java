@@ -7,7 +7,7 @@ import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;
 import dal.entity.Way;
 import dal.exeption.DBRuntimeException;
-import infrastructure.anotation.HasParentWhichNeedConfig;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Singleton
-@HasParentWhichNeedConfig
+@NeedConfig
 public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
     private static final String PRICE = "price";
     private static final String TIME_ON_WAY_IN_DAYS = "time_on_way_in_days";

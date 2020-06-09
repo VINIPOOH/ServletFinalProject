@@ -3,6 +3,7 @@ package web.comand.impl;
 import dal.entity.User;
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.service.BillService;
 import org.apache.log4j.LogManager;
@@ -16,6 +17,7 @@ import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
 @Singleton
+@NeedConfig
 @Endpoint("user/user-statistic")
 public class UserStatistic implements ActionCommand {
 

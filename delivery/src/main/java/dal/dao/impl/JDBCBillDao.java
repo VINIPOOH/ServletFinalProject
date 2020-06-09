@@ -7,7 +7,7 @@ import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
 import dal.exeption.AskedDataIsNotCorrect;
 import dal.exeption.DBRuntimeException;
-import infrastructure.anotation.HasParentWhichNeedConfig;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
 
 @Singleton
-@HasParentWhichNeedConfig
+@NeedConfig
 public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao {
     private static final String BILL_ID = "bill_id";
     private static final String PRICE = "price";

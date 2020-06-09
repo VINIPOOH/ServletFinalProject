@@ -6,6 +6,7 @@ import dto.mapper.RequestDtoMapper;
 import dto.validation.Validator;
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.exeption.FailCreateDeliveryException;
 import logiclayer.exeption.UnsupportableWeightFactorException;
@@ -23,6 +24,7 @@ import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
 @Singleton
+@NeedConfig
 @Endpoint("user/user-delivery-initiation")
 public class UserDeliveryInitiation extends MultipleMethodCommand {
     private static final String LOCALITY_LIST = "localityList";

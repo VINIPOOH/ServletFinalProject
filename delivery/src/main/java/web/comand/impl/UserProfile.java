@@ -4,6 +4,7 @@ import dal.entity.User;
 import dto.validation.Validator;
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.exeption.NoSuchUserException;
 import logiclayer.service.UserService;
@@ -17,6 +18,7 @@ import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
 @Singleton
+@NeedConfig
 @Endpoint("user/userprofile")
 public class UserProfile extends MultipleMethodCommand {
     private static final String MONEY = "money";

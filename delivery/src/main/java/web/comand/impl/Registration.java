@@ -5,6 +5,7 @@ import dto.mapper.RequestDtoMapper;
 import dto.validation.RegistrationDtoValidator;
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.exeption.OccupiedLoginException;
 import logiclayer.service.UserService;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import static web.constant.PageConstance.*;
 
 @Singleton
+@NeedConfig
 @Endpoint("anonymous/registration")
 public class Registration extends MultipleMethodCommand {
     private static final String USERNAME = "username";

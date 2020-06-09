@@ -4,6 +4,7 @@ import dal.conection.ConnectionAdapeter;
 import dal.conection.pool.TransactionalManager;
 import dal.conection.pool.WrappedTransactionalConnectionPool;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -11,6 +12,7 @@ import org.apache.log4j.Logger;
 import java.sql.SQLException;
 
 @Singleton
+@NeedConfig
 public class TransactionalManagerImpl implements TransactionalManager {
 
     private static Logger log = LogManager.getLogger(TransactionalManagerImpl.class);

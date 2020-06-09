@@ -1,6 +1,7 @@
 package logiclayer.service.impl;
 
 
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.exeption.PasswordEncodeException;
 import logiclayer.service.PasswordEncoderService;
@@ -11,6 +12,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Singleton
+@NeedConfig
 public class PasswordEncoderServiceImpl implements PasswordEncoderService {
     private static Logger log = LogManager.getLogger(PasswordEncoderServiceImpl.class);
     private static String encodingAlgorithmKey = "MD5";

@@ -8,6 +8,7 @@ import dto.LoginInfoDto;
 import dto.RegistrationInfoDto;
 import dto.UserStatisticDto;
 import infrastructure.anotation.InjectByType;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.exeption.NoSuchUserException;
 import logiclayer.exeption.OccupiedLoginException;
@@ -21,6 +22,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Singleton
+@NeedConfig
 public class UserServiceImpl implements UserService {
     private static Logger log = LogManager.getLogger(UserService.class);
     @InjectByType

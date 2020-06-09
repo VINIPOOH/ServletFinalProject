@@ -1,6 +1,7 @@
 package infrastructure;
 
 import infrastructure.Configurators.ObjectConfigurator;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.exceptions.ReflectionException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -53,10 +54,13 @@ public class ObjectFactory {
                 });
     }
 
-
-
     private <T> void configure(T t) {
-        configurators.forEach(objectConfigurator -> objectConfigurator.configure(t, context));
+        Class currentClass = t.getClass();
+        while (currentClass.isAnnotationPresent(NeedConfig.class)) {
+            Class finalCurrentClass = currentClass;
+            configurators.forEach(objectConfigurator -> objectConfigurator.configure(t, finalCurrentClass, context));
+            currentClass = currentClass.getSuperclass();
+        }
     }
 
     private <T> T create(Class<T> implClass) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {

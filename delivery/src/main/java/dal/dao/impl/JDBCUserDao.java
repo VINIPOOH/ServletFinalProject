@@ -8,7 +8,7 @@ import dal.entity.RoleType;
 import dal.entity.User;
 import dal.exeption.AskedDataIsNotCorrect;
 import dal.exeption.DBRuntimeException;
-import infrastructure.anotation.HasParentWhichNeedConfig;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Singleton
-@HasParentWhichNeedConfig
+@NeedConfig
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {
     private static final String ID = "id";
     private static final String EMAIL = "email";

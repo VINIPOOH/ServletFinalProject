@@ -5,6 +5,7 @@ import dal.conection.ConnectionAdapterImpl;
 import dal.conection.pool.WrappedTransactionalConnectionPool;
 import infrastructure.anotation.InjectByType;
 import infrastructure.anotation.InjectProperty;
+import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.LogManager;
@@ -14,6 +15,7 @@ import javax.annotation.PostConstruct;
 import java.sql.SQLException;
 
 @Singleton
+@NeedConfig
 public class WrappedTransactionalConnectionPoolImpl implements WrappedTransactionalConnectionPool {
     private static Logger log = LogManager.getLogger(WrappedTransactionalConnectionPoolImpl.class);
 
