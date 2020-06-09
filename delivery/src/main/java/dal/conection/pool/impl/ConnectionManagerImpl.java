@@ -3,6 +3,7 @@ package dal.conection.pool.impl;
 import dal.conection.ConnectionAdapeter;
 import dal.conection.ConnectionAdapterImpl;
 import dal.conection.pool.ConnectionManager;
+import infrastructure.anotation.InjectByType;
 import infrastructure.anotation.InjectProperty;
 import infrastructure.anotation.Singleton;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -33,14 +34,15 @@ public class ConnectionManagerImpl implements ConnectionManager {
     private String dbInitialSize;
     @InjectProperty("db.maxOpenStatement")
     private String dbMaxOpenStatement;
-    private BasicDataSource dataSource;
-    private ThreadLocal<ConnectionAdapeter> connectionThreadLocal = new ThreadLocal<>();
+    @InjectByType
+    private BasicDataSource ds;
+    @InjectByType
+    private ThreadLocal<ConnectionAdapeter> connectionThreadLocal;
 
     @PostConstruct
     public void init() {
         log.debug("created");
 
-        BasicDataSource ds = new BasicDataSource();
         ds.setUrl(dbUrl);
         ds.setUsername(dbUser);
         ds.setPassword((dbPassword));
@@ -49,7 +51,6 @@ public class ConnectionManagerImpl implements ConnectionManager {
         ds.setMaxIdle(Integer.parseInt(dbMaxIdle));
         ds.setInitialSize(Integer.parseInt(dbInitialSize));
         ds.setMaxOpenPreparedStatements(Integer.parseInt(dbMaxOpenStatement));
-        dataSource = ds;
     }
 
 
@@ -60,7 +61,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
         if (connection != null) {
             return connection;
         }
-        return new ConnectionAdapterImpl(dataSource.getConnection());
+        return new ConnectionAdapterImpl(ds.getConnection());
     }
 
     public void startTransaction() throws SQLException {
@@ -70,7 +71,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
         if (connection != null) {
             throw new SQLException("Transaction already started");
         }
-        connection = getConnection();
+        connection = new ConnectionAdapterImpl(ds.getConnection());
         connection.setAutoCommit(false);
         connection.setIsTransaction(true);
         connectionThreadLocal.set(connection);

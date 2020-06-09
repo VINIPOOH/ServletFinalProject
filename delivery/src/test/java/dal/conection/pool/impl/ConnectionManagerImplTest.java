@@ -1,6 +1,6 @@
 package dal.conection.pool.impl;
 
-import logiclayer.service.impl.BillServiceImpl;
+import dal.conection.ConnectionAdapeter;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,16 +8,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
-import sun.reflect.ReflectionFactory;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ConnectionManagerImplTest {
@@ -25,13 +24,28 @@ public class ConnectionManagerImplTest {
     @InjectMocks
     ConnectionManagerImpl connectionManager;
 
-    @Spy
+    @Mock
     BasicDataSource basicDataSource;
 
+    @Spy
+    ConnectionAdapeter connectionAdapeter;
+
+    @Spy
+    Connection connection;
+
+    @Mock
+    ThreadLocal<ConnectionAdapeter> connectionThreadLocal;
+
     @Test
-    public void init() {
-        ReflectionFactory.GetReflectionFactoryAction
-        SetFildVlue("dbMinIdle1");
+    public void init() throws NoSuchFieldException, IllegalAccessException {
+        setFieldValueByItName("dbUrl", "1");
+        setFieldValueByItName("dbUser", "1");
+        setFieldValueByItName("dbPassword", "1");
+        setFieldValueByItName("dbDriver", "1");
+        setFieldValueByItName("dbMinIdle", "1");
+        setFieldValueByItName("dbMaxIdle", "1");
+        setFieldValueByItName("dbInitialSize", "1");
+        setFieldValueByItName("dbMaxOpenStatement", "1");
 
         connectionManager.init();
 
@@ -45,12 +59,61 @@ public class ConnectionManagerImplTest {
         verify(basicDataSource, times(1)).setMaxOpenPreparedStatements(anyInt());
     }
 
+
     @Test
-    public void getConnection() {
+    public void getConnectionLocalThreadAlreadyHaveConnection() throws SQLException {
+        when(connectionThreadLocal.get()).thenReturn(connectionAdapeter);
+
+        ConnectionAdapeter result = connectionManager.getConnection();
+
+        verify(connectionThreadLocal, times(1)).get();
+        verify(basicDataSource, times(0)).getConnection();
+        assertEquals(connectionAdapeter, result);
     }
 
     @Test
-    public void startTransaction() {
+    public void getConnectionLocalThreadHaveNotConnection() throws SQLException {
+        when(connectionThreadLocal.get()).thenReturn(null);
+        when(basicDataSource.getConnection()).thenReturn(connection);
+
+        ConnectionAdapeter result = connectionManager.getConnection();
+
+        verify(connectionThreadLocal, times(1)).get();
+        verify(basicDataSource, times(1)).getConnection();
+        assertEquals(connection, result.getSubject());
+    }
+
+    @Test(expected = SQLException.class)
+    public void getConnectionLocalDataSourceCantGetConnection() throws SQLException {
+        when(connectionThreadLocal.get()).thenReturn(null);
+        when(basicDataSource.getConnection()).thenThrow(SQLException.class);
+
+        connectionManager.getConnection();
+
+        fail();
+    }
+
+    @Test(expected = SQLException.class)
+    public void startTransactionThreadAlreadyHaveConnection() throws SQLException {
+        when(connectionThreadLocal.get()).thenReturn(connectionAdapeter);
+
+        connectionManager.startTransaction();
+
+        fail();
+    }
+
+    @Test
+    public void startTransactionThreadHaveNotConnection() throws SQLException {
+        when(connectionThreadLocal.get()).thenReturn(null);
+        when(basicDataSource.getConnection()).thenReturn(connection);
+
+        connectionManager.startTransaction();
+
+        verify(basicDataSource, times(1)).getConnection();
+        verify(connectionThreadLocal, times(1)).set(any(ConnectionAdapeter.class));
+        verify(connection, times(1)).setAutoCommit(false);
+//        verify(connectionAdapeter, times(1)).setIsTransaction(true);
+
     }
 
     @Test
@@ -68,4 +131,11 @@ public class ConnectionManagerImplTest {
     @Test
     public void testFinalize() {
     }
+
+    private void setFieldValueByItName(String fieldName, String fieldValue) throws NoSuchFieldException, IllegalAccessException {
+        Field field = connectionManager.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(connectionManager, fieldValue);
+    }
+
 }
