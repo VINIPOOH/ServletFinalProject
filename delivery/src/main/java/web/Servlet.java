@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,7 +30,7 @@ public class Servlet extends HttpServlet {
 
         Map<Class, Object> paramMap = new ConcurrentHashMap<>();
         paramMap.put(ResourceBundle.class, ResourceBundle.getBundle("db-request"));
-        context = new ApplicationContext(new JavaConfig("", new HashMap<>()), paramMap, new ConcurrentHashMap<>());
+        context = new ApplicationContext(new JavaConfig(""), paramMap, new ConcurrentHashMap<>());
         ObjectFactory objectFactory = new ObjectFactory(context);
         context.setFactory(objectFactory);
 
