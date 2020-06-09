@@ -1,7 +1,7 @@
 package dal.dao.impl;
 
 import dal.conection.ConnectionAdapeter;
-import dal.conection.pool.ConnectionManager;
+import dal.conection.pool.TransactionalManager;
 import dal.dao.UserDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.RoleType;
@@ -45,7 +45,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     public JDBCUserDao() {
     }
 
-    public JDBCUserDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
+    public JDBCUserDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
         log.debug("created");
 

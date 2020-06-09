@@ -1,6 +1,6 @@
 package logiclayer.service.impl;
 
-import dal.conection.pool.ConnectionManager;
+import dal.conection.pool.TransactionalManager;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
@@ -34,7 +34,7 @@ public class BillServiceImpl implements BillService {
     @InjectByType
     private DeliveryDao deliveryDao;
     @InjectByType
-    ConnectionManager connectionManager;
+    TransactionalManager transactionalManager;
 
     public BillServiceImpl() {
     }
@@ -54,14 +54,14 @@ public class BillServiceImpl implements BillService {
         log.debug("userId - " + userId + " billId - " + billId);
 
         try {
-            connectionManager.startTransaction();
+            transactionalManager.startTransaction();
             if (userDao.replenishUserBalenceOnSumeIfItPosible(userId,
                     billDao.getBillCostIfItIsNotPaid(billId, userId))
                     && billDao.murkBillAsPayed(billId)) {
-                connectionManager.commit();
+                transactionalManager.commit();
                 return true;
             }
-            connectionManager.rollBack();
+            transactionalManager.rollBack();
             return false;
         } catch (SQLException e) {
             log.error("problem with db", e);
@@ -70,7 +70,7 @@ public class BillServiceImpl implements BillService {
             log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
             return false;
         } finally {
-            connectionManager.close();
+            transactionalManager.close();
         }
 
     }
@@ -85,14 +85,14 @@ public class BillServiceImpl implements BillService {
         log.debug("deliveryOrderCreateDto - " + deliveryOrderCreateDto + " initiatorId - " + initiatorId);
 
         try {
-            connectionManager.startTransaction();
+            transactionalManager.startTransaction();
             long newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
             if (billDao.createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
                     , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
-                connectionManager.commit();
+                transactionalManager.commit();
                 return true;
             }
-            connectionManager.rollBack();
+            transactionalManager.rollBack();
             throw new UnsupportableWeightFactorException();
         } catch (SQLException e) {
             log.error("problem with db", e);
@@ -100,7 +100,7 @@ public class BillServiceImpl implements BillService {
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
         } finally {
-            connectionManager.close();
+            transactionalManager.close();
         }
         return false;
     }

@@ -4,7 +4,7 @@ import dal.conection.ConnectionAdapeter;
 
 import java.sql.SQLException;
 
-public interface ConnectionManager extends AutoCloseable {
+public interface TransactionalManager extends AutoCloseable {
     ConnectionAdapeter getConnection() throws SQLException;
 
     void startTransaction() throws SQLException;

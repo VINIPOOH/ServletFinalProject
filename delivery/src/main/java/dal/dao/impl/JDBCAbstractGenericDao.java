@@ -2,7 +2,7 @@ package dal.dao.impl;
 
 
 import dal.conection.ConnectionAdapeter;
-import dal.conection.pool.ConnectionManager;
+import dal.conection.pool.TransactionalManager;
 import dal.dao.AbstractGenericDao;
 import dal.dao.maper.EntityToPreparedStatmentMapper;
 import dal.dao.maper.ResultSetToEntityMapper;
@@ -25,12 +25,12 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
     @InjectByType
     protected ResourceBundle resourceBundleRequests;
     @InjectByType
-    protected ConnectionManager connector;
+    protected TransactionalManager connector;
 
     public JDBCAbstractGenericDao() {
     }
 
-    public JDBCAbstractGenericDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
+    public JDBCAbstractGenericDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         this.resourceBundleRequests = resourceBundleRequests;
         this.connector = connector;
     }

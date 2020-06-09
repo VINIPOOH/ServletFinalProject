@@ -66,9 +66,6 @@ public class UserServiceImplTest {
 
     @Test(expected = NoSuchUserException.class)
     public void loginUserUserIsNotExist() throws NoSuchUserException {
-        when(userDao.findByEmailAndPasswordWithPermissions(anyString(), anyString())).thenReturn(Optional.empty());
-
-        doAnswer((invocation) -> invocation.getArgument(0)).when(passwordEncoderService).encode(anyString());
         LoginInfoDto loginInfoDto = LoginInfoDto.builder()
                 .password("password")
                 .username("email")

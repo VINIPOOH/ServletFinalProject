@@ -1,7 +1,7 @@
 package dal.dao.impl;
 
 import dal.conection.ConnectionAdapeter;
-import dal.conection.pool.ConnectionManager;
+import dal.conection.pool.TransactionalManager;
 import dal.dao.DeliveryDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
@@ -37,7 +37,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
     private static final String LOCALITY_GET_COLUMN_NAME = "locality_get_name";
     private static Logger log = LogManager.getLogger(JDBCDeliveryDao.class);
 
-    public JDBCDeliveryDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
+    public JDBCDeliveryDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
         log.debug("created");
     }

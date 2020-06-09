@@ -1,6 +1,6 @@
 package bl.service.impl;
 
-import dal.conection.pool.impl.ConnectionManagerImpl;
+import dal.conection.pool.impl.TransactionalManagerImpl;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
@@ -40,7 +40,7 @@ public class BillServiceImplTest {
     @Mock
     DeliveryDao deliveryDao;
     @Mock
-    ConnectionManagerImpl connectionManager;
+    TransactionalManagerImpl connectionManager;
 
     @Before
     public void setUp() throws Exception {

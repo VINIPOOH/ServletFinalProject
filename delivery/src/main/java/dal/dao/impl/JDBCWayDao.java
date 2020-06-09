@@ -1,7 +1,7 @@
 package dal.dao.impl;
 
 import dal.conection.ConnectionAdapeter;
-import dal.conection.pool.ConnectionManager;
+import dal.conection.pool.TransactionalManager;
 import dal.dao.WayDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;
@@ -30,7 +30,7 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
     public JDBCWayDao() {
     }
 
-    public JDBCWayDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
+    public JDBCWayDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
         log.debug("created");
 

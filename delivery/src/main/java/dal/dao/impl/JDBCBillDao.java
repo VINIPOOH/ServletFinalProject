@@ -1,7 +1,7 @@
 package dal.dao.impl;
 
 import dal.conection.ConnectionAdapeter;
-import dal.conection.pool.ConnectionManager;
+import dal.conection.pool.TransactionalManager;
 import dal.dao.BillDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
@@ -53,7 +53,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     public JDBCBillDao() {
     }
 
-    public JDBCBillDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
+    public JDBCBillDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
         log.debug("created");
     }

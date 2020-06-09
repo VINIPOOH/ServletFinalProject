@@ -1,7 +1,7 @@
 package dal.dao.impl;
 
 import dal.conection.ConnectionAdapeter;
-import dal.conection.pool.ConnectionManager;
+import dal.conection.pool.TransactionalManager;
 import dal.dao.LocalityDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.Locality;
@@ -30,7 +30,7 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
     private static final String LOCALITY_NAME = "name";
     private static Logger log = LogManager.getLogger(JDBCLocalityDao.class);
 
-    public JDBCLocalityDao(ResourceBundle resourceBundleRequests, ConnectionManager connector) {
+    public JDBCLocalityDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
         super(resourceBundleRequests, connector);
         log.debug("created");
     }
