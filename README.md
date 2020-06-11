@@ -37,6 +37,8 @@ Clone project to your local repository
 Enter your MySQL username and password into properties dbUser and dbPassword
 in file /resources/db/application.properties 
 
+Enter url to your db into propertie spring.datasource.url in file /resources/db/application.properties
+
 Run scripts from /resources/db/ folder to create database and tables
 and to insert data (sql.sql)
 
