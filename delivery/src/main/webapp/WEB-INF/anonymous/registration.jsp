@@ -29,13 +29,16 @@
                         </c:if>
                         <div class="form-group" >
                             <label for="username"><fmt:message key="registrationpage.form.leble.email"/></label>
-                            <input type="text" class="form-control" id="username" name="username">
+                            <input type="text" class="form-control" id="username" name="username"
+                                   placeholder=<fmt:message key="registrationpage.form.leble.email"/>>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="password" name="password">
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder=<fmt:message key="loginpage.form.label.password"/>>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat">
+                            <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat"
+                                   placeholder=<fmt:message key="loginpage.form.label.passwordRepeat"/>>
                         </div>
                         <button class="btn btn-success" type="submit"><fmt:message key="registrationpage.button.registration"/></button>
                         <a class="btn"  align="left" href="${pageContext.request.contextPath}/login"><fmt:message key="registrationpage.button.gotoLogin"/></a>

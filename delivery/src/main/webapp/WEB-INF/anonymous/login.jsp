@@ -22,10 +22,12 @@
                         </div>
                         </c:if>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="username" name="username" >
+                            <input type="text" class="form-control" id="username" name="username"
+                                   placeholder=<fmt:message key="loginpage.form.label.email"/>>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="password" name="password">
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder=<fmt:message key="loginpage.form.label.password"/>>
                         </div>
                         <button class="btn btn-success" type="submit"><fmt:message key="lofinpage.button.login"/></button>
                         <a class="btn"  align="left" href="${pageContext.request.contextPath}/registration"><fmt:message key="lofinpage.button.gotoRegistration"/></a>

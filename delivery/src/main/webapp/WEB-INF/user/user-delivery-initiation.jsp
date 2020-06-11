@@ -33,6 +33,7 @@
                             </div>
                         </c:if>
 
+                        <label><fmt:message key="homepage.form.weight"/></label>
                         <div class="form-group">
                             <input type="text" class="form-control" id="deliveryWeight" name="deliveryWeight"
                                    placeholder=<fmt:message key="homepage.form.weight"/>>
@@ -54,7 +55,8 @@
                         <p1></p1>
                         <label><fmt:message key="homepage.form.label.aderesee.email"/></label>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="addresseeEmail" name="addresseeEmail">
+                            <input type="text" class="form-control" id="addresseeEmail" name="addresseeEmail"
+                                   placeholder=<fmt:message key="loginpage.form.label.email"/>>
                         </div>
                         <button class="btn btn-success" type="submit"><fmt:message key="user-delivery-initiation.button.massege"/></button>
                     </form>
