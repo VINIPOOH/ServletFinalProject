@@ -15,8 +15,6 @@ public class LocaliseMoneyTag extends SimpleTagSupport {
     private long moneyInCents;
     private String lang;
     private int ruCoefficient = 80;
-
-
     public long getMoneyInCents() {
         return moneyInCents;
     }
