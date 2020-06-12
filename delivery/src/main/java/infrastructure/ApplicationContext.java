@@ -3,6 +3,8 @@ package infrastructure;
 import infrastructure.Config.Config;
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.Singleton;
+import infrastructure.currency.CurrencyInfo;
+import infrastructure.currency.CurrencyInfoLoader;
 import infrastructure.exceptions.ReflectionException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -17,16 +19,22 @@ public class ApplicationContext {
     private static Logger log = LogManager.getLogger(ApplicationContext.class);
     private final Map<Class, Object> objectsCash;
     private final Map<String, ActionCommand> commands;
+    private final Map<String, CurrencyInfo> currencies;
     private final Class defaultEndpoint = EmptyCommand.class;
     private ObjectFactory factory;
     private Config config;
 
-    public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, ActionCommand> commandsPrepared) {
+    public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, ActionCommand> commandsPrepared, CurrencyInfoLoader currencyInfoLoader) {
         log.debug("");
 
         this.commands = commandsPrepared;
         this.config = config;
         this.objectsCash = preparedCash;
+        currencies = currencyInfoLoader.getCurrencyInfo();
+    }
+
+    public CurrencyInfo getCurrencyInfo(String string) {
+        return currencies.get(string);
     }
 
     public void init() {

@@ -5,4 +5,5 @@ public interface AttributeConstants {
     String REQUEST_LANG = "lang";
     String SESSION_USER = "user";
     String LOGGINED_USER_NAMES = "logginedUserNames";
+    String CONTEXT = "context";
 }

@@ -1,4 +1,6 @@
 <%@ include file="layout/metadata-standart.jsp" %>
+<%@ taglib uri="/WEB-INF/tld/TagDescrioptor.tld" prefix="custom" %>
+
 
 <html lang="${param.lang}">
 <head>
@@ -19,13 +21,13 @@
                     <form  id="form" class="form" method="post" action="${pageContext.request.contextPath}/counter">
                         <c:if test="${inputHasErrors}">
                             <div class="alert alert-danger" role="alert" >
-                            <p><fmt:message key="homepage.form.weight.incorect"/></p>
-                        </div>
+                                <p><fmt:message key="homepage.form.weight.incorect"/></p>
+                            </div>
                         </c:if>
                         <c:if test="${IsNotExistSuchWayOrWeightForThisWay}">
-                        <div class="alert alert-danger" role="alert">
-                            <p><fmt:message key="registrationpage.form.weight.wrong"/></p>
-                        </div>
+                            <div class="alert alert-danger" role="alert">
+                                <p><fmt:message key="registrationpage.form.weight.wrong"/></p>
+                            </div>
                         </c:if>
 
                         <div class="form-group" >
@@ -34,13 +36,15 @@
                         <label><fmt:message key="homepage.form.label.locality_sand"/></label>
                         <select id="localitySandID" name="localitySandID" form="form" class="form-control">
                             <c:forEach var="locality" items="${requestScope.localityList}">
-                            <option  value="${locality.id}" id= "localitySandID" name="localitySandID">${locality.name}</option>
+                                <option value="${locality.id}" id="localitySandID"
+                                        name="localitySandID">${locality.name}</option>
                             </c:forEach>
                         </select>
                         <label><fmt:message key="homepage.form.label.locality_get"/></label>
                         <select id="localityGetID" name="localityGetID" form="form" class="form-control">
                             <c:forEach var="locality" items="${requestScope.localityList}">
-                            <option value="${locality.id}" id="localityGetID" name="localityGetID">${locality.name}</option>
+                                <option value="${locality.id}" id="localityGetID"
+                                        name="localityGetID">${locality.name}</option>
                             </c:forEach>
                         </select>
                         <p1></p1>
@@ -50,21 +54,22 @@
             </div>
         </div>
         <c:if test="${requestScope.CostAndTimeDto!=null}">
-        <div class="col-md-6 container-fluid">
-            <table class="table">
-                <tbody>
-                <tr>
-                    <td><span><fmt:message key="homepage.paragraf.price"/></span></td>
-                    <td><span>${requestScope.CostAndTimeDto.costInCents}</span></td>
-                </tr>
-                <tr>
-                    <td><span><fmt:message key="homepage.paragraf.time"/></span></td>
-                    <td><span>${requestScope.CostAndTimeDto.timeOnWayInHours}</span></td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="col-md-6 container-fluid">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><span><fmt:message key="homepage.paragraf.price"/></span></td>
+                        <td><span><custom:localise-money moneyInCents="${requestScope.CostAndTimeDto.costInCents}"
+                                                         lang="${pageContext.response.locale.language}"/></span></td>
+                    </tr>
+                    <tr>
+                        <td><span><fmt:message key="homepage.paragraf.time"/></span></td>
+                        <td><span>${requestScope.CostAndTimeDto.timeOnWayInHours}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
 
-        </div>
+            </div>
         </c:if>
     </div>
 </div>
