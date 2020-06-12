@@ -1,7 +1,6 @@
 package dal.dao.impl;
 
 import dal.conection.ConnectionAdapeter;
-import dal.conection.pool.TransactionalManager;
 import dal.dao.UserDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.RoleType;
@@ -19,7 +18,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 @Singleton
 @NeedConfig
@@ -42,14 +40,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     private static final String GET_ALL_USERS_INFO = "get.all.users.info";
     private static Logger log = LogManager.getLogger(JDBCUserDao.class);
 
-    public JDBCUserDao() {
-    }
 
-    public JDBCUserDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
-        super(resourceBundleRequests, connector);
-        log.debug("created");
-
-    }
 
     public Optional<User> findByEmailAndPasswordWithPermissions(String email, String password) {
         log.debug("findByEmailAndPasswordWithPermissions");

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import static web.constant.PageConstance.*;
 
-@Singleton
+@Singleton(isLazy = true)
 @NeedConfig
 @Endpoint("admin/users")
 public class Admin implements ActionCommand {
@@ -22,13 +22,6 @@ public class Admin implements ActionCommand {
 
     @InjectByType
     private UserService userService;
-
-    public Admin() {
-    }
-
-    public Admin(UserService userService) {
-        this.userService = userService;
-    }
 
     @Override
     public String execute(HttpServletRequest request) {

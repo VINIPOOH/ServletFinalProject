@@ -1,7 +1,6 @@
 package dal.dao.impl;
 
 import dal.conection.ConnectionAdapeter;
-import dal.conection.pool.TransactionalManager;
 import dal.dao.WayDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;
@@ -16,7 +15,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 @Singleton
 @NeedConfig
@@ -27,14 +25,6 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
             "way.find.price.and.time.by.locality_send_id.and.locality_get_id.and.weight";
     private static Logger log = LogManager.getLogger(JDBCWayDao.class);
 
-    public JDBCWayDao() {
-    }
-
-    public JDBCWayDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
-        super(resourceBundleRequests, connector);
-        log.debug("created");
-
-    }
 
     @Override
     public Optional<DeliveryCostAndTimeDto> findByLocalitySandIdAndLocalityGetId(long localitySandID, long localityGetID, int weight) {

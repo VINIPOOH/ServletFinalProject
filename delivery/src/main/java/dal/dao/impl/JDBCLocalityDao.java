@@ -1,7 +1,6 @@
 package dal.dao.impl;
 
 import dal.conection.ConnectionAdapeter;
-import dal.conection.pool.TransactionalManager;
 import dal.dao.LocalityDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.Locality;
@@ -17,7 +16,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
 
@@ -30,13 +28,6 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
     private static final String LOCALITY_NAME = "name";
     private static Logger log = LogManager.getLogger(JDBCLocalityDao.class);
 
-    public JDBCLocalityDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
-        super(resourceBundleRequests, connector);
-        log.debug("created");
-    }
-
-    public JDBCLocalityDao() {
-    }
 
     @Override
     public List<Locality> findAllLocaliseLocalitiesWithoutConnection(Locale locale) {

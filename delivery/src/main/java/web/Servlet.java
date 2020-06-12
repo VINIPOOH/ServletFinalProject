@@ -33,7 +33,7 @@ public class Servlet extends HttpServlet {
         context = new ApplicationContext(new JavaConfig(""), paramMap, new ConcurrentHashMap<>());
         ObjectFactory objectFactory = new ObjectFactory(context);
         context.setFactory(objectFactory);
-
+        context.init();
     }
 
     @Override

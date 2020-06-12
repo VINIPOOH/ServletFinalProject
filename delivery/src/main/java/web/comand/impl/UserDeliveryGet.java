@@ -31,14 +31,6 @@ public class UserDeliveryGet extends MultipleMethodCommand {
     @InjectByType
     private DeliveryService deliveryService;
 
-    public UserDeliveryGet() {
-    }
-
-    public UserDeliveryGet(IDValidator idValidator, DeliveryService deliveryService) {
-        this.idValidator = idValidator;
-        this.deliveryService = deliveryService;
-    }
-
     @Override
     protected String performGet(HttpServletRequest request) {
         log.debug("");

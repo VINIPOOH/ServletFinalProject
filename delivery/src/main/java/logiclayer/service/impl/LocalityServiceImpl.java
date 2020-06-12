@@ -25,15 +25,6 @@ public class LocalityServiceImpl implements LocalityService {
     @InjectByType
     private LocalityDao localityDao;
 
-    public LocalityServiceImpl() {
-    }
-
-    public LocalityServiceImpl(LocalityDao localityDao) {
-        this.localityDao = localityDao;
-        log.debug("created");
-
-    }
-
     @Override
     public List<LocaliseLocalityDto> getLocaliseLocalities(Locale locale) {
         log.debug("localeLang - " + locale.getLanguage());

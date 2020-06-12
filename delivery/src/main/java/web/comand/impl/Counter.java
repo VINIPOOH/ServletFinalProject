@@ -39,14 +39,6 @@ public class Counter extends MultipleMethodCommand {
     @InjectByType
     private DeliveryService deliveryService;
 
-    public Counter() {
-    }
-
-    public Counter(LocalityService localityService, DeliveryService deliveryService) {
-        this.localityService = localityService;
-        this.deliveryService = deliveryService;
-    }
-
     @Override
     protected String performGet(HttpServletRequest request) {
         log.debug("");

@@ -29,14 +29,6 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
     @InjectByType
     protected TransactionalManager connector;
 
-    public JDBCAbstractGenericDao() {
-    }
-
-    public JDBCAbstractGenericDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
-        this.resourceBundleRequests = resourceBundleRequests;
-        this.connector = connector;
-    }
-
     @Override
     public List<E> findAllByLongParam(long param, String query, ResultSetToEntityMapper<E> mapper) {
         try (ConnectionAdapeter connection = connector.getConnection();

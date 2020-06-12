@@ -16,8 +16,7 @@ public class ObjectFactory {
     private static Logger log = LogManager.getLogger(ObjectFactory.class);
 
     private final ApplicationContext context;
-    private List<ObjectConfigurator> configurators = new ArrayList<>();
-
+    private final List<ObjectConfigurator> configurators = new ArrayList<>();
 
     public ObjectFactory(ApplicationContext context) {
         log.debug("");
@@ -43,15 +42,8 @@ public class ObjectFactory {
         return t;
     }
 
-    private <T> void invokeInit(Class<T> implClass, T t) {
-        Arrays.stream(implClass.getMethods()).filter(method -> method.isAnnotationPresent(PostConstruct.class))
-                .forEach(method -> {
-                    try {
-                        method.invoke(t);
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        throw new ReflectionException();
-                    }
-                });
+    private <T> T create(Class<T> implClass) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        return implClass.getDeclaredConstructor().newInstance();
     }
 
     private <T> void configure(T t) {
@@ -63,8 +55,15 @@ public class ObjectFactory {
         }
     }
 
-    private <T> T create(Class<T> implClass) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        return implClass.getDeclaredConstructor().newInstance();
+    private <T> void invokeInit(Class<T> implClass, T t) {
+        Arrays.stream(implClass.getMethods()).filter(method -> method.isAnnotationPresent(PostConstruct.class))
+                .forEach(method -> {
+                    try {
+                        method.invoke(t);
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        throw new ReflectionException();
+                    }
+                });
     }
 }
 

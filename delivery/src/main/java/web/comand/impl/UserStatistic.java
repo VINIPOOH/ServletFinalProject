@@ -31,14 +31,6 @@ public class UserStatistic implements ActionCommand {
     @InjectByType
     private BillService billService;
 
-    public UserStatistic() {
-    }
-
-    public UserStatistic(Pagination pagination, BillService billService) {
-        this.pagination = pagination;
-        this.billService = billService;
-    }
-
     @Override
     public String execute(HttpServletRequest request) {
         log.debug("");

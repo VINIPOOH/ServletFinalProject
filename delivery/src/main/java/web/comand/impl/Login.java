@@ -35,10 +35,6 @@ public class Login extends MultipleMethodCommand {
     @InjectByType
     private UserService userService;
 
-    public Login() {
-    }
-
-
     @Override
     protected String performGet(HttpServletRequest request) {
         log.debug("");

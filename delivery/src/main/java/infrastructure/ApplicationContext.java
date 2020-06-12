@@ -29,6 +29,17 @@ public class ApplicationContext {
         this.objectsCash = preparedCash;
     }
 
+    public void init() {
+        log.debug("");
+        for (Class<?> clazz : config.getScanner().getTypesAnnotatedWith(Singleton.class)) {
+            Singleton annotation = clazz.getAnnotation(Singleton.class);
+            if (!annotation.isLazy()) {
+                log.debug("created" + clazz.getName());
+                getObject(clazz);
+            }
+        }
+    }
+
     public <T> T getObject(Class<T> type) {
         log.debug("");
 
@@ -50,7 +61,6 @@ public class ApplicationContext {
             } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
                 throw new ReflectionException();
             }
-
             if (implClass.isAnnotationPresent(Singleton.class)) {
                 objectsCash.put(type, t);
             }
@@ -83,7 +93,7 @@ public class ApplicationContext {
 
     }
 
-    public Config getConfig() {
+    Config getConfig() {
         return this.config;
     }
 

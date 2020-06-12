@@ -1,7 +1,6 @@
 package dal.dao.impl;
 
 import dal.conection.ConnectionAdapeter;
-import dal.conection.pool.TransactionalManager;
 import dal.dao.DeliveryDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
@@ -18,7 +17,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
 
@@ -37,13 +35,6 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
     private static final String LOCALITY_GET_COLUMN_NAME = "locality_get_name";
     private static Logger log = LogManager.getLogger(JDBCDeliveryDao.class);
 
-    public JDBCDeliveryDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
-        super(resourceBundleRequests, connector);
-        log.debug("created");
-    }
-
-    public JDBCDeliveryDao() {
-    }
 
     @Override
     public List<Delivery> getDeliveryInfoToGet(long userId, Locale locale) {

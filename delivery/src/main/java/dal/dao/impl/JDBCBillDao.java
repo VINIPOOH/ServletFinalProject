@@ -1,7 +1,6 @@
 package dal.dao.impl;
 
 import dal.conection.ConnectionAdapeter;
-import dal.conection.pool.TransactionalManager;
 import dal.dao.BillDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
@@ -17,7 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
 
@@ -49,14 +47,6 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     private static final String COUNT_ALL_NOT_PAYED_BILLS_BY_USER_ID =
             "count.all.not.payed.bills.by.user.id";
     private static Logger log = LogManager.getLogger(JDBCBillDao.class);
-
-    public JDBCBillDao() {
-    }
-
-    public JDBCBillDao(ResourceBundle resourceBundleRequests, TransactionalManager connector) {
-        super(resourceBundleRequests, connector);
-        log.debug("created");
-    }
 
 
     @Override

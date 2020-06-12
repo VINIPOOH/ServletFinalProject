@@ -38,9 +38,6 @@ public class BillServiceImpl implements BillService {
     @InjectByType
     private DeliveryDao deliveryDao;
 
-    public BillServiceImpl() {
-    }
-
     @Override
     public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId, Locale locale) {
         log.debug("userId - " + userId + " localeLang - " + locale.getLanguage());

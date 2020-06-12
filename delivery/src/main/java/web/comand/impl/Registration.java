@@ -32,10 +32,6 @@ public class Registration extends MultipleMethodCommand {
     @InjectByType
     private UserService userService;
 
-    public Registration() {
-    }
-
-
     @Override
     protected String performGet(HttpServletRequest request) {
         log.debug("");

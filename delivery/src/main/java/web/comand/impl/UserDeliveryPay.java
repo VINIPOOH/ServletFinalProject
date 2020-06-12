@@ -35,15 +35,6 @@ public class UserDeliveryPay extends MultipleMethodCommand {
     @InjectByType
     private IDValidator idValidator;
 
-    public UserDeliveryPay(BillService billService, UserService userService, IDValidator idValidator) {
-        this.billService = billService;
-        this.userService = userService;
-        this.idValidator = idValidator;
-    }
-
-    public UserDeliveryPay() {
-    }
-
     @Override
     protected String performGet(HttpServletRequest request) {
         log.debug("");

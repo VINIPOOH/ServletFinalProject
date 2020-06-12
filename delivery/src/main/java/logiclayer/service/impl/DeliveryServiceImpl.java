@@ -31,16 +31,6 @@ public class DeliveryServiceImpl implements DeliveryService {
     @InjectByType
     private DeliveryDao deliveryDao;
 
-    public DeliveryServiceImpl() {
-    }
-
-    public DeliveryServiceImpl(WayDao wayDao, DeliveryDao deliveryDao) {
-        log.debug("created");
-
-        this.wayDao = wayDao;
-        this.deliveryDao = deliveryDao;
-    }
-
     @Override
     public Optional<PriceAndTimeOnDeliveryDto> getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto) {
         log.debug("deliveryInfoRequestDto - " + deliveryInfoRequestDto);

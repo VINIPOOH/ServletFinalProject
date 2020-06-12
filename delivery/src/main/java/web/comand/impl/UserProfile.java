@@ -27,13 +27,6 @@ public class UserProfile extends MultipleMethodCommand {
     @InjectByType
     private UserService userService;
 
-    public UserProfile() {
-    }
-
-    public UserProfile(UserService userService) {
-        this.userService = userService;
-    }
-
     @Override
     protected String performGet(HttpServletRequest request) {
         log.debug("");

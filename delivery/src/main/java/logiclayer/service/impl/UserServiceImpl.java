@@ -30,17 +30,6 @@ public class UserServiceImpl implements UserService {
     @InjectByType
     private UserDao userDao;
 
-    public UserServiceImpl() {
-    }
-
-    public UserServiceImpl(PasswordEncoderService passwordEncoderService, UserDao userDao) {
-        log.debug("created");
-
-        this.passwordEncoderService = passwordEncoderService;
-        this.userDao = userDao;
-    }
-
-
     @Override
     public User loginUser(LoginInfoDto loginInfoDto) throws NoSuchUserException {
         log.debug("loginInfoDto -" + loginInfoDto);

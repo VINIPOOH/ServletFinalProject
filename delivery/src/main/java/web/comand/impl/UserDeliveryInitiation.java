@@ -45,15 +45,6 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
     @InjectByType
     private Validator deliveryOrderCreateDtoValidator;
 
-    public UserDeliveryInitiation() {
-    }
-
-    public UserDeliveryInitiation(LocalityService localityService, BillService billService, Validator deliveryOrderCreateDtoValidator) {
-        this.localityService = localityService;
-        this.billService = billService;
-        this.deliveryOrderCreateDtoValidator = deliveryOrderCreateDtoValidator;
-    }
-
     @Override
     protected String performGet(HttpServletRequest request) {
         log.debug(request.getMethod() + " UserDeliveryInitiation");
