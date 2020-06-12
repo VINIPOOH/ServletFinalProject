@@ -1,5 +1,6 @@
 package infrastructure.jsp;
 
+<<<<<<< HEAD
 import infrastructure.ApplicationContext;
 import infrastructure.currency.CurrencyInfo;
 
@@ -11,6 +12,12 @@ import java.io.IOException;
 
 import static web.constant.AttributeConstants.CONTEXT;
 
+=======
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
+import java.io.IOException;
+
+>>>>>>> 03c5a1b2ec7cfe67a76dc026c7c5641acfc97ed5
 public class LocaliseMoneyTag extends SimpleTagSupport {
     private long moneyInCents;
     private String lang;
@@ -35,6 +42,7 @@ public class LocaliseMoneyTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
+<<<<<<< HEAD
         ServletContext servletContext = ((PageContext) getJspContext()).getServletContext();
         ApplicationContext context = ((ApplicationContext) servletContext.getAttribute(CONTEXT));
         CurrencyInfo currencyInfo = context.getCurrencyInfo(lang);
@@ -42,5 +50,17 @@ public class LocaliseMoneyTag extends SimpleTagSupport {
             context.getCurrencyInfo("en");
         }
         getJspContext().getOut().print(moneyInCents * currencyInfo.getRatioToDollar() + " " + currencyInfo.getCurrencySymbol());
+=======
+        switch (lang) {
+            case "ru": {
+
+                getJspContext().getOut().print(moneyInCents * ruCoefficient + " ₽");
+                break;
+            }
+            default: {
+                getJspContext().getOut().print(moneyInCents + " $");
+            }
+        }
+>>>>>>> 03c5a1b2ec7cfe67a76dc026c7c5641acfc97ed5
     }
 }
