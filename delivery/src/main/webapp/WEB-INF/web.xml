@@ -56,7 +56,7 @@
 
   <error-page>
     <exception-type>java.lang.Throwable</exception-type>
-    <location>/WEB-INF/404.jsp</location>
+    <location>/WEB-INF/404.infrastructure.jsp</location>
   </error-page>
 
 </web-app>

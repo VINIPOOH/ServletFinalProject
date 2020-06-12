@@ -1,4 +1,6 @@
 <%@ include file="layout/metadata-standart.jsp" %>
+<%@ taglib uri="/WEB-INF/tld/TagDescrioptor.tld" prefix="custom" %>
+
 
 <html lang="${param.lang}">
 <head>
@@ -7,7 +9,7 @@
 </head>
 <body>
 <%@ include file="layout/header.jsp" %>
-<div th:include="~{layout/header.jsp::header}"></div>
+<div th:include="~{layout/header.infrastructure.jsp::header}"></div>
 <div class="container">
     <div class="row">
         <div class="col-md-6">
@@ -55,7 +57,8 @@
                 <tbody>
                 <tr>
                     <td><span><fmt:message key="homepage.paragraf.price"/></span></td>
-                    <td><span>${requestScope.CostAndTimeDto.costInCents}</span></td>
+                    <td><span><custom:localise-money moneyInCents="${requestScope.CostAndTimeDto.costInCents}"
+                                                     lang="${pageContext.response.locale.language}"/></span></td>
                 </tr>
                 <tr>
                     <td><span><fmt:message key="homepage.paragraf.time"/></span></td>

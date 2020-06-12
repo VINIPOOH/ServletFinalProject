@@ -16,24 +16,25 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static web.constant.AttributeConstants.CONTEXT;
 import static web.constant.AttributeConstants.LOGGINED_USER_NAMES;
 
 public class Servlet extends HttpServlet {
 
     private static Logger log = LogManager.getLogger(Servlet.class);
-    private ApplicationContext context;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        this.getServletContext().setAttribute(LOGGINED_USER_NAMES, new ConcurrentHashMap<String, HttpSession>());
+        getServletContext().setAttribute(LOGGINED_USER_NAMES, new ConcurrentHashMap<String, HttpSession>());
 
         Map<Class, Object> paramMap = new ConcurrentHashMap<>();
         paramMap.put(ResourceBundle.class, ResourceBundle.getBundle("db-request"));
-        context = new ApplicationContext(new JavaConfig(""), paramMap, new ConcurrentHashMap<>());
+        ApplicationContext context = new ApplicationContext(new JavaConfig(""), paramMap, new ConcurrentHashMap<>());
         ObjectFactory objectFactory = new ObjectFactory(context);
         context.setFactory(objectFactory);
         context.init();
+        getServletContext().setAttribute(CONTEXT, context);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
         log.debug("servlet called with request - " + request.getRequestURI());
         String path = request.getRequestURI().replaceFirst(".*/delivery/", "");
-        String page = context.getCommand(path).execute(request);
+        String page = ((ApplicationContext) getServletContext().getAttribute(CONTEXT)).getCommand(path).execute(request);
         if (page.contains("redirect:")) {
             response.sendRedirect(page.replace("redirect:", "/delivery/"));
         } else {
