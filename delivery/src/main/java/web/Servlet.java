@@ -6,6 +6,7 @@ import infrastructure.ObjectFactory;
 import infrastructure.currency.CurrencyInfoFromFileLoader;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import web.comand.MultipleMethodCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,20 +43,25 @@ public class Servlet extends HttpServlet {
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
             throws IOException, ServletException {
-        processRequest(request, response);
+        log.debug("servlet called with request - " + request.getRequestURI());
+
+        passOver(request, response, getMultipleMethodCommand(request).doGet(request));
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        processRequest(request, response);
+        log.debug("servlet called with request - " + request.getRequestURI());
+
+        passOver(request, response, getMultipleMethodCommand(request).doPost(request));
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        log.debug("servlet called with request - " + request.getRequestURI());
-        String path = request.getRequestURI().replaceFirst(".*/delivery/", "");
-        String page = ((ApplicationContext) getServletContext().getAttribute(CONTEXT)).getCommand(path).execute(request);
+    private MultipleMethodCommand getMultipleMethodCommand(HttpServletRequest request) {
+        return ((ApplicationContext) getServletContext().getAttribute(CONTEXT))
+                .getCommand(request.getRequestURI().replaceFirst(".*/delivery/", ""));
+    }
+
+    private void passOver(HttpServletRequest request, HttpServletResponse response, String page) throws IOException, ServletException {
         if (page.contains("redirect:")) {
             response.sendRedirect(page.replace("redirect:", "/delivery/"));
         } else {

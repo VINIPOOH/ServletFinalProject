@@ -22,7 +22,7 @@ import static web.constant.PageConstance.*;
 @Singleton
 @NeedConfig
 @Endpoint("user/user-delivery-request-confirm")
-public class UserDeliveryPay extends MultipleMethodCommand {
+public class UserDeliveryPay implements MultipleMethodCommand {
     private static final String BILL_INFO_TO_PAY = "BillInfoToPay";
     private static final String ID = "Id";
     private static final String ID1 = "Id";
@@ -34,9 +34,10 @@ public class UserDeliveryPay extends MultipleMethodCommand {
     private UserService userService;
     @InjectByType
     private IDValidator idValidator;
+    private String NOT_ENOUGH_MONEY = "notEnoughMoney";
 
     @Override
-    protected String performGet(HttpServletRequest request) {
+    public String doGet(HttpServletRequest request) {
         log.debug("");
 
         request.setAttribute(BILL_INFO_TO_PAY, billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
@@ -44,7 +45,7 @@ public class UserDeliveryPay extends MultipleMethodCommand {
     }
 
     @Override
-    protected String performPost(HttpServletRequest request) {
+    public String doPost(HttpServletRequest request) {
         log.debug("");
         if (!idValidator.isValid(request, ID)) {
             log.error("id is not valid client is broken");
@@ -53,6 +54,8 @@ public class UserDeliveryPay extends MultipleMethodCommand {
         User sessionUser = (User) request.getSession().getAttribute(SESSION_USER);
         if (billService.payForDelivery(sessionUser.getId(), Long.parseLong(request.getParameter(ID1)))) {
             sessionUser.setUserMoneyInCents(userService.getUserBalance(sessionUser.getId()));
+        } else {
+            request.setAttribute(NOT_ENOUGH_MONEY, true);
         }
         request.setAttribute(BILL_INFO_TO_PAY, billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME;

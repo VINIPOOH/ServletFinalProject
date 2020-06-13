@@ -5,7 +5,7 @@ import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.Singleton;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import web.comand.ActionCommand;
+import web.comand.MultipleMethodCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,11 +18,11 @@ import static web.constant.PageConstance.REDIRECT_COMMAND;
 
 @Singleton
 @Endpoint("user/logout")
-public class LogOut implements ActionCommand {
+public class LogOut implements MultipleMethodCommand {
     private static Logger log = LogManager.getLogger(LogOut.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String doGet(HttpServletRequest request) {
         log.debug("");
 
         Map<String, HttpSession> loggedUsers = (Map<String, HttpSession>) request
@@ -31,5 +31,10 @@ public class LogOut implements ActionCommand {
         loggedUsers.remove(((User) request.getSession().getAttribute(SESSION_USER)).getEmail());
         request.getSession().invalidate();
         return REDIRECT_COMMAND + LOGIN_REQUEST_COMMAND;
+    }
+
+    @Override
+    public String doPost(HttpServletRequest request) {
+        return null;
     }
 }

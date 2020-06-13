@@ -20,7 +20,7 @@ import static web.constant.PageConstance.*;
 @Singleton
 @NeedConfig
 @Endpoint("user/userprofile")
-public class UserProfile extends MultipleMethodCommand {
+public class UserProfile implements MultipleMethodCommand {
     private static final String MONEY = "money";
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
     private static Logger log = LogManager.getLogger(UserProfile.class);
@@ -28,14 +28,14 @@ public class UserProfile extends MultipleMethodCommand {
     private UserService userService;
 
     @Override
-    protected String performGet(HttpServletRequest request) {
+    public String doGet(HttpServletRequest request) {
         log.debug("");
 
         return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
     }
 
     @Override
-    protected String performPost(HttpServletRequest request) {
+    public String doPost(HttpServletRequest request) {
         boolean isValid = getValidator().isValid(request);
         log.debug("isValidRequest = " + isValid);
 

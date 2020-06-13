@@ -22,7 +22,7 @@ public class EmptyCommandTest {
 
     @Test
     public void execute() {
-        String actual = emptyCommand.execute(httpServletRequest);
+        String actual = emptyCommand.doGet(httpServletRequest);
 
         assertEquals(REDIRECT_COMMAND + ANONYMOUS_FOLDER + INDEX_REQUEST_COMMAND, actual);
     }

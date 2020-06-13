@@ -41,7 +41,7 @@ public class UserProfileTest {
 
     @Test
     public void performGet() {
-        String actual = userProfile.performGet(httpServletRequest);
+        String actual = userProfile.doGet(httpServletRequest);
 
         assertEquals(MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME, actual);
     }
@@ -50,7 +50,7 @@ public class UserProfileTest {
     public void performPost() throws NoSuchUserException {
         when(userService.replenishAccountBalance(anyLong(), anyLong())).thenReturn(true);
 
-        String actual = userProfile.performPost(httpServletRequest);
+        String actual = userProfile.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(2)).getParameter(MONEY);
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
@@ -62,7 +62,7 @@ public class UserProfileTest {
     public void performPostInputMoneyZero() throws NoSuchUserException {
         when(httpServletRequest.getParameter(MONEY)).thenReturn("0");
 
-        String actual = userProfile.performPost(httpServletRequest);
+        String actual = userProfile.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(1)).getParameter(MONEY);
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
@@ -73,7 +73,7 @@ public class UserProfileTest {
     public void performPostNoSuchUserException() throws NoSuchUserException {
         when(userService.replenishAccountBalance(anyLong(), anyLong())).thenThrow(NoSuchUserException.class);
 
-        String actual = userProfile.performPost(httpServletRequest);
+        String actual = userProfile.doPost(httpServletRequest);
 
         fail();
     }

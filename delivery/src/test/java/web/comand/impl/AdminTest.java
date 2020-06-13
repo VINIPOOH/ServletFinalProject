@@ -37,7 +37,7 @@ public class AdminTest {
         List<UserStatisticDto> users = Collections.singletonList(userStatisticDto);
         when(userService.getAllUsers()).thenReturn(users);
 
-        String actual = admin.execute(httpServletRequest);
+        String actual = admin.doGet(httpServletRequest);
 
         verify(userService, times(1)).getAllUsers();
         assertEquals(MAIN_WEB_FOLDER + ADMIN_FOLDER + USERS_JSP, actual);

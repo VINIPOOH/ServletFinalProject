@@ -21,7 +21,7 @@ public class IndexTest {
 
     @Test
     public void execute() {
-        String actual = index.execute(httpServletRequest);
+        String actual = index.doGet(httpServletRequest);
 
         assertEquals(MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + INDEX_FILE_NAME, actual);
     }

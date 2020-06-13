@@ -46,7 +46,7 @@ public class UserDeliveryGetTest {
 
     @Test
     public void performGet() {
-        String actual = userDeliveryGet.performGet(httpServletRequest);
+        String actual = userDeliveryGet.doGet(httpServletRequest);
 
         verify(deliveryService, times(1)).getInfoToGetDeliverisByUserID(anyLong(), any(Locale.class));
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
@@ -60,7 +60,7 @@ public class UserDeliveryGetTest {
         when(deliveryService.confirmGettingDelivery(anyLong(), anyLong())).thenReturn(true);
         when(idValidator.isValid(any(HttpServletRequest.class), anyString())).thenReturn(true);
 
-        String actual = userDeliveryGet.performPost(httpServletRequest);
+        String actual = userDeliveryGet.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(3)).getSession();
         verify(session, times(1)).getAttribute(SESSION_LANG);
@@ -74,7 +74,7 @@ public class UserDeliveryGetTest {
     public void performPostIncorrectInput() {
         when(idValidator.isValid(any(HttpServletRequest.class), anyString())).thenReturn(false);
 
-        userDeliveryGet.performPost(httpServletRequest);
+        userDeliveryGet.doPost(httpServletRequest);
 
         fail();
     }

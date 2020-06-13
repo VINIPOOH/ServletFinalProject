@@ -71,7 +71,7 @@ public class UserDeliveryInitiationTest {
         List<LocaliseLocalityDto> localities = Collections.singletonList(localiseLocalityDto);
         when(localityService.getLocaliseLocalities(any(Locale.class))).thenReturn(localities);
 
-        String result = userDeliveryInitiation.performGet(httpServletRequest);
+        String result = userDeliveryInitiation.doGet(httpServletRequest);
 
         verify(localityService, times(1)).getLocaliseLocalities(any(Locale.class));
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
@@ -87,7 +87,7 @@ public class UserDeliveryInitiationTest {
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(deliveryOrderCreateDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
 
-        String result = userDeliveryInitiation.performPost(httpServletRequest);
+        String result = userDeliveryInitiation.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(1)).getParameter(DELIVERY_WEIGHT);
         verify(httpServletRequest, times(1)).getParameter(LOCALITY_GET_ID);
@@ -109,7 +109,7 @@ public class UserDeliveryInitiationTest {
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(deliveryOrderCreateDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(false);
 
-        String result = userDeliveryInitiation.performPost(httpServletRequest);
+        String result = userDeliveryInitiation.doPost(httpServletRequest);
 
         verify(localityService, times(1)).getLocaliseLocalities(any(Locale.class));
         verify(httpServletRequest, times(2)).setAttribute(anyString(), any(Object.class));
@@ -126,7 +126,7 @@ public class UserDeliveryInitiationTest {
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(deliveryOrderCreateDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
 
-        String result = userDeliveryInitiation.performPost(httpServletRequest);
+        String result = userDeliveryInitiation.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(1)).getParameter(DELIVERY_WEIGHT);
         verify(httpServletRequest, times(1)).getParameter(LOCALITY_GET_ID);
@@ -148,7 +148,7 @@ public class UserDeliveryInitiationTest {
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(deliveryOrderCreateDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
 
-        String result = userDeliveryInitiation.performPost(httpServletRequest);
+        String result = userDeliveryInitiation.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(1)).getParameter(DELIVERY_WEIGHT);
         verify(httpServletRequest, times(1)).getParameter(LOCALITY_GET_ID);

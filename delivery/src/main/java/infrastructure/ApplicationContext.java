@@ -8,7 +8,7 @@ import infrastructure.currency.CurrencyInfoLoader;
 import infrastructure.exceptions.ReflectionException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import web.comand.ActionCommand;
+import web.comand.MultipleMethodCommand;
 import web.comand.impl.EmptyCommand;
 
 import java.lang.reflect.InvocationTargetException;
@@ -18,13 +18,13 @@ import java.util.Map;
 public class ApplicationContext {
     private static Logger log = LogManager.getLogger(ApplicationContext.class);
     private final Map<Class, Object> objectsCash;
-    private final Map<String, ActionCommand> commands;
+    private final Map<String, MultipleMethodCommand> commands;
     private final Map<String, CurrencyInfo> currencies;
     private final Class defaultEndpoint = EmptyCommand.class;
     private ObjectFactory factory;
     private Config config;
 
-    public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, ActionCommand> commandsPrepared, CurrencyInfoLoader currencyInfoLoader) {
+    public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, MultipleMethodCommand> commandsPrepared, CurrencyInfoLoader currencyInfoLoader) {
         log.debug("");
 
         this.commands = commandsPrepared;
@@ -76,7 +76,7 @@ public class ApplicationContext {
         }
     }
 
-    public ActionCommand getCommand(String link) {
+    public MultipleMethodCommand getCommand(String link) {
         log.debug("");
 
         if (commands.containsKey(link)) {
@@ -89,7 +89,7 @@ public class ApplicationContext {
             for (Class<?> clazz : config.getScanner().getTypesAnnotatedWith(Endpoint.class)) {
                 Endpoint annotation = clazz.getAnnotation(Endpoint.class);
                 if (annotation.value().equals(link)) {
-                    ActionCommand toReturn = (ActionCommand) getObject(clazz);
+                    MultipleMethodCommand toReturn = (MultipleMethodCommand) getObject(clazz);
                     if (clazz.isAnnotationPresent(Singleton.class)) {
                         commands.put(link, toReturn);
                     }
@@ -97,7 +97,7 @@ public class ApplicationContext {
                 }
             }
         }
-        return (ActionCommand) getObject(defaultEndpoint);
+        return (MultipleMethodCommand) getObject(defaultEndpoint);
 
     }
 

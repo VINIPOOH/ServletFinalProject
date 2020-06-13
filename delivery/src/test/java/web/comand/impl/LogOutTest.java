@@ -41,7 +41,7 @@ public class LogOutTest {
 
     @Test
     public void execute() {
-        String actual = logOut.execute(httpServletRequest);
+        String actual = logOut.doGet(httpServletRequest);
 
         verify(httpServletRequest, times(3)).getSession();
         verify(session, times(1)).getAttribute(SESSION_USER);

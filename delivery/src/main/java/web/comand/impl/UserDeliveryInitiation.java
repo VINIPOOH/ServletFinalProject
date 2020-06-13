@@ -26,7 +26,7 @@ import static web.constant.PageConstance.*;
 @Singleton
 @NeedConfig
 @Endpoint("user/user-delivery-initiation")
-public class UserDeliveryInitiation extends MultipleMethodCommand {
+public class UserDeliveryInitiation implements MultipleMethodCommand {
     private static final String LOCALITY_LIST = "localityList";
     private static final String DELIVERY_WEIGHT = "deliveryWeight";
     private static final String LOCALITY_GET_ID = "localityGetID";
@@ -46,7 +46,7 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
     private Validator deliveryOrderCreateDtoValidator;
 
     @Override
-    protected String performGet(HttpServletRequest request) {
+    public String doGet(HttpServletRequest request) {
         log.debug(request.getMethod() + " UserDeliveryInitiation");
 
         Locale o = (Locale) request.getSession().getAttribute(SESSION_LANG);
@@ -55,7 +55,7 @@ public class UserDeliveryInitiation extends MultipleMethodCommand {
     }
 
     @Override
-    protected String performPost(HttpServletRequest request) {
+    public String doPost(HttpServletRequest request) {
         boolean isValid = deliveryOrderCreateDtoValidator.isValid(request);
         log.debug("isValidRequest = " + isValid);
 

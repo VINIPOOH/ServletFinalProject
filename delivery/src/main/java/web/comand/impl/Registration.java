@@ -20,7 +20,7 @@ import static web.constant.PageConstance.*;
 @Singleton
 @NeedConfig
 @Endpoint("anonymous/registration")
-public class Registration extends MultipleMethodCommand {
+public class Registration implements MultipleMethodCommand {
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
     private static final String PASSWORD_REPEAT = "passwordRepeat";
@@ -33,14 +33,14 @@ public class Registration extends MultipleMethodCommand {
     private UserService userService;
 
     @Override
-    protected String performGet(HttpServletRequest request) {
+    public String doGet(HttpServletRequest request) {
         log.debug("");
 
         return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME;
     }
 
     @Override
-    protected String performPost(HttpServletRequest request) {
+    public String doPost(HttpServletRequest request) {
         boolean isValid = registrationInfoDtoValidator.isValid(request);
         log.debug("isValidRequest = " + isValid);
 

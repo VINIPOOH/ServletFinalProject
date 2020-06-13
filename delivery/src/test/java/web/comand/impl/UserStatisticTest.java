@@ -45,7 +45,7 @@ public class UserStatisticTest {
 
     @Test
     public void execute() {
-        String actual = userStatistic.execute(httpServletRequest);
+        String actual = userStatistic.doGet(httpServletRequest);
 
         verify(billService, times(1)).getBillHistoryByUserId(anyLong(), anyInt(), anyInt());
         verify(billService, times(1)).countAllBillsByUserId(anyLong());

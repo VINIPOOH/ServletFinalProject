@@ -56,7 +56,7 @@ public class LoginTest {
 
     @Test
     public void performGet() {
-        String actual = login.performGet(httpServletRequest);
+        String actual = login.doGet(httpServletRequest);
 
         assertEquals(MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + LOGIN_FILE_NAME, actual);
     }
@@ -67,7 +67,7 @@ public class LoginTest {
         when(loginDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
         when(userService.loginUser(any(LoginInfoDto.class))).thenReturn(user);
 
-        String actual = login.performPost(httpServletRequest);
+        String actual = login.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(1)).getParameter(USERNAME);
         verify(httpServletRequest, times(1)).getParameter(PASSWORD);
@@ -82,7 +82,7 @@ public class LoginTest {
         User user = getAdverser();
         when(loginDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(false);
 
-        String actual = login.performPost(httpServletRequest);
+        String actual = login.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(0)).getParameter(USERNAME);
         verify(httpServletRequest, times(0)).getParameter(PASSWORD);
@@ -96,7 +96,7 @@ public class LoginTest {
     public void performPostIncorrectData() throws NoSuchUserException {
         when(loginDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(false);
 
-        String actual = login.performPost(httpServletRequest);
+        String actual = login.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(0)).getParameter(USERNAME);
         verify(httpServletRequest, times(0)).getParameter(PASSWORD);

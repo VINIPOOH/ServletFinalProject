@@ -23,7 +23,7 @@ public class Error404Test {
 
     @Test
     public void execute() {
-        String actual = error404.execute(httpServletRequest);
+        String actual = error404.doGet(httpServletRequest);
 
         assertEquals(MAIN_WEB_FOLDER + ERROR_404_FILE_NAME, actual);
     }

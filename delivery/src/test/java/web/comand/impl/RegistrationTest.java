@@ -43,7 +43,7 @@ public class RegistrationTest {
 
     @Test
     public void performGet() {
-        String actual = registration.performGet(httpServletRequest);
+        String actual = registration.doGet(httpServletRequest);
 
         assertEquals(MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME, actual);
     }
@@ -53,7 +53,7 @@ public class RegistrationTest {
         when(registrationDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
         when(userService.addNewUserToDB(any(RegistrationInfoDto.class))).thenReturn(true);
 
-        String actual = registration.performPost(httpServletRequest);
+        String actual = registration.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(1)).getParameter(USERNAME);
         verify(httpServletRequest, times(1)).getParameter(PASSWORD);
@@ -67,7 +67,7 @@ public class RegistrationTest {
     public void performPostIncorrectInput() {
         when(registrationDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(false);
 
-        String actual = registration.performPost(httpServletRequest);
+        String actual = registration.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(0)).getParameter(USERNAME);
         verify(httpServletRequest, times(0)).getParameter(PASSWORD);
@@ -82,7 +82,7 @@ public class RegistrationTest {
         when(registrationDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
         when(userService.addNewUserToDB(any(RegistrationInfoDto.class))).thenThrow(OccupiedLoginException.class);
 
-        String actual = registration.performPost(httpServletRequest);
+        String actual = registration.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(1)).getParameter(USERNAME);
         verify(httpServletRequest, times(1)).getParameter(PASSWORD);

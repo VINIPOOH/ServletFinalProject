@@ -49,7 +49,7 @@ public class UserDeliveryPayTest {
 
     @Test
     public void performGet() {
-        String actual = userDeliveryPay.performGet(httpServletRequest);
+        String actual = userDeliveryPay.doGet(httpServletRequest);
 
         verify(billService, times(1)).getInfoToPayBillsByUserID(anyLong(), any(Locale.class));
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
@@ -63,7 +63,7 @@ public class UserDeliveryPayTest {
         when(billService.payForDelivery(anyLong(), anyLong())).thenReturn(true);
         when(idValidator.isValid(any(HttpServletRequest.class), anyString())).thenReturn(true);
 
-        String actual = userDeliveryPay.performPost(httpServletRequest);
+        String actual = userDeliveryPay.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(3)).getSession();
         verify(session, times(1)).getAttribute(SESSION_LANG);
@@ -77,7 +77,7 @@ public class UserDeliveryPayTest {
     public void performPostIncorrectInput() {
         when(idValidator.isValid(any(HttpServletRequest.class), anyString())).thenReturn(false);
 
-        userDeliveryPay.performPost(httpServletRequest);
+        userDeliveryPay.doPost(httpServletRequest);
 
         fail();
     }

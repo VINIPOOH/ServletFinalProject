@@ -21,7 +21,7 @@ import static web.constant.PageConstance.*;
 @Singleton
 @NeedConfig
 @Endpoint("user/delivers-to-get")
-public class UserDeliveryGet extends MultipleMethodCommand {
+public class UserDeliveryGet implements MultipleMethodCommand {
     private static final String DELIVERIES_WHICH_ADDRESSED_FOR_USER = "deliveriesWhichAddressedForUser";
     private static final String DELIVERY_ID = "deliveryId";
     private static Logger log = LogManager.getLogger(UserDeliveryGet.class);
@@ -32,7 +32,7 @@ public class UserDeliveryGet extends MultipleMethodCommand {
     private DeliveryService deliveryService;
 
     @Override
-    protected String performGet(HttpServletRequest request) {
+    public String doGet(HttpServletRequest request) {
         log.debug("");
 
         request.setAttribute(DELIVERIES_WHICH_ADDRESSED_FOR_USER, deliveryService.getInfoToGetDeliverisByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));
@@ -40,7 +40,7 @@ public class UserDeliveryGet extends MultipleMethodCommand {
     }
 
     @Override
-    protected String performPost(HttpServletRequest request) {
+    public String doPost(HttpServletRequest request) {
         boolean isValid = idValidator.isValid(request, DELIVERY_ID);
         log.debug("isValid" + isValid);
         if (!isValid) {

@@ -62,7 +62,7 @@ public class CounterTest {
         List<LocaliseLocalityDto> localities = Collections.singletonList(localiseLocalityDto);
         when(localityService.getLocaliseLocalities(any(Locale.class))).thenReturn(localities);
 
-        String result = counter.performGet(httpServletRequest);
+        String result = counter.doGet(httpServletRequest);
 
         verify(localityService, times(1)).getLocaliseLocalities(any(Locale.class));
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
@@ -80,7 +80,7 @@ public class CounterTest {
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
 
 
-        String result = counter.performPost(httpServletRequest);
+        String result = counter.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(2)).getParameter(DELIVERY_WEIGHT);
         verify(httpServletRequest, times(2)).getParameter(LOCALITY_GET_ID);
@@ -100,7 +100,7 @@ public class CounterTest {
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(httpServletRequest.getParameter(LOCALITY_GET_ID)).thenReturn("0");
 
-        String result = counter.performPost(httpServletRequest);
+        String result = counter.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(1)).getParameter(DELIVERY_WEIGHT);
         verify(httpServletRequest, times(1)).getParameter(LOCALITY_GET_ID);
@@ -120,7 +120,7 @@ public class CounterTest {
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(httpServletRequest.getParameter(LOCALITY_SAND_ID)).thenReturn("0");
 
-        String result = counter.performPost(httpServletRequest);
+        String result = counter.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(1)).getParameter(DELIVERY_WEIGHT);
         verify(httpServletRequest, times(1)).getParameter(LOCALITY_GET_ID);
@@ -140,7 +140,7 @@ public class CounterTest {
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(httpServletRequest.getParameter(DELIVERY_WEIGHT)).thenReturn("0");
 
-        String result = counter.performPost(httpServletRequest);
+        String result = counter.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(1)).getParameter(DELIVERY_WEIGHT);
         verify(httpServletRequest, times(0)).getParameter(LOCALITY_GET_ID);
@@ -160,7 +160,7 @@ public class CounterTest {
         when(deliveryService.getDeliveryCostAndTimeDto(any(DeliveryInfoRequestDto.class))).thenReturn(Optional.empty());
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
 
-        String result = counter.performPost(httpServletRequest);
+        String result = counter.doPost(httpServletRequest);
 
         verify(httpServletRequest, times(2)).getParameter(DELIVERY_WEIGHT);
         verify(httpServletRequest, times(2)).getParameter(LOCALITY_GET_ID);

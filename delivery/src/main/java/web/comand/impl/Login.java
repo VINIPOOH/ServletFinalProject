@@ -25,7 +25,7 @@ import static web.constant.PageConstance.*;
 @Singleton
 @NeedConfig
 @Endpoint("anonymous/login")
-public class Login extends MultipleMethodCommand {
+public class Login implements MultipleMethodCommand {
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
@@ -36,13 +36,13 @@ public class Login extends MultipleMethodCommand {
     private UserService userService;
 
     @Override
-    protected String performGet(HttpServletRequest request) {
+    public String doGet(HttpServletRequest request) {
         log.debug("");
         return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + LOGIN_FILE_NAME;
     }
 
     @Override
-    protected String performPost(HttpServletRequest request) {
+    public String doPost(HttpServletRequest request) {
         boolean isValid = loginDtoValidator.isValid(request);
         log.debug("isValidRequest = " + isValid);
         if (!isValid) {

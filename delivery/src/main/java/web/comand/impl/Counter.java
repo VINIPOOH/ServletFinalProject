@@ -25,7 +25,7 @@ import static web.constant.PageConstance.MAIN_WEB_FOLDER;
 @Singleton
 @NeedConfig
 @Endpoint("counter")
-public class Counter extends MultipleMethodCommand {
+public class Counter implements MultipleMethodCommand {
     private static final String LOCALITY_LIST = "localityList";
     private static final String COST_AND_TIME_DTO = "CostAndTimeDto";
     private static final String IS_NOT_EXIST_SUCH_WAY_OR_WEIGHT_FOR_THIS_WAY = "IsNotExistSuchWayOrWeightForThisWay";
@@ -40,7 +40,7 @@ public class Counter extends MultipleMethodCommand {
     private DeliveryService deliveryService;
 
     @Override
-    protected String performGet(HttpServletRequest request) {
+    public String doGet(HttpServletRequest request) {
         log.debug("");
 
         request.setAttribute(LOCALITY_LIST, localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
@@ -48,7 +48,7 @@ public class Counter extends MultipleMethodCommand {
     }
 
     @Override
-    protected String performPost(HttpServletRequest request) {
+    public String doPost(HttpServletRequest request) {
         boolean isDataValid = getDeliveryInfoRequestDtoValidator().isValid(request);
         log.debug("isValidRequest = " + isDataValid);
 
