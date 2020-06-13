@@ -1,11 +1,11 @@
 package infrastructure;
 
-import infrastructure.Config.Config;
 import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.Singleton;
 import infrastructure.currency.CurrencyInfo;
 import infrastructure.currency.CurrencyInfoLoader;
 import infrastructure.exceptions.ReflectionException;
+import infrastructure.сonfig.Config;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.MultipleMethodCommand;

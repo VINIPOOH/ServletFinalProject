@@ -1,4 +1,4 @@
-package infrastructure.Config;
+package infrastructure.сonfig;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

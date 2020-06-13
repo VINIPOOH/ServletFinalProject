@@ -1,9 +1,9 @@
 package web;
 
 import infrastructure.ApplicationContext;
-import infrastructure.Config.JavaConfig;
 import infrastructure.ObjectFactory;
 import infrastructure.currency.CurrencyInfoFromFileLoader;
+import infrastructure.сonfig.JavaConfig;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.MultipleMethodCommand;

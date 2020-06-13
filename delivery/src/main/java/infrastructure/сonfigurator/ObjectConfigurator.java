@@ -1,4 +1,4 @@
-package infrastructure.Configurators;
+package infrastructure.сonfigurator;
 
 import infrastructure.ApplicationContext;
 

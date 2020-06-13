@@ -1,8 +1,8 @@
 package infrastructure;
 
-import infrastructure.Configurators.ObjectConfigurator;
 import infrastructure.anotation.NeedConfig;
 import infrastructure.exceptions.ReflectionException;
+import infrastructure.сonfigurator.ObjectConfigurator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
