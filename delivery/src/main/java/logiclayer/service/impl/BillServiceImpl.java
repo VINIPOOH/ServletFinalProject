@@ -28,8 +28,9 @@ import java.util.stream.Collectors;
 @Singleton
 @NeedConfig
 public class BillServiceImpl implements BillService {
-    private static Logger log = LogManager.getLogger(BillServiceImpl.class);
+    private static final Logger log = LogManager.getLogger(BillServiceImpl.class);
     @InjectByType
+    private
     TransactionalManager transactionalManager;
     @InjectByType
     private BillDao billDao;

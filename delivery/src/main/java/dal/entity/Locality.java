@@ -5,8 +5,8 @@ import java.util.List;
 public class Locality extends Entity {
     private String nameRu;
     private String nameEn;
-    private List<Way> waysWhereThisLocalityIsSend;
-    private List<Way> waysWhereThisLocalityIsGet;
+    private final List<Way> waysWhereThisLocalityIsSend;
+    private final List<Way> waysWhereThisLocalityIsGet;
 
     public Locality(Long id, String nameRu, String nameEn, List<Way> waysWhereThisLocalityIsSend, List<Way> waysWhereThisLocalityIsGet) {
         super(id);

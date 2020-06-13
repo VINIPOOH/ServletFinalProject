@@ -3,10 +3,10 @@ package dal.entity;
 import java.util.List;
 
 public class TariffWeightFactor extends Entity {
-    private int minWeightRange;
-    private int maxWeightRange;
-    private int overPayOnKilometer;
-    private List<Way> waysWhereUsed;
+    private final int minWeightRange;
+    private final int maxWeightRange;
+    private final int overPayOnKilometer;
+    private final List<Way> waysWhereUsed;
 
     public TariffWeightFactor(Long id, int minWeightRange, int maxWeightRange, int overPayOnKilometer, List<Way> waysWhereUsed) {
         super(id);

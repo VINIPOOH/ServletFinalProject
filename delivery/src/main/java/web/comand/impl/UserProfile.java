@@ -23,7 +23,7 @@ import static web.constant.PageConstance.*;
 public class UserProfile implements MultipleMethodCommand {
     private static final String MONEY = "money";
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
-    private static Logger log = LogManager.getLogger(UserProfile.class);
+    private static final Logger log = LogManager.getLogger(UserProfile.class);
     @InjectByType
     private UserService userService;
 

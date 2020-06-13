@@ -14,7 +14,7 @@ import static web.constant.PageConstance.MAIN_WEB_FOLDER;
 @Singleton
 @Endpoint("404")
 public class Error404 implements MultipleMethodCommand {
-    private static Logger log = LogManager.getLogger(Error404.class);
+    private static final Logger log = LogManager.getLogger(Error404.class);
 
     @Override
     public String doGet(HttpServletRequest request) {

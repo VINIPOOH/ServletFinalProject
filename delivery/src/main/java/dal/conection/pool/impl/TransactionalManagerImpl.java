@@ -15,9 +15,10 @@ import java.sql.SQLException;
 @NeedConfig
 public class TransactionalManagerImpl implements TransactionalManager {
 
-    private static Logger log = LogManager.getLogger(TransactionalManagerImpl.class);
+    private static final Logger log = LogManager.getLogger(TransactionalManagerImpl.class);
 
     @InjectByType
+    private
     WrappedTransactionalConnectionPool wrappedTransactionalConnectionPool;
 
     @InjectByType

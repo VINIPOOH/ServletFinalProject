@@ -12,14 +12,14 @@ public class DeliveryOrderCreateDtoValidator implements Validator {
             return ((Integer.parseInt(request.getParameter("deliveryWeight")) > 0) &&
                     (Long.parseLong(request.getParameter("localityGetID")) > 0) &&
                     (Long.parseLong(request.getParameter("localitySandID")) > 0)) &&
-                    isStringValid(request.getParameter("addresseeEmail"), EMAIL_REGEX);
+                    isStringValid(request.getParameter("addresseeEmail"));
         } catch (NumberFormatException ex) {
             return false;
         }
     }
 
-    private boolean isStringValid(String param, String regex) {
-        return param.matches(regex);
+    private boolean isStringValid(String param) {
+        return param.matches(DeliveryOrderCreateDtoValidator.EMAIL_REGEX);
     }
 
 }

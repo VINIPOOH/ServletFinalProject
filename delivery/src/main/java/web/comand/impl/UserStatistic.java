@@ -21,11 +21,11 @@ import static web.constant.PageConstance.*;
 @Endpoint("user/user-statistic")
 public class UserStatistic implements MultipleMethodCommand {
 
-    public static final String USER_USER_STATISTIC = "user/user-statistic";
-    public static final int PAGE_ATRIBUTE = 1;
-    public static final int PAGE_SIZE = 10;
+    private static final String USER_USER_STATISTIC = "user/user-statistic";
+    private static final int PAGE_ATRIBUTE = 1;
+    private static final int PAGE_SIZE = 10;
     private static final String BILLS_LIST = "billsList";
-    private static Logger log = LogManager.getLogger(UserStatistic.class);
+    private static final Logger log = LogManager.getLogger(UserStatistic.class);
     @InjectByType
     private Pagination pagination;
     @InjectByType

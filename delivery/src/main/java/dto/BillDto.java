@@ -6,9 +6,9 @@ import java.util.Objects;
 public class BillDto {
     private long deliveryId;
     private long id;
-    private Boolean isDeliveryPaid;
+    private final Boolean isDeliveryPaid;
     private long costInCents;
-    private LocalDate dateOfPay;
+    private final LocalDate dateOfPay;
 
     BillDto(long deliveryId, long id, Boolean isDeliveryPaid, long costInCents, LocalDate dateOfPay) {
         this.deliveryId = deliveryId;

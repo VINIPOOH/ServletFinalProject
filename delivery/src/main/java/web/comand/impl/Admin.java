@@ -17,8 +17,8 @@ import static web.constant.PageConstance.*;
 @NeedConfig
 @Endpoint("admin/users")
 public class Admin implements MultipleMethodCommand {
-    public static final String USERS_LIST = "usersList";
-    private static Logger log = LogManager.getLogger(Admin.class);
+    private static final String USERS_LIST = "usersList";
+    private static final Logger log = LogManager.getLogger(Admin.class);
 
     @InjectByType
     private UserService userService;

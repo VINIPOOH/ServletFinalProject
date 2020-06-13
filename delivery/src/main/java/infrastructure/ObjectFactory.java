@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ObjectFactory {
-    private static Logger log = LogManager.getLogger(ObjectFactory.class);
+    private static final Logger log = LogManager.getLogger(ObjectFactory.class);
 
     private final ApplicationContext context;
     private final List<ObjectConfigurator> configurators = new ArrayList<>();
@@ -22,7 +22,7 @@ public class ObjectFactory {
         log.debug("");
 
         this.context = context;
-        context.getConfig().getScanner().getSubTypesOf(ObjectConfigurator.class).stream()
+        context.getConfig().getScanner().getSubTypesOf(ObjectConfigurator.class)
                 .forEach(aClass -> {
                     try {
                         configurators.add(aClass.getDeclaredConstructor().newInstance());

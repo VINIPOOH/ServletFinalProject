@@ -26,7 +26,7 @@ public class Registration implements MultipleMethodCommand {
     private static final String PASSWORD_REPEAT = "passwordRepeat";
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
     private static final String INPUT_LOGIN_ALREADY_TAKEN = "inputLoginAlreadyTaken";
-    private static Logger log = LogManager.getLogger(Registration.class);
+    private static final Logger log = LogManager.getLogger(Registration.class);
     @InjectByType
     private RegistrationDtoValidator registrationInfoDtoValidator;
     @InjectByType

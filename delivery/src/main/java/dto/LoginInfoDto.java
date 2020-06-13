@@ -1,7 +1,7 @@
 package dto;
 
 public class LoginInfoDto {
-    private String username;
+    private final String username;
     private String password;
 
     public LoginInfoDto(String username, String password) {

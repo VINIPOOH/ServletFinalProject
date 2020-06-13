@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Singleton
 @NeedConfig
 public class UserServiceImpl implements UserService {
-    private static Logger log = LogManager.getLogger(UserService.class);
+    private static final Logger log = LogManager.getLogger(UserService.class);
     @InjectByType
     private PasswordEncoderService passwordEncoderService;
     @InjectByType

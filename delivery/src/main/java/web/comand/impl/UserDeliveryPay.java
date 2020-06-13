@@ -26,7 +26,7 @@ public class UserDeliveryPay implements MultipleMethodCommand {
     private static final String BILL_INFO_TO_PAY = "BillInfoToPay";
     private static final String ID = "Id";
     private static final String ID1 = "Id";
-    private static Logger log = LogManager.getLogger(UserDeliveryPay.class);
+    private static final Logger log = LogManager.getLogger(UserDeliveryPay.class);
 
     @InjectByType
     private BillService billService;
@@ -34,7 +34,7 @@ public class UserDeliveryPay implements MultipleMethodCommand {
     private UserService userService;
     @InjectByType
     private IDValidator idValidator;
-    private String NOT_ENOUGH_MONEY = "notEnoughMoney";
+    private final String NOT_ENOUGH_MONEY = "notEnoughMoney";
 
     @Override
     public String doGet(HttpServletRequest request) {

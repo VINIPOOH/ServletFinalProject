@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ConnectionAdapterImpl implements ConnectionAdapeter {
-    private static Logger log = LogManager.getLogger(ConnectionAdapterImpl.class);
+    private static final Logger log = LogManager.getLogger(ConnectionAdapterImpl.class);
 
     private final Connection connection;
     private boolean isTransaction = false;

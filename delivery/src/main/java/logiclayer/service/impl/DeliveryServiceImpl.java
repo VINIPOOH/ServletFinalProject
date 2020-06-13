@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Singleton
 @NeedConfig
 public class DeliveryServiceImpl implements DeliveryService {
-    private static Logger log = LogManager.getLogger(DeliveryServiceImpl.class);
+    private static final Logger log = LogManager.getLogger(DeliveryServiceImpl.class);
     @InjectByType
     private WayDao wayDao;
     @InjectByType

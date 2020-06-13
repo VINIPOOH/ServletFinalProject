@@ -3,11 +3,11 @@ package dal.entity;
 public abstract class Entity {
     private Long id;
 
-    public Entity(Long id) {
+    Entity(Long id) {
         this.id = id;
     }
 
-    public Entity() {
+    Entity() {
     }
 
     public Long getId() {

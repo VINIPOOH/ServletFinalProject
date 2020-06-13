@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 
 public class IDValidatorImpl implements IDValidator {
-    private static Logger log = LogManager.getLogger(IDValidatorImpl.class);
+    private static final Logger log = LogManager.getLogger(IDValidatorImpl.class);
 
     public boolean isValid(HttpServletRequest request, String[] idFieldNames) {
         try {

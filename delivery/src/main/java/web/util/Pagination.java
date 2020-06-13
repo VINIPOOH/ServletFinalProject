@@ -5,11 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 public class Pagination {
 
 
-    public static final String PAGE_ATTR = "page";
-    public static final String SIZE_ATTR = "size";
+    private static final String PAGE_ATTR = "page";
+    private static final String SIZE_ATTR = "size";
     public static final int SIZE_ATTR_VALUE = 10;
-    public static final String NUMBER_OF_PAGES_ATTR = "numberOfPages";
-    public static final String COMMAND_ATTR = "command";
+    private static final String NUMBER_OF_PAGES_ATTR = "numberOfPages";
+    private static final String COMMAND_ATTR = "command";
 
     public void paginate(int page, int size, long entries, HttpServletRequest request, String command) {
         int numberOfPages = (int) Math.ceil((double) entries / size);

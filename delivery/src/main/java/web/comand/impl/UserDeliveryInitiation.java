@@ -36,7 +36,7 @@ public class UserDeliveryInitiation implements MultipleMethodCommand {
     private static final String UNSUPPORTABLE_WEIGHT = "unsupportableWeightOrWay";
 
 
-    private static Logger log = LogManager.getLogger(UserDeliveryInitiation.class);
+    private static final Logger log = LogManager.getLogger(UserDeliveryInitiation.class);
 
     @InjectByType
     private LocalityService localityService;

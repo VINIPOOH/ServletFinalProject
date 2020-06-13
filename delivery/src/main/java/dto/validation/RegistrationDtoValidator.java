@@ -9,12 +9,12 @@ public class RegistrationDtoValidator {
 
 
     public boolean isValid(HttpServletRequest request) {
-        return isStringValid(request.getParameter("username"), LOGIN_REGEX)
+        return isStringValid(request.getParameter("username"))
                 && request.getParameter("password").equals(request.getParameter("passwordRepeat"));
     }
 
-    private boolean isStringValid(String param, String regex) {
-        return param.matches(regex);
+    private boolean isStringValid(String param) {
+        return param.matches(RegistrationDtoValidator.LOGIN_REGEX);
     }
 
 }

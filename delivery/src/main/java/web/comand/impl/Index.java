@@ -13,7 +13,7 @@ import static web.constant.PageConstance.*;
 @Singleton
 @Endpoint("anonymous/index")
 public class Index implements MultipleMethodCommand {
-    private static Logger log = LogManager.getLogger(Index.class);
+    private static final Logger log = LogManager.getLogger(Index.class);
 
     @Override
     public String doGet(HttpServletRequest request) {

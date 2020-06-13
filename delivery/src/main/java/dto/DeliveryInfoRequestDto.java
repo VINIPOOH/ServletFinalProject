@@ -3,7 +3,7 @@ package dto;
 public class DeliveryInfoRequestDto {
 
 
-    private int deliveryWeight;
+    private final int deliveryWeight;
 
     private long localitySandID;
 

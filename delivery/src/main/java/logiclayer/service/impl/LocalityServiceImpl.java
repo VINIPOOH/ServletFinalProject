@@ -21,7 +21,7 @@ import static logiclayer.service.ServicesConstants.RUSSIAN_LANG_COD;
 @Singleton
 @NeedConfig
 public class LocalityServiceImpl implements LocalityService {
-    private static Logger log = LogManager.getLogger(LocalityServiceImpl.class);
+    private static final Logger log = LogManager.getLogger(LocalityServiceImpl.class);
     @InjectByType
     private LocalityDao localityDao;
 

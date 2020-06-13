@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class XSSFilter implements Filter {
 
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }
 
     public void destroy() {
@@ -21,9 +21,9 @@ public class XSSFilter implements Filter {
 
     }
 
-    public static final class RequestWrapper extends HttpServletRequestWrapper {
+    static final class RequestWrapper extends HttpServletRequestWrapper {
 
-        public RequestWrapper(HttpServletRequest servletRequest) {
+        RequestWrapper(HttpServletRequest servletRequest) {
             super(servletRequest);
         }
 

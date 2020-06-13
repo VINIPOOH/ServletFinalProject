@@ -23,7 +23,7 @@ import static web.constant.AttributeConstants.LOGGINED_USER_NAMES;
 
 public class Servlet extends HttpServlet {
 
-    private static Logger log = LogManager.getLogger(Servlet.class);
+    private static final Logger log = LogManager.getLogger(Servlet.class);
 
     @Override
     public void init() throws ServletException {

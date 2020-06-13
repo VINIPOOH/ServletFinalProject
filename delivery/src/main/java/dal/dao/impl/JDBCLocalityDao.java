@@ -26,7 +26,7 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
     private static final String LOCALITY_FIND_ALL_EN = "locality.find.all.en";
     private static final String ID = "id";
     private static final String LOCALITY_NAME = "name";
-    private static Logger log = LogManager.getLogger(JDBCLocalityDao.class);
+    private static final Logger log = LogManager.getLogger(JDBCLocalityDao.class);
 
 
     @Override

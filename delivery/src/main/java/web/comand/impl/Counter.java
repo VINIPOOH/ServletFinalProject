@@ -33,7 +33,7 @@ public class Counter implements MultipleMethodCommand {
     private static final String LOCALITY_GET_ID = "localityGetID";
     private static final String LOCALITY_SAND_ID = "localitySandID";
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
-    private static Logger log = LogManager.getLogger(Counter.class);
+    private static final Logger log = LogManager.getLogger(Counter.class);
     @InjectByType
     private LocalityService localityService;
     @InjectByType

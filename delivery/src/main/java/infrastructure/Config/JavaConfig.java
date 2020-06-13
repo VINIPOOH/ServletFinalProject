@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class JavaConfig implements Config {
 
-    private Reflections scanner;
+    private final Reflections scanner;
 
     public JavaConfig(String packageToScan) {
         this.scanner = new Reflections(packageToScan);

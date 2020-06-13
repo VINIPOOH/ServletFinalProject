@@ -38,8 +38,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             "user.get.user.bulance.if.enought.money";
     private static final String GET_USER_BALANCE_BY_ID = "user.get.balance.by.id";
     private static final String GET_ALL_USERS_INFO = "get.all.users.info";
-    private static Logger log = LogManager.getLogger(JDBCUserDao.class);
-
+    private static final Logger log = LogManager.getLogger(JDBCUserDao.class);
 
 
     public Optional<User> findByEmailAndPasswordWithPermissions(String email, String password) {

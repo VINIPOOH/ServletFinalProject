@@ -16,13 +16,13 @@ import java.util.Map;
 
 
 public class ApplicationContext {
-    private static Logger log = LogManager.getLogger(ApplicationContext.class);
+    private static final Logger log = LogManager.getLogger(ApplicationContext.class);
     private final Map<Class, Object> objectsCash;
     private final Map<String, MultipleMethodCommand> commands;
     private final Map<String, CurrencyInfo> currencies;
     private final Class defaultEndpoint = EmptyCommand.class;
     private ObjectFactory factory;
-    private Config config;
+    private final Config config;
 
     public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, MultipleMethodCommand> commandsPrepared, CurrencyInfoLoader currencyInfoLoader) {
         log.debug("");

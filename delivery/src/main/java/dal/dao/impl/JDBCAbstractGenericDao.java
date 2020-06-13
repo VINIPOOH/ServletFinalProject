@@ -23,11 +23,11 @@ import java.util.ResourceBundle;
 @NeedConfig
 abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
-    private static Logger log = LogManager.getLogger(JDBCAbstractGenericDao.class);
+    private static final Logger log = LogManager.getLogger(JDBCAbstractGenericDao.class);
     @InjectByType
-    protected ResourceBundle resourceBundleRequests;
+    ResourceBundle resourceBundleRequests;
     @InjectByType
-    protected TransactionalManager connector;
+    TransactionalManager connector;
 
     @Override
     public List<E> findAllByLongParam(long param, String query, ResultSetToEntityMapper<E> mapper) {

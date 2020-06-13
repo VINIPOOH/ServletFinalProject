@@ -46,7 +46,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             "bill.pay.info.sellect.by.sender.id.ru";
     private static final String COUNT_ALL_NOT_PAYED_BILLS_BY_USER_ID =
             "count.all.not.payed.bills.by.user.id";
-    private static Logger log = LogManager.getLogger(JDBCBillDao.class);
+    private static final Logger log = LogManager.getLogger(JDBCBillDao.class);
 
 
     @Override

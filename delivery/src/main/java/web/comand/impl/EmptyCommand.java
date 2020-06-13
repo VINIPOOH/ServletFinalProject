@@ -11,7 +11,7 @@ import static web.constant.PageConstance.*;
 
 @Singleton
 public class EmptyCommand implements MultipleMethodCommand {
-    private static Logger log = LogManager.getLogger(EmptyCommand.class);
+    private static final Logger log = LogManager.getLogger(EmptyCommand.class);
 
     @Override
     public String doGet(HttpServletRequest request) {

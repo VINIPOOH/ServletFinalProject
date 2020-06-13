@@ -17,7 +17,7 @@ import java.sql.SQLException;
 @Singleton
 @NeedConfig
 public class WrappedTransactionalConnectionPoolImpl implements WrappedTransactionalConnectionPool {
-    private static Logger log = LogManager.getLogger(WrappedTransactionalConnectionPoolImpl.class);
+    private static final Logger log = LogManager.getLogger(WrappedTransactionalConnectionPoolImpl.class);
 
     @InjectProperty
     private String dbUrl;

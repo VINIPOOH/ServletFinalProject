@@ -24,7 +24,7 @@ import static web.constant.PageConstance.*;
 public class UserDeliveryGet implements MultipleMethodCommand {
     private static final String DELIVERIES_WHICH_ADDRESSED_FOR_USER = "deliveriesWhichAddressedForUser";
     private static final String DELIVERY_ID = "deliveryId";
-    private static Logger log = LogManager.getLogger(UserDeliveryGet.class);
+    private static final Logger log = LogManager.getLogger(UserDeliveryGet.class);
 
     @InjectByType
     private IDValidator idValidator;

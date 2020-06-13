@@ -33,7 +33,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
             "create.delivery.by.weight.id.locality.send.idlocality.get.adresee.email.adresser.id";
     private static final String LOCALITY_SEND_COLUMN_NAME = "locality_sand_name";
     private static final String LOCALITY_GET_COLUMN_NAME = "locality_get_name";
-    private static Logger log = LogManager.getLogger(JDBCDeliveryDao.class);
+    private static final Logger log = LogManager.getLogger(JDBCDeliveryDao.class);
 
 
     @Override

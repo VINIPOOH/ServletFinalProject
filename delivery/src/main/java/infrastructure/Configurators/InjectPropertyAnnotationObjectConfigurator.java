@@ -10,9 +10,9 @@ import java.util.ResourceBundle;
 
 
 public class InjectPropertyAnnotationObjectConfigurator implements ObjectConfigurator {
-    private static Logger log = LogManager.getLogger(InjectPropertyAnnotationObjectConfigurator.class);
+    private static final Logger log = LogManager.getLogger(InjectPropertyAnnotationObjectConfigurator.class);
 
-    private ResourceBundle resourceBundle;
+    private final ResourceBundle resourceBundle;
 
 
     public InjectPropertyAnnotationObjectConfigurator() {

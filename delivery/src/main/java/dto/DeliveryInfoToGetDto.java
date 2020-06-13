@@ -3,7 +3,7 @@ package dto;
 import java.util.Objects;
 
 public class DeliveryInfoToGetDto {
-    private String addresserEmail;
+    private final String addresserEmail;
     private Long deliveryId;
     private String localitySandName;
     private String localityGetName;

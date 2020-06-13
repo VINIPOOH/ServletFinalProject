@@ -29,7 +29,7 @@ public class Login implements MultipleMethodCommand {
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
-    private static Logger log = LogManager.getLogger(Login.class);
+    private static final Logger log = LogManager.getLogger(Login.class);
     @InjectByType
     private LoginDtoValidator loginDtoValidator;
     @InjectByType

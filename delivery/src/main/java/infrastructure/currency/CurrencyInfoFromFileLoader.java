@@ -12,9 +12,9 @@ public class CurrencyInfoFromFileLoader implements CurrencyInfoLoader {
     private static final String RATIO = "ratio.";
     private static final String SYMBOL = "symbol.";
 
-    private static Logger log = LogManager.getLogger(CurrencyInfoFromFileLoader.class);
+    private static final Logger log = LogManager.getLogger(CurrencyInfoFromFileLoader.class);
 
-    private ResourceBundle properties;
+    private final ResourceBundle properties;
 
 
     public CurrencyInfoFromFileLoader() {

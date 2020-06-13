@@ -19,7 +19,7 @@ import static web.constant.PageConstance.REDIRECT_COMMAND;
 @Singleton
 @Endpoint("user/logout")
 public class LogOut implements MultipleMethodCommand {
-    private static Logger log = LogManager.getLogger(LogOut.class);
+    private static final Logger log = LogManager.getLogger(LogOut.class);
 
     @Override
     public String doGet(HttpServletRequest request) {
