@@ -1,14 +1,14 @@
 package infrastructure.currency;
 
 public class CurrencyInfo {
-    private double ratioToDollar;
+    private long ratioToDollar;
     private String currencySymbol;
 
-    public double getRatioToDollar() {
+    public long getRatioToDollar() {
         return ratioToDollar;
     }
 
-    public void setRatioToDollar(double ratioToDollar) {
+    public void setRatioToDollar(long ratioToDollar) {
         this.ratioToDollar = ratioToDollar;
     }
 

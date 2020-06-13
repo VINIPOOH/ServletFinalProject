@@ -15,7 +15,8 @@
         <div class="col-md-6">
             <div class="border border-info mt-2 rounded">
                 <p><fmt:message key="userprofilepage.paragrapf.userMoneyInCents"/></p>
-                <p>${sessionScope.user.userMoneyInCents}</p>
+                <p><custom:localise-money moneyInCents="${sessionScope.user.userMoneyInCents}"
+                                          lang="${pageContext.response.locale.language}"/></p>
             </div>
         </div>
         <div class="col-md-6 ">

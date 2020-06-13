@@ -1,6 +1,4 @@
 <%@ include file="layout/metadata-standart.jsp" %>
-<%@ taglib uri="/WEB-INF/tld/TagDescrioptor.tld" prefix="custom" %>
-
 
 <html lang="${param.lang}">
 <head>

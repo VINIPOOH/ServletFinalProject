@@ -16,7 +16,8 @@
     <div class="row border border-info mt-2 rounded">
         <p1><fmt:message key="user-statistic.bill.number"/> ${bill.id}
             <fmt:message key="user-statistic.delivery.number"/>${bill.deliveryId}
-            <fmt:message key="user-statistic.price"/>${bill.costInCents}
+            <fmt:message key="user-statistic.price"/><custom:localise-money moneyInCents="${bill.costInCents}"
+                                                                            lang="${pageContext.response.locale.language}"/>
             <fmt:message key="user-statistic.pay.date"/>${bill.dateOfPay}</p1>
     </div>
     </c:forEach>
