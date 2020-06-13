@@ -99,10 +99,10 @@ public class BillServiceImpl implements BillService {
             throw new FailCreateDeliveryException();
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
+            throw new FailCreateDeliveryException();
         } finally {
             transactionalManager.close();
         }
-        return false;
     }
 
     @Override
