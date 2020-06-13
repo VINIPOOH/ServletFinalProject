@@ -33,7 +33,6 @@ public class UserDeliveryInitiation implements MultipleMethodCommand {
     private static final String LOCALITY_SAND_ID = "localitySandID";
     private static final String ADDRESSEE_EMAIL = "addresseeEmail";
     private static final String INPUT_HAS_ERRORS = "inputHasErrors";
-    private static final String UNSUPPORTABLE_WEIGHT = "unsupportableWeightOrWay";
 
 
     private static final Logger log = LogManager.getLogger(UserDeliveryInitiation.class);

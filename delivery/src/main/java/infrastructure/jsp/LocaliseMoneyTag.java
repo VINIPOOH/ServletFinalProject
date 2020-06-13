@@ -13,8 +13,6 @@ import static web.constant.AttributeConstants.CONTEXT;
 public class LocaliseMoneyTag extends SimpleTagSupport {
     private long moneyInCents;
     private String lang;
-    private int ruCoefficient = 80;
-
 
     public long getMoneyInCents() {
         return moneyInCents;
@@ -38,7 +36,7 @@ public class LocaliseMoneyTag extends SimpleTagSupport {
         ApplicationContext context = ((ApplicationContext) servletContext.getAttribute(CONTEXT));
         CurrencyInfo currencyInfo = context.getCurrencyInfo(lang);
         if (currencyInfo == null) {
-            context.getCurrencyInfo("en");
+            getJspContext().getOut().print(moneyInCents + " $");
         }
         getJspContext().getOut().print(moneyInCents * currencyInfo.getRatioToDollar() + " " + currencyInfo.getCurrencySymbol());
     }

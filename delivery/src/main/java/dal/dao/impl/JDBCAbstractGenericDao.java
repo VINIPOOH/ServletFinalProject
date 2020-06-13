@@ -101,8 +101,9 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return resultSet.next() ? Optional.of(mapper.map(resultSet)) : Optional.empty();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next() ? Optional.of(mapper.map(resultSet)) : Optional.empty();
+            }
         } catch (SQLException e) {
             log.error("SQLException", e);
             throw new DBRuntimeException();
@@ -127,10 +128,12 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<E> result = new ArrayList<>();
-            while (resultSet.next()) {
-                result.add(mapper.map(resultSet));
+            List<E> result;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                result = new ArrayList<>();
+                while (resultSet.next()) {
+                    result.add(mapper.map(resultSet));
+                }
             }
             return result;
         } catch (SQLException e) {

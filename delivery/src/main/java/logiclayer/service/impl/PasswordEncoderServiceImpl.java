@@ -15,14 +15,14 @@ import java.security.NoSuchAlgorithmException;
 @NeedConfig
 public class PasswordEncoderServiceImpl implements PasswordEncoderService {
     private static final Logger log = LogManager.getLogger(PasswordEncoderServiceImpl.class);
-    private static final String encodingAlgorithmKey = "MD5";
+    private static final String ENCODING_ALGORITHM_KEY = "MD5";
 
     @Override
     public String encode(String password) {
         log.debug("password -" + password);
 
         try {
-            MessageDigest md = MessageDigest.getInstance(encodingAlgorithmKey);
+            MessageDigest md = MessageDigest.getInstance(ENCODING_ALGORITHM_KEY);
             md.update(password.getBytes());
             byte[] bytes = md.digest();
             StringBuilder sb = new StringBuilder();

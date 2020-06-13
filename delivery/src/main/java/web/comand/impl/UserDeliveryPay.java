@@ -34,7 +34,7 @@ public class UserDeliveryPay implements MultipleMethodCommand {
     private UserService userService;
     @InjectByType
     private IDValidator idValidator;
-    private final String NOT_ENOUGH_MONEY = "notEnoughMoney";
+    private static final String NOT_ENOUGH_MONEY = "notEnoughMoney";
 
     @Override
     public String doGet(HttpServletRequest request) {

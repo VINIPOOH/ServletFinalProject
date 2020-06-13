@@ -80,15 +80,13 @@ public class BillServiceImplTest {
         fail();
     }
 
-    @Test
-    public void initializeBillCreateBillIncorrectDeliveryData() throws UnsupportableWeightFactorException, FailCreateDeliveryException, AskedDataIsNotCorrect, SQLException {
+    @Test(expected = FailCreateDeliveryException.class)
+    public void initializeBillCreateBillIncorrectDeliveryData() throws UnsupportableWeightFactorException, FailCreateDeliveryException, AskedDataIsNotCorrect {
         when(deliveryDao.createDelivery(anyString(), anyLong(), anyLong(), anyInt())).thenThrow(AskedDataIsNotCorrect.class);
 
         boolean result = billService.initializeBill(getDeliveryOrderCreateDto(), getUserId());
 
-        verify(deliveryDao, times(1)).createDelivery(anyString(), anyLong(), anyLong(), anyInt());
-        verify(billDao, times(0)).createBill(anyLong(), anyLong(), anyLong(), anyLong(), anyInt());
-        assertFalse(result);
+        fail();
     }
 
     @Test
