@@ -13,10 +13,7 @@
         </div>
         </div>
         </nav>
-        <div class="col-md-1">
-        <!--для кнопки логин или логаут-->
-        </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
         <div><a class="btn" href="?lang=en" ><fmt:message key="button.en.text"/></a>
         <a class="btn" href="?lang=ru"><fmt:message key="button.ru.text"/></a>
         </div>
