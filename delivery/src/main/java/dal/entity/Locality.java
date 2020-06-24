@@ -3,10 +3,10 @@ package dal.entity;
 import java.util.List;
 
 public class Locality extends Entity {
-    private String nameRu;
-    private String nameEn;
     private final List<Way> waysWhereThisLocalityIsSend;
     private final List<Way> waysWhereThisLocalityIsGet;
+    private String nameRu;
+    private String nameEn;
 
     public Locality(Long id, String nameRu, String nameEn, List<Way> waysWhereThisLocalityIsSend, List<Way> waysWhereThisLocalityIsGet) {
         super(id);

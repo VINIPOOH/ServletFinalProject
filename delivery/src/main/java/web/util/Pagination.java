@@ -5,9 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 public class Pagination {
 
 
+    public static final int SIZE_ATTR_VALUE = 10;
     private static final String PAGE_ATTR = "page";
     private static final String SIZE_ATTR = "size";
-    public static final int SIZE_ATTR_VALUE = 10;
     private static final String NUMBER_OF_PAGES_ATTR = "numberOfPages";
     private static final String COMMAND_ATTR = "command";
 

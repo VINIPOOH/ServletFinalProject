@@ -27,14 +27,13 @@ public class UserDeliveryPay implements MultipleMethodCommand {
     private static final String ID = "Id";
     private static final String ID1 = "Id";
     private static final Logger log = LogManager.getLogger(UserDeliveryPay.class);
-
+    private static final String NOT_ENOUGH_MONEY = "notEnoughMoney";
     @InjectByType
     private BillService billService;
     @InjectByType
     private UserService userService;
     @InjectByType
     private IDValidator idValidator;
-    private static final String NOT_ENOUGH_MONEY = "notEnoughMoney";
 
     @Override
     public String doGet(HttpServletRequest request) {

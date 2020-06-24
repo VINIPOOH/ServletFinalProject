@@ -32,7 +32,8 @@ public class Servlet extends HttpServlet {
 
         Map<Class, Object> paramMap = new ConcurrentHashMap<>();
         paramMap.put(ResourceBundle.class, ResourceBundle.getBundle("db-request"));
-        ApplicationContext context = new ApplicationContext(new JavaConfig(""), paramMap, new ConcurrentHashMap<>(), new CurrencyInfoFromFileLoader());
+        ApplicationContext context = new ApplicationContext(new JavaConfig(""), paramMap,
+                new ConcurrentHashMap<>(), new CurrencyInfoFromFileLoader());
         ObjectFactory objectFactory = new ObjectFactory(context);
         context.setFactory(objectFactory);
         context.init();

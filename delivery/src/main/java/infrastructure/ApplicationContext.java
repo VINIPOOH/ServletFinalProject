@@ -21,8 +21,8 @@ public class ApplicationContext {
     private final Map<String, MultipleMethodCommand> commands;
     private final Map<String, CurrencyInfo> currencies;
     private final Class defaultEndpoint = EmptyCommand.class;
-    private ObjectFactory factory;
     private final Config config;
+    private ObjectFactory factory;
 
     public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, MultipleMethodCommand> commandsPrepared, CurrencyInfoLoader currencyInfoLoader) {
         log.debug("");

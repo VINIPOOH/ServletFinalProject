@@ -2,8 +2,8 @@ package dto;
 
 public class RegistrationInfoDto {
     private final String username;
-    private String password;
     private final String passwordRepeat;
+    private String password;
 
     public RegistrationInfoDto(String username, String password, String passwordRepeat) {
         this.username = username;

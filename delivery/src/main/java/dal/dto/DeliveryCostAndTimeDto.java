@@ -1,8 +1,8 @@
 package dal.dto;
 
 public class DeliveryCostAndTimeDto {
-    private long costInCents;
     private final int timeOnWayInHours;
+    private long costInCents;
 
     DeliveryCostAndTimeDto(long costInCents, int timeOnWayInHours) {
         this.costInCents = costInCents;

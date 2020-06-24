@@ -2,9 +2,9 @@ package dto;
 
 public class DeliveryOrderCreateDto {
     private final int deliveryWeight;
+    private final String addresseeEmail;
     private long localitySandID;
     private long localityGetID;
-    private final String addresseeEmail;
 
     DeliveryOrderCreateDto(int deliveryWeight, long localitySandID, long localityGetID, String addresseeEmail) {
         this.deliveryWeight = deliveryWeight;

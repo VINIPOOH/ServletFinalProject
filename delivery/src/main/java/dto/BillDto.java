@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class BillDto {
+    private final Boolean isDeliveryPaid;
+    private final LocalDate dateOfPay;
     private long deliveryId;
     private long id;
-    private final Boolean isDeliveryPaid;
     private long costInCents;
-    private final LocalDate dateOfPay;
 
     BillDto(long deliveryId, long id, Boolean isDeliveryPaid, long costInCents, LocalDate dateOfPay) {
         this.deliveryId = deliveryId;

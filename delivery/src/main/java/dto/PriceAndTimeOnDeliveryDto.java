@@ -3,8 +3,8 @@ package dto;
 import java.util.Objects;
 
 public class PriceAndTimeOnDeliveryDto {
-    private long costInCents;
     private final int timeOnWayInHours;
+    private long costInCents;
 
     PriceAndTimeOnDeliveryDto(long costInCents, int timeOnWayInHours) {
         this.costInCents = costInCents;
