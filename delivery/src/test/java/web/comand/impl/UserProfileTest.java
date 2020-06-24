@@ -1,6 +1,7 @@
 package web.comand.impl;
 
 import logiclayer.exeption.NoSuchUserException;
+import logiclayer.exeption.ToMachMoneyException;
 import logiclayer.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +31,7 @@ public class UserProfileTest {
     @Mock
     HttpSession session;
 
+
     private static final String MONEY = "money";
 
     @Before
@@ -47,7 +49,7 @@ public class UserProfileTest {
     }
 
     @Test
-    public void performPost() throws NoSuchUserException {
+    public void performPost() throws NoSuchUserException, ToMachMoneyException {
         when(userService.replenishAccountBalance(anyLong(), anyLong())).thenReturn(true);
 
         String actual = userProfile.doPost(httpServletRequest);
@@ -70,10 +72,10 @@ public class UserProfileTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void performPostNoSuchUserException() throws NoSuchUserException {
+    public void performPostNoSuchUserException() throws NoSuchUserException, ToMachMoneyException {
         when(userService.replenishAccountBalance(anyLong(), anyLong())).thenThrow(NoSuchUserException.class);
 
-        String actual = userProfile.doPost(httpServletRequest);
+        userProfile.doPost(httpServletRequest);
 
         fail();
     }

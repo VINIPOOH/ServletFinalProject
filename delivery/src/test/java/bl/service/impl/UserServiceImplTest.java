@@ -1,6 +1,7 @@
 package bl.service.impl;
 
 
+import dal.conection.pool.impl.TransactionalManagerImpl;
 import dal.dao.UserDao;
 import dal.entity.RoleType;
 import dal.entity.User;
@@ -9,6 +10,7 @@ import dto.LoginInfoDto;
 import dto.RegistrationInfoDto;
 import logiclayer.exeption.NoSuchUserException;
 import logiclayer.exeption.OccupiedLoginException;
+import logiclayer.exeption.ToMachMoneyException;
 import logiclayer.service.PasswordEncoderService;
 import logiclayer.service.impl.UserServiceImpl;
 import org.junit.Before;
@@ -35,6 +37,8 @@ public class UserServiceImplTest {
     PasswordEncoderService passwordEncoderService;
     @Mock
     UserDao userDao;
+    @Mock
+    TransactionalManagerImpl connectionManager;
 
 
     @Before
@@ -101,18 +105,30 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void replenishAccountBalanceAllCorrect() throws NoSuchUserException, AskedDataIsNotCorrect {
+    public void replenishAccountBalanceAllCorrect() throws NoSuchUserException, AskedDataIsNotCorrect, ToMachMoneyException {
         when(userDao.replenishUserBalance(anyLong(), anyLong())).thenReturn(true);
+        when(userDao.getUserBalanceByUserID(anyLong())).thenReturn(0L);
 
         boolean result = userService.replenishAccountBalance(getUserId(), 1L);
 
         verify(userDao, times(1)).replenishUserBalance(anyLong(), anyLong());
+        verify(userDao, times(1)).getUserBalanceByUserID(anyLong());
         assertTrue(result);
     }
 
     @Test(expected = NoSuchUserException.class)
-    public void replenishAccountBalanceNoSuchUser() throws NoSuchUserException, AskedDataIsNotCorrect {
+    public void replenishAccountBalanceNoSuchUser() throws NoSuchUserException, AskedDataIsNotCorrect, ToMachMoneyException {
         when(userDao.replenishUserBalance(anyLong(), anyLong())).thenThrow(AskedDataIsNotCorrect.class);
+        when(userDao.getUserBalanceByUserID(anyLong())).thenReturn(0L);
+
+        userService.replenishAccountBalance(getUserId(), 10);
+
+        fail();
+    }
+
+    @Test(expected = ToMachMoneyException.class)
+    public void replenishAccountBalanceToMachMoneyException() throws NoSuchUserException, AskedDataIsNotCorrect, ToMachMoneyException {
+        when(userDao.getUserBalanceByUserID(anyLong())).thenReturn(Long.MAX_VALUE);
 
         userService.replenishAccountBalance(getUserId(), 10);
 

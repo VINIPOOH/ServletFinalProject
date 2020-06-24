@@ -6,6 +6,7 @@ import dto.RegistrationInfoDto;
 import dto.UserStatisticDto;
 import logiclayer.exeption.NoSuchUserException;
 import logiclayer.exeption.OccupiedLoginException;
+import logiclayer.exeption.ToMachMoneyException;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface UserService {
 
     boolean addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException;
 
-    boolean replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException;
+    boolean replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException, ToMachMoneyException;
 
     long getUserBalance(long userId);
 

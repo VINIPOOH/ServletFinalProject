@@ -30,8 +30,7 @@ import java.util.stream.Collectors;
 public class BillServiceImpl implements BillService {
     private static final Logger log = LogManager.getLogger(BillServiceImpl.class);
     @InjectByType
-    private
-    TransactionalManager transactionalManager;
+    private TransactionalManager transactionalManager;
     @InjectByType
     private BillDao billDao;
     @InjectByType

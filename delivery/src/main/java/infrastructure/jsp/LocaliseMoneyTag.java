@@ -35,8 +35,9 @@ public class LocaliseMoneyTag extends SimpleTagSupport {
         ServletContext servletContext = ((PageContext) getJspContext()).getServletContext();
         ApplicationContext context = ((ApplicationContext) servletContext.getAttribute(CONTEXT));
         CurrencyInfo currencyInfo = context.getCurrencyInfo(lang);
-        if (currencyInfo == null) {
+        if (currencyInfo == null || moneyInCents * currencyInfo.getRatioToDollar() <= 0) {
             getJspContext().getOut().print(moneyInCents + " $");
+            return;
         }
         getJspContext().getOut().print(moneyInCents * currencyInfo.getRatioToDollar() + " " + currencyInfo.getCurrencySymbol());
     }

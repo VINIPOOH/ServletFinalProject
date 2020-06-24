@@ -11,7 +11,6 @@ import dto.BillInfoToPayDto;
 import logiclayer.exeption.FailCreateDeliveryException;
 import logiclayer.exeption.UnsupportableWeightFactorException;
 import logiclayer.service.impl.BillServiceImpl;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -42,11 +41,6 @@ public class BillServiceImplTest {
     @Mock
     TransactionalManagerImpl connectionManager;
 
-    @Before
-    public void setUp() throws Exception {
-        doNothing().when(connectionManager).startTransaction();
-
-    }
 
     @Test
     public void initializeBillAllCorrect() throws UnsupportableWeightFactorException, FailCreateDeliveryException, AskedDataIsNotCorrect, SQLException {

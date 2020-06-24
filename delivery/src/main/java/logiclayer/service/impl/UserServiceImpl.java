@@ -1,6 +1,7 @@
 package logiclayer.service.impl;
 
 
+import dal.conection.pool.TransactionalManager;
 import dal.dao.UserDao;
 import dal.entity.User;
 import dal.exeption.AskedDataIsNotCorrect;
@@ -12,11 +13,13 @@ import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
 import logiclayer.exeption.NoSuchUserException;
 import logiclayer.exeption.OccupiedLoginException;
+import logiclayer.exeption.ToMachMoneyException;
 import logiclayer.service.PasswordEncoderService;
 import logiclayer.service.UserService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -29,6 +32,9 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoderService passwordEncoderService;
     @InjectByType
     private UserDao userDao;
+    @InjectByType
+    private TransactionalManager transactionalManager;
+
 
     @Override
     public User loginUser(LoginInfoDto loginInfoDto) throws NoSuchUserException {
@@ -54,15 +60,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException {
+    public boolean replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException, ToMachMoneyException {
         log.debug("userId -" + userId + " amountMoney -" + amountMoney);
 
         try {
-            return userDao.replenishUserBalance(userId, amountMoney);
+            transactionalManager.startTransaction();
+            long testVar = userDao.getUserBalanceByUserID(userId) + amountMoney;
+            boolean test = testVar <= 0;
+            if (userDao.getUserBalanceByUserID(userId) + amountMoney <= 0) {
+                transactionalManager.rollBack();
+                throw new ToMachMoneyException();
+            }
+            boolean toReturn = userDao.replenishUserBalance(userId, amountMoney);
+            transactionalManager.commit();
+            return toReturn;
+
+        } catch (SQLException e) {
+            log.error("problem with db", e);
+            return false;
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("no user", askedDataIsNotCorrect);
 
             throw new NoSuchUserException();
+        } finally {
+            transactionalManager.close();
         }
     }
 
