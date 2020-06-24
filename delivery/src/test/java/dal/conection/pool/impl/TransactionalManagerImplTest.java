@@ -28,7 +28,6 @@ public class TransactionalManagerImplTest {
     @Spy
     ConnectionAdapeter connectionAdapeter;
 
-
     @Mock
     ThreadLocal<ConnectionAdapeter> connectionThreadLocal;
 
