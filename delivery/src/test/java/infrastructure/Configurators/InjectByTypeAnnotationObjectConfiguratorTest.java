@@ -2,6 +2,7 @@ package infrastructure.сonfigurator;
 
 import infrastructure.ApplicationContext;
 import infrastructure.anotation.InjectByType;
+import infrastructure.сonfigurator.obj.InjectByTypeAnnotationObjectConfigurator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

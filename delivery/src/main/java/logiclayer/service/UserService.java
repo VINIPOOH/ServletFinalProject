@@ -12,6 +12,7 @@ import java.util.List;
 
 public interface UserService {
 
+
     User loginUser(LoginInfoDto loginInfoDto) throws NoSuchUserException;
 
     boolean addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException;

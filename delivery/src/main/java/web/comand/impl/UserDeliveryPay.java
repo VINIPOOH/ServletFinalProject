@@ -6,6 +6,7 @@ import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.InjectByType;
 import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
+import logiclayer.exeption.OperationFailException;
 import logiclayer.service.BillService;
 import logiclayer.service.UserService;
 import org.apache.log4j.LogManager;
@@ -51,9 +52,10 @@ public class UserDeliveryPay implements MultipleMethodCommand {
             throw new RuntimeException();
         }
         User sessionUser = (User) request.getSession().getAttribute(SESSION_USER);
-        if (billService.payForDelivery(sessionUser.getId(), Long.parseLong(request.getParameter(ID1)))) {
+        try {
+            billService.payForDelivery(sessionUser.getId(), Long.parseLong(request.getParameter(ID1)));
             sessionUser.setUserMoneyInCents(userService.getUserBalance(sessionUser.getId()));
-        } else {
+        } catch (OperationFailException e) {
             request.setAttribute(NOT_ENOUGH_MONEY, true);
         }
         request.setAttribute(BILL_INFO_TO_PAY, billService.getInfoToPayBillsByUserID(((User) request.getSession().getAttribute(SESSION_USER)).getId(), (Locale) request.getSession().getAttribute(SESSION_LANG)));

@@ -9,6 +9,7 @@ import dal.exeption.AskedDataIsNotCorrect;
 import dto.BillDto;
 import dto.BillInfoToPayDto;
 import logiclayer.exeption.FailCreateDeliveryException;
+import logiclayer.exeption.OperationFailException;
 import logiclayer.exeption.UnsupportableWeightFactorException;
 import logiclayer.service.impl.BillServiceImpl;
 import org.junit.Test;
@@ -23,7 +24,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static constants.TestConstant.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -47,11 +49,10 @@ public class BillServiceImplTest {
         when(deliveryDao.createDelivery(anyString(), anyLong(), anyLong(), anyInt())).thenReturn(0L);
         when(billDao.createBill(anyLong(), anyLong(), anyLong(), anyLong(), anyInt())).thenReturn(true);
 
-        boolean result = billService.initializeBill(getDeliveryOrderCreateDto(), getUserId());
+        billService.initializeBill(getDeliveryOrderCreateDto(), getUserId());
 
         verify(deliveryDao, times(1)).createDelivery(anyString(), anyLong(), anyLong(), anyInt());
         verify(billDao, times(1)).createBill(anyLong(), anyLong(), anyLong(), anyLong(), anyInt());
-        assertTrue(result);
     }
 
     @Test(expected = UnsupportableWeightFactorException.class)
@@ -78,90 +79,85 @@ public class BillServiceImplTest {
     public void initializeBillCreateBillIncorrectDeliveryData() throws UnsupportableWeightFactorException, FailCreateDeliveryException, AskedDataIsNotCorrect {
         when(deliveryDao.createDelivery(anyString(), anyLong(), anyLong(), anyInt())).thenThrow(AskedDataIsNotCorrect.class);
 
-        boolean result = billService.initializeBill(getDeliveryOrderCreateDto(), getUserId());
+        billService.initializeBill(getDeliveryOrderCreateDto(), getUserId());
 
         fail();
     }
 
     @Test
-    public void payForDeliveryAllCorrect() throws AskedDataIsNotCorrect, SQLException {
+    public void payForDeliveryAllCorrect() throws AskedDataIsNotCorrect, SQLException, OperationFailException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(1L);
         when(billDao.murkBillAsPayed(anyLong())).thenReturn(true);
         when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenReturn(true);
 
 
-        boolean payResult = billService.payForDelivery(getUserId(), getBillId());
+        billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(1)).murkBillAsPayed(anyLong());
         verify(userDao, times(1)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
-        assertTrue(payResult);
+
     }
 
-    @Test
-    public void payForDeliveryUserHaveNotMoney() throws AskedDataIsNotCorrect, SQLException {
+    @Test(expected = OperationFailException.class)
+    public void payForDeliveryUserHaveNotMoney() throws AskedDataIsNotCorrect, SQLException, OperationFailException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(1L);
         when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenReturn(false);
 
 
-        boolean payResult = billService.payForDelivery(getUserId(), getBillId());
+        billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(0)).murkBillAsPayed(anyLong());
         verify(userDao, times(1)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
-        assertFalse(payResult);
     }
 
-    @Test
-    public void payForDeliveryIncorrectUserData() throws AskedDataIsNotCorrect, SQLException {
+    @Test(expected = OperationFailException.class)
+    public void payForDeliveryIncorrectUserData() throws AskedDataIsNotCorrect, SQLException, OperationFailException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(1L);
         when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenThrow(SQLException.class);
 
-        boolean payResult = billService.payForDelivery(getUserId(), getBillId());
+        billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(0)).murkBillAsPayed(anyLong());
         verify(userDao, times(1)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
-        assertFalse(payResult);
     }
 
-    @Test
-    public void payForDeliveryIncorrectBillData() throws AskedDataIsNotCorrect, SQLException {
+    @Test(expected = OperationFailException.class)
+    public void payForDeliveryIncorrectBillData() throws AskedDataIsNotCorrect, SQLException, OperationFailException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenThrow(AskedDataIsNotCorrect.class);
-        boolean payResult = billService.payForDelivery(getUserId(), getBillId());
+        billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(0)).murkBillAsPayed(anyLong());
         verify(userDao, times(0)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
-        assertFalse(payResult);
     }
 
-    @Test
-    public void payForDeliveryIncorrectBillDatInDb() throws AskedDataIsNotCorrect, SQLException {
+    @Test(expected = OperationFailException.class)
+    public void payForDeliveryIncorrectBillDatInDb() throws AskedDataIsNotCorrect, SQLException, OperationFailException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(0L);
         when(billDao.murkBillAsPayed(anyLong())).thenReturn(false);
         when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenReturn(true);
 
-        boolean payResult = billService.payForDelivery(getUserId(), getBillId());
+        billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(1)).murkBillAsPayed(anyLong());
         verify(userDao, times(1)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
-        assertFalse(payResult);
     }
 
-    @Test
-    public void payForDeliveryProblemWithDb() throws AskedDataIsNotCorrect, SQLException {
+    @Test(expected = OperationFailException.class)
+    public void payForDeliveryProblemWithDb() throws AskedDataIsNotCorrect, SQLException, OperationFailException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(0L);
         when(billDao.murkBillAsPayed(anyLong())).thenThrow(SQLException.class);
         when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenReturn(true);
 
-        boolean payResult = billService.payForDelivery(getUserId(), getBillId());
+        billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(1)).murkBillAsPayed(anyLong());
         verify(userDao, times(1)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
-        assertFalse(payResult);
     }
 
     @Test

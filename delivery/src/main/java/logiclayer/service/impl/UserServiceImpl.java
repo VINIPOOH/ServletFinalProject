@@ -65,8 +65,6 @@ public class UserServiceImpl implements UserService {
 
         try {
             transactionalManager.startTransaction();
-            long testVar = userDao.getUserBalanceByUserID(userId) + amountMoney;
-            boolean test = testVar <= 0;
             if (userDao.getUserBalanceByUserID(userId) + amountMoney <= 0) {
                 transactionalManager.rollBack();
                 throw new ToMachMoneyException();

@@ -1,4 +1,4 @@
-package infrastructure.сonfigurator;
+package infrastructure.сonfigurator.obj;
 
 import infrastructure.ApplicationContext;
 import infrastructure.anotation.InjectByType;

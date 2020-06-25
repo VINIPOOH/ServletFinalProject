@@ -2,7 +2,8 @@ package infrastructure;
 
 import infrastructure.anotation.NeedConfig;
 import infrastructure.exceptions.ReflectionException;
-import infrastructure.сonfigurator.ObjectConfigurator;
+import infrastructure.сonfigurator.obj.ObjectConfigurator;
+import infrastructure.сonfigurator.proxy.ProxyConfigurator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -17,19 +18,23 @@ public class ObjectFactory {
 
     private final ApplicationContext context;
     private final List<ObjectConfigurator> configurators = new ArrayList<>();
+    private List<ProxyConfigurator> proxyConfigurators = new ArrayList<>();
 
     public ObjectFactory(ApplicationContext context) {
         log.debug("");
 
         this.context = context;
-        context.getConfig().getScanner().getSubTypesOf(ObjectConfigurator.class)
-                .forEach(aClass -> {
-                    try {
-                        configurators.add(aClass.getDeclaredConstructor().newInstance());
-                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                        throw new ReflectionException();
-                    }
-                });
+
+        try {
+
+            for (Class<? extends ObjectConfigurator> aClass : context.getConfig().getScanner().getSubTypesOf(ObjectConfigurator.class)) {
+                configurators.add(aClass.getDeclaredConstructor().newInstance());
+            }
+            for (Class<? extends ProxyConfigurator> aClass : context.getConfig().getScanner().getSubTypesOf(ProxyConfigurator.class)) {
+                proxyConfigurators.add(aClass.getDeclaredConstructor().newInstance());
+            }
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {
+        }
     }
 
 
@@ -39,6 +44,7 @@ public class ObjectFactory {
         T t = create(implClass);
         configure(t);
         invokeInit(implClass, t);
+        t = wrapWithProxyIfNeeded(implClass, t);
         return t;
     }
 
@@ -64,6 +70,13 @@ public class ObjectFactory {
                         throw new ReflectionException();
                     }
                 });
+    }
+
+    private <T> T wrapWithProxyIfNeeded(Class<T> implClass, T t) {
+        for (ProxyConfigurator proxyConfigurator : proxyConfigurators) {
+            t = (T) proxyConfigurator.replaceWithProxyIfNeeded(t, implClass, context);
+        }
+        return t;
     }
 }
 

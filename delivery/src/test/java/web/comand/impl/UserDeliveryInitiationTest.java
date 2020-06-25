@@ -83,7 +83,6 @@ public class UserDeliveryInitiationTest {
 
     @Test
     public void performPostAllCorrect() throws UnsupportableWeightFactorException, FailCreateDeliveryException {
-        when(billService.initializeBill(any(DeliveryOrderCreateDto.class), anyLong())).thenReturn(true);
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(deliveryOrderCreateDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
 
@@ -122,7 +121,7 @@ public class UserDeliveryInitiationTest {
 
     @Test
     public void performPostIncorrectDataUnsupportableWeightFactorException() throws UnsupportableWeightFactorException, FailCreateDeliveryException {
-        when(billService.initializeBill(any(DeliveryOrderCreateDto.class), anyLong())).thenThrow(UnsupportableWeightFactorException.class);
+        doThrow(UnsupportableWeightFactorException.class).when(billService).initializeBill(any(DeliveryOrderCreateDto.class), anyLong());
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(deliveryOrderCreateDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
 
@@ -144,7 +143,7 @@ public class UserDeliveryInitiationTest {
 
     @Test
     public void performPostIncorrectDataFailCreateDeliveryException() throws UnsupportableWeightFactorException, FailCreateDeliveryException {
-        when(billService.initializeBill(any(DeliveryOrderCreateDto.class), anyLong())).thenThrow(FailCreateDeliveryException.class);
+        doThrow(FailCreateDeliveryException.class).when(billService).initializeBill(any(DeliveryOrderCreateDto.class), anyLong());
         when(session.getAttribute(SESSION_LANG)).thenReturn(getLocaleEn());
         when(deliveryOrderCreateDtoValidator.isValid(any(HttpServletRequest.class))).thenReturn(true);
 

@@ -1,6 +1,5 @@
 package logiclayer.service.impl;
 
-import dal.conection.pool.TransactionalManager;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
@@ -13,7 +12,9 @@ import dto.mapper.Mapper;
 import infrastructure.anotation.InjectByType;
 import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
+import infrastructure.anotation.Transaction;
 import logiclayer.exeption.FailCreateDeliveryException;
+import logiclayer.exeption.OperationFailException;
 import logiclayer.exeption.UnsupportableWeightFactorException;
 import logiclayer.service.BillService;
 import logiclayer.service.ServicesConstants;
@@ -29,8 +30,7 @@ import java.util.stream.Collectors;
 @NeedConfig
 public class BillServiceImpl implements BillService {
     private static final Logger log = LogManager.getLogger(BillServiceImpl.class);
-    @InjectByType
-    private TransactionalManager transactionalManager;
+
     @InjectByType
     private BillDao billDao;
     @InjectByType
@@ -49,27 +49,23 @@ public class BillServiceImpl implements BillService {
 
 
     @Override
-    public boolean payForDelivery(long userId, long billId) {
+    @Transaction
+    public void payForDelivery(long userId, long billId) throws OperationFailException {
         log.debug("userId - " + userId + " billId - " + billId);
 
         try {
-            transactionalManager.startTransaction();
             if (userDao.replenishUserBalenceOnSumeIfItPosible(userId,
                     billDao.getBillCostIfItIsNotPaid(billId, userId))
                     && billDao.murkBillAsPayed(billId)) {
-                transactionalManager.commit();
-                return true;
+                return;
             }
-            transactionalManager.rollBack();
-            return false;
+            throw new OperationFailException();
         } catch (SQLException e) {
             log.error("problem with db", e);
-            return false;
+            throw new OperationFailException();
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
-            return false;
-        } finally {
-            transactionalManager.close();
+            throw new OperationFailException();
         }
 
     }
@@ -80,18 +76,16 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public boolean initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
+    @Transaction
+    public void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
         log.debug("deliveryOrderCreateDto - " + deliveryOrderCreateDto + " initiatorId - " + initiatorId);
 
         try {
-            transactionalManager.startTransaction();
             long newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
             if (billDao.createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
                     , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
-                transactionalManager.commit();
-                return true;
+                return;
             }
-            transactionalManager.rollBack();
             throw new UnsupportableWeightFactorException();
         } catch (SQLException e) {
             log.error("problem with db", e);
@@ -99,8 +93,6 @@ public class BillServiceImpl implements BillService {
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
             throw new FailCreateDeliveryException();
-        } finally {
-            transactionalManager.close();
         }
     }
 

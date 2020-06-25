@@ -1,6 +1,7 @@
 package web.comand.impl;
 
 import dto.validation.IDValidator;
+import logiclayer.exeption.OperationFailException;
 import logiclayer.service.BillService;
 import logiclayer.service.UserService;
 import org.junit.Before;
@@ -59,8 +60,7 @@ public class UserDeliveryPayTest {
     }
 
     @Test
-    public void performPost() {
-        when(billService.payForDelivery(anyLong(), anyLong())).thenReturn(true);
+    public void performPost() throws OperationFailException {
         when(idValidator.isValid(any(HttpServletRequest.class), anyString())).thenReturn(true);
 
         String actual = userDeliveryPay.doPost(httpServletRequest);
