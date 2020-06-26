@@ -48,7 +48,8 @@ public class TransactionProxyConfigurator implements ProxyConfigurator {
         return method.invoke(t, args);
     }
 
-    private Object doTransactionMethodCall(Method method, Object[] args, Object t, TransactionalManager transactionalManager) throws Throwable {
+    private Object doTransactionMethodCall(Method method, Object[] args, Object t, TransactionalManager transactionalManager)
+            throws Throwable {
         try {
             transactionalManager.startTransaction();
             Object result = method.invoke(t, args);

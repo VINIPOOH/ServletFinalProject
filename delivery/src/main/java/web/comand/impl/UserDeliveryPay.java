@@ -12,6 +12,7 @@ import logiclayer.service.UserService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.MultipleMethodCommand;
+import web.exception.OnClientSideProblemException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
@@ -49,7 +50,7 @@ public class UserDeliveryPay implements MultipleMethodCommand {
         log.debug("");
         if (!idValidator.isValid(request, ID)) {
             log.error("id is not valid client is broken");
-            throw new RuntimeException();
+            throw new OnClientSideProblemException();
         }
         User sessionUser = (User) request.getSession().getAttribute(SESSION_USER);
         try {

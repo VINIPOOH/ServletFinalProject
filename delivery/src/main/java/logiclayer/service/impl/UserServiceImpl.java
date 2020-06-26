@@ -18,6 +18,7 @@ import logiclayer.service.PasswordEncoderService;
 import logiclayer.service.UserService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import web.exception.OnClientSideProblemException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -91,7 +92,7 @@ public class UserServiceImpl implements UserService {
             return userDao.getUserBalanceByUserID(userId);
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("Problems with db user must be correct", askedDataIsNotCorrect);
-            throw new RuntimeException();
+            throw new OnClientSideProblemException();
         }
     }
 

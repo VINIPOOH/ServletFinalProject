@@ -49,6 +49,7 @@ public class XSSFilter implements Filter {
             return cleanXSS(value);
         }
 
+        @Override
         public String getHeader(String name) {
             String value = super.getHeader(name);
             if (value == null)

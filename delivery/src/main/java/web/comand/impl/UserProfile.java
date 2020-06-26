@@ -12,6 +12,7 @@ import logiclayer.service.UserService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.MultipleMethodCommand;
+import web.exception.OnClientSideProblemException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -49,7 +50,7 @@ public class UserProfile implements MultipleMethodCommand {
         try {
             userService.replenishAccountBalance(user.getId(), money);
         } catch (NoSuchUserException e) {
-            throw new RuntimeException();
+            throw new OnClientSideProblemException();
         } catch (ToMachMoneyException e) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + USER_FOLDER + USER_PROFILE_FILE_NAME;
