@@ -38,7 +38,7 @@ public class ObjectFactory {
     }
 
 
-    public <T> T createObject(Class<T> implClass) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    <T> T createObject(Class<T> implClass) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         log.debug("");
 
         T t = create(implClass);

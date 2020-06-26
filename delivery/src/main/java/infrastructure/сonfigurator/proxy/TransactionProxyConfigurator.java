@@ -8,7 +8,6 @@ import net.sf.cglib.proxy.Enhancer;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -31,12 +30,8 @@ public class TransactionProxyConfigurator implements ProxyConfigurator {
                         }
                     });
                 }
-                return Proxy.newProxyInstance(implClass.getClassLoader(), implClass.getInterfaces(), new InvocationHandler() {
-                    @Override
-                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        return getInvocationHandlerLogic(method, args, t, context);
-                    }
-                });
+                return Proxy.newProxyInstance(implClass.getClassLoader(), implClass.getInterfaces(),
+                        (proxy, met, args) -> getInvocationHandlerLogic(met, args, t, context));
             }
         }
         return t;
@@ -50,27 +45,17 @@ public class TransactionProxyConfigurator implements ProxyConfigurator {
                 Object result = null;
                 try {
                     transactionalManager.startTransaction();
-                    log.debug("transaction started");
                     result = method.invoke(t, args);
                     transactionalManager.commit();
-                    log.debug("transaction finished");
                     transactionalManager.close();
-                } catch (SQLException ignored) {
                 } catch (InvocationTargetException e) {
-                    try {
-                        transactionalManager.rollBack();
-                    } catch (SQLException ignored) {
-                    }
+                    transactionalManager.rollBack();
                     transactionalManager.close();
-                    try {
-                        throw e.getCause().getClass().newInstance();
-                    } catch (InstantiationException ignored) {
-                    }
-
+                    throw e.getCause().getClass().newInstance();
                 }
                 return result;
             }
-        } catch (NoSuchMethodException ignored) {
+        } catch (NoSuchMethodException | SQLException | InstantiationException ignored) {
         }
         return method.invoke(t, args);
     }
