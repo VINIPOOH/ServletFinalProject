@@ -63,18 +63,17 @@ public class ApplicationContext {
             if (type.isInterface()) {
                 implClass = config.getImplClass(type);
             }
-            T t = null;
+            T toReturn;
             try {
-                t = factory.createObject(implClass);
+                toReturn = factory.createObject(implClass);
             } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
                 throw new ReflectionException();
             }
-            if (implClass.isAnnotationPresent(Singleton.class)) {
-                objectsCash.put(type, t);
-            }
-            return t;
+            putToObjectsCashIfSingleton(type, implClass, toReturn);
+            return toReturn;
         }
     }
+
 
     public MultipleMethodCommand getCommand(String link) {
         log.debug("");
@@ -90,22 +89,31 @@ public class ApplicationContext {
                 Endpoint annotation = clazz.getAnnotation(Endpoint.class);
                 if (annotation.value().equals(link)) {
                     MultipleMethodCommand toReturn = (MultipleMethodCommand) getObject(clazz);
-                    if (clazz.isAnnotationPresent(Singleton.class)) {
-                        commands.put(link, toReturn);
-                    }
+                    putToCommandMapIfSingleton(link, clazz, toReturn);
                     return toReturn;
                 }
             }
         }
         return (MultipleMethodCommand) getObject(defaultEndpoint);
+    }
 
+    public void setFactory(ObjectFactory factory) {
+        this.factory = factory;
     }
 
     Config getConfig() {
         return this.config;
     }
 
-    public void setFactory(ObjectFactory factory) {
-        this.factory = factory;
+    private <T> void putToObjectsCashIfSingleton(Class<T> type, Class<? extends T> implClass, T t) {
+        if (implClass.isAnnotationPresent(Singleton.class)) {
+            objectsCash.put(type, t);
+        }
+    }
+
+    private void putToCommandMapIfSingleton(String link, Class<?> clazz, MultipleMethodCommand toReturn) {
+        if (clazz.isAnnotationPresent(Singleton.class)) {
+            commands.put(link, toReturn);
+        }
     }
 }

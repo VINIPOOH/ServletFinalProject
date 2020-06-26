@@ -42,7 +42,8 @@ public class TransactionProxyConfigurator implements ProxyConfigurator {
             if (t.getClass().getMethod(method.getName(), method.getParameterTypes()).isAnnotationPresent(Transaction.class)) {
                 return doTransactionMethodCall(method, args, t, context.getObject(TransactionalManager.class));
             }
-        } catch (NoSuchMethodException | SQLException | InstantiationException ignored) {
+        } catch (NoSuchMethodException | SQLException | InstantiationException ex) {
+            log.debug(ex);
         }
         return method.invoke(t, args);
     }

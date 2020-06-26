@@ -2,6 +2,7 @@ package infrastructure.сonfigurator.obj;
 
 import infrastructure.ApplicationContext;
 import infrastructure.anotation.InjectProperty;
+import infrastructure.exceptions.ReflectionException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -31,7 +32,7 @@ public class InjectPropertyAnnotationObjectConfigurator implements ObjectConfigu
                 try {
                     field.set(t, value);
                 } catch (IllegalAccessException e) {
-                    throw new RuntimeException("impossible we made accessible true");
+                    throw new ReflectionException("impossible we made accessible true");
                 }
             }
         }

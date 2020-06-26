@@ -2,6 +2,7 @@ package infrastructure.сonfigurator.obj;
 
 import infrastructure.ApplicationContext;
 import infrastructure.anotation.InjectByType;
+import infrastructure.exceptions.ReflectionException;
 
 import java.lang.reflect.Field;
 
@@ -16,7 +17,7 @@ public class InjectByTypeAnnotationObjectConfigurator implements ObjectConfigura
                 try {
                     field.set(t, object);
                 } catch (IllegalAccessException e) {
-                    throw new RuntimeException("impossible we made accessible true");
+                    throw new ReflectionException("impossible we made accessible true");
                 }
             }
         }
