@@ -1,7 +1,6 @@
 package logiclayer.service.impl;
 
 
-import dal.conection.pool.TransactionalManager;
 import dal.dao.UserDao;
 import dal.entity.User;
 import dal.exeption.AskedDataIsNotCorrect;
@@ -11,6 +10,7 @@ import dto.UserStatisticDto;
 import infrastructure.anotation.InjectByType;
 import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
+import infrastructure.anotation.Transaction;
 import logiclayer.exeption.NoSuchUserException;
 import logiclayer.exeption.OccupiedLoginException;
 import logiclayer.exeption.ToMachMoneyException;
@@ -20,7 +20,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.exception.OnClientSideProblemException;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -33,8 +32,6 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoderService passwordEncoderService;
     @InjectByType
     private UserDao userDao;
-    @InjectByType
-    private TransactionalManager transactionalManager;
 
 
     @Override
@@ -61,28 +58,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException, ToMachMoneyException {
+    @Transaction
+    public void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException, ToMachMoneyException {
         log.debug("userId -" + userId + " amountMoney -" + amountMoney);
 
         try {
-            transactionalManager.startTransaction();
             if (userDao.getUserBalanceByUserID(userId) + amountMoney <= 0) {
-                transactionalManager.rollBack();
                 throw new ToMachMoneyException();
             }
-            boolean toReturn = userDao.replenishUserBalance(userId, amountMoney);
-            transactionalManager.commit();
-            return toReturn;
-
-        } catch (SQLException e) {
-            log.error("problem with db", e);
-            return false;
+            userDao.replenishUserBalance(userId, amountMoney);
         } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
             log.error("no user", askedDataIsNotCorrect);
-
             throw new NoSuchUserException();
-        } finally {
-            transactionalManager.close();
         }
     }
 

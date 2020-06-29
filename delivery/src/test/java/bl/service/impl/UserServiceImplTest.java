@@ -109,11 +109,10 @@ public class UserServiceImplTest {
         when(userDao.replenishUserBalance(anyLong(), anyLong())).thenReturn(true);
         when(userDao.getUserBalanceByUserID(anyLong())).thenReturn(0L);
 
-        boolean result = userService.replenishAccountBalance(getUserId(), 1L);
+        userService.replenishAccountBalance(getUserId(), 1L);
 
         verify(userDao, times(1)).replenishUserBalance(anyLong(), anyLong());
         verify(userDao, times(1)).getUserBalanceByUserID(anyLong());
-        assertTrue(result);
     }
 
     @Test(expected = NoSuchUserException.class)

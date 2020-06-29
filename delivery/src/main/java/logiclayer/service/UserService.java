@@ -17,7 +17,7 @@ public interface UserService {
 
     boolean addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException;
 
-    boolean replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException, ToMachMoneyException;
+    void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException, ToMachMoneyException;
 
     long getUserBalance(long userId);
 

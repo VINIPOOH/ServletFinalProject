@@ -50,7 +50,6 @@ public class UserProfileTest {
 
     @Test
     public void performPost() throws NoSuchUserException, ToMachMoneyException {
-        when(userService.replenishAccountBalance(anyLong(), anyLong())).thenReturn(true);
 
         String actual = userProfile.doPost(httpServletRequest);
 
@@ -73,7 +72,7 @@ public class UserProfileTest {
 
     @Test(expected = RuntimeException.class)
     public void performPostNoSuchUserException() throws NoSuchUserException, ToMachMoneyException {
-        when(userService.replenishAccountBalance(anyLong(), anyLong())).thenThrow(NoSuchUserException.class);
+        doThrow(NoSuchUserException.class).when(userService).replenishAccountBalance(anyLong(), anyLong());
 
         userProfile.doPost(httpServletRequest);
 
