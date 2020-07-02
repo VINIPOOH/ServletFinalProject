@@ -4,6 +4,7 @@
 <head>
     <%@ include file="layout/bootstrap.jsp" %>
     <title ><fmt:message key="title.counter"/></title>
+    <script src = "${pageContext.request.contextPath}/js/calculator.js"></script>
 </head>
 <body>
 <%@ include file="layout/header.jsp" %>
@@ -32,10 +33,10 @@
                             <input type="number" class="form-control" id="deliveryWeight" name="deliveryWeight" placeholder=<fmt:message key="homepage.form.weight"/>>
                         </div>
                         <label><fmt:message key="homepage.form.label.locality_sand"/></label>
-                        <select id="localitySandID" name="localitySandID" form="form" class="form-control">
+                        <select id="localitySandID" name="localitySand" form="form" class="form-control">
                             <c:forEach var="locality" items="${requestScope.localityList}">
-                                <option value="${locality.id}" id="localitySandID"
-                                        name="localitySandID">${locality.name}</option>
+                                <option value="${locality.id}"
+                                        name="localitySandOption">${locality.name}</option>
                             </c:forEach>
                         </select>
                         <label><fmt:message key="homepage.form.label.locality_get"/></label>

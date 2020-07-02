@@ -7,7 +7,12 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Servlet</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>/anonymous/*</url-pattern>
+    <url-pattern>/user/*</url-pattern>
+    <url-pattern>/admin/*</url-pattern>
+    <url-pattern>/counter/*</url-pattern>
+
+
   </servlet-mapping>
 
   <filter>
