@@ -12,17 +12,17 @@ import static org.junit.Assert.assertEquals;
 import static web.constant.PageConstance.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EmptyCommandTest {
+public class PhantomCommandTest {
 
     @InjectMocks
-    EmptyCommand emptyCommand;
+    PhantomCommand phantomCommand;
 
     @Mock
     HttpServletRequest httpServletRequest;
 
     @Test
     public void execute() {
-        String actual = emptyCommand.doGet(httpServletRequest);
+        String actual = phantomCommand.doGet(httpServletRequest);
 
         assertEquals(REDIRECT_COMMAND + ANONYMOUS_FOLDER + INDEX_REQUEST_COMMAND, actual);
     }

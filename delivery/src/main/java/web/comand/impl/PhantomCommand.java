@@ -7,17 +7,18 @@ import web.comand.MultipleMethodCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constant.PageConstance.*;
+import static web.constant.PageConstance.ERROR_404_FILE_NAME;
+import static web.constant.PageConstance.MAIN_WEB_FOLDER;
 
 @Singleton
-public class EmptyCommand implements MultipleMethodCommand {
-    private static final Logger log = LogManager.getLogger(EmptyCommand.class);
+public class PhantomCommand implements MultipleMethodCommand {
+    private static final Logger log = LogManager.getLogger(PhantomCommand.class);
 
     @Override
     public String doGet(HttpServletRequest request) {
         log.debug("");
 
-        return REDIRECT_COMMAND + ANONYMOUS_FOLDER + INDEX_REQUEST_COMMAND;
+        return MAIN_WEB_FOLDER + ERROR_404_FILE_NAME;
     }
 
     @Override

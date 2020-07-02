@@ -9,7 +9,7 @@ import infrastructure.сonfig.Config;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.comand.MultipleMethodCommand;
-import web.comand.impl.EmptyCommand;
+import web.comand.impl.PhantomCommand;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -20,7 +20,7 @@ public class ApplicationContext {
     private final Map<Class, Object> objectsCash;
     private final Map<String, MultipleMethodCommand> commands;
     private final Map<String, CurrencyInfo> currencies;
-    private final Class defaultEndpoint = EmptyCommand.class;
+    private final Class defaultEndpoint = PhantomCommand.class;
     private final Config config;
     private ObjectFactory factory;
 
