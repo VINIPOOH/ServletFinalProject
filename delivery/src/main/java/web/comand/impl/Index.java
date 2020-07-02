@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import static web.constant.PageConstance.*;
 
 @Singleton
-@Endpoint("anonymous/index")
+@Endpoint({"anonymous/index", ""})
 public class Index implements MultipleMethodCommand {
     private static final Logger log = LogManager.getLogger(Index.class);
 

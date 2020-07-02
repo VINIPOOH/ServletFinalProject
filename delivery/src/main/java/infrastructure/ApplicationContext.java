@@ -87,10 +87,12 @@ public class ApplicationContext {
             }
             for (Class<?> clazz : config.getScanner().getTypesAnnotatedWith(Endpoint.class)) {
                 Endpoint annotation = clazz.getAnnotation(Endpoint.class);
-                if (annotation.value().equals(link)) {
-                    MultipleMethodCommand toReturn = (MultipleMethodCommand) getObject(clazz);
-                    putToCommandMapIfSingleton(link, clazz, toReturn);
-                    return toReturn;
+                for (String i: annotation.value()){
+                    if (i.equals(link)) {
+                        MultipleMethodCommand toReturn = (MultipleMethodCommand) getObject(clazz);
+                        putToCommandMapIfSingleton(link, clazz, toReturn);
+                        return toReturn;
+                    }
                 }
             }
         }
