@@ -119,8 +119,6 @@ public class TransactionProxyConfiguratorTest {
 
     @Test
     public void replaceWithProxyIfNeededWhereNoInterfaceAllCorrect() throws Throwable {
-
-
         TestClass testClass = new TestClass();
         when(applicationContext.getObject(any(Class.class))).thenReturn(transactionalManager);
 
@@ -177,8 +175,10 @@ public class TransactionProxyConfiguratorTest {
         TestClass testClass = new TestClass();
         when(applicationContext.getObject(any(Class.class))).thenReturn(transactionalManager);
 
-        ((TestClass) transactionProxyConfigurator.replaceWithProxyIfNeeded(testClass, TestClass.class, applicationContext)).testVoid();
+        ((TestClassWhichThrowCheckedException) transactionProxyConfigurator.replaceWithProxyIfNeeded(testClass, TestClassWhichThrowCheckedException.class, applicationContext)).testVoid();
 
         fail();
     }
+
+
 }
