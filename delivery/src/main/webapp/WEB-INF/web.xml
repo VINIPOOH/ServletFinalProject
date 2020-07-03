@@ -13,6 +13,7 @@
     <url-pattern>/404</url-pattern>
     <url-pattern>/counter/*</url-pattern>
     <url-pattern></url-pattern>
+    <url-pattern>/get/localitiesGet/by/localitySend/id/*</url-pattern>
 
 
   </servlet-mapping>

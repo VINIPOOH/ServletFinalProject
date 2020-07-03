@@ -24,6 +24,8 @@ import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
 public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements LocalityDao {
     private static final String LOCALITY_FIND_ALL_RU = "locality.find.all.ru";
     private static final String LOCALITY_FIND_ALL_EN = "locality.find.all.en";
+    private static final String LOCALITY_GET_FIND_BY_LOCALITY_SEND_ID_RU = "locality.get.find.by.locality.send.id.ru";
+    private static final String LOCALITY_GET_FIND_BY_LOCALITY_SEND_ID_EN = "locality.get.find.by.locality.send.id.en";
     private static final String ID = "id";
     private static final String LOCALITY_NAME = "name";
     private static final Logger log = LogManager.getLogger(JDBCLocalityDao.class);
@@ -40,6 +42,31 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
                 resourceBundleRequests.getString(LOCALITY_FIND_ALL_EN);
         try (ConnectionAdapeter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(localedQuery)) {
+            List<Locality> result;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                result = new ArrayList<>();
+                while (resultSet.next()) {
+                    result.add(mapper.map(resultSet));
+                }
+            }
+            return result;
+        } catch (SQLException e) {
+            log.error("SQLException", e);
+            throw new DBRuntimeException();
+        }
+    }
+
+    @Override
+    public List<Locality> findLocaliseLocalitiesGetByLocalitySendId(Locale locale, long id) {
+        ResultSetToEntityMapper<Locality> mapper = getLocaliseLocalityMapper(locale);
+        String localedQuery;
+        localedQuery = locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                resourceBundleRequests.getString(LOCALITY_GET_FIND_BY_LOCALITY_SEND_ID_RU) :
+                resourceBundleRequests.getString(LOCALITY_GET_FIND_BY_LOCALITY_SEND_ID_EN);
+
+        try (ConnectionAdapeter connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(localedQuery)) {
+            preparedStatement.setLong(1,id);
             List<Locality> result;
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 result = new ArrayList<>();

@@ -7,4 +7,5 @@ import java.util.Locale;
 
 public interface LocalityService {
     List<LocaliseLocalityDto> getLocaliseLocalities(Locale locale);
+    List<LocaliseLocalityDto> getLocaliseLocalitiesGetByLocalitySendId(Locale locale, long id);
 }

@@ -19,6 +19,54 @@ CREATE SCHEMA IF NOT EXISTS `trainingdb` DEFAULT CHARACTER SET utf8mb4 COLLATE u
 USE `trainingdb` ;
 
 -- -----------------------------------------------------
+-- Table `trainingdb`.`way_tariff_weight_factor`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `trainingdb`.`way_tariff_weight_factor` ;
+
+CREATE TABLE IF NOT EXISTS `trainingdb`.`way_tariff_weight_factor` (
+  `way_id` BIGINT NOT NULL,
+  `tariff_weight_factor_id` BIGINT NOT NULL,
+  INDEX `FKt75qu3a8h7qsy726oe3ylpea6` (`tariff_weight_factor_id` ASC) VISIBLE,
+  INDEX `FK5bpbgkkh4sw0tds9gilau5uau` (`way_id` ASC) VISIBLE,
+  CONSTRAINT `FK5bpbgkkh4sw0tds9gilau5uau`
+    FOREIGN KEY (`way_id`)
+    REFERENCES `trainingdb`.`way` (`id`),
+  CONSTRAINT `FKt75qu3a8h7qsy726oe3ylpea6`
+    FOREIGN KEY (`tariff_weight_factor_id`)
+    REFERENCES `trainingdb`.`tariff_weight_factor` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `trainingdb`.`way`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `trainingdb`.`way` ;
+
+CREATE TABLE IF NOT EXISTS `trainingdb`.`way` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `distance_in_kilometres` INT NOT NULL,
+  `price_for_kilometer_in_cents` INT NOT NULL,
+  `time_on_way_in_days` INT NOT NULL,
+  `locality_get_id` BIGINT NOT NULL,
+  `locality_send_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `UK5uyqyuwallk6ncd2r78h6e2gt` (`locality_send_id` ASC, `locality_get_id` ASC) VISIBLE,
+  INDEX `FK9cdoukvc31ea903e9gaa8fijl` (`locality_get_id` ASC) VISIBLE,
+  CONSTRAINT `FK9cdoukvc31ea903e9gaa8fijl`
+    FOREIGN KEY (`locality_get_id`)
+    REFERENCES `trainingdb`.`locality` (`id`),
+  CONSTRAINT `FKo7ugu1yg0aawpbvtwhyhn4glk`
+    FOREIGN KEY (`locality_send_id`)
+    REFERENCES `trainingdb`.`locality` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 0
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `trainingdb`.`user`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `trainingdb`.`user` ;
@@ -58,31 +106,6 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
--- -----------------------------------------------------
--- Table `trainingdb`.`way`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `trainingdb`.`way` ;
-
-CREATE TABLE IF NOT EXISTS `trainingdb`.`way` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `distance_in_kilometres` INT NOT NULL,
-  `price_for_kilometer_in_cents` INT NOT NULL,
-  `time_on_way_in_days` INT NOT NULL,
-  `locality_get_id` BIGINT NOT NULL,
-  `locality_send_id` BIGINT NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `UK5uyqyuwallk6ncd2r78h6e2gt` (`locality_send_id` ASC, `locality_get_id` ASC) VISIBLE,
-  INDEX `FK9cdoukvc31ea903e9gaa8fijl` (`locality_get_id` ASC) VISIBLE,
-  CONSTRAINT `FK9cdoukvc31ea903e9gaa8fijl`
-    FOREIGN KEY (`locality_get_id`)
-    REFERENCES `trainingdb`.`locality` (`id`),
-  CONSTRAINT `FKo7ugu1yg0aawpbvtwhyhn4glk`
-    FOREIGN KEY (`locality_send_id`)
-    REFERENCES `trainingdb`.`locality` (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 0
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -155,25 +178,7 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
--- -----------------------------------------------------
--- Table `trainingdb`.`way_tariff_weight_factor`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `trainingdb`.`way_tariff_weight_factor` ;
 
-CREATE TABLE IF NOT EXISTS `trainingdb`.`way_tariff_weight_factor` (
-  `way_id` BIGINT NOT NULL,
-  `tariff_weight_factor_id` BIGINT NOT NULL,
-  INDEX `FKt75qu3a8h7qsy726oe3ylpea6` (`tariff_weight_factor_id` ASC) VISIBLE,
-  INDEX `FK5bpbgkkh4sw0tds9gilau5uau` (`way_id` ASC) VISIBLE,
-  CONSTRAINT `FK5bpbgkkh4sw0tds9gilau5uau`
-    FOREIGN KEY (`way_id`)
-    REFERENCES `trainingdb`.`way` (`id`),
-  CONSTRAINT `FKt75qu3a8h7qsy726oe3ylpea6`
-    FOREIGN KEY (`tariff_weight_factor_id`)
-    REFERENCES `trainingdb`.`tariff_weight_factor` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
@@ -198,7 +203,7 @@ INSERT INTO `trainingdb`.`way` (`distance_in_kilometres`, `price_for_kilometer_i
 INSERT INTO `trainingdb`.`way` (`distance_in_kilometres`, `price_for_kilometer_in_cents`, `time_on_way_in_days`, `locality_get_id`, `locality_send_id`) VALUES ('670', '15', '2', '2', '3');
 INSERT INTO `trainingdb`.`way` (`distance_in_kilometres`, `price_for_kilometer_in_cents`, `time_on_way_in_days`, `locality_get_id`, `locality_send_id`) VALUES ('540', '14', '1', '2', '1');
 INSERT INTO `trainingdb`.`way` (`distance_in_kilometres`, `price_for_kilometer_in_cents`, `time_on_way_in_days`, `locality_get_id`, `locality_send_id`) VALUES ('490', '18', '1', '3', '1');
-INSERT INTO `trainingdb`.`way` (`distance_in_kilometres`, `price_for_kilometer_in_cents`, `time_on_way_in_days`, `locality_get_id`, `locality_send_id`) VALUES ('700', '22', '2', '3', '2');
+-- INSERT INTO `trainingdb`.`way` (`distance_in_kilometres`, `price_for_kilometer_in_cents`, `time_on_way_in_days`, `locality_get_id`, `locality_send_id`) VALUES ('700', '22', '2', '3', '2');
 
 
 insert into `trainingdb`.`way_tariff_weight_factor` (`way_id`, `tariff_weight_factor_id`) values(1,1);
@@ -216,6 +221,6 @@ insert into `trainingdb`.`way_tariff_weight_factor` (`way_id`, `tariff_weight_fa
 insert into `trainingdb`.`way_tariff_weight_factor` (`way_id`, `tariff_weight_factor_id`) values(5,1);
 insert into `trainingdb`.`way_tariff_weight_factor` (`way_id`, `tariff_weight_factor_id`) values(5,2);
 insert into `trainingdb`.`way_tariff_weight_factor` (`way_id`, `tariff_weight_factor_id`) values(5,3);
-insert into `trainingdb`.`way_tariff_weight_factor` (`way_id`, `tariff_weight_factor_id`) values(6,1);
-insert into `trainingdb`.`way_tariff_weight_factor` (`way_id`, `tariff_weight_factor_id`) values(6,2);
-insert into `trainingdb`.`way_tariff_weight_factor` (`way_id`, `tariff_weight_factor_id`) values(6,3);
+-- insert into `trainingdb`.`way_tariff_weight_factor` (`way_id`, `tariff_weight_factor_id`) values(6,1);
+-- insert into `trainingdb`.`way_tariff_weight_factor` (`way_id`, `tariff_weight_factor_id`) values(6,2);
+-- insert into `trainingdb`.`way_tariff_weight_factor` (`way_id`, `tariff_weight_factor_id`) values(6,3);

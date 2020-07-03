@@ -27,7 +27,6 @@ import static web.constant.PageConstance.*;
 public class UserDeliveryPay implements MultipleMethodCommand {
     private static final String BILL_INFO_TO_PAY = "BillInfoToPay";
     private static final String ID = "Id";
-    private static final String ID1 = "Id";
     private static final Logger log = LogManager.getLogger(UserDeliveryPay.class);
     private static final String NOT_ENOUGH_MONEY = "notEnoughMoney";
     @InjectByType
@@ -54,7 +53,7 @@ public class UserDeliveryPay implements MultipleMethodCommand {
         }
         User sessionUser = (User) request.getSession().getAttribute(SESSION_USER);
         try {
-            billService.payForDelivery(sessionUser.getId(), Long.parseLong(request.getParameter(ID1)));
+            billService.payForDelivery(sessionUser.getId(), Long.parseLong(request.getParameter(ID)));
             sessionUser.setUserMoneyInCents(userService.getUserBalance(sessionUser.getId()));
         } catch (OperationFailException e) {
             request.setAttribute(NOT_ENOUGH_MONEY, true);

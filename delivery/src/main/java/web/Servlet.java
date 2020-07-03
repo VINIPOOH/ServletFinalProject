@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,6 +25,7 @@ import static web.constant.AttributeConstants.LOGGINED_USER_NAMES;
 public class Servlet extends HttpServlet {
 
     private static final Logger log = LogManager.getLogger(Servlet.class);
+    public static final String JSON_RESPONSE = "json-response:";
 
     @Override
     public void init() throws ServletException {
@@ -58,6 +60,8 @@ public class Servlet extends HttpServlet {
     }
 
     private MultipleMethodCommand getMultipleMethodCommand(HttpServletRequest request) {
+        String test = request.getRequestURI();
+        String test1 = (String) request.getAttribute("id");
         return ((ApplicationContext) getServletContext().getAttribute(CONTEXT))
                 .getCommand(request.getRequestURI().replaceFirst(".*/delivery/", ""));
     }
@@ -65,7 +69,15 @@ public class Servlet extends HttpServlet {
     private void passOver(HttpServletRequest request, HttpServletResponse response, String page) throws IOException, ServletException {
         if (page.contains("redirect:")) {
             response.sendRedirect(page.replace("redirect:", "/delivery/"));
-        } else {
+        } else if (page.startsWith("json-response:")){
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+//            response.setStatus(200);
+            PrintWriter out = response.getWriter();
+            out.print(page.replaceFirst(JSON_RESPONSE, ""));
+            out.flush();
+        }
+        else {
             request.getRequestDispatcher(page).forward(request, response);
         }
     }

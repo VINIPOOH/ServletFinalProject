@@ -9,4 +9,7 @@ public interface LocalityDao {
 
 
     List<Locality> findAllLocaliseLocalitiesWithoutConnection(Locale locale);
+
+    List<Locality> findLocaliseLocalitiesGetByLocalitySendId(Locale locale, long id);
+
 }

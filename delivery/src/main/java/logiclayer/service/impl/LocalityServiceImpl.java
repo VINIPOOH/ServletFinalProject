@@ -34,6 +34,13 @@ public class LocalityServiceImpl implements LocalityService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<LocaliseLocalityDto> getLocaliseLocalitiesGetByLocalitySendId(Locale locale, long id) {
+        return localityDao.findLocaliseLocalitiesGetByLocalitySendId(locale, id).stream()
+                .map(getLocalityToLocaliseLocalityDto(locale)::map)
+                .collect(Collectors.toList());
+    }
+
     private Mapper<Locality, LocaliseLocalityDto> getLocalityToLocaliseLocalityDto(Locale locale) {
         return locality -> LocaliseLocalityDto.builder()
                 .id(locality.getId())
