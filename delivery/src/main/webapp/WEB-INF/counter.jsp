@@ -4,7 +4,7 @@
 <head>
     <%@ include file="layout/bootstrap.jsp" %>
     <title ><fmt:message key="title.counter"/></title>
-    <script src="${pageContext.request.contextPath}/js/calculator.js"></script>
+    <script src="${pageContext.request.contextPath}/js/dynamic-locality-get-loader.js"></script>
 </head>
 <body>
 <%@ include file="layout/header.jsp" %>

@@ -4,6 +4,7 @@
 <head>
     <%@ include file="../layout/bootstrap.jsp" %>
     <title><fmt:message key="homepage.title"/></title>
+    <script src="${pageContext.request.contextPath}/js/dynamic-locality-get-loader.js"></script>
 </head>
 <body>
 <%@ include file="../layout/header.jsp" %>
@@ -39,7 +40,7 @@
                                    placeholder=<fmt:message key="homepage.form.weight"/>>
                         </div>
                         <label><fmt:message key="homepage.form.label.locality_sand"/></label>
-                        <select id="localitySandID" name="localitySandID" form="form" class="form-control">
+                        <select id="localitySandIDSelect" name="localitySandID" form="form" class="form-control">
                             <c:forEach var="locality" items="${requestScope.localityList}">
                                 <option value="${locality.id}" id="localitySandID"
                                         name="localitySandID">${locality.name}</option>
@@ -47,10 +48,6 @@
                         </select>
                         <label><fmt:message key="homepage.form.label.locality_get"/></label>
                         <select id="localityGetID" name="localityGetID" form="form" class="form-control">
-                            <c:forEach var="locality" items="${requestScope.localityList}">
-                                <option value="${locality.id}" id="localityGetID"
-                                        name="localityGetID">${locality.name}</option>
-                            </c:forEach>
                         </select>
                         <p1></p1>
                         <label><fmt:message key="homepage.form.label.aderesee.email"/></label>
