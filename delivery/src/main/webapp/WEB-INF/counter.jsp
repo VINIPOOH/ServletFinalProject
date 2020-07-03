@@ -41,10 +41,6 @@
                         </select>
                         <label><fmt:message key="homepage.form.label.locality_get"/></label>
                         <select id="localityGetID" name="localityGetID" form="form" class="form-control">
-                            <c:forEach var="locality" items="${requestScope.localityList}">
-                                <option value="${locality.id}" id="localityGetID"
-                                        name="localityGetID">${locality.name}</option>
-                            </c:forEach>
                         </select>
                         <p1></p1>
                         <button class="btn btn-success" type="submit"><fmt:message key="homepage.form.button"/></button>
