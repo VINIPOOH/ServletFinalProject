@@ -17,7 +17,9 @@ public interface DeliveryDao {
     List<Delivery> getDeliveryInfoToGet(long userId, Locale locale);
 
     boolean confirmGettingDelivery(long userId, long deliveryId);
-
+    /**
+     * @throws AskedDataIsNotCorrect if noting found
+     */
     long createDelivery(String addreeseeEmail, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotCorrect;
 
 }

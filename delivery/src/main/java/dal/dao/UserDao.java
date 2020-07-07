@@ -16,13 +16,19 @@ import java.util.Optional;
 public interface UserDao {
 
     Optional<User> findByEmailAndPasswordWithPermissions(String email, String password);
-
+    /**
+     * @throws AskedDataIsNotCorrect if that email already taken
+     */
     boolean save(String email, String password) throws AskedDataIsNotCorrect;
-
+    /**
+     * @throws AskedDataIsNotCorrect if there no user with such id
+     */
     boolean replenishUserBalance(long userId, long amountMoney) throws AskedDataIsNotCorrect;
 
-    boolean replenishUserBalenceOnSumeIfItPosible(long userId, long sumWhichUserNeed) throws SQLException;
-
+    boolean withdrawUserBalanceOnSumIfItPossible(long userId, long sumWhichUserNeed) throws SQLException;
+    /**
+     * @throws AskedDataIsNotCorrect if there is no users with such id
+     */
     long getUserBalanceByUserID(long userId) throws AskedDataIsNotCorrect;
 
     List<User> getAllUsers();

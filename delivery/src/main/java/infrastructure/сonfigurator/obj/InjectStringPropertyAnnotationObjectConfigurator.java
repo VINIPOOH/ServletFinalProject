@@ -28,14 +28,14 @@ public class InjectStringPropertyAnnotationObjectConfigurator implements ObjectC
     }
 
     @Override
-    public void configure(Object t, Class clazz, ApplicationContext context) {
-        for (Field field : clazz.getDeclaredFields()) {
+    public void configure(Object instance, Class instanceType, ApplicationContext context) {
+        for (Field field : instanceType.getDeclaredFields()) {
             InjectStringProperty annotation = field.getAnnotation(InjectStringProperty.class);
             if (annotation != null) {
                 String value = annotation.value().isEmpty() ? resourceBundle.getString(field.getName()) : resourceBundle.getString(annotation.value());
                 field.setAccessible(true);
                 try {
-                    field.set(t, value);
+                    field.set(instance, value);
                 } catch (IllegalAccessException e) {
                     throw new ReflectionException("impossible we made accessible true");
                 }

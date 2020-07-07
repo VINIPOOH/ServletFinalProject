@@ -22,7 +22,9 @@ public interface UserService {
     User loginUser(LoginInfoDto loginInfoDto) throws NoSuchUserException;
 
     boolean addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException;
-
+    /**
+     * @throws ToMachMoneyException if after replenish will be overload long
+     */
     void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException, ToMachMoneyException;
 
     long getUserBalance(long userId);

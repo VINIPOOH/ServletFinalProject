@@ -50,23 +50,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
                 findAllByLongParam(userId, resourceBundleRequests.getString(DELIVERY_INFO_TO_GET_BY_USER_ID_EN), mapper);
     }
 
-    private ResultSetToEntityMapper<Delivery> getDeliveryResultSetToEntityMapper(Locale locale) {
-        return resultSet -> Delivery.builder()
-                .id(resultSet.getLong("id"))
-                .bill(Bill.builder().user(User.builder().email(resultSet.getString("email")).build()).build())
-                .way(locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
-                        Way.builder()
-                                .localityGet(Locality.builder().nameRu(resultSet.getString(LOCALITY_GET_COLUMN_NAME)).build())
-                                .localitySand(Locality.builder().nameRu(resultSet.getString(LOCALITY_SEND_COLUMN_NAME)).build())
-                                .build() :
-                        Way.builder()
-                                .localityGet(Locality.builder().nameEn(resultSet.getString(LOCALITY_GET_COLUMN_NAME)).build())
-                                .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SEND_COLUMN_NAME)).build())
-                                .build()
-                )
-                .build();
-    }
-
+    @Override
     public boolean confirmGettingDelivery(long userId, long deliveryId) {
         log.debug("confirmGettingDelivery");
 
@@ -82,7 +66,12 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
 
     }
 
-    public long createDelivery(String addreeseeEmail, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotCorrect {
+    /**
+     * @throws AskedDataIsNotCorrect if noting found
+     */
+    @Override
+    public long createDelivery(String addreeseeEmail, long localitySandID, long localityGetID, int weight)
+            throws AskedDataIsNotCorrect {
         log.debug("createDelivery");
 
         try (ConnectionAdapter connection = connector.getConnection();
@@ -107,6 +96,23 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
         preparedStatement.setLong(3, localityGetID);
         preparedStatement.setInt(4, weight);
         preparedStatement.executeUpdate();
+    }
+
+    private ResultSetToEntityMapper<Delivery> getDeliveryResultSetToEntityMapper(Locale locale) {
+        return resultSet -> Delivery.builder()
+                .id(resultSet.getLong("id"))
+                .bill(Bill.builder().user(User.builder().email(resultSet.getString("email")).build()).build())
+                .way(locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                        Way.builder()
+                                .localityGet(Locality.builder().nameRu(resultSet.getString(LOCALITY_GET_COLUMN_NAME)).build())
+                                .localitySand(Locality.builder().nameRu(resultSet.getString(LOCALITY_SEND_COLUMN_NAME)).build())
+                                .build() :
+                        Way.builder()
+                                .localityGet(Locality.builder().nameEn(resultSet.getString(LOCALITY_GET_COLUMN_NAME)).build())
+                                .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SEND_COLUMN_NAME)).build())
+                                .build()
+                )
+                .build();
     }
 
 

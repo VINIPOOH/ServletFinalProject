@@ -48,7 +48,7 @@ public class UserDeliveryGetControllerTest {
     public void performGet() {
         String actual = userDeliveryGetController.doGet(httpServletRequest);
 
-        verify(deliveryService, times(1)).getInfoToGetDeliverisByUserID(anyLong(), any(Locale.class));
+        verify(deliveryService, times(1)).getInfoToGetDeliveriesByUserID(anyLong(), any(Locale.class));
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
         verify(httpServletRequest, times(2)).getSession();
         verify(session, times(1)).getAttribute(SESSION_LANG);
@@ -65,7 +65,7 @@ public class UserDeliveryGetControllerTest {
         verify(httpServletRequest, times(3)).getSession();
         verify(session, times(1)).getAttribute(SESSION_LANG);
         verify(httpServletRequest, times(1)).setAttribute(anyString(), any(Object.class));
-        verify(deliveryService, times(1)).getInfoToGetDeliverisByUserID(anyLong(), any(Locale.class));
+        verify(deliveryService, times(1)).getInfoToGetDeliveriesByUserID(anyLong(), any(Locale.class));
         verify(session, times(1)).getAttribute(SESSION_LANG);
         assertEquals(MAIN_WEB_FOLDER + USER_FOLDER + USER_DELIVERY_GET_CONFIRM_FILE_NAME, actual);
     }

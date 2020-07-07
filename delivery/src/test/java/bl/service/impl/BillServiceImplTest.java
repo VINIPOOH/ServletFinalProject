@@ -88,40 +88,40 @@ public class BillServiceImplTest {
     public void payForDeliveryAllCorrect() throws AskedDataIsNotCorrect, SQLException, OperationFailException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(1L);
         when(billDao.murkBillAsPayed(anyLong())).thenReturn(true);
-        when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenReturn(true);
+        when(userDao.withdrawUserBalanceOnSumIfItPossible(anyLong(), anyLong())).thenReturn(true);
 
 
         billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(1)).murkBillAsPayed(anyLong());
-        verify(userDao, times(1)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
+        verify(userDao, times(1)).withdrawUserBalanceOnSumIfItPossible(anyLong(), anyLong());
 
     }
 
     @Test(expected = OperationFailException.class)
     public void payForDeliveryUserHaveNotMoney() throws AskedDataIsNotCorrect, SQLException, OperationFailException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(1L);
-        when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenReturn(false);
+        when(userDao.withdrawUserBalanceOnSumIfItPossible(anyLong(), anyLong())).thenReturn(false);
 
 
         billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(0)).murkBillAsPayed(anyLong());
-        verify(userDao, times(1)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
+        verify(userDao, times(1)).withdrawUserBalanceOnSumIfItPossible(anyLong(), anyLong());
     }
 
     @Test(expected = OperationFailException.class)
     public void payForDeliveryIncorrectUserData() throws AskedDataIsNotCorrect, SQLException, OperationFailException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(1L);
-        when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenThrow(SQLException.class);
+        when(userDao.withdrawUserBalanceOnSumIfItPossible(anyLong(), anyLong())).thenThrow(SQLException.class);
 
         billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(0)).murkBillAsPayed(anyLong());
-        verify(userDao, times(1)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
+        verify(userDao, times(1)).withdrawUserBalanceOnSumIfItPossible(anyLong(), anyLong());
     }
 
     @Test(expected = OperationFailException.class)
@@ -131,33 +131,33 @@ public class BillServiceImplTest {
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(0)).murkBillAsPayed(anyLong());
-        verify(userDao, times(0)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
+        verify(userDao, times(0)).withdrawUserBalanceOnSumIfItPossible(anyLong(), anyLong());
     }
 
     @Test(expected = OperationFailException.class)
     public void payForDeliveryIncorrectBillDatInDb() throws AskedDataIsNotCorrect, SQLException, OperationFailException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(0L);
         when(billDao.murkBillAsPayed(anyLong())).thenReturn(false);
-        when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenReturn(true);
+        when(userDao.withdrawUserBalanceOnSumIfItPossible(anyLong(), anyLong())).thenReturn(true);
 
         billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(1)).murkBillAsPayed(anyLong());
-        verify(userDao, times(1)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
+        verify(userDao, times(1)).withdrawUserBalanceOnSumIfItPossible(anyLong(), anyLong());
     }
 
     @Test(expected = OperationFailException.class)
     public void payForDeliveryProblemWithDb() throws AskedDataIsNotCorrect, SQLException, OperationFailException {
         when(billDao.getBillCostIfItIsNotPaid(anyLong(), anyLong())).thenReturn(0L);
         when(billDao.murkBillAsPayed(anyLong())).thenThrow(SQLException.class);
-        when(userDao.replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong())).thenReturn(true);
+        when(userDao.withdrawUserBalanceOnSumIfItPossible(anyLong(), anyLong())).thenReturn(true);
 
         billService.payForDelivery(getUserId(), getBillId());
 
         verify(billDao, times(1)).getBillCostIfItIsNotPaid(anyLong(), anyLong());
         verify(billDao, times(1)).murkBillAsPayed(anyLong());
-        verify(userDao, times(1)).replenishUserBalenceOnSumeIfItPosible(anyLong(), anyLong());
+        verify(userDao, times(1)).withdrawUserBalanceOnSumIfItPossible(anyLong(), anyLong());
     }
 
     @Test

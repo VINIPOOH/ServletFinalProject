@@ -64,28 +64,9 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
                 findAllByLongParam(userId, resourceBundleRequests.getString(BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN), mapper);
     }
 
-    private ResultSetToEntityMapper<Bill> getBillResultSetToEntityMapper(Locale locale) {
-        return resultSet -> Bill.builder()
-                .id(resultSet.getLong(BILL_ID))
-                .costInCents(resultSet.getLong(PRICE))
-                .delivery(Delivery.builder()
-                        .addressee(User.builder().email(resultSet.getString(ADDRESSEE_EMAIL)).build())
-                        .id(resultSet.getLong(DELIVERY_ID))
-                        .weight(resultSet.getInt(WEIGHT))
-                        .way(locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
-                                Way.builder()
-                                        .localityGet(Locality.builder().nameRu(resultSet.getString(LOCALITY_GET_NAME)).build())
-                                        .localitySand(Locality.builder().nameRu(resultSet.getString(LOCALITY_SAND_NAME)).build())
-                                        .build() :
-                                Way.builder()
-                                        .localityGet(Locality.builder().nameEn(resultSet.getString(LOCALITY_GET_NAME)).build())
-                                        .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SAND_NAME)).build())
-                                        .build()
-                        )
-                        .build())
-                .build();
-    }
-
+    /**
+     * @throws AskedDataIsNotCorrect if noting found
+     */
     @Override
     public long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotCorrect {
         log.debug("getBillCostIfItIsNotPaid");
@@ -115,17 +96,12 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
         return findAllByLongParamPageable(userId, offset, limit, resourceBundleRequests.getString(BILLS_HISTORY_BY_USER_ID), mapper);
     }
 
-    private ResultSetToEntityMapper<Bill> getBillResultSetToEntityMapper() {
-        return resultSet -> (Bill.builder()
-                .id(resultSet.getLong(BILL_ID))
-                .delivery(Delivery.builder().id(resultSet.getLong(DELIVERY_ID)).build())
-                .isDeliveryPaid(resultSet.getBoolean(IS_DELIVERY_PAID))
-                .costInCents(resultSet.getLong(COST_IN_CENTS))
-                .dateOfPay(resultSet.getTimestamp(DATE_OF_PAY).toLocalDateTime().toLocalDate())
-                .build());
+    @Override
+    public long countAllBillsByUserId(long userId) {
+        return countAllByLongParam(userId, resourceBundleRequests.getString(COUNT_ALL_NOT_PAYED_BILLS_BY_USER_ID));
     }
 
-
+    @Override
     public boolean murkBillAsPayed(long billId) throws SQLException {
         log.debug("murkBillAsPayed");
 
@@ -136,8 +112,9 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
         }
     }
 
-
-    public boolean createBill(long deliveryId, long userId, long localitySandID, long localityGetID, int weight) throws SQLException {
+    @Override
+    public boolean createBill(long deliveryId, long userId, long localitySandID, long localityGetID, int weight)
+            throws SQLException {
         log.debug("createBill");
 
         try (ConnectionAdapter connection = connector.getConnection();
@@ -152,8 +129,37 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
         }
     }
 
-    @Override
-    public long countAllBillsByUserId(long userId) {
-        return countAllByLongParam(userId, resourceBundleRequests.getString(COUNT_ALL_NOT_PAYED_BILLS_BY_USER_ID));
+    private ResultSetToEntityMapper<Bill> getBillResultSetToEntityMapper() {
+        return resultSet -> (Bill.builder()
+                .id(resultSet.getLong(BILL_ID))
+                .delivery(Delivery.builder().id(resultSet.getLong(DELIVERY_ID)).build())
+                .isDeliveryPaid(resultSet.getBoolean(IS_DELIVERY_PAID))
+                .costInCents(resultSet.getLong(COST_IN_CENTS))
+                .dateOfPay(resultSet.getTimestamp(DATE_OF_PAY).toLocalDateTime().toLocalDate())
+                .build());
     }
+
+
+    private ResultSetToEntityMapper<Bill> getBillResultSetToEntityMapper(Locale locale) {
+        return resultSet -> Bill.builder()
+                .id(resultSet.getLong(BILL_ID))
+                .costInCents(resultSet.getLong(PRICE))
+                .delivery(Delivery.builder()
+                        .addressee(User.builder().email(resultSet.getString(ADDRESSEE_EMAIL)).build())
+                        .id(resultSet.getLong(DELIVERY_ID))
+                        .weight(resultSet.getInt(WEIGHT))
+                        .way(locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
+                                Way.builder()
+                                        .localityGet(Locality.builder().nameRu(resultSet.getString(LOCALITY_GET_NAME)).build())
+                                        .localitySand(Locality.builder().nameRu(resultSet.getString(LOCALITY_SAND_NAME)).build())
+                                        .build() :
+                                Way.builder()
+                                        .localityGet(Locality.builder().nameEn(resultSet.getString(LOCALITY_GET_NAME)).build())
+                                        .localitySand(Locality.builder().nameEn(resultSet.getString(LOCALITY_SAND_NAME)).build())
+                                        .build()
+                        )
+                        .build())
+                .build();
+    }
+
 }

@@ -63,6 +63,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * @throws ToMachMoneyException if after replenish will be overload long
+     */
     @Override
     @Transaction
     public void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException, ToMachMoneyException {

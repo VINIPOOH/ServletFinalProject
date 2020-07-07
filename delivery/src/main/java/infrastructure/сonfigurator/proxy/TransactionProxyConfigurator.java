@@ -22,23 +22,23 @@ public class TransactionProxyConfigurator implements ProxyConfigurator {
     private static final Logger log = LogManager.getLogger(TransactionProxyConfigurator.class);
 
     @Override
-    public Object replaceWithProxyIfNeeded(Object t, Class implClass, ApplicationContext context) {
+    public Object replaceWithProxyIfNeeded(Object instance, Class instanceType, ApplicationContext context) {
 
-        for (Method method : implClass.getMethods()) {
+        for (Method method : instanceType.getMethods()) {
             if (method.isAnnotationPresent(Transaction.class)) {
-                if (implClass.getInterfaces().length == 0) {
-                    return Enhancer.create(implClass, new net.sf.cglib.proxy.InvocationHandler() {
+                if (instanceType.getInterfaces().length == 0) {
+                    return Enhancer.create(instanceType, new net.sf.cglib.proxy.InvocationHandler() {
                         @Override
                         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                            return getInvocationHandlerLogic(method, args, t, context);
+                            return getInvocationHandlerLogic(method, args, instance, context);
                         }
                     });
                 }
-                return Proxy.newProxyInstance(implClass.getClassLoader(), implClass.getInterfaces(),
-                        (proxy, met, args) -> getInvocationHandlerLogic(met, args, t, context));
+                return Proxy.newProxyInstance(instanceType.getClassLoader(), instanceType.getInterfaces(),
+                        (proxy, met, args) -> getInvocationHandlerLogic(met, args, instance, context));
             }
         }
-        return t;
+        return instance;
     }
 
     private Object getInvocationHandlerLogic(Method method, Object[] args, Object t, ApplicationContext context) throws Throwable {

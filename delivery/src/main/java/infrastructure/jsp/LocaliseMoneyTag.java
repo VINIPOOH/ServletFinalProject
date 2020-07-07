@@ -36,6 +36,10 @@ public class LocaliseMoneyTag extends SimpleTagSupport {
         this.lang = lang;
     }
 
+    /**
+     * Converts money to the currency of the current locale. And adds a symbol of this currency at the end.
+     * If there is an overflow after converting dollars to local currency,then the return occurs in the lobar equivalent.
+     */
     @Override
     public void doTag() throws IOException {
         ServletContext servletContext = ((PageContext) getJspContext()).getServletContext();

@@ -12,6 +12,7 @@ import java.sql.SQLException;
  * @version 1.0
  */
 public interface ConnectionAdapter extends AutoCloseable {
+
     @Override
     void close() throws SQLException;
 

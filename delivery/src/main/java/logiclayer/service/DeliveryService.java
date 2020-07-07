@@ -17,7 +17,7 @@ import java.util.Optional;
 public interface DeliveryService {
     Optional<PriceAndTimeOnDeliveryDto> getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto);
 
-    List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId, Locale locale);
+    List<DeliveryInfoToGetDto> getInfoToGetDeliveriesByUserID(long userId, Locale locale);
 
     boolean confirmGettingDelivery(long userId, long deliveryId);
 }

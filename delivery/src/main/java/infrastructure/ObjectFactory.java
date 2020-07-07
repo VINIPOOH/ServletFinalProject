@@ -32,7 +32,6 @@ public class ObjectFactory {
         this.context = context;
 
         try {
-
             for (Class<? extends ObjectConfigurator> aClass : context.getConfig().getScanner().getSubTypesOf(ObjectConfigurator.class)) {
                 configurators.add(aClass.getDeclaredConstructor().newInstance());
             }
@@ -44,45 +43,45 @@ public class ObjectFactory {
     }
 
 
-    <T> T createObject(Class<T> implClass) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    <T> T createObject(Class<T> implClassKey) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         log.debug("");
 
-        T t = create(implClass);
-        configure(t);
-        invokeInit(implClass, t);
-        t = wrapWithProxyIfNeeded(implClass, t);
-        return t;
+        T toReturn = create(implClassKey);
+        configure(toReturn);
+        invokeInit(implClassKey, toReturn);
+        toReturn = wrapWithProxyIfNeeded(implClassKey, toReturn);
+        return toReturn;
     }
 
     private <T> T create(Class<T> implClass) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         return implClass.getDeclaredConstructor().newInstance();
     }
 
-    private <T> void configure(T t) {
-        Class currentClass = t.getClass();
+    private <T> void configure(T instance) {
+        Class currentClass = instance.getClass();
         while (currentClass.isAnnotationPresent(NeedConfig.class)) {
             Class finalCurrentClass = currentClass;
-            configurators.forEach(objectConfigurator -> objectConfigurator.configure(t, finalCurrentClass, context));
+            configurators.forEach(objectConfigurator -> objectConfigurator.configure(instance, finalCurrentClass, context));
             currentClass = currentClass.getSuperclass();
         }
     }
 
-    private <T> void invokeInit(Class<T> implClass, T t) {
+    private <T> void invokeInit(Class<T> implClass, T instance) {
         Arrays.stream(implClass.getMethods()).filter(method -> method.isAnnotationPresent(PostConstruct.class))
                 .forEach(method -> {
                     try {
-                        method.invoke(t);
+                        method.invoke(instance);
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         throw new ReflectionException();
                     }
                 });
     }
 
-    private <T> T wrapWithProxyIfNeeded(Class<T> implClass, T t) {
+    private <T> T wrapWithProxyIfNeeded(Class<T> implClass, T instance) {
         for (ProxyConfigurator proxyConfigurator : proxyConfigurators) {
-            t = (T) proxyConfigurator.replaceWithProxyIfNeeded(t, implClass, context);
+            instance = (T) proxyConfigurator.replaceWithProxyIfNeeded(instance, implClass, context);
         }
-        return t;
+        return instance;
     }
 }
 

@@ -16,7 +16,9 @@ import java.util.Locale;
 public interface BillDao {
 
     List<Bill> getInfoToPayBillByUserId(long userId, Locale locale);
-
+    /**
+     * @throws AskedDataIsNotCorrect if noting found
+     */
     long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotCorrect;
 
 

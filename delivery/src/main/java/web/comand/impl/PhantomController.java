@@ -7,7 +7,8 @@ import web.comand.MultipleMethodController;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constant.PageConstance.*;
+import static web.constant.PageConstance.ERROR_404_COMMAND;
+import static web.constant.PageConstance.REDIRECT_COMMAND;
 
 /**
  * Process request for which application context has no mapping

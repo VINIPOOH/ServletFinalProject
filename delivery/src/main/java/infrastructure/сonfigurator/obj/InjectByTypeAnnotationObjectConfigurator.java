@@ -14,14 +14,14 @@ import java.lang.reflect.Field;
  */
 public class InjectByTypeAnnotationObjectConfigurator implements ObjectConfigurator {
     @Override
-    public void configure(Object t, Class clazz, ApplicationContext context) {
+    public void configure(Object instance, Class instanceType, ApplicationContext context) {
 
-        for (Field field : clazz.getDeclaredFields()) {
+        for (Field field : instanceType.getDeclaredFields()) {
             if (field.isAnnotationPresent(InjectByType.class)) {
                 field.setAccessible(true);
                 Object object = context.getObject(field.getType());
                 try {
-                    field.set(t, object);
+                    field.set(instance, object);
                 } catch (IllegalAccessException e) {
                     throw new ReflectionException("impossible we made accessible true");
                 }

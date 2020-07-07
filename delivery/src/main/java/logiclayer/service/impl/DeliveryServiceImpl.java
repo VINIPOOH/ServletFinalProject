@@ -47,7 +47,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public List<DeliveryInfoToGetDto> getInfoToGetDeliverisByUserID(long userId, Locale locale) {
+    public List<DeliveryInfoToGetDto> getInfoToGetDeliveriesByUserID(long userId, Locale locale) {
         log.debug("userId - " + userId + " localeLang - " + locale.getLanguage());
 
         return deliveryDao.getDeliveryInfoToGet(userId, locale).stream()

@@ -10,6 +10,10 @@ import infrastructure.ApplicationContext;
  * @version 1.0
  */
 public interface ObjectConfigurator {
-
-    void configure(Object t, Class clazz, ApplicationContext context);
+    /**
+     * @param instance object which mast be configured
+     * @param instanceType type of that object
+     * @param context give opportunity configure object based on application context
+     */
+    void configure(Object instance, Class instanceType, ApplicationContext context);
 }

@@ -33,7 +33,6 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        super.init();
         getServletContext().setAttribute(LOGGED_USER_NAMES, new ConcurrentHashMap<String, HttpSession>());
 
         Map<Class, Object> paramMap = new ConcurrentHashMap<>();

@@ -61,7 +61,7 @@ public class DeliveryServiceImplTest {
         deliveryInfoToGetDto.setLocalitySandName(delivery.getWay().getLocalitySand().getNameRu());
         when(deliveryDao.getDeliveryInfoToGet(anyLong(), any(Locale.class))).thenReturn(Collections.singletonList(delivery));
 
-        List<DeliveryInfoToGetDto> result = deliveryService.getInfoToGetDeliverisByUserID(1, getLocaleRu());
+        List<DeliveryInfoToGetDto> result = deliveryService.getInfoToGetDeliveriesByUserID(1, getLocaleRu());
 
         verify(deliveryDao, times(1)).getDeliveryInfoToGet(anyLong(), any(Locale.class));
         assertEquals(deliveryInfoToGetDto, result.get(0));
@@ -77,7 +77,7 @@ public class DeliveryServiceImplTest {
         deliveryInfoToGetDto.setLocalitySandName(delivery.getWay().getLocalitySand().getNameEn());
         when(deliveryDao.getDeliveryInfoToGet(anyLong(), any(Locale.class))).thenReturn(Collections.singletonList(delivery));
 
-        List<DeliveryInfoToGetDto> result = deliveryService.getInfoToGetDeliverisByUserID(1, getLocaleEn());
+        List<DeliveryInfoToGetDto> result = deliveryService.getInfoToGetDeliveriesByUserID(1, getLocaleEn());
 
         verify(deliveryDao, times(1)).getDeliveryInfoToGet(anyLong(), any(Locale.class));
         assertEquals(deliveryInfoToGetDto, result.get(0));

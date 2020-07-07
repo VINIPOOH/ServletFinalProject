@@ -18,11 +18,16 @@ import java.util.Locale;
  */
 public interface BillService {
     List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId, Locale locale);
-
+    /**
+     * @throws OperationFailException if not enough money or bill is already paid
+     */
     void payForDelivery(long userId, long billId) throws OperationFailException;
 
     long countAllBillsByUserId(long userId);
-
+    /**
+     * @throws UnsupportableWeightFactorException if there is no correct tariffWeightFactor fore this way
+     * @throws FailCreateDeliveryException if was incorrect data inputted
+     */
     void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException;
 
     List<BillDto> getBillHistoryByUserId(long userId, int offset, int limit);

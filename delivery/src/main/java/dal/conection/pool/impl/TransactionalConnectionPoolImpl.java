@@ -63,6 +63,10 @@ public class TransactionalConnectionPoolImpl implements TransactionalConnectionP
         return new ConnectionAdapterImpl(ds.getConnection());
     }
 
+    /**
+     * @return wrapped {@link java.sql.Connection} with auto commit false
+     * @throws SQLException
+     */
     @Override
     public ConnectionAdapter getConnectionAdapterPreparedForTransaction() throws SQLException {
         ConnectionAdapter toReturn = new ConnectionAdapterImpl(ds.getConnection());

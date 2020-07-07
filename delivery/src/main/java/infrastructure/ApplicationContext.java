@@ -25,27 +25,36 @@ import java.util.Map;
 public class ApplicationContext {
     private static final Logger log = LogManager.getLogger(ApplicationContext.class);
     private final Map<Class, Object> objectsCash;
-    private final Map<String, MultipleMethodController> commands;
+    private final Map<String, MultipleMethodController> controllerMap;
     private final Map<String, CurrencyInfo> currencies;
     private final Class defaultEndpoint = PhantomController.class;
     private final Config config;
     private ObjectFactory factory;
 
-    public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, MultipleMethodController> commandsPrepared, CurrencyInfoLoader currencyInfoLoader) {
+    /**
+     *
+     * @param config config instance
+     * @param preparedCash preload objects map. May be used for load classes which have more then one implementation
+     * @param controllersPrepared preload controllers map.
+     * @param currencyInfoLoader used in constructor to load into {@link ApplicationContext#currencies} exchange rates
+     */
+    public ApplicationContext(Config config, Map<Class, Object> preparedCash,
+                              Map<String, MultipleMethodController> controllersPrepared,
+                              CurrencyInfoLoader currencyInfoLoader) {
         log.debug("");
 
-        this.commands = commandsPrepared;
+        this.controllerMap = controllersPrepared;
         this.config = config;
         this.objectsCash = preparedCash;
         currencies = currencyInfoLoader.getCurrencyInfo();
     }
 
-    public CurrencyInfo getCurrencyInfo(String string) {
-        return currencies.get(string);
-    }
-
+    /**
+     * used to preload not lazy singletons
+     */
     public void init() {
         log.debug("");
+
         for (Class<?> clazz : config.getScanner().getTypesAnnotatedWith(Singleton.class)) {
             Singleton annotation = clazz.getAnnotation(Singleton.class);
             if (!annotation.isLazy()) {
@@ -55,20 +64,26 @@ public class ApplicationContext {
         }
     }
 
-    public <T> T getObject(Class<T> type) {
+    public CurrencyInfo getCurrencyInfo(String langKey) {
+        return currencies.get(langKey);
+    }
+
+
+
+    public <T> T getObject(Class<T> typeKey) {
         log.debug("");
 
-        if (objectsCash.containsKey(type)) {
-            return (T) objectsCash.get(type);
+        if (objectsCash.containsKey(typeKey)) {
+            return (T) objectsCash.get(typeKey);
         }
         synchronized (objectsCash) {
-            if (objectsCash.containsKey(type)) {
-                return (T) objectsCash.get(type);
+            if (objectsCash.containsKey(typeKey)) {
+                return (T) objectsCash.get(typeKey);
             }
-            Class<? extends T> implClass = type;
+            Class<? extends T> implClass = typeKey;
 
-            if (type.isInterface()) {
-                implClass = config.getImplClass(type);
+            if (typeKey.isInterface()) {
+                implClass = config.getImplClass(typeKey);
             }
             T toReturn;
             try {
@@ -76,28 +91,28 @@ public class ApplicationContext {
             } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
                 throw new ReflectionException();
             }
-            putToObjectsCashIfSingleton(type, implClass, toReturn);
+            putToObjectsCashIfSingleton(typeKey, implClass, toReturn);
             return toReturn;
         }
     }
 
 
-    public MultipleMethodController getCommand(String link) {
+    public MultipleMethodController getCommand(String linkKey) {
         log.debug("");
 
-        if (commands.containsKey(link)) {
-            return commands.get(link);
+        if (controllerMap.containsKey(linkKey)) {
+            return controllerMap.get(linkKey);
         }
-        synchronized (commands) {
-            if (commands.containsKey(link)) {
-                return commands.get(link);
+        synchronized (controllerMap) {
+            if (controllerMap.containsKey(linkKey)) {
+                return controllerMap.get(linkKey);
             }
             for (Class<?> clazz : config.getScanner().getTypesAnnotatedWith(Endpoint.class)) {
                 Endpoint annotation = clazz.getAnnotation(Endpoint.class);
                 for (String i : annotation.value()) {
-                    if (i.equals(link)) {
+                    if (i.equals(linkKey)) {
                         MultipleMethodController toReturn = (MultipleMethodController) getObject(clazz);
-                        putToCommandMapIfSingleton(link, clazz, toReturn);
+                        putToCommandMapIfSingleton(linkKey, clazz, toReturn);
                         return toReturn;
                     }
                 }
@@ -114,15 +129,15 @@ public class ApplicationContext {
         return this.config;
     }
 
-    private <T> void putToObjectsCashIfSingleton(Class<T> type, Class<? extends T> implClass, T t) {
+    private <T> void putToObjectsCashIfSingleton(Class<T> type, Class<? extends T> implClass, T instance) {
         if (implClass.isAnnotationPresent(Singleton.class)) {
-            objectsCash.put(type, t);
+            objectsCash.put(type, instance);
         }
     }
 
     private void putToCommandMapIfSingleton(String link, Class<?> clazz, MultipleMethodController toReturn) {
         if (clazz.isAnnotationPresent(Singleton.class)) {
-            commands.put(link, toReturn);
+            controllerMap.put(link, toReturn);
         }
     }
 }

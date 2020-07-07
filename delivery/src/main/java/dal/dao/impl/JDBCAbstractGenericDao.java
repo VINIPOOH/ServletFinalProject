@@ -63,17 +63,10 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
     }
 
-
-    private List<E> mapPreparedStatementToEntitiesList(ResultSetToEntityMapper<E> mapper, PreparedStatement preparedStatement) throws SQLException {
-        try (ResultSet resultSet = preparedStatement.executeQuery()) {
-            List<E> result = new ArrayList<>();
-            while (resultSet.next()) {
-                result.add(mapper.map(resultSet));
-            }
-            return result;
-        }
-    }
-
+    /**
+     * @param param param by which need count
+     * @param query must return one long param which will be
+     */
     @Override
     public long countAllByLongParam(long param, String query) {
         try (ConnectionAdapter connection = connector.getConnection();
@@ -88,6 +81,17 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
             throw new DBRuntimeException();
         }
     }
+
+    private List<E> mapPreparedStatementToEntitiesList(ResultSetToEntityMapper<E> mapper, PreparedStatement preparedStatement) throws SQLException {
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            List<E> result = new ArrayList<>();
+            while (resultSet.next()) {
+                result.add(mapper.map(resultSet));
+            }
+            return result;
+        }
+    }
+
 
     @Override
     public boolean save(E entity, String saveQuery, EntityToPreparedStatementMapper<E> mapper) {

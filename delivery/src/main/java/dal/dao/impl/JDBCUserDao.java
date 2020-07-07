@@ -46,7 +46,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     private static final String GET_ALL_USERS_INFO = "get.all.users.info";
     private static final Logger log = LogManager.getLogger(JDBCUserDao.class);
 
-
+    @Override
     public Optional<User> findByEmailAndPasswordWithPermissions(String email, String password) {
         log.debug("findByEmailAndPasswordWithPermissions");
 
@@ -67,20 +67,9 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
         }
     }
 
-    private ResultSetToEntityMapper<User> getUserResultSetToEntityMapper() {
-        return resultSet -> User.builder()
-                .id(resultSet.getLong(ID))
-                .email(resultSet.getString(EMAIL))
-                .password(resultSet.getString(PASSWORD))
-                .accountNonExpired(resultSet.getBoolean(ACCOUNT_NON_EXPIRED))
-                .accountNonLocked(resultSet.getBoolean(ACCOUNT_NON_LOCKED))
-                .credentialsNonExpired(resultSet.getBoolean(CREDENTIALS_NON_EXPIRED))
-                .enabled(resultSet.getBoolean(ENABLED))
-                .userMoneyInCents(resultSet.getLong(USER_MONEY_IN_CENTS))
-                .roleType(RoleType.valueOf(resultSet.getString(ROLE)))
-                .build();
-    }
-
+    /**
+     * @throws AskedDataIsNotCorrect if there no user with such id
+     */
     @Override
     public boolean replenishUserBalance(long userId, long money) throws AskedDataIsNotCorrect {
         log.debug("replenishUserBalance");
@@ -96,7 +85,10 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
         }
     }
 
-
+    /**
+     * @throws AskedDataIsNotCorrect if that email already taken
+     */
+    @Override
     public boolean save(String email, String password) throws AskedDataIsNotCorrect {
         log.debug("save");
 
@@ -111,8 +103,9 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
         }
     }
 
-    public boolean replenishUserBalenceOnSumeIfItPosible(long userId, long sumWhichUserNeed) throws SQLException {
-        log.debug("replenishUserBalenceOnSumeIfItPosible");
+    @Override
+    public boolean withdrawUserBalanceOnSumIfItPossible(long userId, long sumWhichUserNeed) throws SQLException {
+        log.debug("replenishUserBalanceOnSumIfItPossible");
 
         try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_USER_BALANCE_IF_ENOGFE_MONEY))) {
@@ -123,6 +116,9 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
         }
     }
 
+    /**
+     * @throws AskedDataIsNotCorrect if there is no users with such id
+     */
     @Override
     public long getUserBalanceByUserID(long userId) throws AskedDataIsNotCorrect {
         try (ConnectionAdapter connection = connector.getConnection();
@@ -160,5 +156,19 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
             log.error("SQLException", e);
             throw new DBRuntimeException();
         }
+    }
+
+    private ResultSetToEntityMapper<User> getUserResultSetToEntityMapper() {
+        return resultSet -> User.builder()
+                .id(resultSet.getLong(ID))
+                .email(resultSet.getString(EMAIL))
+                .password(resultSet.getString(PASSWORD))
+                .accountNonExpired(resultSet.getBoolean(ACCOUNT_NON_EXPIRED))
+                .accountNonLocked(resultSet.getBoolean(ACCOUNT_NON_LOCKED))
+                .credentialsNonExpired(resultSet.getBoolean(CREDENTIALS_NON_EXPIRED))
+                .enabled(resultSet.getBoolean(ENABLED))
+                .userMoneyInCents(resultSet.getLong(USER_MONEY_IN_CENTS))
+                .roleType(RoleType.valueOf(resultSet.getString(ROLE)))
+                .build();
     }
 }

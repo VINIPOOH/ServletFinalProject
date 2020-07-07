@@ -53,14 +53,16 @@ public class BillServiceImpl implements BillService {
                 .collect(Collectors.toList());
     }
 
-
+    /**
+     * @throws OperationFailException if not enough money or bill is already paid
+     */
     @Override
     @Transaction
     public void payForDelivery(long userId, long billId) throws OperationFailException {
         log.debug("userId - " + userId + " billId - " + billId);
 
         try {
-            if (userDao.replenishUserBalenceOnSumeIfItPosible(userId,
+            if (userDao.withdrawUserBalanceOnSumIfItPossible(userId,
                     billDao.getBillCostIfItIsNotPaid(billId, userId))
                     && billDao.murkBillAsPayed(billId)) {
                 return;
@@ -81,13 +83,21 @@ public class BillServiceImpl implements BillService {
         return billDao.countAllBillsByUserId(userId);
     }
 
+    /**
+     * @throws UnsupportableWeightFactorException if there is no correct tariffWeightFactor fore this way
+     * @throws FailCreateDeliveryException if was incorrect data inputted
+     */
     @Override
     @Transaction
-    public void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId) throws UnsupportableWeightFactorException, FailCreateDeliveryException {
+    public void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId)
+            throws UnsupportableWeightFactorException, FailCreateDeliveryException {
         log.debug("deliveryOrderCreateDto - " + deliveryOrderCreateDto + " initiatorId - " + initiatorId);
 
         try {
-            long newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(), deliveryOrderCreateDto.getLocalitySandID(), deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
+            long newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(),
+                    deliveryOrderCreateDto.getLocalitySandID(),
+                    deliveryOrderCreateDto.getLocalityGetID(),
+                    deliveryOrderCreateDto.getDeliveryWeight());
             if (billDao.createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
                     , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
                 return;
