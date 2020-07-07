@@ -54,7 +54,7 @@ public class RegistrationController implements MultipleMethodController {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME;
         }
-        return processingServiseRegistrationRequest(request, getRegistrationInfoDtoRequestDtoMapper(request).mapToDto(request));
+        return processingServiceRegistrationRequest(request, getRegistrationInfoDtoRequestDtoMapper(request).mapToDto(request));
     }
 
     private RequestDtoMapper<RegistrationInfoDto> getRegistrationInfoDtoRequestDtoMapper(HttpServletRequest request) {
@@ -65,7 +65,7 @@ public class RegistrationController implements MultipleMethodController {
                 .build();
     }
 
-    private String processingServiseRegistrationRequest(HttpServletRequest request, RegistrationInfoDto registrationInfoDto) {
+    private String processingServiceRegistrationRequest(HttpServletRequest request, RegistrationInfoDto registrationInfoDto) {
         try {
             userService.addNewUserToDB(registrationInfoDto);
             return REDIRECT_COMMAND + ANONYMOUS_FOLDER + LOGIN_REQUEST_COMMAND;

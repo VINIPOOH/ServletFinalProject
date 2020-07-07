@@ -21,6 +21,9 @@ import static web.constant.PageConstance.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RegistrationControllerTest {
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String PASSWORD_REPEAT = "passwordRepeat";
     @InjectMocks
     RegistrationController registrationController;
     @Mock
@@ -29,10 +32,6 @@ public class RegistrationControllerTest {
     RegistrationDtoValidator registrationDtoValidator;
     @Mock
     UserService userService;
-
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
-    private static final String PASSWORD_REPEAT = "passwordRepeat";
 
     @Before
     public void setUp() {
@@ -60,7 +59,7 @@ public class RegistrationControllerTest {
         verify(httpServletRequest, times(1)).getParameter(PASSWORD_REPEAT);
         verify(httpServletRequest, times(0)).setAttribute(anyString(), any(Object.class));
         verify(registrationDtoValidator, times(1)).isValid(any(HttpServletRequest.class));
-        assertEquals(REDIRECT_COMMAND + LOGIN_REQUEST_COMMAND, actual);
+        assertEquals(REDIRECT_COMMAND + ANONYMOUS_FOLDER + LOGIN_REQUEST_COMMAND, actual);
     }
 
     @Test

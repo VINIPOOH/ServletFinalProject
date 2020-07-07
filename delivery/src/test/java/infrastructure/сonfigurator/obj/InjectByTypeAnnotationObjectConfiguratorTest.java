@@ -22,10 +22,6 @@ public class InjectByTypeAnnotationObjectConfiguratorTest {
     @Mock
     ApplicationContext context;
 
-    private class TestClass {
-    }
-
-
     @Test
     public void configureAllCorrect() {
         class FakeClass {
@@ -60,6 +56,9 @@ public class InjectByTypeAnnotationObjectConfiguratorTest {
 
         verify(context, times(0)).getObject(any());
         assertNull(fakeClass.getObject());
+    }
+
+    private class TestClass {
     }
 
 }

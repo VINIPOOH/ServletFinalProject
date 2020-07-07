@@ -22,6 +22,7 @@ import static web.constant.PageConstance.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserProfileControllerTest {
+    private static final String MONEY = "money";
     @InjectMocks
     UserProfileController userProfileController;
     @Mock
@@ -30,9 +31,6 @@ public class UserProfileControllerTest {
     HttpServletRequest httpServletRequest;
     @Mock
     HttpSession session;
-
-
-    private static final String MONEY = "money";
 
     @Before
     public void setUp() throws Exception {

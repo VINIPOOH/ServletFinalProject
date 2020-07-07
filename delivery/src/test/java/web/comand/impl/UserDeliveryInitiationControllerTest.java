@@ -35,6 +35,10 @@ import static web.constant.PageConstance.*;
 
 public class UserDeliveryInitiationControllerTest {
 
+    private static final String DELIVERY_WEIGHT = "deliveryWeight";
+    private static final String LOCALITY_GET_ID = "localityGetID";
+    private static final String LOCALITY_SAND_ID = "localitySandID";
+    private static final String ADDRESSEE_EMAIL = "addresseeEmail";
     @InjectMocks
     UserDeliveryInitiationController userDeliveryInitiationController;
     @Mock
@@ -44,13 +48,9 @@ public class UserDeliveryInitiationControllerTest {
     @Mock
     HttpServletRequest httpServletRequest;
     @Mock
-    private HttpSession session;
-    @Mock
     Validator deliveryOrderCreateDtoValidator;
-    private static final String DELIVERY_WEIGHT = "deliveryWeight";
-    private static final String LOCALITY_GET_ID = "localityGetID";
-    private static final String LOCALITY_SAND_ID = "localitySandID";
-    private static final String ADDRESSEE_EMAIL = "addresseeEmail";
+    @Mock
+    private HttpSession session;
 
     @Before
     public void setUp() throws Exception {

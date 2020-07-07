@@ -27,23 +27,20 @@ import static web.constant.PageConstance.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoginControllerTest {
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
     @InjectMocks
     LoginController loginController;
-
     @Mock
     LoginDtoValidator loginDtoValidator;
     @Mock
     UserService userService;
-
     @Mock
     HttpServletRequest httpServletRequest;
     @Mock
     HttpSession session;
     @Mock
     ServletContext servletContext;
-
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
 
     @Before
     public void setUp() throws Exception {

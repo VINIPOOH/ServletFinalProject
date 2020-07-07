@@ -32,6 +32,9 @@ import static web.constant.PageConstance.MAIN_WEB_FOLDER;
 @RunWith(MockitoJUnitRunner.class)
 public class CounterControllerTest {
 
+    private static final String DELIVERY_WEIGHT = "deliveryWeight";
+    private static final String LOCALITY_GET_ID = "localityGetID";
+    private static final String LOCALITY_SAND_ID = "localitySandID";
     @InjectMocks
     CounterController counterController;
     @Mock
@@ -42,9 +45,6 @@ public class CounterControllerTest {
     HttpServletRequest httpServletRequest;
     @Mock
     private HttpSession session;
-    private static final String DELIVERY_WEIGHT = "deliveryWeight";
-    private static final String LOCALITY_GET_ID = "localityGetID";
-    private static final String LOCALITY_SAND_ID = "localitySandID";
 
     @Before
     public void setUp() throws Exception {

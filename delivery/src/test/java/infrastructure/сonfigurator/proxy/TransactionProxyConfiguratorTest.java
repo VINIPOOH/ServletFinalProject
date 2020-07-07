@@ -24,11 +24,6 @@ public class TransactionProxyConfiguratorTest {
     @Mock
     ApplicationContext applicationContext;
 
-    interface TestInterFace {
-        public boolean testVoid() throws Throwable;
-    }
-
-
     @Test
     public void replaceWithProxyIfNeededWithInterfaceAllCorrect() throws Throwable {
 
@@ -106,17 +101,6 @@ public class TransactionProxyConfiguratorTest {
         fail();
     }
 
-    static class TestClass {
-        @Transaction
-        public boolean testVoid() {
-            return true;
-        }
-
-        public boolean noTransactionTestVoid() {
-            return true;
-        }
-    }
-
     @Test
     public void replaceWithProxyIfNeededWhereNoInterfaceAllCorrect() throws Throwable {
         TestClass testClass = new TestClass();
@@ -147,13 +131,6 @@ public class TransactionProxyConfiguratorTest {
         assertTrue(result);
     }
 
-    static class TestClassWhichThrowUncheckedException {
-        @Transaction
-        public boolean testVoid() {
-            throw new RuntimeException();
-        }
-    }
-
     @Test(expected = RuntimeException.class)
     public void replaceWithProxyIfNeededWhereNoInterfaceThrowUncheckedException() throws Throwable {
         TestClassWhichThrowUncheckedException testClass = new TestClassWhichThrowUncheckedException();
@@ -161,13 +138,6 @@ public class TransactionProxyConfiguratorTest {
         ((TestClassWhichThrowUncheckedException) transactionProxyConfigurator.replaceWithProxyIfNeeded(testClass, TestClass.class, applicationContext)).testVoid();
 
         fail();
-    }
-
-    static class TestClassWhichThrowCheckedException {
-        @Transaction
-        public boolean testVoid() throws Throwable {
-            throw new Throwable();
-        }
     }
 
     @Test(expected = Throwable.class)
@@ -178,6 +148,35 @@ public class TransactionProxyConfiguratorTest {
         ((TestClassWhichThrowCheckedException) transactionProxyConfigurator.replaceWithProxyIfNeeded(testClass, TestClassWhichThrowCheckedException.class, applicationContext)).testVoid();
 
         fail();
+    }
+
+    interface TestInterFace {
+        boolean testVoid() throws Throwable;
+    }
+
+    static class TestClass {
+        @Transaction
+        public boolean testVoid() {
+            return true;
+        }
+
+        public boolean noTransactionTestVoid() {
+            return true;
+        }
+    }
+
+    static class TestClassWhichThrowUncheckedException {
+        @Transaction
+        public boolean testVoid() {
+            throw new RuntimeException();
+        }
+    }
+
+    static class TestClassWhichThrowCheckedException {
+        @Transaction
+        public boolean testVoid() throws Throwable {
+            throw new Throwable();
+        }
     }
 
 

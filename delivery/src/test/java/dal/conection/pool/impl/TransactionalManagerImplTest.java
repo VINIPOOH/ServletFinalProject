@@ -32,8 +32,6 @@ public class TransactionalManagerImplTest {
     ThreadLocal<ConnectionAdapter> connectionThreadLocal;
 
 
-
-
     @Test
     public void getConnectionLocalThreadAlreadyHaveConnection() throws SQLException {
         when(connectionThreadLocal.get()).thenReturn(connectionAdapter);

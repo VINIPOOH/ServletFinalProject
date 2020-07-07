@@ -24,6 +24,6 @@ public class PhantomCommandTest {
     public void execute() {
         String actual = phantomCommand.doGet(httpServletRequest);
 
-        assertEquals(REDIRECT_COMMAND + ANONYMOUS_FOLDER + INDEX_REQUEST_COMMAND, actual);
+        assertEquals(REDIRECT_COMMAND + ERROR_404_COMMAND, actual);
     }
 }

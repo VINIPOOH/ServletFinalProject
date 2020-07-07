@@ -17,8 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static web.constant.AttributeConstants.LOGGED_USER_NAMES;
 import static web.constant.AttributeConstants.SESSION_USER;
-import static web.constant.PageConstance.LOGIN_REQUEST_COMMAND;
-import static web.constant.PageConstance.REDIRECT_COMMAND;
+import static web.constant.PageConstance.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LogOutControllerTest {
@@ -47,6 +46,6 @@ public class LogOutControllerTest {
         verify(session, times(1)).getAttribute(SESSION_USER);
         verify(session, times(1)).invalidate();
         verify(session, times(1)).getServletContext();
-        assertEquals(REDIRECT_COMMAND + LOGIN_REQUEST_COMMAND, actual);
+        assertEquals(REDIRECT_COMMAND + ANONYMOUS_FOLDER + LOGIN_REQUEST_COMMAND, actual);
     }
 }

@@ -7,8 +7,7 @@ import web.comand.MultipleMethodController;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static web.constant.PageConstance.ERROR_404_FILE_NAME;
-import static web.constant.PageConstance.MAIN_WEB_FOLDER;
+import static web.constant.PageConstance.*;
 
 /**
  * Process request for which application context has no mapping
@@ -24,7 +23,7 @@ public class PhantomController implements MultipleMethodController {
     public String doGet(HttpServletRequest request) {
         log.debug("");
 
-        return MAIN_WEB_FOLDER + ERROR_404_FILE_NAME;
+        return REDIRECT_COMMAND + ERROR_404_COMMAND;
     }
 
     @Override
