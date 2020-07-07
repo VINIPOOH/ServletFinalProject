@@ -3,6 +3,12 @@ package dto;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Dto which introduce {@link dal.entity.Bill}
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class BillDto {
     private final Boolean isDeliveryPaid;
     private final LocalDate dateOfPay;

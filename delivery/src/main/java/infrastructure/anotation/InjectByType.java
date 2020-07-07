@@ -6,6 +6,10 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Target(ElementType.FIELD)
 @Retention(RUNTIME)
 public @interface InjectByType {

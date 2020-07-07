@@ -2,6 +2,12 @@ package dal.entity;
 
 import java.util.List;
 
+/**
+ * Represent Way table in db
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class Way extends Entity {
     private Locality localitySand;
     private Locality localityGet;

@@ -9,31 +9,36 @@ import infrastructure.anotation.Singleton;
 import logiclayer.service.LocalityService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import web.comand.MultipleMethodCommand;
+import web.comand.MultipleMethodController;
 import web.exception.OnClientSideProblemException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
-import static web.Servlet.JSON_RESPONSE;
+import static web.DispatcherServlet.JSON_RESPONSE;
 import static web.constant.AttributeConstants.SESSION_LANG;
 
+/**
+ * Process "get/localitiesGet/by/localitySend/id" requests
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Singleton
 @NeedConfig
 @Endpoint("get/localitiesGet/by/localitySend/id")
-public class LocalitySendController implements MultipleMethodCommand {
+public class LocalitySendController implements MultipleMethodController {
     private static final Logger log = LogManager.getLogger(LocalitySendController.class);
-
+    private static final String ID = "id";
     @InjectByType
-    LocalityService localityService;
+    private LocalityService localityService;
     @InjectByType
     private IDValidator idValidator;
-    private static final String ID = "id";
 
     @Override
     public String doGet(HttpServletRequest request) {
         log.debug("");
-        long id = Long.parseLong(request.getParameter(ID));
+
         if (!idValidator.isValid(request, ID)) {
             log.error("id is not valid client is broken");
             throw new OnClientSideProblemException();

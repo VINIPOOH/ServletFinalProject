@@ -1,6 +1,6 @@
 package dal.dao.impl;
 
-import dal.conection.ConnectionAdapeter;
+import dal.conection.ConnectionAdapter;
 import dal.dao.UserDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.RoleType;
@@ -19,6 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implements an interface for work with {@link User}
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Singleton
 @NeedConfig
 public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao {
@@ -46,7 +52,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
 
         ResultSetToEntityMapper<User> mapper = getUserResultSetToEntityMapper();
 
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_FIND_BY_EMAIL))) {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
@@ -79,7 +85,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     public boolean replenishUserBalance(long userId, long money) throws AskedDataIsNotCorrect {
         log.debug("replenishUserBalance");
 
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_REPLENISH_BALANCE))) {
             preparedStatement.setLong(1, money);
             preparedStatement.setLong(2, userId);
@@ -94,7 +100,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     public boolean save(String email, String password) throws AskedDataIsNotCorrect {
         log.debug("save");
 
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_SAVE))) {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
@@ -108,7 +114,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     public boolean replenishUserBalenceOnSumeIfItPosible(long userId, long sumWhichUserNeed) throws SQLException {
         log.debug("replenishUserBalenceOnSumeIfItPosible");
 
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_USER_BALANCE_IF_ENOGFE_MONEY))) {
             preparedStatement.setLong(1, sumWhichUserNeed);
             preparedStatement.setLong(2, userId);
@@ -119,7 +125,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
 
     @Override
     public long getUserBalanceByUserID(long userId) throws AskedDataIsNotCorrect {
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_USER_BALANCE_BY_ID))) {
             preparedStatement.setLong(1, userId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -137,7 +143,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
 
     @Override
     public List<User> getAllUsers() {
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_ALL_USERS_INFO))) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 List<User> result = new ArrayList<>();

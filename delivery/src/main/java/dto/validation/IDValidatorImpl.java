@@ -5,6 +5,12 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Validate {@link HttpServletRequest} which contains id
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class IDValidatorImpl implements IDValidator {
     private static final Logger log = LogManager.getLogger(IDValidatorImpl.class);
 

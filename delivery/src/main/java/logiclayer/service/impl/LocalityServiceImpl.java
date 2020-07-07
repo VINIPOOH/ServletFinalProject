@@ -18,6 +18,12 @@ import java.util.stream.Collectors;
 
 import static logiclayer.service.ServicesConstants.RUSSIAN_LANG_COD;
 
+/**
+ * Implements an interface for work with localities
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Singleton
 @NeedConfig
 public class LocalityServiceImpl implements LocalityService {

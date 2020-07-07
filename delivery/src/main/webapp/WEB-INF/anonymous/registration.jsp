@@ -1,5 +1,5 @@
 <%@ include file="../layout/metadata-standart.jsp" %>
-
+<!doctype html>
 <html lang="${param.lang}">
 <head>
     <%@ include file="../layout/bootstrap.jsp" %>
@@ -41,7 +41,7 @@
                                    placeholder=<fmt:message key="loginpage.form.label.passwordRepeat"/>>
                         </div>
                         <button class="btn btn-success" type="submit"><fmt:message key="registrationpage.button.registration"/></button>
-                        <a class="btn"  align="left" href="${pageContext.request.contextPath}/login"><fmt:message key="registrationpage.button.gotoLogin"/></a>
+                        <a class="btn"  align="left" href="${pageContext.request.contextPath}/anonymous/login"><fmt:message key="registrationpage.button.gotoLogin"/></a>
                     </form>
                 </div>
             </div>

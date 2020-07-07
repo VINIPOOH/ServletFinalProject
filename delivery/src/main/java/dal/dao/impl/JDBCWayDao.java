@@ -1,6 +1,6 @@
 package dal.dao.impl;
 
-import dal.conection.ConnectionAdapeter;
+import dal.conection.ConnectionAdapter;
 import dal.dao.WayDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;
@@ -16,6 +16,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * Implements an interface for work with {@link Way}
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Singleton
 @NeedConfig
 public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
@@ -32,7 +38,7 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
 
         ResultSetToEntityMapper<DeliveryCostAndTimeDto> mapper = getDeliveryCostAndTimeDtoResultSetToEntityMapper();
 
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.
                      getString(GET_COST_AND_TIME_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT))) {
 

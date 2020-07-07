@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 
+/**
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class XSSFilter implements Filter {
 
     public void init(FilterConfig filterConfig) {

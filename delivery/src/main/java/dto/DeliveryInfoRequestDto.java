@@ -1,7 +1,10 @@
 package dto;
 
+/**
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class DeliveryInfoRequestDto {
-
 
     private final int deliveryWeight;
 

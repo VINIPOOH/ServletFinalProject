@@ -5,6 +5,12 @@ import infrastructure.anotation.Singleton;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Validate {@link HttpServletRequest} which contains info for {@link dto.LoginInfoDto}
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Singleton
 public class LoginDtoValidator {
 

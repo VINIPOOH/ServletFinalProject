@@ -8,7 +8,7 @@
         <a class="col-2" href="${pageContext.request.contextPath}/counter" >
         <fmt:message key="layout.header.homepage"/>
         </a>
-        <a class="col-2" href="${pageContext.request.contextPath}/user/userprofile"><fmt:message
+        <a class="col-2" href="${pageContext.request.contextPath}/user/user-profile"><fmt:message
             key="layout.userheader.cabinet"/></a>
         </div>
         </div>

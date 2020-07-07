@@ -2,6 +2,12 @@ package dal.entity;
 
 import java.util.List;
 
+/**
+ * Represent Locality table in db
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class Locality extends Entity {
     private final List<Way> waysWhereThisLocalityIsSend;
     private final List<Way> waysWhereThisLocalityIsGet;

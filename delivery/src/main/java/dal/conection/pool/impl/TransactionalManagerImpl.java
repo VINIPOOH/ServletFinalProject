@@ -1,8 +1,8 @@
 package dal.conection.pool.impl;
 
-import dal.conection.ConnectionAdapeter;
+import dal.conection.ConnectionAdapter;
+import dal.conection.pool.TransactionalConnectionPool;
 import dal.conection.pool.TransactionalManager;
-import dal.conection.pool.WrappedTransactionalConnectionPool;
 import infrastructure.anotation.InjectByType;
 import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
@@ -11,6 +11,13 @@ import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 
+/**
+ * The class manages transactions.
+ * Encapsulates the functionality necessary for working with connections in the autocommit=false mode.
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Singleton
 @NeedConfig
 public class TransactionalManagerImpl implements TransactionalManager {
@@ -19,36 +26,36 @@ public class TransactionalManagerImpl implements TransactionalManager {
 
     @InjectByType
     private
-    WrappedTransactionalConnectionPool wrappedTransactionalConnectionPool;
+    TransactionalConnectionPool transactionalConnectionPool;
+
 
     @InjectByType
-    private ThreadLocal<ConnectionAdapeter> connectionThreadLocal;
+    private ThreadLocal<ConnectionAdapter> connectionThreadLocal;
 
-
-    public ConnectionAdapeter getConnection() throws SQLException {
+    public ConnectionAdapter getConnection() throws SQLException {
         log.debug("");
 
-        ConnectionAdapeter connection = connectionThreadLocal.get();
+        ConnectionAdapter connection = connectionThreadLocal.get();
         if (connection != null) {
             return connection;
         }
-        return wrappedTransactionalConnectionPool.getConnectionAdapter();
+        return transactionalConnectionPool.getConnectionAdapter();
     }
 
     public void startTransaction() throws SQLException {
         log.debug("startTransaction");
 
-        ConnectionAdapeter connection = connectionThreadLocal.get();
+        ConnectionAdapter connection = connectionThreadLocal.get();
         if (connection != null) {
             throw new SQLException("Transaction already started");
         }
-        connectionThreadLocal.set(wrappedTransactionalConnectionPool.getConnectionAdapterPreparedForTransaction());
+        connectionThreadLocal.set(transactionalConnectionPool.getConnectionAdapterPreparedForTransaction());
     }
 
     public void commit() throws SQLException {
         log.debug("commit");
 
-        ConnectionAdapeter connection = connectionThreadLocal.get();
+        ConnectionAdapter connection = connectionThreadLocal.get();
 
         if (connection == null) {
             throw new SQLException("Transaction not started to be commit");
@@ -59,7 +66,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
     public void rollBack() throws SQLException {
         log.debug("rollBack");
 
-        ConnectionAdapeter connection = connectionThreadLocal.get();
+        ConnectionAdapter connection = connectionThreadLocal.get();
 
         if (connection == null) {
             throw new SQLException("Transaction not started to be rollback");
@@ -71,7 +78,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
     public void close() {
         log.debug("close");
 
-        ConnectionAdapeter connection = connectionThreadLocal.get();
+        ConnectionAdapter connection = connectionThreadLocal.get();
 
         if (connection == null) {
             log.error("transaction is already closed");
@@ -86,8 +93,4 @@ public class TransactionalManagerImpl implements TransactionalManager {
         connectionThreadLocal.remove();
     }
 
-    @Override
-    protected void finalize() {
-        this.close();
-    }
 }

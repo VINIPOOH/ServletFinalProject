@@ -6,6 +6,10 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Target(ElementType.TYPE)
 @Retention(RUNTIME)
 public @interface Singleton {

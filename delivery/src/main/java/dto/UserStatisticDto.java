@@ -1,5 +1,9 @@
 package dto;
 
+/**
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class UserStatisticDto {
     private String email;
     private String password;

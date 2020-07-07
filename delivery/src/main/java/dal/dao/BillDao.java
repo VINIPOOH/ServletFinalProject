@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Declares an interface for work with {@link Bill}
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public interface BillDao {
 
     List<Bill> getInfoToPayBillByUserId(long userId, Locale locale);

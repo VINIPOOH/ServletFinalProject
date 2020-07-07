@@ -5,14 +5,14 @@ public interface PageConstance {
     String MAIN_WEB_FOLDER = "/WEB-INF/";
     String USER_FOLDER = "user/";
     String ANONYMOUS_FOLDER = "anonymous/";
-    String ADMIN_FOLDER = "admin/";
+    String ADMIN_FOLDER = "adminUsersController/";
 
     String USERS_JSP = "users.jsp";
-    String REGISTRATION_FILE_NAME = "registration.jsp";
-    String LOGIN_FILE_NAME = "login.jsp";
-    String INDEX_FILE_NAME = "index.jsp";
+    String REGISTRATION_FILE_NAME = "registrationController.jsp";
+    String LOGIN_FILE_NAME = "loginController.jsp";
+    String INDEX_FILE_NAME = "indexController.jsp";
     String ERROR_404_FILE_NAME = "404.jsp";
-    String COUNTER_FILE_NAME = "counter.jsp";
+    String COUNTER_FILE_NAME = "counterController.jsp";
     String USER_PROFILE_FILE_NAME = "userprofile.jsp";
     String USER_DELIVERY_INITIATION_FILE_NAME = "user-delivery-initiation.jsp";
     String USER_DELIVERY_CONFIRM_DELIVERY_FILE_NAME = "user-delivery-request-confirm.jsp";
@@ -20,11 +20,11 @@ public interface PageConstance {
     String USER_STATISTIC_FILE_NAME = "user-statistic.jsp";
 
     String BASE_REQUEST_COMMAND = "delivery/";
-    String INDEX_REQUEST_COMMAND = "index";
-    String LOGIN_REQUEST_COMMAND = "login";
+    String INDEX_REQUEST_COMMAND = "indexController";
+    String LOGIN_REQUEST_COMMAND = "loginController";
     String ERROR_404_REQUEST_COMMAND = "404";
     String USER_PROFILE_REQUEST_COMMAND = "user/userprofile";
-    String COUNTER_REQUEST_COMMAND = "counter";
+    String COUNTER_REQUEST_COMMAND = "counterController";
     String USER_DELIVERY_INITIATION_REQUEST_COMMAND = "user-delivery-initiation";
 
     String REDIRECT_ON_ERROR_404_STRAIGHT = "/delivery/404";

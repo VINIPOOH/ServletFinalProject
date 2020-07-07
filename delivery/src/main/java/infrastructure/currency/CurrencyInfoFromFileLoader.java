@@ -8,6 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * Load information about exchange rates from the file
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class CurrencyInfoFromFileLoader implements CurrencyInfoLoader {
     private static final String RATIO = "ratio.";
     private static final String SYMBOL = "symbol.";

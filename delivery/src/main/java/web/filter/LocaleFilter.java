@@ -10,7 +10,10 @@ import java.util.Locale;
 import static web.constant.AttributeConstants.REQUEST_LANG;
 import static web.constant.AttributeConstants.SESSION_LANG;
 
-
+/**
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class LocaleFilter implements Filter {
 
     @Override

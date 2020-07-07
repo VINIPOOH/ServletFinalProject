@@ -1,6 +1,6 @@
 package dal.dao.impl;
 
-import dal.conection.ConnectionAdapeter;
+import dal.conection.ConnectionAdapter;
 import dal.dao.BillDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
@@ -17,8 +17,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 
-import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
-
+/**
+ * Implements an interface for work with {@link Bill}
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Singleton
 @NeedConfig
 public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao {
@@ -86,7 +90,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     public long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotCorrect {
         log.debug("getBillCostIfItIsNotPaid");
 
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
             preparedStatement.setLong(1, billId);
             preparedStatement.setLong(2, userId);
@@ -125,7 +129,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     public boolean murkBillAsPayed(long billId) throws SQLException {
         log.debug("murkBillAsPayed");
 
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_BILL_IS_PAID_TRUE))) {
             preparedStatement.setLong(1, billId);
             return preparedStatement.executeUpdate() > 0;
@@ -136,7 +140,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     public boolean createBill(long deliveryId, long userId, long localitySandID, long localityGetID, int weight) throws SQLException {
         log.debug("createBill");
 
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID))) {
             preparedStatement.setLong(1, localitySandID);
             preparedStatement.setLong(2, localityGetID);

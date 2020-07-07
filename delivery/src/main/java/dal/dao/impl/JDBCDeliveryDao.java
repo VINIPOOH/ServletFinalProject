@@ -1,6 +1,6 @@
 package dal.dao.impl;
 
-import dal.conection.ConnectionAdapeter;
+import dal.conection.ConnectionAdapter;
 import dal.dao.DeliveryDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
@@ -18,8 +18,12 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Locale;
 
-import static dal.dao.DBConstants.RUSSIAN_LANG_COD;
-
+/**
+ * Implements an interface for work with {@link Delivery}
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Singleton
 @NeedConfig
 public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements DeliveryDao {
@@ -66,7 +70,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
     public boolean confirmGettingDelivery(long userId, long deliveryId) {
         log.debug("confirmGettingDelivery");
 
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_DELIVERY_RECIWED_STATUSE_TRUE))) {
             preparedStatement.setLong(1, userId);
             preparedStatement.setLong(2, deliveryId);
@@ -81,7 +85,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
     public long createDelivery(String addreeseeEmail, long localitySandID, long localityGetID, int weight) throws AskedDataIsNotCorrect {
         log.debug("createDelivery");
 
-        try (ConnectionAdapeter connection = connector.getConnection();
+        try (ConnectionAdapter connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      resourceBundleRequests.getString(CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID), Statement.RETURN_GENERATED_KEYS)) {
 

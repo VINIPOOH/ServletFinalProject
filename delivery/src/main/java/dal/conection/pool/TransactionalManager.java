@@ -1,11 +1,18 @@
 package dal.conection.pool;
 
-import dal.conection.ConnectionAdapeter;
+import dal.conection.ConnectionAdapter;
 
 import java.sql.SQLException;
 
+/**
+ * Manage transactions.
+ * Encapsulate the functionality necessary for working with connections in the autocommit=false mode.
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public interface TransactionalManager extends AutoCloseable {
-    ConnectionAdapeter getConnection() throws SQLException;
+    ConnectionAdapter getConnection() throws SQLException;
 
     void startTransaction() throws SQLException;
 

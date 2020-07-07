@@ -2,6 +2,10 @@ package dto;
 
 import java.util.Objects;
 
+/**
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class DeliveryInfoToGetDto {
     private final String addresserEmail;
     private Long deliveryId;

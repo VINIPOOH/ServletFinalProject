@@ -2,6 +2,12 @@ package dal.entity;
 
 import java.time.LocalDate;
 
+/**
+ * Represent Delivery table in db
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class Delivery extends Entity {
     private LocalDate arrivalDate;
     private Way way;

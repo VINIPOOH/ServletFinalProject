@@ -1,5 +1,9 @@
 package dto;
 
+/**
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class RegistrationInfoDto {
     private final String username;
     private final String passwordRepeat;

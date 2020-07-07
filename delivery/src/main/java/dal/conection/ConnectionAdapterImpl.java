@@ -7,7 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ConnectionAdapterImpl implements ConnectionAdapeter {
+/**
+ * Wrapper on {@link Connection}. It is necessary to prevent the connection from being closed if the connection has
+ * status autocommit=falls
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
+public class ConnectionAdapterImpl implements ConnectionAdapter {
     private static final Logger log = LogManager.getLogger(ConnectionAdapterImpl.class);
 
     private final Connection connection;

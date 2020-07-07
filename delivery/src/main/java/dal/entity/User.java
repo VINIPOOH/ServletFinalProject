@@ -2,6 +2,12 @@ package dal.entity;
 
 import java.util.List;
 
+/**
+ * Represent User table in db
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class User extends Entity {
     private String email;
     private RoleType roleType;

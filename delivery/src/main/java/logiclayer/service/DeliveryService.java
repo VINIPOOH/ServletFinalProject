@@ -8,6 +8,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+/**
+ * Declares an interface for work with deliveries
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public interface DeliveryService {
     Optional<PriceAndTimeOnDeliveryDto> getDeliveryCostAndTimeDto(DeliveryInfoRequestDto deliveryInfoRequestDto);
 

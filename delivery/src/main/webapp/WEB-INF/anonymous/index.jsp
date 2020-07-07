@@ -1,5 +1,5 @@
 <%@ include file="../layout/metadata-standart.jsp" %>
-
+<!doctype html>
 <html lang="${param.lang}">
 <head>
     <%@ include file="../layout/bootstrap.jsp" %>

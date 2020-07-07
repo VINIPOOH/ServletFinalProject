@@ -6,6 +6,12 @@ import infrastructure.exceptions.ReflectionException;
 
 import java.lang.reflect.Field;
 
+/**
+ * Inject in configurable object fields properties marked annotation {@link InjectByType}
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class InjectByTypeAnnotationObjectConfigurator implements ObjectConfigurator {
     @Override
     public void configure(Object t, Class clazz, ApplicationContext context) {

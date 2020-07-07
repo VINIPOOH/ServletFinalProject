@@ -5,7 +5,12 @@ import org.reflections.Reflections;
 
 import java.util.Set;
 
-
+/**
+ * Represent application configuration info from java code
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class JavaConfig implements Config {
 
     private final Reflections scanner;

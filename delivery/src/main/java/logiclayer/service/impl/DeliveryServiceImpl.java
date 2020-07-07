@@ -22,6 +22,12 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Implements an interface for work with deliveries
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Singleton
 @NeedConfig
 public class DeliveryServiceImpl implements DeliveryService {

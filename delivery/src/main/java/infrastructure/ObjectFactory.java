@@ -13,12 +13,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Creates beans
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class ObjectFactory {
     private static final Logger log = LogManager.getLogger(ObjectFactory.class);
 
     private final ApplicationContext context;
     private final List<ObjectConfigurator> configurators = new ArrayList<>();
-    private List<ProxyConfigurator> proxyConfigurators = new ArrayList<>();
+    private final List<ProxyConfigurator> proxyConfigurators = new ArrayList<>();
 
     public ObjectFactory(ApplicationContext context) {
         log.debug("");

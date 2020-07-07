@@ -4,4 +4,5 @@
             <%@ taglib uri="/WEB-INF/tld/TagDescrioptor.tld" prefix="custom" %>
         <%@ page isELIgnored="false" %>
         <fmt:setBundle basename="page"/>
+
             <%--        <fmt:setLocale value="${sessionScope.get('lang')}" scope="session"/>--%>

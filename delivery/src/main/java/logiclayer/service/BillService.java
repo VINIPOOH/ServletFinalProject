@@ -10,6 +10,12 @@ import logiclayer.exeption.UnsupportableWeightFactorException;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Declares an interface for work with bills
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public interface BillService {
     List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId, Locale locale);
 

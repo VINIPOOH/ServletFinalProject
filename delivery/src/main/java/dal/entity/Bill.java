@@ -2,6 +2,12 @@ package dal.entity;
 
 import java.time.LocalDate;
 
+/**
+ * Represent Bill table in db
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class Bill extends Entity {
 
     private Delivery delivery;

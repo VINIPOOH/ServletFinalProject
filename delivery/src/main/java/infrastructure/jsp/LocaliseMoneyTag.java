@@ -10,6 +10,12 @@ import java.io.IOException;
 
 import static web.constant.AttributeConstants.CONTEXT;
 
+/**
+ * Jsp tag which localise money representation
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class LocaliseMoneyTag extends SimpleTagSupport {
     private long moneyInCents;
     private String lang;

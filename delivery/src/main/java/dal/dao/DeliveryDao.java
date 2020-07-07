@@ -6,6 +6,12 @@ import dal.exeption.AskedDataIsNotCorrect;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Declares an interface for work with {@link Delivery}
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public interface DeliveryDao {
 
     List<Delivery> getDeliveryInfoToGet(long userId, Locale locale);

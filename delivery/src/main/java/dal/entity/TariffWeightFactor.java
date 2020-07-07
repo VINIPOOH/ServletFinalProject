@@ -2,6 +2,12 @@ package dal.entity;
 
 import java.util.List;
 
+/**
+ * Represent TariffWeightFactor table in db
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class TariffWeightFactor extends Entity {
     private final int minWeightRange;
     private final int maxWeightRange;

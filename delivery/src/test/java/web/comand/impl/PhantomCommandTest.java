@@ -15,7 +15,7 @@ import static web.constant.PageConstance.*;
 public class PhantomCommandTest {
 
     @InjectMocks
-    PhantomCommand phantomCommand;
+    PhantomController phantomCommand;
 
     @Mock
     HttpServletRequest httpServletRequest;

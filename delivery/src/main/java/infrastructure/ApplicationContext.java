@@ -8,23 +8,30 @@ import infrastructure.exceptions.ReflectionException;
 import infrastructure.сonfig.Config;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import web.comand.MultipleMethodCommand;
-import web.comand.impl.PhantomCommand;
+import web.comand.MultipleMethodController;
+import web.comand.impl.PhantomController;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-
+/**
+ * Represents info about context in which application run.
+ * Contains info about currency rates.
+ * Controls beans and commands.
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class ApplicationContext {
     private static final Logger log = LogManager.getLogger(ApplicationContext.class);
     private final Map<Class, Object> objectsCash;
-    private final Map<String, MultipleMethodCommand> commands;
+    private final Map<String, MultipleMethodController> commands;
     private final Map<String, CurrencyInfo> currencies;
-    private final Class defaultEndpoint = PhantomCommand.class;
+    private final Class defaultEndpoint = PhantomController.class;
     private final Config config;
     private ObjectFactory factory;
 
-    public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, MultipleMethodCommand> commandsPrepared, CurrencyInfoLoader currencyInfoLoader) {
+    public ApplicationContext(Config config, Map<Class, Object> preparedCash, Map<String, MultipleMethodController> commandsPrepared, CurrencyInfoLoader currencyInfoLoader) {
         log.debug("");
 
         this.commands = commandsPrepared;
@@ -75,7 +82,7 @@ public class ApplicationContext {
     }
 
 
-    public MultipleMethodCommand getCommand(String link) {
+    public MultipleMethodController getCommand(String link) {
         log.debug("");
 
         if (commands.containsKey(link)) {
@@ -87,16 +94,16 @@ public class ApplicationContext {
             }
             for (Class<?> clazz : config.getScanner().getTypesAnnotatedWith(Endpoint.class)) {
                 Endpoint annotation = clazz.getAnnotation(Endpoint.class);
-                for (String i: annotation.value()){
+                for (String i : annotation.value()) {
                     if (i.equals(link)) {
-                        MultipleMethodCommand toReturn = (MultipleMethodCommand) getObject(clazz);
+                        MultipleMethodController toReturn = (MultipleMethodController) getObject(clazz);
                         putToCommandMapIfSingleton(link, clazz, toReturn);
                         return toReturn;
                     }
                 }
             }
         }
-        return (MultipleMethodCommand) getObject(defaultEndpoint);
+        return (MultipleMethodController) getObject(defaultEndpoint);
     }
 
     public void setFactory(ObjectFactory factory) {
@@ -113,7 +120,7 @@ public class ApplicationContext {
         }
     }
 
-    private void putToCommandMapIfSingleton(String link, Class<?> clazz, MultipleMethodCommand toReturn) {
+    private void putToCommandMapIfSingleton(String link, Class<?> clazz, MultipleMethodController toReturn) {
         if (clazz.isAnnotationPresent(Singleton.class)) {
             commands.put(link, toReturn);
         }

@@ -11,6 +11,12 @@ import org.apache.log4j.Logger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Password encoder on "MD5" algorithm
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 @Singleton
 @NeedConfig
 public class PasswordEncoderServiceImpl implements PasswordEncoderService {

@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Declares an interface for work with {@link User}
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public interface UserDao {
 
     Optional<User> findByEmailAndPasswordWithPermissions(String email, String password);

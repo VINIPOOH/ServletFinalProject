@@ -3,6 +3,10 @@ package web.filter;
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class EncodingFilter implements Filter {
 
     private static final String CONTENT_TYPE = "text/html";

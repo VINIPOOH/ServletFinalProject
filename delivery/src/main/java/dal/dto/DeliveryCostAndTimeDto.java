@@ -1,5 +1,12 @@
 package dal.dto;
 
+/**
+ * Dto for transport info about how many time need to deliver {@link dal.entity.Delivery}
+ * and рow much it will be cost
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class DeliveryCostAndTimeDto {
     private final int timeOnWayInHours;
     private long costInCents;

@@ -12,7 +12,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.SQLException;
 
-
+/**
+ * Create proxy for to provide transactional work to methods marked annotation {@link Transaction}
+ *
+ * @author Vendelovskyi Ivan
+ * @version 1.0
+ */
 public class TransactionProxyConfigurator implements ProxyConfigurator {
     private static final Logger log = LogManager.getLogger(TransactionProxyConfigurator.class);
 
@@ -45,7 +50,11 @@ public class TransactionProxyConfigurator implements ProxyConfigurator {
         } catch (NoSuchMethodException | SQLException | InstantiationException ex) {
             log.debug(ex);
         }
-        return method.invoke(t, args);
+        try {
+            return method.invoke(t, args);
+        } catch (InvocationTargetException e) {
+            throw e.getCause().getClass().getConstructor().newInstance();
+        }
     }
 
     private Object doTransactionMethodCall(Method method, Object[] args, Object t, TransactionalManager transactionalManager)
