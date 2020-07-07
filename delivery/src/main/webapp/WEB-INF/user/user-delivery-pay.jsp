@@ -3,7 +3,7 @@
 <html lang="${param.lang}">
 <head>
     <%@ include file="../layout/bootstrap.jsp" %>
-    <title><fmt:message key="user_statisticpage.title"/></title>
+    <title><fmt:message key="user.statistic.page.title"/></title>
 </head>
 <body>
 <%@ include file="../layout/header.jsp" %>
@@ -27,11 +27,11 @@
             </div>
             <div class="col-md-3 mt-3">
                 <p1 class="list-group-item"><fmt:message
-                        key="user-delivery-request-confirm.card.timeondelivery"/>${billToPay.weight}</p1>
+                        key="user-delivery-request-confirm.card.time.on.delivery"/>${billToPay.weight}</p1>
             </div>
             <div class="col-md-3 mt-3">
                 <p1 class="list-group-item"><fmt:message
-                        key="user-delivery-request-confirm.card.priceondelivery"/>
+                        key="user-delivery-request-confirm.card.price.on.delivery"/>
                     <fmt:message key="user-statistic.price"/>
                     <custom:localise-money moneyInCents="${billToPay.price}"
                                            lang="${pageContext.response.locale.language}"/></p1>

@@ -20,12 +20,12 @@
                     <form  id="form" class="form" method="post" action="${pageContext.request.contextPath}/counter">
                         <c:if test="${inputHasErrors}">
                             <div class="alert alert-danger" role="alert" >
-                                <p><fmt:message key="homepage.form.weight.incorect"/></p>
+                                <p><fmt:message key="homepage.form.weight.incorrect"/></p>
                             </div>
                         </c:if>
                         <c:if test="${IsNotExistSuchWayOrWeightForThisWay}">
                             <div class="alert alert-danger" role="alert">
-                                <p><fmt:message key="registrationpage.form.weight.wrong"/></p>
+                                <p><fmt:message key="registration.page.form.weight.wrong"/></p>
                             </div>
                         </c:if>
 
@@ -53,12 +53,12 @@
                 <table class="table">
                     <tbody>
                     <tr>
-                        <td><span><fmt:message key="homepage.paragraf.price"/></span></td>
+                        <td><span><fmt:message key="homepage.paragraph.price"/></span></td>
                         <td><span><custom:localise-money moneyInCents="${requestScope.CostAndTimeDto.costInCents}"
                                                          lang="${pageContext.response.locale.language}"/></span></td>
                     </tr>
                     <tr>
-                        <td><span><fmt:message key="homepage.paragraf.time"/></span></td>
+                        <td><span><fmt:message key="homepage.paragraph.time"/></span></td>
                         <td><span>${requestScope.CostAndTimeDto.timeOnWayInHours}</span></td>
                     </tr>
                     </tbody>

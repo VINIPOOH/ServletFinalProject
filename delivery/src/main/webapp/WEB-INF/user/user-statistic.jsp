@@ -3,7 +3,7 @@
 <html lang="${param.lang}">
 <head>
     <%@ include file="../layout/bootstrap.jsp" %>
-    <title><fmt:message key="user_statisticpage.title"/></title>
+    <title><fmt:message key="user.statistic.page.title"/></title>
 </head>
 <body>
 <%@ include file="../layout/header.jsp" %>

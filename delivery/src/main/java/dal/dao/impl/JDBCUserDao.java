@@ -41,7 +41,7 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     private static final String USER_REPLENISH_BALANCE = "user.replenish.balance";
     private static final String USER_SAVE = "user.save";
     private static final String GET_USER_BALANCE_IF_ENOGFE_MONEY =
-            "user.get.user.bulance.if.enought.money";
+            "user.get.user.balance.if.enough.money";
     private static final String GET_USER_BALANCE_BY_ID = "user.get.balance.by.id";
     private static final String GET_ALL_USERS_INFO = "get.all.users.info";
     private static final Logger log = LogManager.getLogger(JDBCUserDao.class);

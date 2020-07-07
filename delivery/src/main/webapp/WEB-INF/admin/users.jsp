@@ -18,9 +18,9 @@
         ">
     <thead>
     <tr>
-        <th><fmt:message key="userlist.page.password.colum.name"/></th>
-        <th><fmt:message key="userlist.page.email.colum.name"/></th>
-        <th><fmt:message key="userlist.page.role.colum.name"/></th>
+        <th><fmt:message key="user.list.page.password.colum.name"/></th>
+        <th><fmt:message key="user.list.page.email.colum.name"/></th>
+        <th><fmt:message key="user.list.page.role.colum.name"/></th>
     </tr>
     </thead>
     <tbody>

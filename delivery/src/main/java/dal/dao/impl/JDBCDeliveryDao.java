@@ -28,11 +28,11 @@ import java.util.Locale;
 @NeedConfig
 public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements DeliveryDao {
     private static final String DELIVERY_INFO_TO_GET_BY_USER_ID_EN =
-            "delivery.get.not.recived.deliveries.by.user.id.en";
+            "delivery.get.not.received.deliveries.by.user.id.en";
     private static final String DELIVERY_INFO_TO_GET_BY_USER_ID_RU =
-            "delivery.get.not.recived.deliveries.by.user.id.ru";
+            "delivery.get.not.received.deliveries.by.user.id.ru";
     private static final String SET_DELIVERY_RECIWED_STATUSE_TRUE =
-            "delivery.set.recived.statuse.true";
+            "delivery.set.received.status.true";
     private static final String CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID =
             "create.delivery.by.weight.id.locality.send.idlocality.get.adresee.email.adresser.id";
     private static final String LOCALITY_SEND_COLUMN_NAME = "locality_sand_name";

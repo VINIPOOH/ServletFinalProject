@@ -39,7 +39,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     private static final String BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID =
             "bill.create.by.cost.delivery.id.user.id";
     private static final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_EN =
-            "bill.pay.info.sellect.by.sender.id.en";
+            "bill.pay.info.select.by.sender.id.en";
     private static final String GET_BILL_PRISE_IF_NOT_PAID =
             "bill.get.prise.if.not.paid";
     private static final String SET_BILL_IS_PAID_TRUE =
@@ -47,7 +47,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     private static final String BILLS_HISTORY_BY_USER_ID =
             "bill.history.by.user.id";
     private static final String BILL_INFO_TO_PAY_BILL_BY_USER_ID_RU =
-            "bill.pay.info.sellect.by.sender.id.ru";
+            "bill.pay.info.select.by.sender.id.ru";
     private static final String COUNT_ALL_NOT_PAYED_BILLS_BY_USER_ID =
             "count.all.not.payed.bills.by.user.id";
     private static final Logger log = LogManager.getLogger(JDBCBillDao.class);

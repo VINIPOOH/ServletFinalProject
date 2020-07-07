@@ -30,7 +30,7 @@
                         </c:if>
                         <c:if test="${unsupportableWeightOrWay}">
                             <div class="alert alert-danger" role="alert">
-                                <p><fmt:message key="registrationpage.form.weight.wrong"/></p>
+                                <p><fmt:message key="registration.page.form.weight.wrong"/></p>
                             </div>
                         </c:if>
 
@@ -53,7 +53,7 @@
                         <label><fmt:message key="homepage.form.label.aderesee.email"/></label>
                         <div class="form-group">
                             <input type="text" class="form-control" id="addresseeEmail" name="addresseeEmail"
-                                   placeholder=<fmt:message key="loginpage.form.label.email"/>>
+                                   placeholder=<fmt:message key="login.page.form.label.email"/>>
                         </div>
                         <button class="btn btn-success" type="submit"><fmt:message key="user-delivery-initiation.button.massege"/></button>
                     </form>

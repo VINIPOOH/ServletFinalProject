@@ -9,7 +9,7 @@
         <fmt:message key="layout.header.homepage"/>
         </a>
         <a class="col-2" href="${pageContext.request.contextPath}/user/user-profile"><fmt:message
-            key="layout.userheader.cabinet"/></a>
+            key="layout.user.header.cabinet"/></a>
         </div>
         </div>
         </nav>
@@ -31,9 +31,9 @@
         <c:if test="${sessionScope.user==null}">
             <div class="row">
             <a class="btn btn-success" href="${pageContext.request.contextPath}/anonymous/login" type="submit" ><fmt:message
-                key="lofinpage.button.login"/></a>
+                key="login.page.button.login"/></a>
             <a class="btn" align="left" href="${pageContext.request.contextPath}/anonymous/registration" ><fmt:message
-                key="lofinpage.button.gotoRegistration"/></a>
+                key="login.page.button.gotoRegistration"/></a>
             </div>
         </c:if>
         </div>
