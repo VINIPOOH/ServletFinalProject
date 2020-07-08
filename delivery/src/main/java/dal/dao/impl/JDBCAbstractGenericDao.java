@@ -1,7 +1,7 @@
 package dal.dao.impl;
 
 
-import dal.conection.ConnectionAdapter;
+import dal.conection.ConnectionProxy;
 import dal.conection.pool.TransactionalManager;
 import dal.dao.AbstractGenericDao;
 import dal.dao.maper.EntityToPreparedStatementMapper;
@@ -38,7 +38,7 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
     @Override
     public List<E> findAllByLongParam(long param, String query, ResultSetToEntityMapper<E> mapper) {
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, param);
             return mapPreparedStatementToEntitiesList(mapper, preparedStatement);
@@ -50,7 +50,7 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
     @Override
     public List<E> findAllByLongParamPageable(long param, Integer offset, Integer limit, String query, ResultSetToEntityMapper<E> mapper) {
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, param);
             preparedStatement.setInt(2, offset);
@@ -69,7 +69,7 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
      */
     @Override
     public long countAllByLongParam(long param, String query) {
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, param);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -95,7 +95,7 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
     @Override
     public boolean save(E entity, String saveQuery, EntityToPreparedStatementMapper<E> mapper) {
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(saveQuery)) {
 
             mapper.map(entity, preparedStatement);
@@ -108,7 +108,7 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
     @Override
     public Optional<E> findById(long id, String query, ResultSetToEntityMapper<E> mapper) {
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setLong(1, id);
@@ -123,7 +123,7 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
     @Override
     public boolean deleteById(long id, String query, ResultSetToEntityMapper<E> mapper) {
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setLong(1, id);
@@ -136,7 +136,7 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
     @Override
     public List<E> findAll(String query, ResultSetToEntityMapper<E> mapper) {
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             List<E> result;
@@ -155,7 +155,7 @@ abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
     @Override
     public boolean update(E entity, String saveQuery, EntityToPreparedStatementMapper<E> mapper) {
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(saveQuery)) {
 
             mapper.map(entity, preparedStatement);

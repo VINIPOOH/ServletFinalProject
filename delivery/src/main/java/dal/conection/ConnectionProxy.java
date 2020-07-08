@@ -5,13 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Wrapper on {@link Connection} It is necessary to prevent the connection from being closed if the connection has
+ * Proxy on {@link Connection}. It is necessary to prevent the connection from being closed if the connection has
  * status autocommit=falls
  *
  * @author Vendelovskyi Ivan
  * @version 1.0
  */
-public interface ConnectionAdapter extends AutoCloseable {
+public interface ConnectionProxy extends AutoCloseable {
 
     @Override
     void close() throws SQLException;

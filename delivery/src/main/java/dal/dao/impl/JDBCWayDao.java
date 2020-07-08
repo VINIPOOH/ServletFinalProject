@@ -1,6 +1,6 @@
 package dal.dao.impl;
 
-import dal.conection.ConnectionAdapter;
+import dal.conection.ConnectionProxy;
 import dal.dao.WayDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.dto.DeliveryCostAndTimeDto;
@@ -38,7 +38,7 @@ public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
 
         ResultSetToEntityMapper<DeliveryCostAndTimeDto> mapper = getDeliveryCostAndTimeDtoResultSetToEntityMapper();
 
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.
                      getString(GET_COST_AND_TIME_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT))) {
 

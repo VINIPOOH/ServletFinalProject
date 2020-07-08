@@ -1,6 +1,6 @@
 package dal.conection.pool;
 
-import dal.conection.ConnectionAdapter;
+import dal.conection.ConnectionProxy;
 
 import java.sql.SQLException;
 
@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @version 1.0
  */
 public interface TransactionalManager extends AutoCloseable {
-    ConnectionAdapter getConnection() throws SQLException;
+    ConnectionProxy getConnection() throws SQLException;
 
     void startTransaction() throws SQLException;
 

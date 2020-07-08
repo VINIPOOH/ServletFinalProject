@@ -1,6 +1,6 @@
 package dal.conection.pool.impl;
 
-import dal.conection.ConnectionAdapter;
+import dal.conection.ConnectionProxy;
 import dal.conection.pool.TransactionalConnectionPool;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,33 +26,33 @@ public class TransactionalManagerImplTest {
     TransactionalConnectionPool transactionalConnectionPool;
 
     @Spy
-    ConnectionAdapter connectionAdapter;
+    ConnectionProxy connectionProxy;
 
     @Mock
-    ThreadLocal<ConnectionAdapter> connectionThreadLocal;
+    ThreadLocal<ConnectionProxy> connectionThreadLocal;
 
 
     @Test
     public void getConnectionLocalThreadAlreadyHaveConnection() throws SQLException {
-        when(connectionThreadLocal.get()).thenReturn(connectionAdapter);
+        when(connectionThreadLocal.get()).thenReturn(connectionProxy);
 
-        ConnectionAdapter result = connectionManager.getConnection();
+        ConnectionProxy result = connectionManager.getConnection();
 
         verify(connectionThreadLocal, times(1)).get();
         verify(transactionalConnectionPool, times(0)).getConnectionAdapter();
-        assertEquals(connectionAdapter, result);
+        assertEquals(connectionProxy, result);
     }
 
     @Test
     public void getConnectionLocalThreadHaveNotConnection() throws SQLException {
         when(connectionThreadLocal.get()).thenReturn(null);
-        when(transactionalConnectionPool.getConnectionAdapter()).thenReturn(connectionAdapter);
+        when(transactionalConnectionPool.getConnectionAdapter()).thenReturn(connectionProxy);
 
-        ConnectionAdapter result = connectionManager.getConnection();
+        ConnectionProxy result = connectionManager.getConnection();
 
         verify(connectionThreadLocal, times(1)).get();
         verify(transactionalConnectionPool, times(1)).getConnectionAdapter();
-        assertEquals(connectionAdapter, result);
+        assertEquals(connectionProxy, result);
     }
 
     @Test(expected = SQLException.class)
@@ -67,7 +67,7 @@ public class TransactionalManagerImplTest {
 
     @Test(expected = SQLException.class)
     public void startTransactionThreadAlreadyHaveConnection() throws SQLException {
-        when(connectionThreadLocal.get()).thenReturn(connectionAdapter);
+        when(connectionThreadLocal.get()).thenReturn(connectionProxy);
 
         connectionManager.startTransaction();
 
@@ -77,12 +77,12 @@ public class TransactionalManagerImplTest {
     @Test
     public void startTransactionThreadHaveNotConnection() throws SQLException {
         when(connectionThreadLocal.get()).thenReturn(null);
-        when(transactionalConnectionPool.getConnectionAdapterPreparedForTransaction()).thenReturn(connectionAdapter);
+        when(transactionalConnectionPool.getConnectionAdapterPreparedForTransaction()).thenReturn(connectionProxy);
 
         connectionManager.startTransaction();
 
         verify(transactionalConnectionPool, times(1)).getConnectionAdapterPreparedForTransaction();
-        verify(connectionThreadLocal, times(1)).set(any(ConnectionAdapter.class));
+        verify(connectionThreadLocal, times(1)).set(any(ConnectionProxy.class));
     }
 
     @Test(expected = SQLException.class)
@@ -96,12 +96,12 @@ public class TransactionalManagerImplTest {
 
     @Test
     public void commitAllGood() throws SQLException {
-        when(connectionThreadLocal.get()).thenReturn(connectionAdapter);
+        when(connectionThreadLocal.get()).thenReturn(connectionProxy);
 
         connectionManager.commit();
 
         verify(connectionThreadLocal, times(1)).get();
-        verify(connectionAdapter, times(1)).commit();
+        verify(connectionProxy, times(1)).commit();
     }
 
     @Test(expected = SQLException.class)
@@ -115,24 +115,24 @@ public class TransactionalManagerImplTest {
 
     @Test
     public void rollBackAllGood() throws SQLException {
-        when(connectionThreadLocal.get()).thenReturn(connectionAdapter);
+        when(connectionThreadLocal.get()).thenReturn(connectionProxy);
 
         connectionManager.rollBack();
 
         verify(connectionThreadLocal, times(1)).get();
-        verify(connectionAdapter, times(1)).rollBack();
+        verify(connectionProxy, times(1)).rollBack();
     }
 
     @Test
     public void closeTransactionalConnectionExist() throws SQLException {
-        when(connectionThreadLocal.get()).thenReturn(connectionAdapter);
+        when(connectionThreadLocal.get()).thenReturn(connectionProxy);
 
         connectionManager.close();
 
         verify(connectionThreadLocal, times(1)).get();
         verify(connectionThreadLocal, times(1)).remove();
-        verify(connectionAdapter, times(1)).setIsTransaction(false);
-        verify(connectionAdapter, times(1)).close();
+        verify(connectionProxy, times(1)).setIsTransaction(false);
+        verify(connectionProxy, times(1)).close();
     }
 
     @Test
@@ -143,21 +143,21 @@ public class TransactionalManagerImplTest {
 
         verify(connectionThreadLocal, times(1)).get();
         verify(connectionThreadLocal, times(0)).remove();
-        verify(connectionAdapter, times(0)).setIsTransaction(false);
-        verify(connectionAdapter, times(0)).close();
+        verify(connectionProxy, times(0)).setIsTransaction(false);
+        verify(connectionProxy, times(0)).close();
     }
 
     @Test
     public void closeProblemsWithDb() throws SQLException {
-        when(connectionThreadLocal.get()).thenReturn(connectionAdapter);
-        doThrow(SQLException.class).when(connectionAdapter).close();
+        when(connectionThreadLocal.get()).thenReturn(connectionProxy);
+        doThrow(SQLException.class).when(connectionProxy).close();
 
         connectionManager.close();
 
         verify(connectionThreadLocal, times(1)).get();
         verify(connectionThreadLocal, times(1)).remove();
-        verify(connectionAdapter, times(1)).setIsTransaction(false);
-        verify(connectionAdapter, times(1)).close();
+        verify(connectionProxy, times(1)).setIsTransaction(false);
+        verify(connectionProxy, times(1)).close();
     }
 
 

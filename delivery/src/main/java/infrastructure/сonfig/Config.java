@@ -1,6 +1,11 @@
 package infrastructure.сonfig;
 
+import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+
+import java.lang.annotation.Annotation;
+import java.util.Set;
 
 /**
  * Declare interface for represent application configuration info
@@ -11,5 +16,8 @@ import org.reflections.Reflections;
 public interface Config {
     <T> Class<? extends T> getImplClass(Class<T> ifc);
 
-    Reflections getScanner();
+    Set<Class<?>> getTypesAnnotatedWith(Class<? extends Annotation> annotation);
+
+    <T> Set<Class<? extends T>> getSubTypesOf(Class<T> type);
+
 }

@@ -1,8 +1,11 @@
 package infrastructure.сonfig;
 
 import infrastructure.exceptions.ConfigurationException;
+import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
+import java.lang.annotation.Annotation;
 import java.util.Set;
 
 /**
@@ -28,8 +31,14 @@ public class JavaConfig implements Config {
         return classes.iterator().next();
     }
 
-    public Reflections getScanner() {
-        return this.scanner;
+    @Override
+    public Set<Class<?>> getTypesAnnotatedWith(Class<? extends Annotation> annotation) {
+        return scanner.getTypesAnnotatedWith(annotation, false);
+    }
+
+    @Override
+    public <T> Set<Class<? extends T>> getSubTypesOf(Class<T> type) {
+        return scanner.getSubTypesOf(type);
     }
 }
 

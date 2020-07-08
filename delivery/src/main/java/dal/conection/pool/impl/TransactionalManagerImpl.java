@@ -1,6 +1,6 @@
 package dal.conection.pool.impl;
 
-import dal.conection.ConnectionAdapter;
+import dal.conection.ConnectionProxy;
 import dal.conection.pool.TransactionalConnectionPool;
 import dal.conection.pool.TransactionalManager;
 import infrastructure.anotation.InjectByType;
@@ -30,12 +30,12 @@ public class TransactionalManagerImpl implements TransactionalManager {
 
 
     @InjectByType
-    private ThreadLocal<ConnectionAdapter> connectionThreadLocal;
+    private ThreadLocal<ConnectionProxy> connectionThreadLocal;
 
-    public ConnectionAdapter getConnection() throws SQLException {
+    public ConnectionProxy getConnection() throws SQLException {
         log.debug("");
 
-        ConnectionAdapter connection = connectionThreadLocal.get();
+        ConnectionProxy connection = connectionThreadLocal.get();
         if (connection != null) {
             return connection;
         }
@@ -45,7 +45,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
     public void startTransaction() throws SQLException {
         log.debug("startTransaction");
 
-        ConnectionAdapter connection = connectionThreadLocal.get();
+        ConnectionProxy connection = connectionThreadLocal.get();
         if (connection != null) {
             throw new SQLException("Transaction already started");
         }
@@ -55,7 +55,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
     public void commit() throws SQLException {
         log.debug("commit");
 
-        ConnectionAdapter connection = connectionThreadLocal.get();
+        ConnectionProxy connection = connectionThreadLocal.get();
 
         if (connection == null) {
             throw new SQLException("Transaction not started to be commit");
@@ -66,7 +66,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
     public void rollBack() throws SQLException {
         log.debug("rollBack");
 
-        ConnectionAdapter connection = connectionThreadLocal.get();
+        ConnectionProxy connection = connectionThreadLocal.get();
 
         if (connection == null) {
             throw new SQLException("Transaction not started to be rollback");
@@ -78,7 +78,7 @@ public class TransactionalManagerImpl implements TransactionalManager {
     public void close() {
         log.debug("close");
 
-        ConnectionAdapter connection = connectionThreadLocal.get();
+        ConnectionProxy connection = connectionThreadLocal.get();
 
         if (connection == null) {
             log.error("transaction is already closed");

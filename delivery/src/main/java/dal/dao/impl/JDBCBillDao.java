@@ -1,6 +1,6 @@
 package dal.dao.impl;
 
-import dal.conection.ConnectionAdapter;
+import dal.conection.ConnectionProxy;
 import dal.dao.BillDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
@@ -71,7 +71,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     public long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotCorrect {
         log.debug("getBillCostIfItIsNotPaid");
 
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_BILL_PRISE_IF_NOT_PAID))) {
             preparedStatement.setLong(1, billId);
             preparedStatement.setLong(2, userId);
@@ -105,7 +105,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
     public boolean murkBillAsPayed(long billId) throws SQLException {
         log.debug("murkBillAsPayed");
 
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_BILL_IS_PAID_TRUE))) {
             preparedStatement.setLong(1, billId);
             return preparedStatement.executeUpdate() > 0;
@@ -117,7 +117,7 @@ public class JDBCBillDao extends JDBCAbstractGenericDao<Bill> implements BillDao
             throws SQLException {
         log.debug("createBill");
 
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(BILL_CREATE_BY_COST_DELIVERY_ID_USER_ID))) {
             preparedStatement.setLong(1, localitySandID);
             preparedStatement.setLong(2, localityGetID);

@@ -1,6 +1,6 @@
 package dal.dao.impl;
 
-import dal.conection.ConnectionAdapter;
+import dal.conection.ConnectionProxy;
 import dal.dao.DeliveryDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.*;
@@ -54,7 +54,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
     public boolean confirmGettingDelivery(long userId, long deliveryId) {
         log.debug("confirmGettingDelivery");
 
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(SET_DELIVERY_RECIWED_STATUSE_TRUE))) {
             preparedStatement.setLong(1, userId);
             preparedStatement.setLong(2, deliveryId);
@@ -74,7 +74,7 @@ public class JDBCDeliveryDao extends JDBCAbstractGenericDao<Delivery> implements
             throws AskedDataIsNotCorrect {
         log.debug("createDelivery");
 
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      resourceBundleRequests.getString(CREATE_DELIVERY_BY_WEIGHT_ID_LOCALITY_SEND_IDLOCALITY_GET_ADRESEE_EMAIL_ADRESSER_ID), Statement.RETURN_GENERATED_KEYS)) {
 

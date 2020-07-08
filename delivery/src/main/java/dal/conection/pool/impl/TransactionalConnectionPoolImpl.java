@@ -1,7 +1,7 @@
 package dal.conection.pool.impl;
 
-import dal.conection.ConnectionAdapter;
-import dal.conection.ConnectionAdapterImpl;
+import dal.conection.ConnectionProxy;
+import dal.conection.ConnectionProxyImpl;
 import dal.conection.pool.TransactionalConnectionPool;
 import infrastructure.anotation.InjectByType;
 import infrastructure.anotation.InjectStringProperty;
@@ -59,8 +59,8 @@ public class TransactionalConnectionPoolImpl implements TransactionalConnectionP
     }
 
     @Override
-    public ConnectionAdapter getConnectionAdapter() throws SQLException {
-        return new ConnectionAdapterImpl(ds.getConnection());
+    public ConnectionProxy getConnectionAdapter() throws SQLException {
+        return new ConnectionProxyImpl(ds.getConnection());
     }
 
     /**
@@ -68,8 +68,8 @@ public class TransactionalConnectionPoolImpl implements TransactionalConnectionP
      * @throws SQLException
      */
     @Override
-    public ConnectionAdapter getConnectionAdapterPreparedForTransaction() throws SQLException {
-        ConnectionAdapter toReturn = new ConnectionAdapterImpl(ds.getConnection());
+    public ConnectionProxy getConnectionAdapterPreparedForTransaction() throws SQLException {
+        ConnectionProxy toReturn = new ConnectionProxyImpl(ds.getConnection());
         toReturn.setAutoCommit(false);
         toReturn.setIsTransaction(true);
         return toReturn;

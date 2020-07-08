@@ -8,19 +8,19 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Wrapper on {@link Connection}. It is necessary to prevent the connection from being closed if the connection has
+ * Proxy on {@link Connection}. It is necessary to prevent the connection from being closed if the connection has
  * status autocommit=falls
  *
  * @author Vendelovskyi Ivan
  * @version 1.0
  */
-public class ConnectionAdapterImpl implements ConnectionAdapter {
-    private static final Logger log = LogManager.getLogger(ConnectionAdapterImpl.class);
+public class ConnectionProxyImpl implements ConnectionProxy {
+    private static final Logger log = LogManager.getLogger(ConnectionProxyImpl.class);
 
     private final Connection connection;
     private boolean isTransaction = false;
 
-    public ConnectionAdapterImpl(Connection connection) {
+    public ConnectionProxyImpl(Connection connection) {
         log.debug("created");
 
         this.connection = connection;

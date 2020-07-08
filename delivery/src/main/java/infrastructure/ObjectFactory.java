@@ -32,10 +32,10 @@ public class ObjectFactory {
         this.context = context;
 
         try {
-            for (Class<? extends ObjectConfigurator> aClass : context.getConfig().getScanner().getSubTypesOf(ObjectConfigurator.class)) {
+            for (Class<? extends ObjectConfigurator> aClass : context.getConfig().getSubTypesOf(ObjectConfigurator.class)) {
                 configurators.add(aClass.getDeclaredConstructor().newInstance());
             }
-            for (Class<? extends ProxyConfigurator> aClass : context.getConfig().getScanner().getSubTypesOf(ProxyConfigurator.class)) {
+            for (Class<? extends ProxyConfigurator> aClass : context.getConfig().getSubTypesOf(ProxyConfigurator.class)) {
                 proxyConfigurators.add(aClass.getDeclaredConstructor().newInstance());
             }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {

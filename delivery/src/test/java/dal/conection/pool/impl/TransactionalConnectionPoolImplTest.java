@@ -1,6 +1,6 @@
 package dal.conection.pool.impl;
 
-import dal.conection.ConnectionAdapter;
+import dal.conection.ConnectionProxy;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,7 +57,7 @@ public class TransactionalConnectionPoolImplTest {
     public void getConnectionAdapter() throws SQLException {
         when(basicDataSource.getConnection()).thenReturn(connection);
 
-        ConnectionAdapter result = transactionalConnectionPool.getConnectionAdapter();
+        ConnectionProxy result = transactionalConnectionPool.getConnectionAdapter();
 
         assertEquals(connection, result.getSubject());
     }
@@ -75,7 +75,7 @@ public class TransactionalConnectionPoolImplTest {
     public void getConnectionAdapterPreparedForTransaction() throws SQLException, NoSuchFieldException, IllegalAccessException {
         when(basicDataSource.getConnection()).thenReturn(connection);
 
-        ConnectionAdapter result = transactionalConnectionPool.getConnectionAdapterPreparedForTransaction();
+        ConnectionProxy result = transactionalConnectionPool.getConnectionAdapterPreparedForTransaction();
         Field isTransactional = result.getClass().getDeclaredField("isTransaction");
 
         isTransactional.setAccessible(true);

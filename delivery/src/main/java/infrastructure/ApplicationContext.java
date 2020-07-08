@@ -55,7 +55,7 @@ public class ApplicationContext {
     public void init() {
         log.debug("");
 
-        for (Class<?> clazz : config.getScanner().getTypesAnnotatedWith(Singleton.class)) {
+        for (Class<?> clazz : config.getTypesAnnotatedWith(Singleton.class)) {
             Singleton annotation = clazz.getAnnotation(Singleton.class);
             if (!annotation.isLazy()) {
                 log.debug("created" + clazz.getName());
@@ -107,7 +107,7 @@ public class ApplicationContext {
             if (controllerMap.containsKey(linkKey)) {
                 return controllerMap.get(linkKey);
             }
-            for (Class<?> clazz : config.getScanner().getTypesAnnotatedWith(Endpoint.class)) {
+            for (Class<?> clazz : config.getTypesAnnotatedWith(Endpoint.class)) {
                 Endpoint annotation = clazz.getAnnotation(Endpoint.class);
                 for (String i : annotation.value()) {
                     if (i.equals(linkKey)) {

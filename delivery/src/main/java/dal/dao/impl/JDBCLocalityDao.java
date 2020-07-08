@@ -1,6 +1,6 @@
 package dal.dao.impl;
 
-import dal.conection.ConnectionAdapter;
+import dal.conection.ConnectionProxy;
 import dal.dao.LocalityDao;
 import dal.dao.maper.ResultSetToEntityMapper;
 import dal.entity.Locality;
@@ -44,7 +44,7 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
         localedQuery = locale.getLanguage().equals(RUSSIAN_LANG_COD) ?
                 resourceBundleRequests.getString(LOCALITY_FIND_ALL_RU) :
                 resourceBundleRequests.getString(LOCALITY_FIND_ALL_EN);
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(localedQuery)) {
             List<Locality> result;
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -68,7 +68,7 @@ public class JDBCLocalityDao extends JDBCAbstractGenericDao<Locality> implements
                 resourceBundleRequests.getString(LOCALITY_GET_FIND_BY_LOCALITY_SEND_ID_RU) :
                 resourceBundleRequests.getString(LOCALITY_GET_FIND_BY_LOCALITY_SEND_ID_EN);
 
-        try (ConnectionAdapter connection = connector.getConnection();
+        try (ConnectionProxy connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(localedQuery)) {
             preparedStatement.setLong(1, id);
             List<Locality> result;
