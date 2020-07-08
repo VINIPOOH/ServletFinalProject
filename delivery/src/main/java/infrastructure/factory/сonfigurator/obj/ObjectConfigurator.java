@@ -1,4 +1,4 @@
-package infrastructure.сonfigurator.obj;
+package infrastructure.factory.сonfigurator.obj;
 
 import infrastructure.ApplicationContext;
 

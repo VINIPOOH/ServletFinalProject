@@ -1,6 +1,7 @@
 package infrastructure;
 
 import infrastructure.currency.CurrencyInfo;
+import infrastructure.factory.ObjectFactory;
 import infrastructure.сonfig.Config;
 import web.comand.MultipleMethodController;
 

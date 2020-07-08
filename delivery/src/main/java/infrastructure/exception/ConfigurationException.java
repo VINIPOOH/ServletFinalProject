@@ -1,4 +1,4 @@
-package infrastructure.exceptions;
+package infrastructure.exception;
 
 /**
  * Exception for signal about problems in configuration

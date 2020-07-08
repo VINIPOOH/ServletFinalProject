@@ -1,9 +1,7 @@
 package infrastructure.сonfig;
 
-import infrastructure.exceptions.ConfigurationException;
-import org.reflections.ReflectionUtils;
+import infrastructure.exception.ConfigurationException;
 import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
 
 import java.lang.annotation.Annotation;
 import java.util.Set;

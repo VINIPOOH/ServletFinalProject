@@ -2,8 +2,8 @@ package web;
 
 import infrastructure.ApplicationContext;
 import infrastructure.ApplicationContextImpl;
-import infrastructure.ObjectFactory;
-import infrastructure.ObjectFactoryImpl;
+import infrastructure.factory.ObjectFactory;
+import infrastructure.factory.ObjectFactoryImpl;
 import infrastructure.currency.CurrencyInfoFromFileLoader;
 import infrastructure.сonfig.JavaConfig;
 import org.apache.log4j.LogManager;

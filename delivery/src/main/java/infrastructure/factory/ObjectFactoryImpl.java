@@ -1,9 +1,10 @@
-package infrastructure;
+package infrastructure.factory;
 
+import infrastructure.ApplicationContext;
 import infrastructure.anotation.NeedConfig;
-import infrastructure.exceptions.ReflectionException;
-import infrastructure.сonfigurator.obj.ObjectConfigurator;
-import infrastructure.сonfigurator.proxy.ProxyConfigurator;
+import infrastructure.exception.ReflectionException;
+import infrastructure.factory.сonfigurator.obj.ObjectConfigurator;
+import infrastructure.factory.сonfigurator.proxy.ProxyConfigurator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

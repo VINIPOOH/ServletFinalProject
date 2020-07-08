@@ -1,8 +1,8 @@
-package infrastructure.сonfigurator.obj;
+package infrastructure.factory.сonfigurator.obj;
 
 import infrastructure.ApplicationContext;
 import infrastructure.anotation.InjectStringProperty;
-import infrastructure.exceptions.ReflectionException;
+import infrastructure.exception.ReflectionException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

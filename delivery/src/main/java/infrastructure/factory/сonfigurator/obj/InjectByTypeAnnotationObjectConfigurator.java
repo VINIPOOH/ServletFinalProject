@@ -1,8 +1,8 @@
-package infrastructure.сonfigurator.obj;
+package infrastructure.factory.сonfigurator.obj;
 
 import infrastructure.ApplicationContext;
 import infrastructure.anotation.InjectByType;
-import infrastructure.exceptions.ReflectionException;
+import infrastructure.exception.ReflectionException;
 
 import java.lang.reflect.Field;
 

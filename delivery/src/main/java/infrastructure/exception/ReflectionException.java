@@ -1,7 +1,7 @@
-package infrastructure.exceptions;
+package infrastructure.exception;
 
 /**
- * Exception for signal about reflation work exceptions
+ * Exception for signal about reflation work exception
  *
  * @author Vendelovskyi Ivan
  * @version 1.0
