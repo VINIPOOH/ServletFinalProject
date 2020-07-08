@@ -1,7 +1,9 @@
 package web;
 
 import infrastructure.ApplicationContext;
+import infrastructure.ApplicationContextImpl;
 import infrastructure.ObjectFactory;
+import infrastructure.ObjectFactoryImpl;
 import infrastructure.currency.CurrencyInfoFromFileLoader;
 import infrastructure.сonfig.JavaConfig;
 import org.apache.log4j.LogManager;
@@ -37,9 +39,9 @@ public class DispatcherServlet extends HttpServlet {
 
         Map<Class, Object> paramMap = new ConcurrentHashMap<>();
         paramMap.put(ResourceBundle.class, ResourceBundle.getBundle("db-request"));
-        ApplicationContext context = new ApplicationContext(new JavaConfig(""), paramMap,
+        ApplicationContext context = new ApplicationContextImpl(new JavaConfig(""), paramMap,
                 new ConcurrentHashMap<>(), new CurrencyInfoFromFileLoader());
-        ObjectFactory objectFactory = new ObjectFactory(context);
+        ObjectFactory objectFactory = new ObjectFactoryImpl(context);
         context.setFactory(objectFactory);
         context.init();
         getServletContext().setAttribute(CONTEXT, context);
