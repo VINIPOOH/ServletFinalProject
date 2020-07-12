@@ -8,7 +8,6 @@
 </head>
 <body>
 <%@ include file="layout/header.jsp" %>
-<div th:include="~{layout/header.jsp::header}"></div>
 <div class="container">
     <div class="row">
         <div class="col-md-6">

@@ -1,4 +1,4 @@
-package infrastructure.jsp;
+package infrastructure.currency.jsp;
 
 import infrastructure.ApplicationContext;
 import infrastructure.currency.CurrencyInfo;

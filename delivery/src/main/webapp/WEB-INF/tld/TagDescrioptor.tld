@@ -11,7 +11,7 @@
 
     <tag>
         <name>localise-money</name>
-        <tag-class>infrastructure.jsp.LocaliseMoneyTag</tag-class>
+        <tag-class>infrastructure.currency.jsp.LocaliseMoneyTag</tag-class>
         <body-content>tagdependent</body-content>
         <attribute>
             <name>moneyInCents</name>
