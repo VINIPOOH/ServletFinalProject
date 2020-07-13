@@ -3,15 +3,10 @@ package dal.conection.pool.impl;
 import dal.conection.ConnectionProxy;
 import dal.conection.ConnectionProxyImpl;
 import dal.conection.pool.TransactionalConnectionPool;
-import infrastructure.anotation.InjectByType;
-import infrastructure.anotation.InjectStringProperty;
-import infrastructure.anotation.NeedConfig;
-import infrastructure.anotation.Singleton;
+import infrastructure.anotation.*;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-
-import javax.annotation.PostConstruct;
 import java.sql.SQLException;
 
 /**
