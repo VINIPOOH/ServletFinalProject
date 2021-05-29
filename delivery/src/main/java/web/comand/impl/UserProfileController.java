@@ -6,6 +6,7 @@ import infrastructure.anotation.Endpoint;
 import infrastructure.anotation.InjectByType;
 import infrastructure.anotation.NeedConfig;
 import infrastructure.anotation.Singleton;
+import infrastructure.currency.CurrencyInfo;
 import logiclayer.exeption.NoSuchUserException;
 import logiclayer.exeption.ToMachMoneyException;
 import logiclayer.service.UserService;
@@ -16,6 +17,10 @@ import web.exception.OnClientSideProblemException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.Locale;
+
+import static logiclayer.service.ServicesConstants.RUSSIAN_LANG_COD;
+import static web.constant.AttributeConstants.SESSION_LANG;
 import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.*;
 
@@ -53,6 +58,14 @@ public class UserProfileController implements MultipleMethodController {
         }
         long money = Long.parseLong(request.getParameter(MONEY));
         User user = (User) request.getSession().getAttribute(SESSION_USER);
+        final Locale locale = (Locale) request.getSession().getAttribute(SESSION_LANG);
+        if (locale.getLanguage().equals(RUSSIAN_LANG_COD)){
+            if(money%28!=0){
+                request.setAttribute(INPUT_GIRVNAS_NOT_RATE, true);
+            }
+            money = money/28;
+
+        }
         try {
             userService.replenishAccountBalance(user.getId(), money);
         } catch (NoSuchUserException e) {

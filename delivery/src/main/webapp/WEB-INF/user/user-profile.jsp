@@ -3,11 +3,11 @@
 <html lang="${param.lang}">
 <head>
     <%@ include file="../layout/bootstrap.jsp" %>
-    <title ><fmt:message key="user.list.page.header"/></title>
+    <title><fmt:message key="user.list.page.header"/></title>
 </head>
 <body>
 <%@ include file="../layout/header.jsp" %>
-<%@ include file="../layout/userheader.jsp"%>
+<%@ include file="../layout/userheader.jsp" %>
 <%@ include file="../layout/adminHeader.jsp" %>
 
 <div class="container">
@@ -31,10 +31,16 @@
                                 <p><fmt:message key="user-profile.form.wrong"/></p>
                             </div>
                         </c:if>
+                        <c:if test="${input_grivnasnotrate}">
+                            <div class="alert alert-danger" role="alert">
+                                <p><fmt:message key="grivnas.input.cratny"/></p>
+                            </div>
+                        </c:if>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="money" name="money" >
+                            <input type="number" class="form-control" id="money" name="money">
                         </div>
-                        <button class="btn btn-success" type="submit"><fmt:message key="user.profile.page.button.replenish"/></button>
+                        <button class="btn btn-success" type="submit"><fmt:message
+                                key="user.profile.page.button.replenish"/></button>
                     </form>
                 </div>
             </div>

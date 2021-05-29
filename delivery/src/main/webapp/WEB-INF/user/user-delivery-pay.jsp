@@ -32,7 +32,7 @@
             <div class="col-md-3 mt-3">
                 <p1 class="list-group-item"><fmt:message
                         key="user-delivery-request-confirm.card.price.on.delivery"/>
-                    <fmt:message key="user-statistic.price"/>
+                    <fmt:message key="user-statistic.price.emp"/>
                     <custom:localise-money moneyInCents="${billToPay.price}"
                                            lang="${pageContext.response.locale.language}"/></p1>
             </div>

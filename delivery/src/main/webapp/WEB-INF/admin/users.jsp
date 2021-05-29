@@ -18,7 +18,7 @@
         ">
     <thead>
     <tr>
-        <th><fmt:message key="user.list.page.password.colum.name"/></th>
+<%--        <th><fmt:message key="user.list.page.password.colum.name"/></th>--%>
         <th><fmt:message key="user.list.page.email.colum.name"/></th>
         <th><fmt:message key="user.list.page.role.colum.name"/></th>
     </tr>
@@ -26,7 +26,7 @@
     <tbody>
     <c:forEach var="user" items="${requestScope.usersList}">
         <tr>
-            <td><span>${user.password}</span></td>
+<%--            <td><span>${user.password}</span></td>--%>
             <td><span>${user.email}</span></td>
             <td><span>${user.roleType}</span></td>
         </tr>

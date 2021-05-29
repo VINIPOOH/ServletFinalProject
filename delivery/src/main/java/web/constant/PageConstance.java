@@ -22,7 +22,7 @@ public interface PageConstance {
     String USER_DELIVERY_PAY_FILE_NAME = "user-delivery-pay.jsp";
     String USER_DELIVERY_GET_CONFIRM_FILE_NAME = "user-deliveries-to-get.jsp";
     String USER_STATISTIC_FILE_NAME = "user-statistic.jsp";
-
+String INPUT_GIRVNAS_NOT_RATE = "input_grivnasnotrate";
 
     String LOGIN_REQUEST_COMMAND = "login";
     String ERROR_404_COMMAND = "404";
