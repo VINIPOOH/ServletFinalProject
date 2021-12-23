@@ -5,12 +5,11 @@ name: Maven Package
 
 on:
   push:
-    branches: 
+    branches:
       - master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -28,3 +27,4 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+
